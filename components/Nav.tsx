@@ -27,11 +27,11 @@ export default function Nav() {
     >
       <Link href="#" aria-label="SteylVisuals">
         <Image
-          src="/logo/sV (4) (1).png"
+          src="/logo/logo-cropped.png"
           alt="SteylVisuals"
-          width={200}
-          height={64}
-          className="h-14 w-auto"
+          width={180}
+          height={104}
+          className="h-10 w-auto"
           priority
         />
       </Link>
