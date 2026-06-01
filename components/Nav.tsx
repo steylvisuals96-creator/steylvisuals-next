@@ -29,9 +29,9 @@ export default function Nav() {
         <Image
           src="/logo/sV (4) (1).png"
           alt="SteylVisuals"
-          width={140}
-          height={44}
-          className="h-11 w-auto"
+          width={200}
+          height={64}
+          className="h-14 w-auto"
           priority
         />
       </Link>
