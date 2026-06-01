@@ -7,7 +7,7 @@ import PortfolioGrid from "@/components/PortfolioGrid";
 
 export const metadata = {
   title: "Portfolio — SteylVisuals",
-  description: "Bekijk alle vastgoedvideo's van SteylVisuals. Cinematic Reels en TikToks voor makelaars in Vlaanderen.",
+  description: "Bekijk alle vastgoedvideo's van SteylVisuals. Cinematic Reels en TikToks voor makelaars wereldwijd.",
 };
 
 export interface Project {
@@ -67,7 +67,7 @@ export default function PortfolioPage() {
             Elk pand,<br /><em style={{ color: "rgba(242,237,232,0.45)" }}>een verhaal</em>
           </h1>
           <p className="text-sm font-light leading-relaxed mt-6" style={{ color: "rgba(242,237,232,0.45)", maxWidth: "400px" }}>
-            {projects.length} projecten — cinematic real estate video voor makelaars in Vlaanderen.
+            {projects.length} projecten — cinematic real estate video voor makelaars.
           </p>
         </section>
 

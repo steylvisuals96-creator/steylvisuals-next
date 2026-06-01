@@ -41,7 +41,7 @@ export default function OverMij() {
         </AnimateIn>
         <AnimateIn delay={0.2}>
           <p className="text-sm font-light leading-loose mb-8" style={{ color: "var(--muted)", maxWidth: "440px" }}>
-            Als videograaf en editor gebaseerd in Herent zag ik hoe makelaars prachtige panden hadden die maanden bleven staan — simpelweg omdat niemand ze zag. Eén goede video maakt het verschil.
+            Als videograaf en editor zag ik hoe makelaars prachtige panden hadden die maanden bleven staan — simpelweg omdat niemand ze zag. Eén goede video maakt het verschil.
             <br /><br />
             SteylVisuals is mijn antwoord daarop: cinematic short-form content die jouw panden in de kijker zet op Instagram, TikTok en LinkedIn. Geen overbodige toeters en bellen — gewoon video die werkt en viewings oplevert.
           </p>

@@ -19,10 +19,10 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: "SteylVisuals — Vastgoedvideo's die opvallen én converteren",
-  description: "Professionele short-form videocontent voor makelaars in Vlaanderen. Instagram Reels, TikTok, LinkedIn en drone shots. Vraag je gratis demo-edit aan.",
+  description: "Professionele short-form videocontent voor makelaars. Instagram Reels, TikTok, LinkedIn en drone shots. Vraag je gratis demo-edit aan.",
   openGraph: {
     title: "SteylVisuals — Vastgoedvideo's die opvallen én converteren",
-    description: "Short-form videocontent voor makelaars in Vlaanderen. Meer viewings, meer verkopen.",
+    description: "Short-form videocontent voor makelaars. Meer viewings, meer verkopen.",
     type: "website",
   },
 };

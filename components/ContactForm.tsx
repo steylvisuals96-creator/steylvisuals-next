@@ -29,7 +29,7 @@ export default function ContactForm() {
               <a href="mailto:Steylvisuals96@gmail.com" style={{ color: "var(--gold)", textDecoration: "none" }}>
                 Steylvisuals96@gmail.com
               </a>
-              <span>Herent, België</span>
+              <span>Beschikbaar wereldwijd</span>
               <a href="https://www.instagram.com/steylvisuals" target="_blank" rel="noopener noreferrer" style={{ color: "var(--muted)", textDecoration: "none" }}>
                 @steylvisuals
               </a>

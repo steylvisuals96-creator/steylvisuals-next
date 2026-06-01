@@ -35,7 +35,7 @@ export default function Hero() {
           style={{ color: "var(--gold)" }}
         >
           <span className="w-5 h-px" style={{ backgroundColor: "var(--gold)" }} />
-          Videocontent voor makelaars · Vlaanderen
+          Cinematic real estate video
         </motion.p>
 
         <motion.h1

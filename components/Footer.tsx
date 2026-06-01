@@ -52,7 +52,7 @@ export default function Footer() {
 
       <div className="mt-8 pt-6 flex items-center justify-between flex-wrap gap-4" style={{ borderTop: "1px solid rgba(242,237,232,0.06)" }}>
         <p className="text-xs font-light" style={{ color: "rgba(242,237,232,0.25)" }}>
-          © {new Date().getFullYear()} SteylVisuals — Sam Steylaerts, Herent
+          © {new Date().getFullYear()} SteylVisuals — Sam Steylaerts
         </p>
         <p className="text-xs font-light" style={{ color: "rgba(242,237,232,0.2)" }}>
           Cinematic real estate video
