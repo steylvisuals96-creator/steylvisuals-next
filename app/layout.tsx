@@ -30,8 +30,22 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="nl" className={`${cormorant.variable} ${dmSans.variable}`}>
+      <head>
+        <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" async></script>
+      </head>
       <body style={{ fontFamily: "var(--font-dm-sans), DM Sans, sans-serif" }}>
         {children}
+        <script dangerouslySetInnerHTML={{ __html: `
+          if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+              if (!user) {
+                window.netlifyIdentity.on("login", () => {
+                  document.location.href = "/admin/";
+                });
+              }
+            });
+          }
+        `}} />
       </body>
     </html>
   );

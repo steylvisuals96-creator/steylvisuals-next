@@ -40,7 +40,7 @@ export default function Nav() {
         {[
           { label: "Pricing", href: "#pricing" },
           { label: "Over mij", href: "#over-mij" },
-          { label: "Portfolio", href: "#showcase" },
+          { label: "Portfolio", href: "/portfolio" },
         ].map((link) => (
           <Link
             key={link.label}
