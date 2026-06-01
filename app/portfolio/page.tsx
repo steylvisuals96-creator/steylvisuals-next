@@ -8,6 +8,18 @@ import PortfolioGrid from "@/components/PortfolioGrid";
 export const metadata = {
   title: "Portfolio — SteylVisuals",
   description: "Bekijk alle vastgoedvideo's van SteylVisuals. Cinematic Reels en TikToks voor makelaars wereldwijd.",
+  alternates: { canonical: "/portfolio" },
+  openGraph: {
+    title: "Portfolio — SteylVisuals",
+    description: "Cinematic vastgoedvideo's voor makelaars wereldwijd.",
+    url: "https://steylvisualsnext.netlify.app/portfolio",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image" as const,
+    title: "Portfolio — SteylVisuals",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export interface Project {
