@@ -15,7 +15,7 @@ const plans = [
       "4 video's per maand",
       "Montage + kleurgrading",
       "Captions & ondertitels",
-      "Levering binnen 5 werkdagen",
+      "Levering binnen 1 week",
     ],
   },
   {
@@ -29,7 +29,7 @@ const plans = [
       "6 video's per maand",
       "Montage, kleurgrading & audio",
       "Captions, scripts & hooks",
-      "Levering binnen 3 werkdagen",
+      "Levering binnen 1 week",
     ],
   },
   {
@@ -43,7 +43,7 @@ const plans = [
       "10+ video's per maand",
       "Drone shots inbegrepen",
       "Content strategie-advies",
-      "Prioritaire levering binnen 3 dagen",
+      "Levering binnen 1 week",
     ],
   },
 ];

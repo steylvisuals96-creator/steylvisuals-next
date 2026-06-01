@@ -7,7 +7,7 @@ const steps = [
   { num: "001", title: "Gratis demo-edit", desc: "Stuur ruwe footage — ik edit gratis een Reel zodat je de kwaliteit ziet. Zonder verplichting." },
   { num: "002", title: "Kennismakingsgesprek", desc: "We bespreken jouw stijl, doelen en welk pakket het best past bij jouw kantoor." },
   { num: "003", title: "Filmen", desc: "Jij filmt met mijn Film Guide, of ik kom ter plaatse voor een professionele shoot met drone." },
-  { num: "004", title: "Montage & levering", desc: "Ik edit, kleurgrade en lever binnen 3–5 werkdagen kant-en-klare video's voor elk platform." },
+  { num: "004", title: "Montage & levering", desc: "Ik edit, kleurgrade en lever binnen 1 week kant-en-klare video's voor elk platform." },
   { num: "005", title: "Meer viewings", desc: "Jij post, engaget en ziet hoe jouw panden meer aandacht krijgen op social media." },
 ];
 
