@@ -73,10 +73,10 @@ function Nav() {
 function Hero() {
   return (
     <section className="relative overflow-hidden" style={{ minHeight: "100svh", backgroundColor: B }}>
-      {/* Full-bleed property photo */}
-      <div className="absolute inset-0">
-        <img src="/som-listings/listing-1.jpg" alt="" className="w-full h-full object-cover" style={{ opacity: 0.45 }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(17,17,17,0.92) 0%, rgba(17,17,17,0.55) 60%, rgba(17,17,17,0.75) 100%)" }} />
+      {/* Clean geometric accent */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/2 h-full" style={{ background: "radial-gradient(ellipse at 80% 30%, rgba(250,203,4,0.07) 0%, transparent 65%)" }} />
+        <div className="absolute bottom-0 left-0 w-px h-2/3" style={{ background: "linear-gradient(to top, transparent, rgba(250,203,4,0.15))" }} />
       </div>
 
       <div className="relative flex flex-col justify-end" style={{ minHeight: "100svh", padding: "0 clamp(1.5rem,6vw,5rem) clamp(3rem,8vh,6rem)" }}>
