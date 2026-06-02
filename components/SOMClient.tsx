@@ -21,7 +21,7 @@ const listings = [
     beds: 3,
     area: 184,
     status: "Te koop",
-    image: "https://files.zabun.be/upload/3489/images/37a82c560dbb96f18b8873a9caf0162fd6f6afe6ac0c2afd1215f32039d45275.jpg",
+    image: "/som-listings/listing-1.jpg",
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const listings = [
     beds: 4,
     area: 317,
     status: "Te koop",
-    image: "https://files.zabun.be/upload/3489/images/172665be853b9304b85d3d9985b5a173ac20790519bde98a2443df865ba08931.jpg",
+    image: "/som-listings/listing-2.jpg",
   },
   {
     id: 3,
@@ -43,7 +43,7 @@ const listings = [
     beds: 2,
     area: 90,
     status: "Te koop",
-    image: "https://files.zabun.be/upload/3489/images/81003d90c9693a5488b220c6e328e442d5d3af920a9c2d71d473856e198780e7.jpg",
+    image: "/som-listings/listing-3.jpg",
   },
   {
     id: 4,
@@ -54,7 +54,7 @@ const listings = [
     beds: 2,
     area: 122,
     status: "Te koop",
-    image: "https://files.zabun.be/upload/3489/images/f6020e0eab0f558ac9bafc45a369043429d8e9dee14c026d102f95481d8aea5f.jpg",
+    image: "/som-listings/listing-4.jpg",
   },
   {
     id: 5,
@@ -65,7 +65,7 @@ const listings = [
     beds: 4,
     area: 173,
     status: "Te koop",
-    image: "https://files.zabun.be/upload/3489/images/5141383175ed9dca26f1f77aab0a4307bf98064df137b1ca586b26a30a0ff471.jpg",
+    image: "/som-listings/listing-5.jpg",
   },
   {
     id: 6,
@@ -76,7 +76,7 @@ const listings = [
     beds: 2,
     area: 100,
     status: "Te koop",
-    image: "https://files.zabun.be/upload/3489/images/23982381d1c36c34473e13cb3821ef8c9bd7ecae6d33cf13ffd141ecf729cfa6.jpg",
+    image: "/som-listings/listing-6.jpg",
   },
 ];
 
@@ -148,8 +148,11 @@ function Nav() {
 function Hero() {
   return (
     <section className="relative flex flex-col items-start justify-center" style={{ minHeight: "100svh", backgroundColor: BLACK, padding: "calc(80px + 4rem) clamp(1.5rem,6vw,5rem) 5rem" }}>
-      {/* Yellow accent */}
-      <div className="absolute top-0 right-0 w-1/3 h-full opacity-5" style={{ background: `radial-gradient(ellipse at top right, ${YELLOW}, transparent 70%)` }} />
+      {/* Real hero background photo */}
+      <div className="absolute inset-0 overflow-hidden">
+        <img src="/som-hero.jpg" alt="" className="w-full h-full object-cover opacity-30" style={{ objectPosition: "center" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(10,10,10,0.95) 40%, rgba(10,10,10,0.5))" }} />
+      </div>
 
       <motion.div
         initial={{ opacity: 0, x: -4 }}
@@ -378,8 +381,8 @@ function About() {
         >
           <div className="overflow-hidden" style={{ borderRadius: "20px", aspectRatio: "4/5" }}>
             <img
-              src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80"
-              alt="SOM Vastgoed kantoor"
+              src="/som-featured.jpg"
+              alt="SOM Vastgoed"
               className="w-full h-full object-cover"
             />
           </div>
