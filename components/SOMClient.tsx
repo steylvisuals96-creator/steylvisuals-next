@@ -316,7 +316,7 @@ function About() {
           className="relative"
         >
           <div className="overflow-hidden" style={{ borderRadius: "24px", aspectRatio: "4/5" }}>
-            <img src="/som-listings/listing-2.jpg" alt="SOM Vastgoed" className="w-full h-full object-cover" />
+            <img src="/som-listings/listing-5.jpg" alt="SOM Vastgoed" className="w-full h-full object-cover" />
           </div>
           {/* Floating card */}
           <motion.div
