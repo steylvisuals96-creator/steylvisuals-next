@@ -5,8 +5,10 @@ import { useState } from "react";
 import Image from "next/image";
 
 const YELLOW = "#facb04";
-const BLACK = "#0a0a0a";
+const BLACK = "#1a1a1a";
+const DARK = "#1a1a1a";
 const GRAY = "#f5f5f5";
+const WHITE = "#ffffff";
 const MUTED = "#6b6b6b";
 
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
@@ -321,7 +323,7 @@ function Listings() {
 
 function About() {
   return (
-    <section id="over-ons" style={{ backgroundColor: BLACK, padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
+    <section id="over-ons" style={{ backgroundColor: WHITE, padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
       <div className="grid gap-16 items-center" style={{ gridTemplateColumns: "1fr 1fr" }}>
         <div>
           <motion.p
@@ -329,9 +331,9 @@ function About() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-6"
-            style={{ color: YELLOW }}
+            style={{ color: "#b89000" }}
           >
-            <span className="w-4 h-px" style={{ backgroundColor: YELLOW }} />
+            <span className="w-4 h-px" style={{ backgroundColor: "#b89000" }} />
             Over SOM Vastgoed
           </motion.p>
           <motion.h2
@@ -339,10 +341,10 @@ function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: EASE }}
-            className="mb-6 text-white"
-            style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem,4vw,3.5rem)", fontWeight: 400, lineHeight: 1.1 }}
+            className="mb-6"
+            style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem,4vw,3.5rem)", fontWeight: 400, lineHeight: 1.1, color: BLACK }}
           >
-            Persoonlijk,<br /><em style={{ color: YELLOW }}>professioneel<br />& transparant</em>
+            Persoonlijk,<br /><em style={{ color: MUTED }}>professioneel<br />& transparant</em>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -350,7 +352,7 @@ function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
             className="text-sm font-light leading-loose mb-8"
-            style={{ color: "rgba(255,255,255,0.5)", maxWidth: "420px" }}
+            style={{ color: MUTED, maxWidth: "420px" }}
           >
             Bij SOM Vastgoed staat de klant centraal. We begeleiden u stap voor stap — van eerste bezichtiging tot sleuteloverdracht. Geen verassingen, wel resultaten.
           </motion.p>
@@ -363,11 +365,11 @@ function About() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: EASE }}
                 className="p-4 rounded-xl"
-                style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+                style={{ backgroundColor: GRAY, border: "1px solid #e5e5e5" }}
               >
                 <div className="w-2 h-2 rounded-full mb-3" style={{ backgroundColor: YELLOW }} />
-                <p className="text-sm font-medium text-white mb-1">{title}</p>
-                <p className="text-xs font-light" style={{ color: "rgba(255,255,255,0.35)" }}>{sub}</p>
+                <p className="text-sm font-medium mb-1" style={{ color: BLACK }}>{title}</p>
+                <p className="text-xs font-light" style={{ color: MUTED }}>{sub}</p>
               </motion.div>
             ))}
           </div>
@@ -451,7 +453,7 @@ function Team() {
 function Contact() {
   const [sent, setSent] = useState(false);
   return (
-    <section id="contact" style={{ backgroundColor: BLACK, padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
+    <section id="contact" style={{ backgroundColor: GRAY, padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
       <div className="grid gap-16 items-start" style={{ gridTemplateColumns: "1fr 1fr" }}>
         <div>
           <motion.p
@@ -459,24 +461,24 @@ function Contact() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-5"
-            style={{ color: YELLOW }}
+            style={{ color: "#b89000" }}
           >
-            <span className="w-4 h-px" style={{ backgroundColor: YELLOW }} />
+            <span className="w-4 h-px" style={{ backgroundColor: "#b89000" }} />
             Contact
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-6 text-white"
-            style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem,4vw,3.5rem)", fontWeight: 400, lineHeight: 1.1 }}
+            className="mb-6"
+            style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem,4vw,3.5rem)", fontWeight: 400, lineHeight: 1.1, color: BLACK }}
           >
-            Klaar om te starten?<br /><em style={{ color: YELLOW }}>Wij ook.</em>
+            Klaar om te starten?<br /><em style={{ color: MUTED }}>Wij ook.</em>
           </motion.h2>
-          <p className="text-sm font-light leading-relaxed mb-8" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "340px" }}>
+          <p className="text-sm font-light leading-relaxed mb-8" style={{ color: MUTED, maxWidth: "340px" }}>
             Neem contact op voor een vrijblijvend gesprek. We antwoorden binnen 24 uur.
           </p>
-          <div className="flex flex-col gap-3 text-sm font-light" style={{ color: "rgba(255,255,255,0.45)" }}>
+          <div className="flex flex-col gap-3 text-sm font-light" style={{ color: MUTED }}>
             <span>📞 +32 11 36 34 32</span>
             <span>📧 info@somvastgoed.be</span>
             <span>📍 Het Dorlik 16, 3500 Hasselt</span>
@@ -487,32 +489,32 @@ function Contact() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col items-center justify-center text-center gap-4 py-16 rounded-2xl"
-            style={{ backgroundColor: "rgba(250,203,4,0.08)", border: `1px solid rgba(250,203,4,0.2)` }}
+            className="flex flex-col items-center justify-center text-center gap-4 py-16 rounded-2xl bg-white"
+            style={{ border: `1px solid #e5e5e5` }}
           >
             <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: YELLOW }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={BLACK} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
-            <h3 style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", fontWeight: 400, color: "white" }}>Bericht ontvangen!</h3>
-            <p className="text-sm font-light" style={{ color: "rgba(255,255,255,0.4)" }}>We nemen binnen 24 uur contact op.</p>
+            <h3 style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", fontWeight: 400, color: BLACK }}>Bericht ontvangen!</h3>
+            <p className="text-sm font-light" style={{ color: MUTED }}>We nemen binnen 24 uur contact op.</p>
           </motion.div>
         ) : (
-          <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="flex flex-col gap-4">
+          <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="flex flex-col gap-4 bg-white p-8 rounded-2xl" style={{ border: "1px solid #e5e5e5" }}>
             <div className="grid gap-4" style={{ gridTemplateColumns: "1fr 1fr" }}>
               {[["Naam", "text", "Jouw naam"], ["E-mail", "email", "jouw@email.be"]].map(([label, type, placeholder]) => (
                 <div key={label} className="flex flex-col gap-1.5">
-                  <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>{label}</label>
+                  <label className="text-xs font-medium tracking-wide uppercase" style={{ color: MUTED }}>{label}</label>
                   <input type={type} placeholder={placeholder} required className="text-sm font-light outline-none"
-                    style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "0.75rem 1rem", color: "white" }} />
+                    style={{ backgroundColor: GRAY, border: "1px solid #e5e5e5", borderRadius: "10px", padding: "0.75rem 1rem", color: BLACK }} />
                 </div>
               ))}
             </div>
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>Interesse</label>
+              <label className="text-xs font-medium tracking-wide uppercase" style={{ color: MUTED }}>Interesse</label>
               <select className="text-sm font-light outline-none"
-                style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "0.75rem 1rem", color: "rgba(255,255,255,0.6)", appearance: "none" }}>
+                style={{ backgroundColor: GRAY, border: "1px solid #e5e5e5", borderRadius: "10px", padding: "0.75rem 1rem", color: MUTED, appearance: "none" }}>
                 <option value="">Wat kan ik voor u doen?</option>
                 <option>Woning kopen</option>
                 <option>Woning verkopen</option>
@@ -521,13 +523,13 @@ function Contact() {
               </select>
             </div>
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>Bericht</label>
+              <label className="text-xs font-medium tracking-wide uppercase" style={{ color: MUTED }}>Bericht</label>
               <textarea rows={4} placeholder="Vertel ons wat u zoekt..." className="text-sm font-light outline-none resize-none"
-                style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "0.75rem 1rem", color: "white" }} />
+                style={{ backgroundColor: GRAY, border: "1px solid #e5e5e5", borderRadius: "10px", padding: "0.75rem 1rem", color: BLACK }} />
             </div>
             <motion.button type="submit" className="text-sm font-semibold rounded-full py-4 mt-2"
-              style={{ backgroundColor: YELLOW, color: BLACK }}
-              whileHover={{ opacity: 0.9 }} whileTap={{ scale: 0.97 }}>
+              style={{ backgroundColor: BLACK, color: WHITE }}
+              whileHover={{ backgroundColor: YELLOW, color: BLACK }} whileTap={{ scale: 0.97 }}>
               Verstuur bericht
             </motion.button>
           </form>
@@ -539,7 +541,7 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer style={{ backgroundColor: "#050505", padding: "2rem clamp(1.5rem,6vw,5rem)" }}>
+    <footer style={{ backgroundColor: BLACK, padding: "2rem clamp(1.5rem,6vw,5rem)" }}>
       <div className="flex items-center justify-between flex-wrap gap-4">
         <Image src="/som-logo.png" alt="SOM Vastgoed" width={100} height={70} className="h-8 w-auto" />
         <p className="text-xs font-light" style={{ color: "rgba(255,255,255,0.2)" }}>
