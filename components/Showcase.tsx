@@ -53,9 +53,13 @@ export default function Showcase() {
             whileHover={{ scale: 1.03 }}
             transition={{ duration: 0.4 }}
           >
-            <video autoPlay muted loop playsInline className="w-full h-full object-cover">
-              <source src="/videos/Appartement Sint-Truiden Vertical.mp4" type="video/mp4" />
-            </video>
+            <iframe
+              src="https://player.vimeo.com/video/1197526440?autoplay=1&loop=1&muted=1&background=1&controls=0"
+              className="w-full h-full"
+              style={{ border: "none" }}
+              allow="autoplay; fullscreen"
+              allowFullScreen
+            />
           </motion.div>
         </AnimateIn>
       </div>
