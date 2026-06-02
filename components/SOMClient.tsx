@@ -15,65 +15,109 @@ const listings = [
   {
     id: 1,
     type: "Woning",
-    title: "Karaktervolle gezinswoning",
-    location: "Hasselt Centrum",
-    price: "€ 425.000",
-    beds: 4,
-    baths: 2,
-    area: 185,
+    title: "Uitzonderlijke woning",
+    location: "Riemst",
+    price: "€ 499.900",
+    beds: 3,
+    area: 184,
     status: "Te koop",
-    image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80",
+    image: "https://files.zabun.be/upload/3489/images/37a82c560dbb96f18b8873a9caf0162fd6f6afe6ac0c2afd1215f32039d45275.jpg",
   },
   {
     id: 2,
-    type: "Appartement",
-    title: "Modern appartement met terras",
-    location: "Hasselt, Quartier",
-    price: "€ 289.000",
-    beds: 2,
-    baths: 1,
-    area: 92,
+    type: "Woning",
+    title: "Woning",
+    location: "Hasselt",
+    price: "€ 497.500",
+    beds: 4,
+    area: 317,
     status: "Te koop",
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
+    image: "https://files.zabun.be/upload/3489/images/172665be853b9304b85d3d9985b5a173ac20790519bde98a2443df865ba08931.jpg",
   },
   {
     id: 3,
-    type: "Villa",
-    title: "Luxueuze villa met zwembad",
-    location: "Hasselt, Kermt",
-    price: "€ 895.000",
-    beds: 5,
-    baths: 3,
-    area: 320,
+    type: "Appartement",
+    title: "Appartement",
+    location: "Hasselt",
+    price: "€ 274.900",
+    beds: 2,
+    area: 90,
     status: "Te koop",
-    image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80",
+    image: "https://files.zabun.be/upload/3489/images/81003d90c9693a5488b220c6e328e442d5d3af920a9c2d71d473856e198780e7.jpg",
   },
   {
     id: 4,
+    type: "Penthouse",
+    title: "Penthouse",
+    location: "Diest",
+    price: "€ 419.000",
+    beds: 2,
+    area: 122,
+    status: "Te koop",
+    image: "https://files.zabun.be/upload/3489/images/f6020e0eab0f558ac9bafc45a369043429d8e9dee14c026d102f95481d8aea5f.jpg",
+  },
+  {
+    id: 5,
+    type: "Eengezinswoning",
+    title: "Eengezinswoning",
+    location: "Genk",
+    price: "€ 397.000",
+    beds: 4,
+    area: 173,
+    status: "Te koop",
+    image: "https://files.zabun.be/upload/3489/images/5141383175ed9dca26f1f77aab0a4307bf98064df137b1ca586b26a30a0ff471.jpg",
+  },
+  {
+    id: 6,
     type: "Appartement",
-    title: "Gerenoveerd appartement",
-    location: "Hasselt, Kuringen",
-    price: "€ 189.000",
-    beds: 1,
-    baths: 1,
-    area: 68,
-    status: "Verhuurd",
-    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80",
+    title: "Appartement",
+    location: "Maasmechelen",
+    price: "€ 349.000",
+    beds: 2,
+    area: 100,
+    status: "Te koop",
+    image: "https://files.zabun.be/upload/3489/images/23982381d1c36c34473e13cb3821ef8c9bd7ecae6d33cf13ffd141ecf729cfa6.jpg",
   },
 ];
 
 const team = [
-  { name: "Maxime Vanoppen", role: "Zaakvoerder & Makelaar", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" },
-  { name: "Sarah Claes", role: "Makelaar", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" },
-  { name: "Thomas Peeters", role: "Makelaar", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80" },
+  {
+    name: "Tom Muermans",
+    role: "Bestuurder — SOM Vastgoed",
+    img: "https://somvastgoed.be/cms-assets/entities/people/4751fd89-f781-4b68-9daa-fc6f3c4160e1/photo?hash=2bcfb37b38087af62a41269c90d7e9bab1b7c34a14a0956f4f41e835787b76fca2a3ee1ed40f01af462428b464128503a51423ab4bf67144c6b760baf6196e66&v=C350x350",
+  },
+  {
+    name: "Maxime Vanoppen",
+    role: "Office Manager & Vastgoedmakelaar",
+    img: "https://somvastgoed.be/cms-assets/entities/people/ed7b76c1-50b1-45cb-a9b2-cabe0b1be386/photo?hash=0666424198239e93a486275c41b1276dbde95a281f12012abe86f3ad57b2e5db94d79c6a2da8f5ba6fa2ddcb5fbeae161a9569e973531389ce83457033ab80f9&v=C350x350",
+  },
+  {
+    name: "Larissa Fluder",
+    role: "Vastgoedmakelaar",
+    img: "https://somvastgoed.be/cms-assets/entities/people/f9424cb6-00ad-41a9-9e4a-94f9c8416154/photo?hash=6a735b756e8f754a66ded3e85dc67cba1f04644fb6216a8cceea68b486770a10cb4b3e3f788f094f4b0023aecd7f29532235113b03b896298548dcb58b7c54a3&v=C350x350",
+  },
+  {
+    name: "Raf Zels",
+    role: "Vastgoedmakelaar",
+    img: "https://somvastgoed.be/cms-assets/entities/people/39779c66-4835-4476-9aeb-601d1994b9b7/photo?hash=4b8d60aba75936b237703b8f67de26391faed61d70b98afc7d152cd5fcc608a5ce95103f5d01e9d281a2f731e8b1cb9f5c9d19a24bc03879cb13a7a3b780cdb3&v=C350x350",
+  },
+  {
+    name: "Kathleen Penders",
+    role: "Vastgoedexpert",
+    img: "https://somvastgoed.be/cms-assets/entities/people/84fccdbb-b496-4f1f-8d5f-f60e6102970b/photo?hash=c5f97c4e2506403845081ed015e134bbadde1468ae5fe3ea7e0eeb9394555129d3c04bb045af7f7a0a81de2c41802857ea4cff527221c504426eb5f26802650e&v=C350x350",
+  },
+  {
+    name: "Chaniz Gielen",
+    role: "Marketing Consultant",
+    img: "https://somvastgoed.be/cms-assets/entities/people/f51962bd-8dfe-4c32-9ea9-96549649afc9/photo?hash=f86cbbb863d380a5d5de9f2af2e030f085b886b8c5778d37101f28e78c3b8c45be5064da37910f54cdf1c43e60d319ff274f31e138b8cba6c3bad2091641b04d&v=C350x350",
+  },
 ];
 
 function Nav() {
   const [open, setOpen] = useState(false);
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 h-20" style={{ backgroundColor: BLACK }}>
-      <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded flex items-center justify-center font-bold text-sm" style={{ backgroundColor: YELLOW, color: BLACK }}>S</div>
+      <div className="flex items-center">
         <Image src="/som-logo.png" alt="SOM Vastgoed" width={120} height={84} className="h-10 w-auto" />
       </div>
       <div className="hidden md:flex items-center gap-8 text-sm font-light text-white">
@@ -250,8 +294,7 @@ function Listings() {
                   📍 {p.location}
                 </p>
                 <div className="flex items-center gap-4 text-xs font-light mb-4" style={{ color: MUTED }}>
-                  <span>🛏 {p.beds} slpk</span>
-                  <span>🚿 {p.baths} badk</span>
+                  {p.beds && <span>🛏 {p.beds} slpk</span>}
                   <span>📐 {p.area} m²</span>
                 </div>
                 <div className="flex items-center justify-between pt-4 border-t border-gray-100">
@@ -375,7 +418,7 @@ function Team() {
           Mensen die voor u<br /><em style={{ color: MUTED }}>het verschil maken</em>
         </motion.h2>
       </div>
-      <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+      <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))" }}>
         {team.map((m, i) => (
           <motion.div
             key={m.name}
@@ -431,8 +474,9 @@ function Contact() {
             Neem contact op voor een vrijblijvend gesprek. We antwoorden binnen 24 uur.
           </p>
           <div className="flex flex-col gap-3 text-sm font-light" style={{ color: "rgba(255,255,255,0.45)" }}>
-            <span>📧 maxime@somvastgoed.be</span>
-            <span>📍 Hasselt, België</span>
+            <span>📞 +32 11 36 34 32</span>
+            <span>📧 info@somvastgoed.be</span>
+            <span>📍 Het Dorlik 16, 3500 Hasselt</span>
           </div>
         </div>
 
@@ -494,10 +538,7 @@ function Footer() {
   return (
     <footer style={{ backgroundColor: "#050505", padding: "2rem clamp(1.5rem,6vw,5rem)" }}>
       <div className="flex items-center justify-between flex-wrap gap-4">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded flex items-center justify-center font-bold text-sm" style={{ backgroundColor: YELLOW, color: BLACK }}>S</div>
-          <Image src="/som-logo.png" alt="SOM Vastgoed" width={100} height={70} className="h-8 w-auto" />
-        </div>
+        <Image src="/som-logo.png" alt="SOM Vastgoed" width={100} height={70} className="h-8 w-auto" />
         <p className="text-xs font-light" style={{ color: "rgba(255,255,255,0.2)" }}>
           © 2026 SOM Vastgoed — Hasselt
         </p>
