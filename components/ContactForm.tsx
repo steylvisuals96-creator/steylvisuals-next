@@ -82,6 +82,8 @@ export default function ContactForm() {
               <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_template" value="table" />
               <input type="hidden" name="_subject" value="Nieuwe aanvraag via SteylVisuals" />
+              <input type="hidden" name="_autoresponse" value="Bedankt voor je bericht! Ik heb je aanvraag goed ontvangen en neem binnen 24 uur contact met je op. Wil je ondertussen mijn portfolio bekijken? → https://steylvisuals-next.vercel.app/portfolio — Sam Steylaerts | SteylVisuals" />
+              <input type="hidden" name="_replyto" value="" />
 
               <div className="grid gap-4" style={{ gridTemplateColumns: "1fr 1fr" }}>
                 <div className="flex flex-col gap-1.5">
