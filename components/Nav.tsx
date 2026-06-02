@@ -39,7 +39,7 @@ export default function Nav() {
       <div className="flex items-center gap-8">
         {[
           { label: "Pricing", href: "#pricing" },
-          { label: "Over mij", href: "#over-mij" },
+          { label: "Webdesign", href: "/webdesign" },
           { label: "Portfolio", href: "/portfolio" },
         ].map((link) => (
           <Link
