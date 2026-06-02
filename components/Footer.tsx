@@ -52,7 +52,7 @@ export default function Footer() {
           © {new Date().getFullYear()} SteylVisuals — Sam Steylaerts
         </p>
         <p className="text-xs font-light" style={{ color: "rgba(242,237,232,0.2)" }}>
-          Cinematic real estate video
+          Vastgoed marketing
         </p>
       </div>
     </footer>
