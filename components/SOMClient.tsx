@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import Image from "next/image";
 
 const YELLOW = "#facb04";
 const BLACK = "#0a0a0a";
@@ -73,7 +74,7 @@ function Nav() {
     <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 h-20" style={{ backgroundColor: BLACK }}>
       <div className="flex items-center gap-2">
         <div className="w-8 h-8 rounded flex items-center justify-center font-bold text-sm" style={{ backgroundColor: YELLOW, color: BLACK }}>S</div>
-        <span className="text-white font-semibold tracking-wide text-lg">SOM <span style={{ color: YELLOW }}>Vastgoed</span></span>
+        <Image src="/som-logo.png" alt="SOM Vastgoed" width={120} height={84} className="h-10 w-auto" />
       </div>
       <div className="hidden md:flex items-center gap-8 text-sm font-light text-white">
         <a href="#aanbod" className="hover:opacity-70 transition-opacity">Aanbod</a>
@@ -495,7 +496,7 @@ function Footer() {
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded flex items-center justify-center font-bold text-sm" style={{ backgroundColor: YELLOW, color: BLACK }}>S</div>
-          <span className="text-white font-semibold">SOM <span style={{ color: YELLOW }}>Vastgoed</span></span>
+          <Image src="/som-logo.png" alt="SOM Vastgoed" width={100} height={70} className="h-8 w-auto" />
         </div>
         <p className="text-xs font-light" style={{ color: "rgba(255,255,255,0.2)" }}>
           © 2026 SOM Vastgoed — Hasselt
