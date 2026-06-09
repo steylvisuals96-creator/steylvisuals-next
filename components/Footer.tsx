@@ -12,10 +12,10 @@ export default function Footer() {
         </Link>
 
         <nav className="flex items-center gap-6 text-xs font-light" style={{ color: "rgba(242,237,232,0.4)" }}>
-          <a href="#pricing" style={{ color: "inherit", textDecoration: "none" }}>Pakketten</a>
-          <a href="#process" style={{ color: "inherit", textDecoration: "none" }}>Werkwijze</a>
-          <a href="#over-mij" style={{ color: "inherit", textDecoration: "none" }}>Over mij</a>
-          <a href="#contact" style={{ color: "inherit", textDecoration: "none" }}>Contact</a>
+          <Link href="/vastgoed-marketing" style={{ color: "inherit", textDecoration: "none" }}>Vastgoed Marketing</Link>
+          <Link href="/webdesign" style={{ color: "inherit", textDecoration: "none" }}>Webdesign</Link>
+          <Link href="/portfolio" style={{ color: "inherit", textDecoration: "none" }}>Portfolio</Link>
+          <a href="mailto:Steylvisuals96@gmail.com" style={{ color: "inherit", textDecoration: "none" }}>Contact</a>
         </nav>
 
         <div className="flex items-center gap-4">
@@ -52,7 +52,7 @@ export default function Footer() {
           © {new Date().getFullYear()} SteylVisuals — Sam Steylaerts
         </p>
         <p className="text-xs font-light" style={{ color: "rgba(242,237,232,0.2)" }}>
-          Vastgoed marketing
+          Video · Webdesign · België
         </p>
       </div>
     </footer>

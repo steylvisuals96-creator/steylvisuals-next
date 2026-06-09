@@ -1,31 +1,23 @@
 import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
-import Process from "@/components/Process";
-import Pricing from "@/components/Pricing";
-import Showcase from "@/components/Showcase";
-import OverMij from "@/components/OverMij";
-import Testimonials from "@/components/Testimonials";
-import FAQ from "@/components/FAQ";
-import ContactForm from "@/components/ContactForm";
-import CTA from "@/components/CTA";
+import LandingHero from "@/components/LandingHero";
+import ServicesGrid from "@/components/ServicesGrid";
+import LandingCTA from "@/components/LandingCTA";
 import Footer from "@/components/Footer";
+
+export const metadata = {
+  title: "SteylVisuals — Premium Creative Studio België",
+  description: "SteylVisuals maakt cinematic vastgoedvideo en professionele websites voor makelaars en bedrijven in België.",
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (
     <>
-      <Nav />
+      <Nav dark />
       <main>
-        <Hero />
-        <Marquee />
-        <Process />
-        <Pricing />
-        <Showcase />
-        <OverMij />
-        <Testimonials />
-        <FAQ />
-        <ContactForm />
-        <CTA />
+        <LandingHero />
+        <ServicesGrid />
+        <LandingCTA />
       </main>
       <Footer />
     </>
