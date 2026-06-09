@@ -11,7 +11,7 @@ const plans = [
     tag: "Starter",
     name: "Landing\nPage",
     sub: "Eén krachtige pagina",
-    price: "€499",
+    price: "€749",
     featured: false,
     features: [
       "1 pagina op maat",
@@ -25,7 +25,7 @@ const plans = [
     tag: "Meest gekozen",
     name: "Volledige\nWebsite",
     sub: "Meerdere pagina's + blog",
-    price: "€999",
+    price: "€1.699",
     featured: true,
     features: [
       "Tot 8 pagina's op maat",
@@ -39,7 +39,7 @@ const plans = [
     tag: "Combo deal",
     name: "Web +\nVideo",
     sub: "Website én maandelijkse video",
-    price: "€1.299",
+    price: "€1.999",
     featured: false,
     features: [
       "Volledige website inbegrepen",
@@ -167,9 +167,9 @@ function ContactSection() {
                 <select name="pakket" className="text-sm font-light outline-none"
                   style={{ backgroundColor: "var(--off-white)", border: "1px solid var(--beige-mid)", borderRadius: "10px", padding: "0.75rem 1rem", color: "var(--muted)", appearance: "none" }}>
                   <option value="">Kies een pakket (optioneel)</option>
-                  <option value="Landing Page — €499">Landing Page — €499</option>
-                  <option value="Volledige Website — €999">Volledige Website — €999</option>
-                  <option value="Web + Video Combo — €1.299/maand">Web + Video Combo — €1.299/maand</option>
+                  <option value="Landing Page — €749">Landing Page — €749</option>
+                  <option value="Volledige Website — €1.699">Volledige Website — €1.699</option>
+                  <option value="Web + Video Combo — €1.999/maand">Web + Video Combo — €1.999/maand</option>
                 </select>
               </div>
 
@@ -408,7 +408,7 @@ export default function WebdesignClient() {
                 whileHover={{ backgroundColor: "var(--gold-light)", scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
               >
-                Combo aanvragen — €1.299/maand
+                Combo aanvragen — €1.999/maand
               </motion.a>
             </AnimateIn>
           </div>
@@ -416,9 +416,9 @@ export default function WebdesignClient() {
           <AnimateIn direction="right">
             <div className="grid gap-4">
               {[
-                { label: "Website", value: "€999 eenmalig" },
+                { label: "Website", value: "€1.699 eenmalig" },
                 { label: "Video (6/maand)", value: "€490/maand" },
-                { label: "Samen als combo", value: "€1.299/maand" },
+                { label: "Samen als combo", value: "€1.999/maand" },
               ].map((item, i) => (
                 <motion.div
                   key={item.label}
