@@ -25,7 +25,7 @@ export default function ContactForm() {
 
   return (
     <section id="contact" style={{ backgroundColor: "var(--beige)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
-      <div className="grid gap-16" style={{ gridTemplateColumns: "1fr 1fr", alignItems: "start" }}>
+      <div className="grid gap-16 grid-cols-1 md:grid-cols-2" style={{ alignItems: "start" }}>
         <div>
           <AnimateIn>
             <p className="flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-5" style={{ color: "var(--gold)" }}>
@@ -84,7 +84,7 @@ export default function ContactForm() {
               <input type="hidden" name="_subject" value="Nieuwe aanvraag via SteylVisuals" />
               <input type="hidden" name="_autoresponse" value="Bedankt voor je interesse in SteylVisuals! Ik heb je bericht goed ontvangen en neem binnen 24 uur persoonlijk contact met je op. Wil je ondertussen alvast mijn portfolio bekijken? → https://steylvisuals-next.vercel.app/portfolio — Tot snel, Sam Steylaerts | SteylVisuals — Vastgoed marketing" />
 
-              <div className="grid gap-4" style={{ gridTemplateColumns: "1fr 1fr" }}>
+              <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Naam</label>
                   <input

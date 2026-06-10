@@ -6,7 +6,7 @@ import AnimateIn from "./AnimateIn";
 
 export default function OverMij() {
   return (
-    <section id="over-mij" className="grid" style={{ gridTemplateColumns: "1fr 1fr", backgroundColor: "var(--beige)" }}>
+    <section id="over-mij" className="grid grid-cols-1 md:grid-cols-2" style={{ backgroundColor: "var(--beige)" }}>
       <motion.div
         className="relative overflow-hidden"
         style={{ aspectRatio: "3/4" }}

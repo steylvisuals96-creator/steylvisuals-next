@@ -5,7 +5,7 @@ import AnimateIn from "./AnimateIn";
 
 export default function Showcase() {
   return (
-    <section id="showcase" className="grid" style={{ gridTemplateColumns: "1fr 1fr", minHeight: "75vh", backgroundColor: "var(--dark)" }}>
+    <section id="showcase" className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight: "75vh", backgroundColor: "var(--dark)" }}>
       <div style={{ padding: "clamp(4rem,10vh,7rem) clamp(1.5rem,6vw,5rem)" }} className="flex flex-col justify-center">
         <AnimateIn>
           <p className="flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-5" style={{ color: "var(--gold)" }}>

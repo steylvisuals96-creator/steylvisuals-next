@@ -51,7 +51,7 @@ export default function Testimonials() {
         </AnimateIn>
       </div>
 
-      <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+      <div className="grid gap-6 grid-cols-1 md:grid-cols-3">
         {reviews.map((r, i) => (
           <motion.article
             key={r.name}

@@ -15,7 +15,7 @@ export default function Process() {
   return (
     <section id="process" className="py-24" style={{ backgroundColor: "var(--off-white)", padding: "clamp(5rem,10vh,8rem) 0 0" }}>
       <div style={{ padding: "0 clamp(1.5rem,6vw,5rem)", marginBottom: "clamp(3rem,6vh,5rem)" }}>
-        <div className="grid gap-12" style={{ gridTemplateColumns: "1fr 1fr" }}>
+        <div className="grid gap-12 grid-cols-1 md:grid-cols-2">
           <div>
             <AnimateIn>
               <p className="flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-5" style={{ color: "var(--gold)" }}>

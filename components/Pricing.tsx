@@ -81,7 +81,7 @@ export default function Pricing() {
         </AnimateIn>
       </div>
 
-      <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+      <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
         {plans.map((plan, i) => (
           <motion.article
             key={plan.tag}

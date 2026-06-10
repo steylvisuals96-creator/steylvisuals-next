@@ -27,6 +27,70 @@ const projects = [
   },
 ];
 
+const ICONS: Record<string, React.ReactNode> = {
+  zap: <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />,
+  smartphone: (
+    <>
+      <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+      <path d="M12 18h.01" />
+    </>
+  ),
+  search: (
+    <>
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.3-4.3" />
+    </>
+  ),
+  edit: (
+    <>
+      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+      <path d="m15 5 4 4" />
+    </>
+  ),
+  palette: (
+    <>
+      <circle cx="13.5" cy="6.5" r=".5" />
+      <circle cx="17.5" cy="10.5" r=".5" />
+      <circle cx="8.5" cy="7.5" r=".5" />
+      <circle cx="6.5" cy="12.5" r=".5" />
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+    </>
+  ),
+  video: (
+    <>
+      <path d="m22 8-6 4 6 4V8Z" />
+      <rect x="2" y="6" width="14" height="12" rx="2" />
+    </>
+  ),
+  globe: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+      <path d="M2 12h20" />
+    </>
+  ),
+  trending: (
+    <>
+      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+      <polyline points="16 7 22 7 22 13" />
+    </>
+  ),
+};
+
+function FeatureIcon({ name }: { name: string }) {
+  return (
+    <span
+      className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+      style={{ backgroundColor: "rgba(184,132,58,0.12)" }}
+      aria-hidden="true"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        {ICONS[name]}
+      </svg>
+    </span>
+  );
+}
+
 function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -46,7 +110,7 @@ function ContactSection() {
 
   return (
     <section id="webdesign-contact" style={{ backgroundColor: "var(--beige)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
-      <div className="grid gap-16" style={{ gridTemplateColumns: "1fr 1fr", alignItems: "start" }}>
+      <div className="grid gap-16 grid-cols-1 md:grid-cols-2" style={{ alignItems: "start" }}>
         <div>
           <AnimateIn>
             <p className="flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-5" style={{ color: "var(--gold)" }}>
@@ -104,7 +168,7 @@ function ContactSection() {
               <input type="hidden" name="_subject" value="Nieuwe webdesign aanvraag via SteylVisuals" />
               <input type="hidden" name="_autoresponse" value="Bedankt voor je interesse in SteylVisuals! Ik heb je webdesign aanvraag goed ontvangen en neem binnen 24 uur persoonlijk contact met je op. Tot snel, Sam Steylaerts | SteylVisuals" />
 
-              <div className="grid gap-4" style={{ gridTemplateColumns: "1fr 1fr" }}>
+              <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Naam</label>
                   <input type="text" name="naam" required placeholder="Jouw naam" className="text-sm font-light outline-none"
@@ -123,7 +187,7 @@ function ContactSection() {
                   style={{ backgroundColor: "var(--off-white)", border: "1px solid var(--beige-mid)", borderRadius: "10px", padding: "0.75rem 1rem", color: "var(--dark)" }} />
               </div>
 
-              <div className="grid gap-4" style={{ gridTemplateColumns: "1fr 1fr" }}>
+              <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Type project</label>
                   <select name="type_project" className="text-sm font-light outline-none cursor-pointer"
@@ -248,14 +312,14 @@ export default function WebdesignClient() {
             Meer dan een website —<br /><em style={{ color: "var(--muted)" }}>een verkoopsmachine</em>
           </h2>
         </AnimateIn>
-        <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { icon: "⚡", title: "Razendsnel", desc: "Gebouwd met Next.js — de snelste technologie voor websites. Google beloont snelle sites met hogere rankings." },
-            { icon: "📱", title: "Mobiel-first", desc: "70% van je bezoekers komt via smartphone. Jouw site ziet er op elk scherm perfect uit." },
-            { icon: "🔍", title: "SEO inbegrepen", desc: "Technische SEO, meta tags, sitemap — alles opgezet zodat makelaars jou vinden via Google." },
-            { icon: "✏️", title: "Zelf beheren", desc: "Via een eenvoudig CMS pas jij teksten, foto's en projecten aan zonder technische kennis." },
-            { icon: "🎨", title: "Jouw stijl", desc: "Geen kant-en-klare templates. Elke site wordt volledig op maat ontworpen passend bij jouw merk." },
-            { icon: "🎬", title: "Video-ready", desc: "Combineer met je video content voor maximaal effect. Website + Reels = onverslaanbare combo." },
+            { icon: "zap", title: "Razendsnel", desc: "Gebouwd met Next.js — de snelste technologie voor websites. Google beloont snelle sites met hogere rankings." },
+            { icon: "smartphone", title: "Mobiel-first", desc: "70% van je bezoekers komt via smartphone. Jouw site ziet er op elk scherm perfect uit." },
+            { icon: "search", title: "SEO inbegrepen", desc: "Technische SEO, meta tags, sitemap — alles opgezet zodat makelaars jou vinden via Google." },
+            { icon: "edit", title: "Zelf beheren", desc: "Via een eenvoudig CMS pas jij teksten, foto's en projecten aan zonder technische kennis." },
+            { icon: "palette", title: "Jouw stijl", desc: "Geen kant-en-klare templates. Elke site wordt volledig op maat ontworpen passend bij jouw merk." },
+            { icon: "video", title: "Video-ready", desc: "Combineer met je video content voor maximaal effect. Website + Reels = onverslaanbare combo." },
           ].map((item, i) => (
             <motion.div
               key={item.title}
@@ -266,7 +330,7 @@ export default function WebdesignClient() {
               className="flex flex-col gap-3 p-6"
               style={{ backgroundColor: "var(--beige)", borderRadius: "16px", border: "1px solid var(--beige-mid)" }}
             >
-              <span style={{ fontSize: "1.5rem" }} aria-hidden="true">{item.icon}</span>
+              <FeatureIcon name={item.icon} />
               <h3 style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.3rem", fontWeight: 500, color: "var(--dark)" }}>{item.title}</h3>
               <p className="text-sm font-light leading-relaxed" style={{ color: "var(--muted)" }}>{item.desc}</p>
             </motion.div>
@@ -291,7 +355,7 @@ export default function WebdesignClient() {
           </AnimateIn>
         </div>
 
-        <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {[
             {
               step: "01",
@@ -349,7 +413,7 @@ export default function WebdesignClient() {
 
       {/* Combo highlight */}
       <section style={{ backgroundColor: "var(--dark)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
-        <div className="grid gap-16 items-center" style={{ gridTemplateColumns: "1fr 1fr" }}>
+        <div className="grid gap-16 items-center grid-cols-1 md:grid-cols-2">
           <div>
             <AnimateIn>
               <p className="inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-6" style={{ color: "var(--gold)" }}>
@@ -398,13 +462,13 @@ export default function WebdesignClient() {
                 &ldquo;Geen twee leveranciers meer. Alles klopt samen.&rdquo;
               </p>
               {[
-                { label: "Website", icon: "🌐", desc: "Op maat, SEO-klaar, CMS inbegrepen" },
-                { label: "Video content", icon: "🎬", desc: "Maandelijkse Reels, TikTok & LinkedIn" },
-                { label: "Strategie", icon: "📈", desc: "Één coherente visuele identiteit" },
+                { label: "Website", icon: "globe", desc: "Op maat, SEO-klaar, CMS inbegrepen" },
+                { label: "Video content", icon: "video", desc: "Maandelijkse Reels, TikTok & LinkedIn" },
+                { label: "Strategie", icon: "trending", desc: "Één coherente visuele identiteit" },
               ].map((item) => (
                 <div key={item.label} className="flex items-start gap-4 p-4"
                   style={{ backgroundColor: "rgba(242,237,232,0.04)", borderRadius: "14px", border: "1px solid rgba(242,237,232,0.07)" }}>
-                  <span style={{ fontSize: "1.3rem" }} aria-hidden="true">{item.icon}</span>
+                  <FeatureIcon name={item.icon} />
                   <div>
                     <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.82rem", fontWeight: 500, color: "rgba(242,237,232,0.7)", marginBottom: "2px" }}>{item.label}</p>
                     <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.75rem", fontWeight: 300, color: "rgba(242,237,232,0.35)" }}>{item.desc}</p>
@@ -433,7 +497,7 @@ export default function WebdesignClient() {
           </AnimateIn>
         </div>
 
-        <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => (
             <motion.div
               key={i}

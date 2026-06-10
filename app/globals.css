@@ -39,3 +39,11 @@ body {
   50% { opacity: 1; }
 }
 .animate-scroll-pulse { animation: scrollPulse 2.5s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-marquee,
+  .animate-scroll-pulse {
+    animation: none;
+  }
+}

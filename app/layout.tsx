@@ -18,17 +18,17 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "SteylVisuals — Vastgoedvideo's die opvallen én converteren",
-  description: "Professionele short-form videocontent voor makelaars. Instagram Reels, TikTok, LinkedIn en drone shots. Vraag je gratis demo-edit aan.",
-  metadataBase: new URL("https://steylvisualsnext.netlify.app"),
+  title: "SteylVisuals — Premium video & webdesign voor makelaars",
+  description: "Creative studio in België: cinematic vastgoedvideo's en professionele websites voor makelaars en bedrijven. Vraag je gratis voorstel aan.",
+  metadataBase: new URL("https://steylvisuals-next.vercel.app"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "SteylVisuals — Vastgoedvideo's die opvallen én converteren",
-    description: "Short-form videocontent voor makelaars. Meer viewings, meer verkopen.",
+    title: "SteylVisuals — Premium video & webdesign voor makelaars",
+    description: "Cinematic vastgoedvideo en websites die converteren. Meer viewings, meer verkopen.",
     type: "website",
-    url: "https://steylvisualsnext.netlify.app",
+    url: "https://steylvisuals-next.vercel.app",
     siteName: "SteylVisuals",
     locale: "nl_BE",
     images: [
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SteylVisuals — Vastgoedvideo's die opvallen én converteren",
-    description: "Short-form videocontent voor makelaars. Meer viewings, meer verkopen.",
+    title: "SteylVisuals — Premium video & webdesign voor makelaars",
+    description: "Cinematic vastgoedvideo en websites die converteren. Meer viewings, meer verkopen.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -66,8 +66,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
               name: "SteylVisuals",
-              description: "Professionele short-form videocontent voor makelaars. Instagram Reels, TikTok, LinkedIn en drone shots.",
-              url: "https://steylvisualsnext.netlify.app",
+              description: "Creative studio voor makelaars: cinematic vastgoedvideo's en professionele websites. Instagram Reels, TikTok, drone shots en webdesign.",
+              url: "https://steylvisuals-next.vercel.app",
               email: "Steylvisuals96@gmail.com",
               founder: {
                 "@type": "Person",
@@ -76,8 +76,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               sameAs: [
                 "https://www.instagram.com/steylvisuals",
               ],
-              serviceType: "Real Estate Video Production",
-              areaServed: "Worldwide",
+              serviceType: ["Real Estate Video Production", "Web Design"],
+              areaServed: "Belgium",
               priceRange: "€€",
             }),
           }}

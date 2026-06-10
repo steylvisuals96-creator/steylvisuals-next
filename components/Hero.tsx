@@ -17,10 +17,9 @@ const fadeUp = {
 export default function Hero() {
   return (
     <section
-      className="min-h-svh grid items-center gap-16 pt-24 pb-16"
+      className="min-h-svh grid grid-cols-1 md:grid-cols-2 items-center gap-16 pt-24 pb-16"
       style={{
         backgroundColor: "var(--beige)",
-        gridTemplateColumns: "1fr 1fr",
         padding: "calc(72px + 3rem) clamp(1.5rem, 6vw, 5rem) clamp(4rem, 8vh, 6rem)",
       }}
     >
