@@ -6,51 +6,6 @@ import AnimateIn from "./AnimateIn";
 
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
-const plans = [
-  {
-    tag: "Starter",
-    name: "Landing\nPage",
-    sub: "Eén krachtige pagina",
-    price: "€749",
-    featured: false,
-    features: [
-      "1 pagina op maat",
-      "SEO-geoptimaliseerd",
-      "Contactformulier",
-      "Mobiel-vriendelijk",
-      "Levering binnen 1 week",
-    ],
-  },
-  {
-    tag: "Meest gekozen",
-    name: "Volledige\nWebsite",
-    sub: "Meerdere pagina's + blog",
-    price: "€1.699",
-    featured: true,
-    features: [
-      "Tot 8 pagina's op maat",
-      "SEO + Google Analytics",
-      "Portfolio & blog sectie",
-      "Contactformulier + CMS",
-      "Levering binnen 2 weken",
-    ],
-  },
-  {
-    tag: "Combo deal",
-    name: "Web +\nVideo",
-    sub: "Website én maandelijkse video",
-    price: "€1.999",
-    featured: false,
-    features: [
-      "Volledige website inbegrepen",
-      "6 video's per maand",
-      "SEO + social media strategie",
-      "Maandelijks opzegbaar",
-      "Één aanspreekpunt",
-    ],
-  },
-];
-
 const projects = [
   {
     name: "SteylVisuals",
@@ -71,16 +26,6 @@ const projects = [
     color: "#3A1A08",
   },
 ];
-
-function CheckIcon() {
-  return (
-    <span className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ backgroundColor: "rgba(184,132,58,0.15)" }}>
-      <svg className="w-2 h-2" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="20 6 9 17 4 12" />
-      </svg>
-    </span>
-  );
-}
 
 function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
@@ -106,18 +51,34 @@ function ContactSection() {
           <AnimateIn>
             <p className="flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-5" style={{ color: "var(--gold)" }}>
               <span className="w-4 h-px" style={{ backgroundColor: "var(--gold)" }} />
-              Webdesign aanvragen
+              Jouw project bespreken
             </p>
           </AnimateIn>
           <AnimateIn delay={0.1}>
             <h2 className="mb-6" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem,4vw,3.5rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--dark)" }}>
-              Klaar voor een<br /><em style={{ color: "var(--muted)" }}>website die werkt?</em>
+              Vertel me over<br /><em style={{ color: "var(--muted)" }}>jouw project</em>
             </h2>
           </AnimateIn>
           <AnimateIn delay={0.2}>
-            <p className="text-sm font-light leading-relaxed mb-6" style={{ color: "var(--muted)", maxWidth: "360px" }}>
-              Vertel me over jouw kantoor en ik kom met een voorstel op maat. Gratis en vrijblijvend.
+            <p className="text-sm font-light leading-relaxed mb-8" style={{ color: "var(--muted)", maxWidth: "360px" }}>
+              Ik werk project per project — geen vaste pakketten, maar een offerte op maat van wat jij nodig hebt. Stuur me de details en ik reageer binnen 24u.
             </p>
+          </AnimateIn>
+          <AnimateIn delay={0.3}>
+            <div className="flex flex-col gap-3">
+              {[
+                "Vrijblijvend voorstel",
+                "Reactie binnen 24 uur",
+                "Offerte op maat van jouw project",
+              ].map((f) => (
+                <div key={f} className="flex items-center gap-3 text-sm font-light" style={{ color: "var(--muted)" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  {f}
+                </div>
+              ))}
+            </div>
           </AnimateIn>
         </div>
 
@@ -130,7 +91,7 @@ function ContactSection() {
               style={{ backgroundColor: "var(--off-white)", borderRadius: "20px", border: "1px solid var(--beige-mid)" }}
             >
               <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(184,132,58,0.15)" }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
@@ -150,8 +111,8 @@ function ContactSection() {
                     style={{ backgroundColor: "var(--off-white)", border: "1px solid var(--beige-mid)", borderRadius: "10px", padding: "0.75rem 1rem", color: "var(--dark)" }} />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Kantoor</label>
-                  <input type="text" name="kantoor" placeholder="Jouw kantoor" className="text-sm font-light outline-none"
+                  <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Bedrijf</label>
+                  <input type="text" name="bedrijf" placeholder="Jouw kantoor / bedrijf" className="text-sm font-light outline-none"
                     style={{ backgroundColor: "var(--off-white)", border: "1px solid var(--beige-mid)", borderRadius: "10px", padding: "0.75rem 1rem", color: "var(--dark)" }} />
                 </div>
               </div>
@@ -162,27 +123,49 @@ function ContactSection() {
                   style={{ backgroundColor: "var(--off-white)", border: "1px solid var(--beige-mid)", borderRadius: "10px", padding: "0.75rem 1rem", color: "var(--dark)" }} />
               </div>
 
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Pakket</label>
-                <select name="pakket" className="text-sm font-light outline-none"
-                  style={{ backgroundColor: "var(--off-white)", border: "1px solid var(--beige-mid)", borderRadius: "10px", padding: "0.75rem 1rem", color: "var(--muted)", appearance: "none" }}>
-                  <option value="">Kies een pakket (optioneel)</option>
-                  <option value="Landing Page — €749">Landing Page — €749</option>
-                  <option value="Volledige Website — €1.699">Volledige Website — €1.699</option>
-                  <option value="Web + Video Combo — €1.999/maand">Web + Video Combo — €1.999/maand</option>
-                </select>
+              <div className="grid gap-4" style={{ gridTemplateColumns: "1fr 1fr" }}>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Type project</label>
+                  <select name="type_project" className="text-sm font-light outline-none cursor-pointer"
+                    style={{ backgroundColor: "var(--off-white)", border: "1px solid var(--beige-mid)", borderRadius: "10px", padding: "0.75rem 1rem", color: "var(--muted)", appearance: "none" }}>
+                    <option value="">Kies een type</option>
+                    <option value="Landing page">Landing page</option>
+                    <option value="Volledige website">Volledige website</option>
+                    <option value="Webshop">Webshop</option>
+                    <option value="Redesign bestaande site">Redesign bestaande site</option>
+                    <option value="Website + video combo">Website + video combo</option>
+                    <option value="Iets anders">Iets anders</option>
+                  </select>
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Budget (optioneel)</label>
+                  <select name="budget" className="text-sm font-light outline-none cursor-pointer"
+                    style={{ backgroundColor: "var(--off-white)", border: "1px solid var(--beige-mid)", borderRadius: "10px", padding: "0.75rem 1rem", color: "var(--muted)", appearance: "none" }}>
+                    <option value="">Geen voorkeur</option>
+                    <option value="€500 – €1.000">€500 – €1.000</option>
+                    <option value="€1.000 – €2.000">€1.000 – €2.000</option>
+                    <option value="€2.000 – €4.000">€2.000 – €4.000</option>
+                    <option value="€4.000+">€4.000+</option>
+                  </select>
+                </div>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Bericht</label>
-                <textarea name="bericht" rows={3} placeholder="Vertel me over jouw kantoor en wat je nodig hebt..." className="text-sm font-light outline-none resize-none"
+                <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Deadline (optioneel)</label>
+                <input type="text" name="deadline" placeholder="bv. eind augustus, zo snel mogelijk…" className="text-sm font-light outline-none"
                   style={{ backgroundColor: "var(--off-white)", border: "1px solid var(--beige-mid)", borderRadius: "10px", padding: "0.75rem 1rem", color: "var(--dark)" }} />
               </div>
 
-              <motion.button type="submit" disabled={loading} className="text-sm font-medium rounded-full py-3.5 mt-2"
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Vertel me over jouw project</label>
+                <textarea name="bericht" rows={4} required placeholder="Wat heb je nodig? Wat is het doel van de site? Wat vind je belangrijk?" className="text-sm font-light outline-none resize-none"
+                  style={{ backgroundColor: "var(--off-white)", border: "1px solid var(--beige-mid)", borderRadius: "10px", padding: "0.75rem 1rem", color: "var(--dark)" }} />
+              </div>
+
+              <motion.button type="submit" disabled={loading} className="text-sm font-medium rounded-full py-3.5 mt-2 cursor-pointer"
                 style={{ backgroundColor: "var(--dark)", color: "var(--beige)", opacity: loading ? 0.6 : 1 }}
                 whileHover={{ opacity: 0.88 }} whileTap={{ scale: 0.97 }}>
-                {loading ? "Versturen..." : "Verstuur aanvraag"}
+                {loading ? "Versturen..." : "Stuur mijn projectinfo door"}
               </motion.button>
             </form>
           )}
@@ -223,7 +206,7 @@ export default function WebdesignClient() {
           className="text-base font-light leading-relaxed mb-10"
           style={{ color: "var(--muted)", maxWidth: "440px" }}
         >
-          Van strakke landing pages tot volledige websites — op maat gebouwd, SEO-geoptimaliseerd en klaar om leads te genereren.
+          Geen vaste pakketten — elk project is anders. Van een strakke landing page tot een volledige website, op maat van jouw kantoor en budget.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -233,20 +216,20 @@ export default function WebdesignClient() {
         >
           <motion.a
             href="#webdesign-contact"
-            className="text-sm font-medium rounded-full px-8 py-4"
+            className="text-sm font-medium rounded-full px-8 py-4 cursor-pointer"
             style={{ backgroundColor: "var(--dark)", color: "var(--off-white)" }}
             whileHover={{ backgroundColor: "var(--brown)", scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
           >
-            Gratis voorstel aanvragen
+            Bespreek jouw project
           </motion.a>
           <motion.a
-            href="#webdesign-prijzen"
-            className="text-sm font-normal pb-0.5 border-b"
+            href="#werkwijze"
+            className="text-sm font-normal pb-0.5 border-b cursor-pointer"
             style={{ color: "var(--brown)", borderColor: "var(--beige-deep)" }}
             whileHover={{ borderColor: "var(--brown)" }}
           >
-            Bekijk prijzen
+            Hoe werkt het?
           </motion.a>
         </motion.div>
       </section>
@@ -283,7 +266,7 @@ export default function WebdesignClient() {
               className="flex flex-col gap-3 p-6"
               style={{ backgroundColor: "var(--beige)", borderRadius: "16px", border: "1px solid var(--beige-mid)" }}
             >
-              <span style={{ fontSize: "1.5rem" }}>{item.icon}</span>
+              <span style={{ fontSize: "1.5rem" }} aria-hidden="true">{item.icon}</span>
               <h3 style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.3rem", fontWeight: 500, color: "var(--dark)" }}>{item.title}</h3>
               <p className="text-sm font-light leading-relaxed" style={{ color: "var(--muted)" }}>{item.desc}</p>
             </motion.div>
@@ -291,81 +274,77 @@ export default function WebdesignClient() {
         </div>
       </section>
 
-      {/* Prijzen */}
-      <section id="webdesign-prijzen" style={{ backgroundColor: "var(--beige)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
-        <div className="text-center mb-14">
+      {/* Werkwijze */}
+      <section id="werkwijze" style={{ backgroundColor: "var(--beige)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
+        <div className="text-center mb-16">
           <AnimateIn>
             <p className="inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-5" style={{ color: "var(--gold)" }}>
               <span className="w-4 h-px" style={{ backgroundColor: "var(--gold)" }} />
-              Pakketten
+              Hoe werkt het
               <span className="w-4 h-px" style={{ backgroundColor: "var(--gold)" }} />
             </p>
           </AnimateIn>
           <AnimateIn delay={0.1}>
-            <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem,4.5vw,4rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--dark)" }}>
-              Transparante prijzen,<br /><em style={{ color: "var(--muted)" }}>geen verrassingen</em>
+            <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem,4vw,3.5rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--dark)" }}>
+              Van idee tot<br /><em style={{ color: "var(--muted)" }}>live website</em>
             </h2>
           </AnimateIn>
         </div>
 
-        <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
-          {plans.map((plan, i) => (
-            <motion.article
-              key={plan.tag}
-              initial={{ opacity: 0, y: 30 }}
+        <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+          {[
+            {
+              step: "01",
+              title: "Brief",
+              desc: "Jij stuurt me de details van je project via het formulier. Type site, doel, stijl, deadline — alles wat relevant is.",
+            },
+            {
+              step: "02",
+              title: "Offerte",
+              desc: "Binnen 24u ontvang je een offerte op maat. Geen vaste prijzen — de kost hangt af van de complexiteit en omvang.",
+            },
+            {
+              step: "03",
+              title: "Design & bouw",
+              desc: "Na akkoord ga ik aan de slag. Je volgt het proces op via een live preview en kan tussentijds feedback geven.",
+            },
+            {
+              step: "04",
+              title: "Oplevering",
+              desc: "De site gaat live en jij krijgt volledige overdracht: hosting, CMS, domein — alles geregeld en uitgelegd.",
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={item.step}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.8, delay: i * 0.1, ease: EASE }}
-              whileHover={{ y: -6, boxShadow: "0 24px 60px rgba(28,14,7,0.12)" }}
-              className="relative flex flex-col overflow-hidden"
-              style={{
-                backgroundColor: plan.featured ? "var(--dark)" : "var(--off-white)",
-                borderRadius: "20px",
-                padding: "clamp(1.75rem,3vw,2.5rem)",
-                border: `1px solid ${plan.featured ? "var(--dark)" : "var(--beige-mid)"}`,
-              }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: EASE }}
+              className="flex flex-col gap-4 p-7"
+              style={{ backgroundColor: "var(--off-white)", borderRadius: "20px", border: "1px solid var(--beige-mid)" }}
             >
-              <motion.div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ backgroundColor: "var(--gold)" }}
-                initial={{ scaleX: plan.featured ? 1 : 0 }} whileHover={{ scaleX: 1 }} transition={{ duration: 0.3 }} />
-
-              <span className="w-fit text-xs font-medium tracking-widest uppercase px-3 py-1 rounded-full mb-7"
-                style={{ color: plan.featured ? "var(--gold)" : "var(--muted)", backgroundColor: plan.featured ? "rgba(184,132,58,0.15)" : "var(--beige)" }}>
-                {plan.tag}
+              <span style={{ fontFamily: "var(--font-cormorant)", fontSize: "3rem", fontWeight: 300, color: "var(--beige-mid)", lineHeight: 1 }}>
+                {item.step}
               </span>
-
-              <h3 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.6rem,2.5vw,2.2rem)", fontWeight: 400, lineHeight: 1.15, color: plan.featured ? "var(--beige)" : "var(--dark)", marginBottom: "0.25rem", whiteSpace: "pre-line" }}>
-                {plan.name}
-              </h3>
-              <p className="text-sm font-light italic mb-6" style={{ color: plan.featured ? "rgba(242,237,232,0.45)" : "var(--muted)" }}>{plan.sub}</p>
-
-              <div className="pb-6 mb-6 border-b" style={{ borderColor: plan.featured ? "rgba(242,237,232,0.1)" : "var(--beige-mid)" }}>
-                <span style={{ fontFamily: "var(--font-cormorant)", fontSize: "3rem", fontWeight: 400, lineHeight: 1, letterSpacing: "-0.03em", color: plan.featured ? "var(--beige)" : "var(--dark)" }}>
-                  {plan.price}
-                </span>
-                {plan.tag === "Combo deal" && (
-                  <span className="text-sm font-light ml-1" style={{ color: plan.featured ? "rgba(242,237,232,0.4)" : "var(--muted)" }}>/maand</span>
-                )}
-              </div>
-
-              <ul className="flex flex-col gap-3 mb-8 flex-1">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex items-start gap-3 text-sm font-light leading-snug" style={{ color: plan.featured ? "rgba(242,237,232,0.65)" : "var(--muted)" }}>
-                    <CheckIcon />{f}
-                  </li>
-                ))}
-              </ul>
-
-              <motion.a
-                href="#webdesign-contact"
-                className="block text-center text-sm font-medium rounded-full py-3.5"
-                style={{ backgroundColor: plan.featured ? "var(--gold)" : "var(--beige-mid)", color: "var(--dark)" }}
-                whileHover={{ opacity: 0.88 }} whileTap={{ scale: 0.97 }}
-              >
-                Aanvragen
-              </motion.a>
-            </motion.article>
+              <h3 style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.4rem", fontWeight: 500, color: "var(--dark)" }}>{item.title}</h3>
+              <p className="text-sm font-light leading-relaxed" style={{ color: "var(--muted)" }}>{item.desc}</p>
+            </motion.div>
           ))}
         </div>
+
+        <AnimateIn delay={0.4}>
+          <div className="flex justify-center mt-12">
+            <motion.a
+              href="#webdesign-contact"
+              className="text-sm font-medium rounded-full px-8 py-4 cursor-pointer"
+              style={{ backgroundColor: "var(--dark)", color: "var(--off-white)" }}
+              whileHover={{ backgroundColor: "var(--brown)", scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Stuur jouw brief
+            </motion.a>
+          </div>
+        </AnimateIn>
       </section>
 
       {/* Combo highlight */}
@@ -380,7 +359,7 @@ export default function WebdesignClient() {
             </AnimateIn>
             <AnimateIn delay={0.1}>
               <h2 className="mb-6" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.2rem,4.5vw,4rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--beige)" }}>
-                Website én video —<br /><em style={{ color: "rgba(242,237,232,0.45)" }}>één pakket, één prijs</em>
+                Website én video —<br /><em style={{ color: "rgba(242,237,232,0.45)" }}>één partner, één visie</em>
               </h2>
             </AnimateIn>
             <AnimateIn delay={0.2}>
@@ -390,9 +369,9 @@ export default function WebdesignClient() {
             </AnimateIn>
             <AnimateIn delay={0.3}>
               <div className="flex flex-col gap-3 mb-10">
-                {["Website op maat gebouwd", "6 video's per maand voor social media", "SEO + content strategie", "Één aanspreekpunt voor alles", "Maandelijks opzegbaar"].map((f) => (
+                {["Website op maat gebouwd", "Maandelijkse video content voor social", "SEO + content strategie", "Één aanspreekpunt voor alles"].map((f) => (
                   <div key={f} className="flex items-center gap-3 text-sm font-light" style={{ color: "rgba(242,237,232,0.65)" }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                     {f}
@@ -403,37 +382,34 @@ export default function WebdesignClient() {
             <AnimateIn delay={0.4}>
               <motion.a
                 href="#webdesign-contact"
-                className="inline-block text-sm font-medium rounded-full px-8 py-4"
+                className="inline-block text-sm font-medium rounded-full px-8 py-4 cursor-pointer"
                 style={{ backgroundColor: "var(--gold)", color: "var(--dark)" }}
                 whileHover={{ backgroundColor: "var(--gold-light)", scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
               >
-                Combo aanvragen — €1.999/maand
+                Bespreek de combo
               </motion.a>
             </AnimateIn>
           </div>
 
           <AnimateIn direction="right">
-            <div className="grid gap-4">
+            <div className="flex flex-col gap-5 p-8" style={{ backgroundColor: "rgba(242,237,232,0.04)", borderRadius: "24px", border: "1px solid rgba(242,237,232,0.08)" }}>
+              <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem", fontStyle: "italic", fontWeight: 300, color: "rgba(242,237,232,0.35)", marginBottom: "0.5rem" }}>
+                &ldquo;Geen twee leveranciers meer. Alles klopt samen.&rdquo;
+              </p>
               {[
-                { label: "Website", value: "€1.699 eenmalig" },
-                { label: "Video (6/maand)", value: "€490/maand" },
-                { label: "Samen als combo", value: "€1.999/maand" },
-              ].map((item, i) => (
-                <motion.div
-                  key={item.label}
-                  className="flex items-center justify-between p-5"
-                  style={{
-                    backgroundColor: i === 2 ? "rgba(184,132,58,0.15)" : "rgba(242,237,232,0.04)",
-                    borderRadius: "14px",
-                    border: `1px solid ${i === 2 ? "rgba(184,132,58,0.3)" : "rgba(242,237,232,0.08)"}`,
-                  }}
-                >
-                  <span className="text-sm font-light" style={{ color: i === 2 ? "var(--gold)" : "rgba(242,237,232,0.5)" }}>{item.label}</span>
-                  <span style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.3rem", fontWeight: 400, color: i === 2 ? "var(--gold)" : "rgba(242,237,232,0.4)", textDecoration: i < 2 ? "line-through" : "none" }}>
-                    {item.value}
-                  </span>
-                </motion.div>
+                { label: "Website", icon: "🌐", desc: "Op maat, SEO-klaar, CMS inbegrepen" },
+                { label: "Video content", icon: "🎬", desc: "Maandelijkse Reels, TikTok & LinkedIn" },
+                { label: "Strategie", icon: "📈", desc: "Één coherente visuele identiteit" },
+              ].map((item) => (
+                <div key={item.label} className="flex items-start gap-4 p-4"
+                  style={{ backgroundColor: "rgba(242,237,232,0.04)", borderRadius: "14px", border: "1px solid rgba(242,237,232,0.07)" }}>
+                  <span style={{ fontSize: "1.3rem" }} aria-hidden="true">{item.icon}</span>
+                  <div>
+                    <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.82rem", fontWeight: 500, color: "rgba(242,237,232,0.7)", marginBottom: "2px" }}>{item.label}</p>
+                    <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.75rem", fontWeight: 300, color: "rgba(242,237,232,0.35)" }}>{item.desc}</p>
+                  </div>
+                </div>
               ))}
             </div>
           </AnimateIn>
