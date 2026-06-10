@@ -20,7 +20,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "SteylVisuals — Premium video & webdesign voor makelaars",
   description: "Creative studio in België: cinematic vastgoedvideo's en professionele websites voor makelaars en bedrijven. Vraag je gratis voorstel aan.",
-  metadataBase: new URL("https://steylvisuals-next.vercel.app"),
+  metadataBase: new URL("https://steylvisuals.be"),
   alternates: {
     canonical: "/",
   },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "SteylVisuals — Premium video & webdesign voor makelaars",
     description: "Cinematic vastgoedvideo en websites die converteren. Meer viewings, meer verkopen.",
     type: "website",
-    url: "https://steylvisuals-next.vercel.app",
+    url: "https://steylvisuals.be",
     siteName: "SteylVisuals",
     locale: "nl_BE",
     images: [
@@ -67,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@type": "ProfessionalService",
               name: "SteylVisuals",
               description: "Creative studio voor makelaars: cinematic vastgoedvideo's en professionele websites. Instagram Reels, TikTok, drone shots en webdesign.",
-              url: "https://steylvisuals-next.vercel.app",
+              url: "https://steylvisuals.be",
               email: "Steylvisuals96@gmail.com",
               founder: {
                 "@type": "Person",
