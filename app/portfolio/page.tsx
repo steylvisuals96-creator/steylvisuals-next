@@ -1,18 +1,15 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import PortfolioGrid from "@/components/PortfolioGrid";
+import VideoReelGrid, { type Reel } from "@/components/VideoReelGrid";
 
 export const metadata = {
   title: "Portfolio — SteylVisuals",
-  description: "Bekijk alle vastgoedvideo's van SteylVisuals. Cinematic Reels en TikToks voor makelaars wereldwijd.",
+  description: "Bekijk cinematic vastgoedvideo's van SteylVisuals: Reels en socials voor makelaars in Limburg en omstreken.",
   alternates: { canonical: "/portfolio" },
   openGraph: {
     title: "Portfolio — SteylVisuals",
-    description: "Cinematic vastgoedvideo's voor makelaars wereldwijd.",
-    url: "https://steylvisualsnext.netlify.app/portfolio",
+    description: "Cinematic vastgoedvideo's voor makelaars.",
+    url: "https://steylvisuals.be/portfolio",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
   },
   twitter: {
@@ -22,68 +19,124 @@ export const metadata = {
   },
 };
 
-export interface Project {
-  slug: string;
-  title: string;
-  location: string;
-  serviceType: string;
-  year: string;
-  coverImage?: string;
-  videoUrl?: string;
-  description?: string;
-  featured: boolean;
-  gallery: string[];
-}
-
-function getProjects(): Project[] {
-  const dir = path.join(process.cwd(), "content/projects");
-  if (!fs.existsSync(dir)) return [];
-
-  return fs
-    .readdirSync(dir)
-    .filter((f) => f.endsWith(".md"))
-    .map((file) => {
-      const raw = fs.readFileSync(path.join(dir, file), "utf8");
-      const { data } = matter(raw);
-      return {
-        slug: file.replace(".md", ""),
-        title: data.title ?? "",
-        location: data.location ?? "",
-        serviceType: data.serviceType ?? "",
-        year: data.year ?? "",
-        coverImage: data.coverImage ?? null,
-        videoUrl: data.videoUrl ?? null,
-        description: data.description ?? "",
-        featured: data.featured ?? false,
-        gallery: data.gallery ?? [],
-      } as Project;
-    })
-    .sort((a, b) => (a.featured === b.featured ? 0 : a.featured ? -1 : 1));
-}
+const REELS: Reel[] = [
+  {
+    src: "/videos/web/appartement-sint-truiden.mp4",
+    poster: "/videos/web/appartement-sint-truiden.jpg",
+    title: "Appartement",
+    location: "Sint-Truiden",
+    tag: "Reel",
+  },
+  {
+    src: "/videos/web/hasselt-elegance.mp4",
+    poster: "/videos/web/hasselt-elegance.jpg",
+    title: "Élégance",
+    location: "Hasselt",
+    tag: "Socials",
+  },
+  {
+    src: "/videos/web/relay.mp4",
+    poster: "/videos/web/relay.jpg",
+    title: "Relay",
+    tag: "Teaser",
+  },
+  {
+    src: "/videos/web/website-video.mp4",
+    poster: "/videos/web/website-video.jpg",
+    title: "Website reel",
+    tag: "Promo",
+  },
+];
 
 export default function PortfolioPage() {
-  const projects = getProjects();
-
   return (
     <>
-      <Nav />
-      <main>
+      <Nav dark />
+      <main style={{ backgroundColor: "#0A0A0A" }}>
         {/* Hero */}
-        <section style={{ backgroundColor: "var(--dark)", padding: "clamp(6rem,12vh,10rem) clamp(1.5rem,6vw,5rem) clamp(4rem,8vh,6rem)" }}>
-          <p className="inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-6" style={{ color: "var(--gold)" }}>
-            <span className="w-4 h-px" style={{ backgroundColor: "var(--gold)" }} />
-            Portfolio
-            <span className="w-4 h-px" style={{ backgroundColor: "var(--gold)" }} />
-          </p>
-          <h1 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(3rem,6vw,5.5rem)", fontWeight: 400, lineHeight: 1.05, letterSpacing: "-0.02em", color: "var(--beige)", maxWidth: "700px" }}>
-            Elk pand,<br /><em style={{ color: "rgba(242,237,232,0.45)" }}>een verhaal</em>
-          </h1>
-          <p className="text-sm font-light leading-relaxed mt-6" style={{ color: "rgba(242,237,232,0.45)", maxWidth: "400px" }}>
-            {projects.length} projecten — vastgoed marketing voor makelaars.
-          </p>
+        <section style={{ padding: "clamp(8rem,16vh,11rem) clamp(1.5rem,6vw,5rem) clamp(3rem,6vh,5rem)" }}>
+          <div className="max-w-[1100px] mx-auto">
+            <p
+              className="inline-flex items-center gap-2 mb-6"
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "0.68rem",
+                fontWeight: 500,
+                letterSpacing: "0.25em",
+                textTransform: "uppercase",
+                color: "#B8843A",
+              }}
+            >
+              <span className="w-5 h-px" style={{ backgroundColor: "#B8843A" }} />
+              Portfolio
+            </p>
+            <h1
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                fontSize: "clamp(2.6rem,6vw,5rem)",
+                fontWeight: 400,
+                lineHeight: 1.04,
+                letterSpacing: "-0.02em",
+                color: "#FDFAF7",
+                maxWidth: "640px",
+              }}
+            >
+              Elk pand,{" "}
+              <em style={{ fontStyle: "italic", color: "#B8843A" }}>een verhaal</em>
+            </h1>
+            <p
+              className="mt-6"
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "1rem",
+                fontWeight: 300,
+                lineHeight: 1.7,
+                color: "rgba(253,250,247,0.5)",
+                maxWidth: "440px",
+              }}
+            >
+              Verticale video&apos;s op maat van Reels en TikTok. Zet je geluid aan voor het volledige effect.
+            </p>
+          </div>
         </section>
 
-        <PortfolioGrid projects={projects} />
+        {/* Video reels */}
+        <section style={{ padding: "0 clamp(1.5rem,6vw,5rem) clamp(5rem,10vh,8rem)" }}>
+          <VideoReelGrid reels={REELS} />
+
+          {/* CTA */}
+          <div
+            className="text-center mt-20 pt-14 max-w-[1100px] mx-auto"
+            style={{ borderTop: "1px solid rgba(253,250,247,0.08)" }}
+          >
+            <p
+              className="mb-6"
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                fontSize: "clamp(1.6rem,3vw,2.4rem)",
+                fontWeight: 400,
+                color: "#FDFAF7",
+              }}
+            >
+              Wil jij ook zo&apos;n video voor jouw pand?
+            </p>
+            <a
+              href="mailto:Steylvisuals96@gmail.com?subject=Gratis%20demo-edit%20aanvraag"
+              className="inline-block rounded-full"
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "0.85rem",
+                fontWeight: 500,
+                backgroundColor: "#B8843A",
+                color: "#0A0A0A",
+                padding: "1rem 2.25rem",
+                textDecoration: "none",
+              }}
+            >
+              Gratis demo-edit aanvragen
+            </a>
+          </div>
+        </section>
       </main>
       <Footer />
     </>

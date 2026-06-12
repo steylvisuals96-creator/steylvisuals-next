@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Raw source videos — only the web-optimized versions in public/videos/web/ are committed
+/public/videos/*.mp4
+/public/videos/*.MOV
+/public/videos/*.mov

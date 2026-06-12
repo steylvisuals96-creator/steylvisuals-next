@@ -115,11 +115,15 @@ export default function ShowReel() {
                 "0 60px 120px rgba(0,0,0,0.6), 0 0 0 8px rgba(255,255,255,0.05), 0 0 90px rgba(184,132,58,0.12)",
             }}
           >
-            <iframe
-              src="https://player.vimeo.com/video/1197526440?autoplay=1&loop=1&muted=1&background=1&controls=0"
-              className="w-full h-full"
-              style={{ border: "none", transform: "scale(1.28)", transformOrigin: "center" }}
-              allow="autoplay; fullscreen"
+            <video
+              src="/videos/web/appartement-sint-truiden.mp4"
+              poster="/videos/web/appartement-sint-truiden.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="w-full h-full object-cover"
               title="SteylVisuals showreel"
             />
           </div>

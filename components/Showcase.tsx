@@ -53,12 +53,15 @@ export default function Showcase() {
             whileHover={{ scale: 1.03 }}
             transition={{ duration: 0.4 }}
           >
-            <iframe
-              src="https://player.vimeo.com/video/1197526440?autoplay=1&loop=1&muted=1&background=1&controls=0"
-              className="w-full h-full"
-              style={{ border: "none" }}
-              allow="autoplay; fullscreen"
-              allowFullScreen
+            <video
+              src="/videos/web/hasselt-elegance.mp4"
+              poster="/videos/web/hasselt-elegance.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="w-full h-full object-cover"
             />
           </motion.div>
         </AnimateIn>
