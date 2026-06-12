@@ -33,6 +33,17 @@ body {
   to { transform: translateX(-50%); }
 }
 .animate-marquee { animation: marquee 24s linear infinite; }
+.animate-marquee-slow { animation: marquee 45s linear infinite; }
+
+/* Custom scrollbar — subtle gold on dark */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--off-white); }
+::-webkit-scrollbar-thumb {
+  background: var(--beige-deep);
+  border-radius: 100px;
+  border: 2px solid var(--off-white);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
 @keyframes scrollPulse {
   0%, 100% { opacity: 0.3; }
@@ -43,6 +54,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .animate-marquee,
+  .animate-marquee-slow,
   .animate-scroll-pulse {
     animation: none;
   }

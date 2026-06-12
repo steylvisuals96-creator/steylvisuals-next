@@ -43,12 +43,14 @@ function ServiceCard({
         backgroundColor: "#111111",
         border: "1px solid rgba(255,255,255,0.06)",
         borderRadius: "20px",
-        padding: "2.5rem",
+        padding: "clamp(1.75rem, 4vw, 2.5rem)",
         minHeight: "420px",
       }}
       whileHover={{ borderColor: "rgba(184,132,58,0.3)", backgroundColor: "#131313" }}
       transition={{ duration: 0.3 }}
     >
+      {/* Full-card click target */}
+      <Link href={href} className="absolute inset-0 z-20" aria-label={cta} />
       {/* Glow on hover */}
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
@@ -262,40 +264,39 @@ export default function ServicesGrid() {
           variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid gap-4"
-          style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gridTemplateRows: "auto auto",
-          }}
         >
-          {/* Service 1 — Vastgoed Marketing */}
-          <ServiceCard
-            href="/vastgoed-marketing"
-            tag="Video · Drone · Social"
-            title={"Vastgoed\nMarketing"}
-            description="Cinematic short-form video die jouw panden in de kijker zet op Instagram, TikTok en LinkedIn. Meer viewings, sneller verkopen."
-            cta="Ontdek vastgoed marketing"
-            index={0}
-            accent="#B8843A"
-            bullets={["Instagram Reels & TikTok", "Drone footage", "Gratis demo-edit"]}
-          />
+          <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
+            {/* Service 1 — Vastgoed Marketing */}
+            <ServiceCard
+              href="/vastgoed-marketing"
+              tag="Video · Drone · Social"
+              title={"Vastgoed\nMarketing"}
+              description="Cinematic short-form video die jouw panden in de kijker zet op Instagram, TikTok en LinkedIn. Meer viewings, sneller verkopen."
+              cta="Ontdek vastgoed marketing"
+              index={0}
+              accent="#B8843A"
+              bullets={["Instagram Reels & TikTok", "Drone footage", "Gratis demo-edit"]}
+            />
 
-          {/* Service 2 — Webdesign */}
-          <ServiceCard
-            href="/webdesign"
-            tag="Next.js · SEO · CMS"
-            title={"Webdesign voor\nmakelaars"}
-            description="Snelle, SEO-geoptimaliseerde websites op maat. Van een krachtige landing page tot een volledige site met blog en CMS."
-            cta="Ontdek webdesign"
-            index={1}
-            accent="#9E7FBF"
-            bullets={["Op maat gebouwd", "SEO + Google Analytics", "Levering binnen 2 weken"]}
-          />
+            {/* Service 2 — Webdesign */}
+            <ServiceCard
+              href="/webdesign"
+              tag="Next.js · SEO · CMS"
+              title={"Webdesign voor\nmakelaars"}
+              description="Snelle, SEO-geoptimaliseerde websites op maat. Van een krachtige landing page tot een volledige site met blog en CMS."
+              cta="Ontdek webdesign"
+              index={1}
+              accent="#9E7FBF"
+              bullets={["Op maat gebouwd", "SEO + Google Analytics", "Levering binnen 2 weken"]}
+            />
+          </div>
 
           {/* Stat cards row */}
-          <StatCard num="50+" label="Panden gefilmd" index={2} />
-          <StatCard num="3jr" label="Ervaring" index={3} />
-          <StatCard num="100%" label="Op maat" index={4} />
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 mt-4">
+            <StatCard num="50+" label="Panden gefilmd" index={2} />
+            <StatCard num="3jr" label="Ervaring" index={3} />
+            <StatCard num="100%" label="Op maat" index={4} />
+          </div>
         </motion.div>
 
         {/* Bottom tagline */}

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 
 const WORDS = ["video", "design", "content", "impact"];
@@ -22,17 +22,52 @@ function AnimatedWord({ word }: { word: string }) {
   );
 }
 
+function MouseGlow({ x, y }: { x: ReturnType<typeof useMotionValue<number>>; y: ReturnType<typeof useMotionValue<number>> }) {
+  const sx = useSpring(x, { stiffness: 50, damping: 20 });
+  const sy = useSpring(y, { stiffness: 50, damping: 20 });
+  return (
+    <motion.div
+      className="fixed pointer-events-none hidden md:block"
+      aria-hidden="true"
+      style={{
+        left: sx,
+        top: sy,
+        x: "-50%",
+        y: "-50%",
+        width: "520px",
+        height: "520px",
+        borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(184,132,58,0.07) 0%, transparent 65%)",
+        zIndex: 1,
+      }}
+    />
+  );
+}
+
 export default function LandingHero() {
   const [wordIdx, setWordIdx] = useState(0);
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "28%"]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+  const glowX = useMotionValue(-500);
+  const glowY = useMotionValue(-500);
 
   useEffect(() => {
     const t = setInterval(() => setWordIdx(i => (i + 1) % WORDS.length), 2300);
     return () => clearInterval(t);
   }, []);
+
+  useEffect(() => {
+    // Mouse-follow glow — only on devices with a fine pointer
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    const onMove = (e: MouseEvent) => {
+      glowX.set(e.clientX);
+      glowY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [glowX, glowY]);
 
   return (
     <section
@@ -72,6 +107,9 @@ export default function LandingHero() {
           }}
         />
       </motion.div>
+
+      {/* Mouse-follow glow — desktop only */}
+      <MouseGlow x={glowX} y={glowY} />
 
       {/* Thin gold horizontal line — decorative */}
       <motion.div
@@ -213,7 +251,7 @@ export default function LandingHero() {
               <p
                 style={{
                   fontFamily: "var(--font-cormorant)",
-                  fontSize: "2.8rem",
+                  fontSize: "clamp(2rem, 4vw, 2.8rem)",
                   fontWeight: 400,
                   color: "#B8843A",
                   lineHeight: 1,

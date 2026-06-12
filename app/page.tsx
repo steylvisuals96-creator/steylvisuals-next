@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import LandingHero from "@/components/LandingHero";
+import ShowReel from "@/components/ShowReel";
 import ServicesGrid from "@/components/ServicesGrid";
 import LandingCTA from "@/components/LandingCTA";
 import Footer from "@/components/Footer";
@@ -16,6 +17,7 @@ export default function Home() {
       <Nav dark />
       <main>
         <LandingHero />
+        <ShowReel />
         <ServicesGrid />
         <LandingCTA />
       </main>
