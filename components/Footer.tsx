@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer style={{ backgroundColor: "var(--dark)", borderTop: "1px solid rgba(242,237,232,0.06)", padding: "clamp(2.5rem,5vh,4rem) clamp(1.5rem,6vw,5rem)" }}>
+    <footer style={{ background: "linear-gradient(180deg, #0A0A0A 0%, #140A05 45%, var(--dark) 100%)", padding: "clamp(3.5rem,7vh,5.5rem) clamp(1.5rem,6vw,5rem) clamp(2.5rem,5vh,4rem)" }}>
       <div className="flex items-center justify-between flex-wrap gap-6">
         <Link href="/">
           <Image src="/logo/logo-cropped.png" alt="SteylVisuals" width={180} height={104} className="h-10 w-auto brightness-0 invert" />
