@@ -118,7 +118,7 @@ export default function ShowReel() {
             <iframe
               src="https://player.vimeo.com/video/1197526440?autoplay=1&loop=1&muted=1&background=1&controls=0"
               className="w-full h-full"
-              style={{ border: "none" }}
+              style={{ border: "none", transform: "scale(1.28)", transformOrigin: "center" }}
               allow="autoplay; fullscreen"
               title="SteylVisuals showreel"
             />
