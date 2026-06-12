@@ -5,7 +5,6 @@ import Process from "@/components/Process";
 import Pricing from "@/components/Pricing";
 import Showcase from "@/components/Showcase";
 import OverMij from "@/components/OverMij";
-import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import ContactForm from "@/components/ContactForm";
 import CTA from "@/components/CTA";
@@ -28,7 +27,6 @@ export default function VastgoedMarketingPage() {
         <Pricing />
         <Showcase />
         <OverMij />
-        <Testimonials />
         <FAQ />
         <ContactForm />
         <CTA />
