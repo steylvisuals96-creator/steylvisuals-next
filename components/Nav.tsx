@@ -8,6 +8,7 @@ import Link from "next/link";
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 const navLinks = [
+  { label: "Home", href: "/" },
   { label: "Vastgoed Marketing", href: "/vastgoed-marketing" },
   { label: "Webdesign", href: "/webdesign" },
   { label: "Portfolio", href: "/portfolio" },
@@ -211,7 +212,7 @@ export default function Nav({ dark = false }: { dark?: boolean }) {
                     letterSpacing: "0.15em",
                   }}
                 >
-                  04
+                  0{navLinks.length + 1}
                 </span>
                 <span
                   style={{
