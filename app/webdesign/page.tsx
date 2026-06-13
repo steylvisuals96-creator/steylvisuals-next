@@ -11,7 +11,7 @@ export const metadata = {
 export default function WebdesignPage() {
   return (
     <>
-      <Nav />
+      <Nav dark />
       <main>
         <WebdesignClient />
       </main>
