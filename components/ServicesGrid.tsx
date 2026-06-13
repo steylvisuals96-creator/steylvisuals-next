@@ -269,13 +269,13 @@ export default function ServicesGrid() {
             {/* Service 1 — Vastgoed Marketing */}
             <ServiceCard
               href="/vastgoed-marketing"
-              tag="Video · Drone · Social"
+              tag="Video · Social"
               title={"Vastgoed\nMarketing"}
               description="Cinematic short-form video die jouw panden in de kijker zet op Instagram, TikTok en LinkedIn. Meer viewings, sneller verkopen."
               cta="Ontdek vastgoed marketing"
               index={0}
               accent="#B8843A"
-              bullets={["Instagram Reels & TikTok", "Drone footage", "Gratis demo-edit"]}
+              bullets={["Instagram Reels & TikTok", "Gratis demo-edit"]}
             />
 
             {/* Service 2 — Webdesign */}
