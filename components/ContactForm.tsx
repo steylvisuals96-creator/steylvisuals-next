@@ -86,22 +86,22 @@ export default function ContactForm() {
 
               <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Naam</label>
+                  <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Voornaam</label>
                   <input
                     type="text"
-                    name="naam"
+                    name="voornaam"
                     required
-                    placeholder="Jouw naam"
+                    placeholder="Jouw voornaam"
                     className="text-sm font-light outline-none"
                     style={{ backgroundColor: "var(--off-white)", border: "1px solid var(--beige-mid)", borderRadius: "10px", padding: "0.75rem 1rem", color: "var(--dark)" }}
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Kantoor</label>
+                  <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--muted)" }}>Achternaam</label>
                   <input
                     type="text"
-                    name="kantoor"
-                    placeholder="Jouw kantoor"
+                    name="achternaam"
+                    placeholder="Jouw achternaam"
                     className="text-sm font-light outline-none"
                     style={{ backgroundColor: "var(--off-white)", border: "1px solid var(--beige-mid)", borderRadius: "10px", padding: "0.75rem 1rem", color: "var(--dark)" }}
                   />
