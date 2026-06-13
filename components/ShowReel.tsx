@@ -116,8 +116,8 @@ export default function ShowReel() {
             }}
           >
             <video
-              src="/videos/web/appartement-sint-truiden.mp4"
-              poster="/videos/web/appartement-sint-truiden.jpg"
+              src="/videos/web/hasselt-elegance.mp4"
+              poster="/videos/web/hasselt-elegance.jpg"
               autoPlay
               muted
               loop
