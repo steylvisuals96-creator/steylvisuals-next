@@ -275,7 +275,7 @@ export default function ServicesGrid() {
               cta="Ontdek vastgoed marketing"
               index={0}
               accent="#B8843A"
-              bullets={["Instagram Reels & TikTok", "Gratis demo-edit"]}
+              bullets={["Instagram Reels & TikTok", "Cinematic kleurgrading", "Gratis demo-edit"]}
             />
 
             {/* Service 2 — Webdesign */}
