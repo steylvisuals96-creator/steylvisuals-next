@@ -126,24 +126,6 @@ export default function LandingHero() {
         style={{ opacity: contentOpacity }}
         className="relative z-10 px-6 sm:px-12 lg:px-24 pt-28 pb-20 w-full max-w-[1400px] mx-auto"
       >
-        {/* Eyebrow */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.25 }}
-          className="flex items-center gap-3 mb-10"
-          style={{
-            fontFamily: "var(--font-dm-sans)",
-            fontSize: "0.7rem",
-            fontWeight: 500,
-            letterSpacing: "0.28em",
-            textTransform: "uppercase",
-            color: "#B8843A",
-          }}
-        >
-          <span className="block w-8 h-px" style={{ backgroundColor: "#B8843A" }} />
-          Creative Studio · België
-        </motion.p>
 
         {/* Giant headline */}
         <div className="mb-10">
