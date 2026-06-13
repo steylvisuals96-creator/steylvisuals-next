@@ -7,7 +7,7 @@ import AnimateIn from "./AnimateIn";
 const faqs = [
   {
     q: "Moet ik zelf filmen of kom jij ter plaatse?",
-    a: "Dat kies jij zelf. Bij het Edit Only-pakket film jij met mijn persoonlijke Film Guide. Bij Starter en Groei kom ik zelf langs voor een professionele shoot, inclusief drone bij het Groei-pakket.",
+    a: "Dat kies jij zelf. Bij het Edit Only-pakket film jij met mijn persoonlijke Film Guide. Bij Starter kom ik langs voor een halve dag shoot, bij Groei een volledige dag.",
   },
   {
     q: "Hoe snel ontvang ik mijn video's?",
