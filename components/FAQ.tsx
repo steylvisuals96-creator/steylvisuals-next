@@ -85,7 +85,7 @@ export default function FAQ() {
   return (
     <section id="faq" style={{ backgroundColor: "var(--off-white)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
       <div className="grid gap-16 grid-cols-1 lg:grid-cols-[1fr_1.6fr]" style={{ alignItems: "start" }}>
-        <div className="sticky top-28">
+        <div className="lg:sticky lg:top-28">
           <AnimateIn>
             <p className="flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-5" style={{ color: "var(--gold)" }}>
               <span className="w-4 h-px" style={{ backgroundColor: "var(--gold)" }} />
