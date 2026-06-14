@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, type MotionValue } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import AnimateIn from "./AnimateIn";
 
@@ -96,7 +96,7 @@ function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) 
 }
 
 /* Real photo hero visual - no div-based fake screenshot */
-function HeroVisual({ y }: { y: ReturnType<typeof useTransform> }) {
+function HeroVisual({ y }: { y: MotionValue<number> }) {
   return (
     <motion.div style={{ y }} className="relative">
       <motion.div
