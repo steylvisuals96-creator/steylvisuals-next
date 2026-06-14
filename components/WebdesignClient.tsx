@@ -118,11 +118,13 @@ function BrowserMockup() {
       <div style={{ backgroundColor: "#1C0E07", padding: "2rem 1.5rem" }}>
         <div className="flex justify-between items-center mb-6">
           <div style={{ width: "60px", height: "10px", borderRadius: "4px", backgroundColor: "rgba(242,237,232,0.7)" }} />
-          <div className="flex gap-3">
-            {[40, 55, 40].map((w, i) => (
-              <div key={i} style={{ width: `${w}px`, height: "8px", borderRadius: "4px", backgroundColor: "rgba(242,237,232,0.2)" }} />
-            ))}
-            <div style={{ width: "64px", height: "28px", borderRadius: "100px", backgroundColor: "#B8843A" }} />
+          <div className="flex gap-2 items-center">
+            <div className="hidden sm:flex gap-2">
+              {[40, 55, 40].map((w, i) => (
+                <div key={i} style={{ width: `${w}px`, height: "8px", borderRadius: "4px", backgroundColor: "rgba(242,237,232,0.2)" }} />
+              ))}
+            </div>
+            <div style={{ width: "56px", height: "26px", borderRadius: "100px", backgroundColor: "#B8843A" }} />
           </div>
         </div>
         <div className="mb-4">
@@ -176,6 +178,7 @@ function ContactSection() {
     padding: "0.75rem 1rem",
     color: "#FDFAF7",
     outline: "none",
+    fontSize: "16px", // prevents iOS zoom on focus
   };
 
   return (
@@ -303,7 +306,7 @@ export default function WebdesignClient() {
       <section
         ref={heroRef}
         className="relative overflow-hidden"
-        style={{ backgroundColor: "#0A0A0A", padding: "calc(72px + 5rem) clamp(1.5rem,6vw,5rem) clamp(5rem,10vh,7rem)", minHeight: "90vh" }}
+        style={{ backgroundColor: "#0A0A0A", padding: "calc(72px + 3rem) clamp(1.5rem,6vw,5rem) clamp(3.5rem,8vh,6rem)" }}
       >
         {/* Ambient glow */}
         <div className="absolute pointer-events-none" aria-hidden="true" style={{ inset: 0, background: "radial-gradient(ellipse 70% 60% at 60% 0%, rgba(184,132,58,0.08) 0%, transparent 70%)" }} />
@@ -345,11 +348,11 @@ export default function WebdesignClient() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.35, ease: EASE }}
-              className="flex items-center gap-6 flex-wrap"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6"
             >
               <motion.a
                 href="#webdesign-contact"
-                className="text-sm font-medium rounded-full px-8 py-4 cursor-pointer"
+                className="text-sm font-medium rounded-full px-8 py-4 cursor-pointer text-center"
                 style={{ backgroundColor: "#B8843A", color: "#0A0A0A" }}
                 whileHover={{ backgroundColor: "#CFA05A", scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
@@ -358,7 +361,7 @@ export default function WebdesignClient() {
               </motion.a>
               <motion.a
                 href="#werkwijze"
-                className="text-sm font-normal cursor-pointer flex items-center gap-2"
+                className="text-sm font-normal cursor-pointer flex items-center justify-center sm:justify-start gap-2 py-2"
                 style={{ color: "rgba(253,250,247,0.5)" }}
                 whileHover={{ color: "#FDFAF7" }}
                 transition={{ duration: 0.2 }}
@@ -383,7 +386,7 @@ export default function WebdesignClient() {
 
       {/* ── STATS ── */}
       <section style={{ backgroundColor: "#111", padding: "3.5rem clamp(1.5rem,6vw,5rem)", borderTop: "1px solid rgba(184,132,58,0.1)", borderBottom: "1px solid rgba(184,132,58,0.1)" }}>
-        <div className="max-w-[1100px] mx-auto grid grid-cols-1 sm:grid-cols-3 gap-10 text-center">
+        <div className="max-w-[1100px] mx-auto grid grid-cols-3 gap-4 sm:gap-10 text-center">
           {[
             { value: 100, suffix: "%", label: "Op maat gebouwd — geen templates" },
             { value: 48, suffix: "u", label: "Eerste voorstel in jouw inbox" },
@@ -396,7 +399,7 @@ export default function WebdesignClient() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: EASE }}
             >
-              <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.8rem,5vw,4rem)", fontWeight: 300, color: "#B8843A", lineHeight: 1 }}>
+              <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.8rem,5vw,4rem)", fontWeight: 300, color: "#B8843A", lineHeight: 1 }}>
                 <AnimatedNumber target={s.value} suffix={s.suffix} />
               </p>
               <p className="mt-2 text-xs font-light" style={{ color: "rgba(253,250,247,0.4)", maxWidth: "180px", margin: "0.5rem auto 0" }}>{s.label}</p>
@@ -551,7 +554,7 @@ export default function WebdesignClient() {
           </div>
 
           <AnimateIn direction="right">
-            <div className="flex flex-col gap-4 p-8" style={{ backgroundColor: "rgba(184,132,58,0.04)", borderRadius: "24px", border: "1px solid rgba(184,132,58,0.15)" }}>
+            <div className="flex flex-col gap-4 p-5 sm:p-8" style={{ backgroundColor: "rgba(184,132,58,0.04)", borderRadius: "24px", border: "1px solid rgba(184,132,58,0.15)" }}>
               {[
                 { label: "Website", icon: "globe", desc: "Op maat, SEO-klaar, CMS inbegrepen" },
                 { label: "Video content", icon: "video", desc: "Maandelijkse Reels, TikTok & LinkedIn" },
