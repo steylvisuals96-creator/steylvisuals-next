@@ -95,7 +95,7 @@ function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) 
   return <span ref={ref}>{val}{suffix}</span>;
 }
 
-/* Real photo hero visual - no div-based fake screenshot */
+/* Website mockup preview — shows what we actually build */
 function HeroVisual({ y }: { y: MotionValue<number> }) {
   return (
     <motion.div style={{ y }} className="relative">
@@ -108,43 +108,86 @@ function HeroVisual({ y }: { y: MotionValue<number> }) {
           borderRadius: "20px",
           border: "1px solid rgba(184,132,58,0.22)",
           boxShadow: "0 40px 100px rgba(0,0,0,0.65), 0 0 60px rgba(184,132,58,0.07)",
+          backgroundColor: "#0f0f0f",
         }}
+        aria-label="Voorbeeld makelaar website"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://picsum.photos/seed/luxury-interior-property-limburg/600/760"
-          alt="Premium vastgoedwebsite voorbeeld"
-          style={{ width: "100%", display: "block", aspectRatio: "3/4", objectFit: "cover" }}
-        />
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to top, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.15) 45%, transparent 70%)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: "1.25rem",
-            left: "1.25rem",
-            right: "1.25rem",
-            backgroundColor: "rgba(10,10,10,0.6)",
-            backdropFilter: "blur(14px)",
-            WebkitBackdropFilter: "blur(14px)",
-            borderRadius: "10px",
-            border: "1px solid rgba(184,132,58,0.18)",
-            padding: "0.65rem 1rem",
-            display: "flex",
-            alignItems: "center",
-            gap: "0.6rem",
-          }}
-        >
-          <span style={{ width: "7px", height: "7px", borderRadius: "50%", backgroundColor: "#4ade80", flexShrink: 0 }} />
-          <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.7rem", color: "rgba(253,250,247,0.65)" }}>
-            steylvisuals.be — Live
-          </span>
+        {/* Fake browser chrome */}
+        <div style={{ backgroundColor: "#1a1a1a", padding: "0.6rem 1rem", display: "flex", alignItems: "center", gap: "0.5rem", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+          <span style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#ff5f57" }} />
+          <span style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#febc2e" }} />
+          <span style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#28c840" }} />
+          <div style={{ flex: 1, marginLeft: "0.5rem", backgroundColor: "#111", borderRadius: "6px", padding: "0.2rem 0.75rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M2 12h20"/></svg>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.6rem", color: "rgba(255,255,255,0.25)" }}>luxevilla-limburg.be</span>
+          </div>
+        </div>
+
+        {/* Fake website content */}
+        <div style={{ backgroundColor: "#0d0d0d" }}>
+
+          {/* Site nav */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.65rem 1.1rem", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+            <span style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.85rem", fontWeight: 600, color: "#FDFAF7", letterSpacing: "0.03em" }}>Luxevilla</span>
+            <div style={{ display: "flex", gap: "0.9rem" }}>
+              {["Panden", "Over ons", "Contact"].map(l => (
+                <span key={l} style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.5rem", color: "rgba(255,255,255,0.35)" }}>{l}</span>
+              ))}
+              <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.5rem", backgroundColor: "#B8843A", color: "#0d0d0d", borderRadius: "20px", padding: "0.18rem 0.55rem", fontWeight: 500 }}>Gratis schatting</span>
+            </div>
+          </div>
+
+          {/* Hero banner */}
+          <div style={{ position: "relative", height: "140px", background: "linear-gradient(135deg, #1a1208 0%, #261a0a 50%, #1a1208 100%)", display: "flex", flexDirection: "column", justifyContent: "center", padding: "1rem 1.1rem", overflow: "hidden" }}>
+            {/* Subtle gold grid overlay */}
+            <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(184,132,58,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(184,132,58,0.04) 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
+            <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 70% 80% at 80% 50%, rgba(184,132,58,0.12) 0%, transparent 65%)" }} />
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.48rem", color: "#B8843A", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.3rem" }}>Exclusief vastgoed · Limburg</span>
+            <span style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.3rem", fontWeight: 400, color: "#FDFAF7", lineHeight: 1.1, marginBottom: "0.5rem" }}>Uitzonderlijk wonen,<br /><em style={{ color: "#B8843A" }}>uitzonderlijke service</em></span>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.45rem", color: "rgba(253,250,247,0.38)", maxWidth: "55%", lineHeight: 1.5 }}>Van villa tot appartementsproject — wij begeleiden u van A tot Z.</span>
+            <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.7rem" }}>
+              <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.45rem", backgroundColor: "#B8843A", color: "#0d0d0d", borderRadius: "20px", padding: "0.22rem 0.7rem", fontWeight: 500 }}>Bekijk panden</span>
+              <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.45rem", color: "rgba(253,250,247,0.45)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "20px", padding: "0.22rem 0.7rem" }}>Gratis waardebepaling</span>
+            </div>
+          </div>
+
+          {/* Property listings */}
+          <div style={{ padding: "0.9rem 1.1rem" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.6rem" }}>
+              <span style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.75rem", fontWeight: 500, color: "#FDFAF7" }}>Recente panden</span>
+              <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.42rem", color: "#B8843A" }}>Alle panden →</span>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.5rem" }}>
+              {[
+                { loc: "Hasselt", type: "Villa", price: "€ 895.000", beds: "5", sqm: "320 m²", hue: "130deg" },
+                { loc: "Sint-Truiden", type: "Appartement", price: "€ 285.000", beds: "2", sqm: "95 m²", hue: "200deg" },
+                { loc: "Tongeren", type: "Hoeve", price: "€ 560.000", beds: "4", sqm: "480 m²", hue: "25deg" },
+              ].map((p) => (
+                <div key={p.loc} style={{ backgroundColor: "#161616", borderRadius: "6px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.05)" }}>
+                  <div style={{ height: "52px", background: `linear-gradient(${p.hue}, #1c1208, #261a0a)`, position: "relative" }}>
+                    <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 80% 60% at 30% 40%, rgba(184,132,58,0.1) 0%, transparent 70%)" }} />
+                    <span style={{ position: "absolute", top: "0.35rem", left: "0.35rem", fontFamily: "var(--font-dm-sans)", fontSize: "0.38rem", backgroundColor: "rgba(10,10,10,0.7)", color: "#B8843A", borderRadius: "4px", padding: "0.1rem 0.3rem" }}>{p.type}</span>
+                  </div>
+                  <div style={{ padding: "0.4rem 0.45rem" }}>
+                    <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.62rem", fontWeight: 500, color: "#FDFAF7", marginBottom: "0.12rem" }}>{p.loc}</p>
+                    <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.5rem", fontWeight: 600, color: "#B8843A", marginBottom: "0.2rem" }}>{p.price}</p>
+                    <div style={{ display: "flex", gap: "0.35rem" }}>
+                      <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.38rem", color: "rgba(255,255,255,0.28)" }}>{p.beds} slpk</span>
+                      <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.38rem", color: "rgba(255,255,255,0.15)" }}>·</span>
+                      <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.38rem", color: "rgba(255,255,255,0.28)" }}>{p.sqm}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+
+        {/* URL bar overlay */}
+        <div style={{ padding: "0.55rem 0.9rem", backgroundColor: "#1a1a1a", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#4ade80", flexShrink: 0 }} />
+          <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.58rem", color: "rgba(253,250,247,0.4)" }}>luxevilla-limburg.be — Live</span>
         </div>
       </motion.div>
 
