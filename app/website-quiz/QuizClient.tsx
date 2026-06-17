@@ -100,18 +100,16 @@ export default function QuizClient() {
     setSubmitting(true);
     setSubmitError(null);
     try {
-      const body = new URLSearchParams({
-        "form-name":      "website-quiz",
-        naam:             contact.naam,
-        email:            contact.email,
-        telefoon:         contact.telefoon,
-        aanbevolen_stijl: DEMOS.find(d => d.slug === rec)?.name ?? rec,
-        quiz_samenvatting: buildQuizSummary(),
-      });
-      const res = await fetch("/website-quiz", {
+      const res = await fetch("/api/quiz-contact", {
         method:  "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body:    body.toString(),
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({
+          naam:              contact.naam,
+          email:             contact.email,
+          telefoon:          contact.telefoon,
+          aanbevolen_stijl:  DEMOS.find(d => d.slug === rec)?.name ?? rec,
+          quiz_samenvatting: buildQuizSummary(),
+        }),
       });
       if (!res.ok) throw new Error("submit");
       go(10);
@@ -124,15 +122,6 @@ export default function QuizClient() {
 
   return (
     <div className="min-h-[100dvh] bg-[var(--off-white)]">
-
-      {/* Hidden form for Netlify to detect at build time */}
-      <form name="website-quiz" data-netlify="true" style={{ display: "none" }}>
-        <input type="text"  name="naam" />
-        <input type="email" name="email" />
-        <input type="tel"   name="telefoon" />
-        <input type="text"  name="aanbevolen_stijl" />
-        <textarea           name="quiz_samenvatting" />
-      </form>
 
       {/* ── Demo preview overlay ── */}
       <AnimatePresence>
@@ -406,9 +395,6 @@ export default function QuizClient() {
                 </p>
 
                 <form onSubmit={handleContactSubmit} className="flex flex-col gap-4 mb-6">
-                  <input type="hidden" name="form-name" value="website-quiz" />
-                  <input type="hidden" name="aanbevolen_stijl" value={DEMOS.find(d => d.slug === rec)?.name ?? rec} />
-                  <input type="hidden" name="quiz_samenvatting" value={buildQuizSummary()} />
 
                   {/* Naam */}
                   <div>
