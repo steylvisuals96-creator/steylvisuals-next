@@ -1,8 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+
+interface ContactForm {
+  naam: string;
+  email: string;
+  telefoon: string;
+}
 
 interface QuizAnswers {
   kantoorNaam: string;
@@ -48,11 +54,16 @@ const slide = {
   exit:  (d: number) => ({ x: d > 0 ? -56 : 56, opacity: 0 }),
 };
 
+const CONTACT_INITIAL: ContactForm = { naam: "", email: "", telefoon: "" };
+
 export default function QuizClient() {
   const [step, setStep]           = useState(-1);
   const [dir, setDir]             = useState(1);
   const [answers, setAnswers]     = useState<QuizAnswers>(INITIAL);
   const [preview, setPreview]     = useState<string | null>(null);
+  const [contact, setContact]     = useState<ContactForm>(CONTACT_INITIAL);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const TOTAL = 8;
 
@@ -73,23 +84,55 @@ export default function QuizClient() {
     return true;
   };
 
-  const mailto = () => {
-    const lines = [
-      `Kantoor: ${answers.kantoorNaam || "—"}`,
-      `Regio: ${answers.regio || "—"}`,
-      `Type panden: ${answers.typePanden.join(", ") || "—"}`,
-      `Gemiddelde vraagprijs: ${answers.prijsklasse || "—"}`,
-      `Stijlvoorkeur: ${DEMOS.find(d => d.slug === rec)?.name || "—"}`,
-      `Huisstijl: ${answers.huisstijl || "—"}`,
-      `Online wanneer: ${answers.deadline || "—"}`,
-      `Gewenste functies: ${answers.functies.join(", ") || "—"}`,
-    ].join("\n");
-    const body = `Hallo SteylVisuals,\n\nIk heb de website quiz ingevuld:\n\n${lines}\n\nGraag een vrijblijvend gesprek.\n\nMet vriendelijke groeten,\n${answers.kantoorNaam}`;
-    return `mailto:steylvisuals96@gmail.com?subject=${encodeURIComponent(`Website quiz — ${answers.kantoorNaam || "Vastgoedkantoor"}`)}&body=${encodeURIComponent(body)}`;
+  const buildQuizSummary = () => [
+    `Kantoor: ${answers.kantoorNaam || "—"}`,
+    `Regio: ${answers.regio || "—"}`,
+    `Type panden: ${answers.typePanden.join(", ") || "—"}`,
+    `Gemiddelde vraagprijs: ${answers.prijsklasse || "—"}`,
+    `Stijlvoorkeur: ${DEMOS.find(d => d.slug === rec)?.name || "—"}`,
+    `Huisstijl: ${answers.huisstijl || "—"}`,
+    `Online wanneer: ${answers.deadline || "—"}`,
+    `Gewenste functies: ${answers.functies.join(", ") || "—"}`,
+  ].join("\n");
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const body = new URLSearchParams({
+        "form-name":      "website-quiz",
+        naam:             contact.naam,
+        email:            contact.email,
+        telefoon:         contact.telefoon,
+        aanbevolen_stijl: DEMOS.find(d => d.slug === rec)?.name ?? rec,
+        quiz_samenvatting: buildQuizSummary(),
+      });
+      const res = await fetch("/website-quiz", {
+        method:  "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body:    body.toString(),
+      });
+      if (!res.ok) throw new Error("submit");
+      go(10);
+    } catch {
+      setSubmitError("Er liep iets mis. Probeer opnieuw of mail ons direct.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
     <div className="min-h-[100dvh] bg-[var(--off-white)]">
+
+      {/* Hidden form for Netlify to detect at build time */}
+      <form name="website-quiz" data-netlify="true" style={{ display: "none" }}>
+        <input type="text"  name="naam" />
+        <input type="email" name="email" />
+        <input type="tel"   name="telefoon" />
+        <input type="text"  name="aanbevolen_stijl" />
+        <textarea           name="quiz_samenvatting" />
+      </form>
 
       {/* ── Demo preview overlay ── */}
       <AnimatePresence>
@@ -345,6 +388,150 @@ export default function QuizClient() {
               </motion.div>
             )}
 
+            {/* ── Contact form ── */}
+            {step === 9 && (
+              <motion.div key="contact" custom={dir} variants={slide} initial="enter" animate="center" exit="exit"
+                transition={{ duration: 0.6, ease: EASE }} className="flex-1 flex flex-col">
+                <Label text="Laatste stap" gold />
+                <h2 className="mb-3 leading-tight" style={{
+                  fontSize: "clamp(1.8rem, 4.5vw, 2.8rem)",
+                  fontFamily: "var(--font-cormorant)",
+                  fontWeight: 300,
+                  color: "var(--dark)",
+                }}>
+                  Laat uw gegevens achter.
+                </h2>
+                <p className="text-sm leading-relaxed mb-8 max-w-md" style={{ color: "var(--muted)" }}>
+                  Wij contacteren u voor een vrijblijvend gesprek over uw website — geen verplichtingen, geen spam.
+                </p>
+
+                <form onSubmit={handleContactSubmit} className="flex flex-col gap-4 mb-6">
+                  <input type="hidden" name="form-name" value="website-quiz" />
+                  <input type="hidden" name="aanbevolen_stijl" value={DEMOS.find(d => d.slug === rec)?.name ?? rec} />
+                  <input type="hidden" name="quiz_samenvatting" value={buildQuizSummary()} />
+
+                  {/* Naam */}
+                  <div>
+                    <label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: "var(--muted)" }}>
+                      Naam *
+                    </label>
+                    <input
+                      type="text"
+                      name="naam"
+                      required
+                      placeholder="Uw naam of bedrijfsnaam"
+                      value={contact.naam}
+                      onChange={e => setContact(c => ({ ...c, naam: e.target.value }))}
+                      className="w-full border-b-2 bg-transparent pb-3 outline-none transition-colors text-lg"
+                      style={{ borderColor: "var(--beige-deep)", fontFamily: "var(--font-cormorant)", color: "var(--dark)" }}
+                      onFocus={e => (e.currentTarget.style.borderColor = "var(--gold)")}
+                      onBlur={e => (e.currentTarget.style.borderColor = "var(--beige-deep)")}
+                    />
+                  </div>
+
+                  {/* E-mail */}
+                  <div>
+                    <label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: "var(--muted)" }}>
+                      E-mailadres *
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="uw@kantoor.be"
+                      value={contact.email}
+                      onChange={e => setContact(c => ({ ...c, email: e.target.value }))}
+                      className="w-full border-b-2 bg-transparent pb-3 outline-none transition-colors text-lg"
+                      style={{ borderColor: "var(--beige-deep)", fontFamily: "var(--font-cormorant)", color: "var(--dark)" }}
+                      onFocus={e => (e.currentTarget.style.borderColor = "var(--gold)")}
+                      onBlur={e => (e.currentTarget.style.borderColor = "var(--beige-deep)")}
+                    />
+                  </div>
+
+                  {/* Telefoon */}
+                  <div>
+                    <label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: "var(--muted)" }}>
+                      Telefoonnummer <span style={{ color: "var(--beige-deep)" }}>(optioneel)</span>
+                    </label>
+                    <input
+                      type="tel"
+                      name="telefoon"
+                      placeholder="+32 ..."
+                      value={contact.telefoon}
+                      onChange={e => setContact(c => ({ ...c, telefoon: e.target.value }))}
+                      className="w-full border-b-2 bg-transparent pb-3 outline-none transition-colors text-lg"
+                      style={{ borderColor: "var(--beige-deep)", fontFamily: "var(--font-cormorant)", color: "var(--dark)" }}
+                      onFocus={e => (e.currentTarget.style.borderColor = "var(--gold)")}
+                      onBlur={e => (e.currentTarget.style.borderColor = "var(--beige-deep)")}
+                    />
+                  </div>
+
+                  {submitError && (
+                    <p className="text-sm" style={{ color: "#b45309" }}>{submitError}</p>
+                  )}
+
+                  <div className="flex items-center gap-4 mt-4">
+                    <button type="button" onClick={() => go(8)}
+                      className="text-sm transition-colors cursor-pointer"
+                      style={{ color: "var(--muted)" }}
+                      onMouseOver={e => (e.currentTarget.style.color = "var(--dark)")}
+                      onMouseOut={e => (e.currentTarget.style.color = "var(--muted)")}
+                    >
+                      ← Terug
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={submitting || !contact.naam || !contact.email}
+                      className="inline-flex items-center gap-2 px-8 py-3.5 text-sm transition-all duration-200 cursor-pointer disabled:cursor-not-allowed"
+                      style={(submitting || !contact.naam || !contact.email) ? {
+                        background: "var(--beige-mid)",
+                        color: "var(--beige-deep)",
+                      } : {
+                        background: "var(--dark)",
+                        color: "var(--beige)",
+                      }}
+                      onMouseOver={e => { if (!submitting && contact.naam && contact.email) (e.currentTarget as HTMLButtonElement).style.background = "var(--brown-warm)"; }}
+                      onMouseOut={e => { if (!submitting && contact.naam && contact.email) (e.currentTarget as HTMLButtonElement).style.background = "var(--dark)"; }}
+                    >
+                      {submitting ? "Verzenden…" : "Verstuur aanvraag →"}
+                    </button>
+                  </div>
+                </form>
+              </motion.div>
+            )}
+
+            {/* ── Success ── */}
+            {step === 10 && (
+              <motion.div key="success" custom={dir} variants={slide} initial="enter" animate="center" exit="exit"
+                transition={{ duration: 0.6, ease: EASE }} className="flex-1 flex flex-col justify-center">
+                <div className="mb-6">
+                  <span className="inline-block w-12 h-12 rounded-full flex items-center justify-center text-2xl" style={{ background: "var(--gold)" }}>
+                    ✓
+                  </span>
+                </div>
+                <Label text="Verzonden" gold />
+                <h2 className="mb-4 leading-tight" style={{
+                  fontSize: "clamp(1.8rem, 4.5vw, 2.8rem)",
+                  fontFamily: "var(--font-cormorant)",
+                  fontWeight: 300,
+                  color: "var(--dark)",
+                }}>
+                  Bedankt, {contact.naam || "u"}.
+                </h2>
+                <p className="text-base leading-relaxed mb-10 max-w-md" style={{ color: "var(--muted)" }}>
+                  Uw aanvraag is ontvangen. We nemen zo snel mogelijk contact met u op — normaal gezien binnen 1 werkdag.
+                </p>
+                <div className="border-t pt-6" style={{ borderColor: "var(--beige-deep)" }}>
+                  <p className="text-xs font-mono uppercase tracking-widest mb-3" style={{ color: "var(--muted)" }}>
+                    Aanbevolen stijl
+                  </p>
+                  <p className="text-sm" style={{ color: "var(--dark)" }}>
+                    {DEMOS.find(d => d.slug === rec)?.name} — <span style={{ color: "var(--muted)" }}>{DEMOS.find(d => d.slug === rec)?.label}</span>
+                  </p>
+                </div>
+              </motion.div>
+            )}
+
             {/* ── Results ── */}
             {step === 8 && (
               <motion.div key="results" custom={dir} variants={slide} initial="enter" animate="center" exit="exit"
@@ -441,17 +628,17 @@ export default function QuizClient() {
 
                 {/* CTA */}
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <a
-                    href={mailto()}
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 text-sm transition-colors duration-200"
+                  <button
+                    onClick={() => go(9)}
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 text-sm transition-colors duration-200 cursor-pointer"
                     style={{ background: "var(--dark)", color: "var(--beige)" }}
                     onMouseOver={e => (e.currentTarget.style.background = "var(--brown-warm)")}
                     onMouseOut={e => (e.currentTarget.style.background = "var(--dark)")}
                   >
                     Vraag een vrijblijvend voorstel aan →
-                  </a>
+                  </button>
                   <button
-                    onClick={() => { setStep(-1); setAnswers(INITIAL); setDir(-1); }}
+                    onClick={() => { setStep(-1); setAnswers(INITIAL); setContact(CONTACT_INITIAL); setDir(-1); }}
                     className="inline-flex items-center justify-center px-6 py-4 text-sm border cursor-pointer transition-colors duration-200"
                     style={{ borderColor: "var(--beige-deep)", color: "var(--muted)" }}
                     onMouseOver={e => {
