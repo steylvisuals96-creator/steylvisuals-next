@@ -124,137 +124,165 @@ export default function LandingHero() {
       {/* Main content */}
       <motion.div
         style={{ opacity: contentOpacity }}
-        className="relative z-10 px-6 sm:px-12 lg:px-24 pt-28 pb-20 w-full max-w-[1400px] mx-auto"
+        className="relative z-10 px-6 sm:px-12 lg:px-24 pt-28 pb-20 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
       >
+        {/* Left: text */}
+        <div>
+          {/* Giant headline */}
+          <div className="mb-10">
+            <motion.h1
+              initial={{ opacity: 0, y: 55 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.1, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                fontSize: "clamp(3rem, 5.5vw, 7rem)",
+                fontWeight: 400,
+                lineHeight: 1.02,
+                letterSpacing: "-0.025em",
+                color: "#FDFAF7",
+              }}
+            >
+              Wij maken
+              <br />
+              <em style={{ fontStyle: "italic", color: "#B8843A" }}>premium</em>
+              {" "}
+              <span style={{ display: "inline-block", position: "relative" }}>
+                <AnimatedWord word={WORDS[wordIdx]} />
+              </span>
+              <br />
+              voor makelaars
+            </motion.h1>
+          </div>
 
-        {/* Giant headline */}
-        <div className="mb-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 55 }}
+          {/* Subtext */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.1, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontFamily: "var(--font-cormorant)",
-              fontSize: "clamp(3rem, 7.8vw, 9rem)",
-              fontWeight: 400,
-              lineHeight: 1.02,
-              letterSpacing: "-0.025em",
-              color: "#FDFAF7",
+              fontFamily: "var(--font-dm-sans)",
+              fontSize: "1.05rem",
+              fontWeight: 300,
+              lineHeight: 1.7,
+              color: "rgba(253,250,247,0.52)",
+              maxWidth: "420px",
+              marginBottom: "3rem",
             }}
           >
-            Wij maken
-            <br />
-            <em style={{ fontStyle: "italic", color: "#B8843A" }}>premium</em>
-            {" "}
-            <span style={{ display: "inline-block", position: "relative" }}>
-              <AnimatedWord word={WORDS[wordIdx]} />
-            </span>
-            <br />
-            voor makelaars
-          </motion.h1>
+            Van cinematic vastgoedvideo tot een website die converteert.
+            Jouw creatieve partner in België.
+          </motion.p>
+
+          {/* CTA buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.72 }}
+            className="flex flex-wrap gap-4 items-center"
+            style={{ marginBottom: "4rem" }}
+          >
+            <motion.a
+              href="/vastgoed-marketing"
+              className="flex items-center gap-2 text-sm font-medium rounded-full cursor-pointer"
+              style={{
+                backgroundColor: "#B8843A",
+                color: "#0A0A0A",
+                padding: "1rem 2rem",
+                fontFamily: "var(--font-dm-sans)",
+              }}
+              whileHover={{ backgroundColor: "#CFA05A", scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.2 }}
+            >
+              Vastgoed Marketing
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </motion.a>
+            <motion.a
+              href="/webdesign"
+              className="flex items-center gap-2 text-sm font-medium rounded-full cursor-pointer"
+              style={{
+                border: "1px solid rgba(253,250,247,0.18)",
+                color: "#FDFAF7",
+                padding: "1rem 2rem",
+                fontFamily: "var(--font-dm-sans)",
+              }}
+              whileHover={{ borderColor: "rgba(184,132,58,0.55)", color: "#B8843A", scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.2 }}
+            >
+              Webdesign
+            </motion.a>
+          </motion.div>
+
+          {/* Stats row */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="flex flex-wrap gap-10 sm:gap-14"
+            style={{ borderTop: "1px solid rgba(253,250,247,0.07)", paddingTop: "2rem" }}
+          >
+            {[
+              { num: "50+", label: "Panden gefilmd" },
+              { num: "3", label: "Jaar ervaring" },
+              { num: "2", label: "Services" },
+            ].map(({ num, label }) => (
+              <div key={label}>
+                <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 400, color: "#B8843A", lineHeight: 1 }}>
+                  {num}
+                </p>
+                <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.7rem", color: "rgba(253,250,247,0.38)", marginTop: "0.35rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                  {label}
+                </p>
+              </div>
+            ))}
+          </motion.div>
         </div>
 
-        {/* Subtext */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            fontFamily: "var(--font-dm-sans)",
-            fontSize: "1.1rem",
-            fontWeight: 300,
-            lineHeight: 1.7,
-            color: "rgba(253,250,247,0.52)",
-            maxWidth: "460px",
-            marginBottom: "3.5rem",
-          }}
-        >
-          Van cinematic vastgoedvideo tot een website die converteert.
-          Jouw creatieve partner in België.
-        </motion.p>
-
-        {/* CTA buttons */}
+        {/* Right: portrait photo */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.72 }}
-          className="flex flex-wrap gap-4 items-center"
-          style={{ marginBottom: "5rem" }}
+          initial={{ opacity: 0, scale: 0.96, y: 30 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="hidden lg:block relative"
+          style={{ height: "clamp(480px, 70vh, 700px)" }}
         >
-          <motion.a
-            href="/vastgoed-marketing"
-            className="flex items-center gap-2 text-sm font-medium rounded-full cursor-pointer"
+          {/* Photo frame */}
+          <div
+            className="w-full h-full overflow-hidden"
             style={{
-              backgroundColor: "#B8843A",
-              color: "#0A0A0A",
-              padding: "1rem 2rem",
-              fontFamily: "var(--font-dm-sans)",
+              borderRadius: "16px",
+              border: "1px solid rgba(184,132,58,0.18)",
+              boxShadow: "0 40px 100px rgba(0,0,0,0.55), 0 0 60px rgba(184,132,58,0.05)",
             }}
-            whileHover={{ backgroundColor: "#CFA05A", scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ duration: 0.2 }}
           >
-            Vastgoed Marketing
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </motion.a>
-          <motion.a
-            href="/webdesign"
-            className="flex items-center gap-2 text-sm font-medium rounded-full cursor-pointer"
-            style={{
-              border: "1px solid rgba(253,250,247,0.18)",
-              color: "#FDFAF7",
-              padding: "1rem 2rem",
-              fontFamily: "var(--font-dm-sans)",
-            }}
-            whileHover={{ borderColor: "rgba(184,132,58,0.55)", color: "#B8843A", scale: 1.02 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ duration: 0.2 }}
-          >
-            Webdesign
-          </motion.a>
-        </motion.div>
-
-        {/* Stats row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          className="flex flex-wrap gap-10 sm:gap-16"
-          style={{ borderTop: "1px solid rgba(253,250,247,0.07)", paddingTop: "2rem" }}
-        >
-          {[
-            { num: "50+", label: "Panden gefilmd" },
-            { num: "3", label: "Jaar ervaring" },
-            { num: "2", label: "Services" },
-          ].map(({ num, label }) => (
-            <div key={label}>
-              <p
-                style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: "clamp(2rem, 4vw, 2.8rem)",
-                  fontWeight: 400,
-                  color: "#B8843A",
-                  lineHeight: 1,
-                }}
-              >
-                {num}
-              </p>
-              <p
-                style={{
-                  fontFamily: "var(--font-dm-sans)",
-                  fontSize: "0.72rem",
-                  color: "rgba(253,250,247,0.38)",
-                  marginTop: "0.35rem",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {label}
-              </p>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/DSCF3335 (1).jpg"
+              alt="Sam Steylaerts — SteylVisuals"
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", filter: "brightness(0.88)" }}
+            />
+            {/* Bottom fade + name tag */}
+            <div
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: "45%",
+                background: "linear-gradient(to top, rgba(10,10,10,0.82) 0%, transparent 100%)",
+              }}
+            />
+            <div style={{ position: "absolute", bottom: "1.5rem", left: "1.5rem" }}>
+              <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.2rem", fontWeight: 400, color: "#FDFAF7", lineHeight: 1.2 }}>Sam Steylaerts</p>
+              <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.65rem", color: "#B8843A", letterSpacing: "0.12em", textTransform: "uppercase", marginTop: "0.25rem" }}>Oprichter · SteylVisuals</p>
             </div>
-          ))}
+          </div>
+
         </motion.div>
       </motion.div>
 
