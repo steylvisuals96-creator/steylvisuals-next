@@ -12,6 +12,7 @@ const navLinks = [
   { label: "Vastgoed Marketing", href: "/vastgoed-marketing" },
   { label: "Webdesign", href: "/webdesign" },
   { label: "Portfolio", href: "/portfolio" },
+  { label: "Website Quiz", href: "/website-quiz", highlight: true },
 ];
 
 export default function Nav({ dark = false }: { dark?: boolean }) {
@@ -81,8 +82,11 @@ export default function Nav({ dark = false }: { dark?: boolean }) {
             <Link
               key={link.label}
               href={link.href}
-              className="hidden md:block text-sm font-normal transition-opacity hover:opacity-60"
-              style={{ color: linkColor, fontFamily: "var(--font-dm-sans)" }}
+              className="hidden md:block text-sm font-normal transition-opacity hover:opacity-70"
+              style={{
+                color: link.highlight ? "var(--gold)" : linkColor,
+                fontFamily: "var(--font-dm-sans)",
+              }}
             >
               {link.label}
             </Link>
@@ -184,9 +188,10 @@ export default function Nav({ dark = false }: { dark?: boolean }) {
                         fontFamily: "var(--font-cormorant)",
                         fontSize: "clamp(2.2rem, 9vw, 3rem)",
                         fontWeight: 400,
+                        fontStyle: link.highlight ? "italic" : "normal",
                         lineHeight: 1.1,
                         letterSpacing: "-0.02em",
-                        color: "#FDFAF7",
+                        color: link.highlight ? "#B8843A" : "#FDFAF7",
                       }}
                     >
                       {link.label}
