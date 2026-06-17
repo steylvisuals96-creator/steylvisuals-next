@@ -28,19 +28,6 @@ const REELS: Reel[] = [
     tag: "Reel",
   },
   {
-    src: "/videos/web/hasselt-elegance.mp4",
-    poster: "/videos/web/hasselt-elegance.jpg",
-    title: "Élégance",
-    location: "Hasselt",
-    tag: "Socials",
-  },
-  {
-    src: "/videos/web/relay.mp4",
-    poster: "/videos/web/relay.jpg",
-    title: "Relay",
-    tag: "Teaser",
-  },
-  {
     src: "/videos/web/website-video.mp4",
     poster: "/videos/web/website-video.jpg",
     title: "Website reel",

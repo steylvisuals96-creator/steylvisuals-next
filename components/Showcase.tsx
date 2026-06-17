@@ -54,8 +54,8 @@ export default function Showcase() {
             transition={{ duration: 0.4 }}
           >
             <video
-              src="/videos/web/hasselt-elegance.mp4"
-              poster="/videos/web/hasselt-elegance.jpg"
+              src="/videos/web/appartement-sint-truiden.mp4"
+              poster="/videos/web/appartement-sint-truiden.jpg"
               autoPlay
               muted
               loop
