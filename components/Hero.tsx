@@ -101,72 +101,72 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Right — Phone mockup */}
+      {/* Right — Relay video with text overlay */}
       <motion.div
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="hidden md:flex justify-center items-center relative"
+        className="hidden md:flex justify-center items-center"
       >
-        <div className="relative">
-          {/* Phone */}
-          <motion.div
-            className="relative overflow-hidden"
+        <motion.div
+          className="relative overflow-hidden"
+          style={{
+            borderRadius: "28px",
+            aspectRatio: "9/16",
+            width: "clamp(220px, 24vw, 300px)",
+            boxShadow: "0 40px 80px rgba(28,14,7,0.18)",
+          }}
+          whileHover={{ scale: 1.01 }}
+          transition={{ duration: 0.4 }}
+        >
+          <video
+            src="/videos/web/appartement-sint-truiden.mp4"
+            poster="/videos/web/appartement-sint-truiden.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full"
+            style={{ objectFit: "cover" }}
+          />
+
+          {/* Dark gradient overlay */}
+          <div
+            aria-hidden="true"
             style={{
-              width: "clamp(200px, 22vw, 280px)",
-              borderRadius: "40px",
-              aspectRatio: "9/19.5",
-              backgroundColor: "#000",
-              boxShadow: "0 50px 100px rgba(28,14,7,0.18), 0 0 0 8px rgba(255,255,255,0.7), 0 0 0 9px #E8DFD5",
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(to top, rgba(28,14,7,0.75) 0%, rgba(28,14,7,0.1) 50%, transparent 100%)",
             }}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.4 }}
-          >
-            <iframe
-              src="https://player.vimeo.com/video/1197526438?autoplay=1&loop=1&muted=1&background=1&controls=0"
-              className="w-full h-full"
-              style={{ border: "none", objectFit: "cover", transform: "scale(1.5)" }}
-              allow="autoplay; fullscreen"
-              allowFullScreen
-            />
-          </motion.div>
+          />
 
-          {/* Badge 1 */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="absolute -left-12 top-1/4 bg-white rounded-2xl p-3 flex items-center gap-3 shadow-lg"
-          >
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ backgroundColor: "var(--dark)" }}>
-              <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-              </svg>
-            </div>
-            <div>
-              <p className="text-sm font-semibold" style={{ color: "var(--dark)" }}>Reels &amp; TikTok</p>
-              <p className="text-xs" style={{ color: "var(--muted)" }}>Geoptimaliseerd</p>
-            </div>
-          </motion.div>
+          {/* Text overlay */}
+          <div style={{ position: "absolute", bottom: "1.5rem", left: "1.75rem", right: "1.75rem" }}>
+            <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.35rem", fontWeight: 400, color: "#FDFAF7", lineHeight: 1.25 }}>
+              Zo zet je jouw merk<br />
+              <em style={{ color: "var(--gold)" }}>in de kijker</em>
+            </p>
+          </div>
 
-          {/* Badge 2 */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1, duration: 0.6 }}
-            className="absolute -right-8 bottom-1/4 bg-white rounded-2xl p-3 flex items-center gap-3 shadow-lg"
+          {/* Play indicator */}
+          <div
+            style={{
+              position: "absolute",
+              top: "1.25rem",
+              right: "1.25rem",
+              backgroundColor: "rgba(253,250,247,0.12)",
+              backdropFilter: "blur(8px)",
+              borderRadius: "8px",
+              padding: "0.35rem 0.65rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.4rem",
+            }}
           >
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ backgroundColor: "var(--dark)" }}>
-              <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
-                <path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 4v-11l-4 4z"/>
-              </svg>
-            </div>
-            <div>
-              <p className="text-sm font-semibold" style={{ color: "var(--dark)" }}>Drone shots</p>
-              <p className="text-xs" style={{ color: "var(--muted)" }}>Groei pakket</p>
-            </div>
-          </motion.div>
-        </div>
+            <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#4ade80" }} />
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.6rem", color: "rgba(253,250,247,0.7)" }}>Live preview</span>
+          </div>
+        </motion.div>
       </motion.div>
     </section>
   );
