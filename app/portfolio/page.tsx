@@ -23,14 +23,14 @@ const REELS: Reel[] = [
   {
     src: "/videos/web/summum-nl.mp4",
     poster: "/videos/web/summum-nl.jpg",
-    title: "Summum",
-    tag: "3D render → video · NL",
+    title: "3D render → video",
+    tag: "NL",
   },
   {
     src: "/videos/web/summum-eng.mp4",
     poster: "/videos/web/summum-eng.jpg",
-    title: "Summum",
-    tag: "3D render → video · ENG",
+    title: "3D render → video",
+    tag: "ENG",
   },
   {
     src: "/videos/web/appartement-sint-truiden.mp4",
