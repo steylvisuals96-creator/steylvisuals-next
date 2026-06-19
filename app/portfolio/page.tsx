@@ -24,15 +24,13 @@ const REELS: Reel[] = [
     src: "/videos/web/summum-nl.mp4",
     poster: "/videos/web/summum-nl.jpg",
     title: "Summum",
-    location: "België",
-    tag: "NL",
+    tag: "3D render → video · NL",
   },
   {
     src: "/videos/web/summum-eng.mp4",
     poster: "/videos/web/summum-eng.jpg",
     title: "Summum",
-    location: "België",
-    tag: "ENG",
+    tag: "3D render → video · ENG",
   },
   {
     src: "/videos/web/appartement-sint-truiden.mp4",
