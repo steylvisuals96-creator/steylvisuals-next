@@ -21,6 +21,20 @@ export const metadata = {
 
 const REELS: Reel[] = [
   {
+    src: "/videos/web/summum-nl.mp4",
+    poster: "/videos/web/summum-nl.jpg",
+    title: "Summum",
+    location: "België",
+    tag: "NL",
+  },
+  {
+    src: "/videos/web/summum-eng.mp4",
+    poster: "/videos/web/summum-eng.jpg",
+    title: "Summum",
+    location: "België",
+    tag: "ENG",
+  },
+  {
     src: "/videos/web/appartement-sint-truiden.mp4",
     poster: "/videos/web/appartement-sint-truiden.jpg",
     title: "Appartement",
