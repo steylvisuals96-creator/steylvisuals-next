@@ -71,12 +71,12 @@ export default function Pricing() {
         </AnimateIn>
         <AnimateIn delay={0.1}>
           <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem,4.5vw,4rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--dark)" }}>
-            Transparante prijzen,<br /><em style={{ color: "var(--muted)" }}>geen verrassingen</em>
+            Wat je krijgt,<br /><em style={{ color: "var(--muted)" }}>per pakket</em>
           </h2>
         </AnimateIn>
         <AnimateIn delay={0.2}>
-          <p className="text-sm font-light mt-4 mx-auto" style={{ color: "var(--muted)", maxWidth: "400px" }}>
-            Kies het pakket dat bij jouw kantoor past. Geen jaarcontract, altijd opzegbaar.
+          <p className="text-sm font-light mt-4 mx-auto" style={{ color: "var(--muted)", maxWidth: "420px" }}>
+            Kies het pakket dat bij jouw kantoor past. Prijs op aanvraag — vraag een gratis demo-edit aan en ik geef je een voorstel op maat.
           </p>
         </AnimateIn>
       </div>
@@ -124,11 +124,8 @@ export default function Pricing() {
             </p>
 
             <div className="pb-6 mb-6 border-b" style={{ borderColor: plan.featured ? "rgba(242,237,232,0.1)" : "var(--beige-mid)" }}>
-              <span style={{ fontFamily: "var(--font-cormorant)", fontSize: "3rem", fontWeight: 400, lineHeight: 1, letterSpacing: "-0.03em", color: plan.featured ? "var(--beige)" : "var(--dark)" }}>
-                {plan.price}
-              </span>
-              <span className="text-sm font-light ml-1" style={{ color: plan.featured ? "rgba(242,237,232,0.4)" : "var(--muted)" }}>
-                /maand
+              <span className="text-xs font-medium tracking-widest uppercase" style={{ color: plan.featured ? "rgba(242,237,232,0.4)" : "var(--muted)" }}>
+                Prijs op aanvraag
               </span>
             </div>
 
