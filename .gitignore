@@ -44,3 +44,4 @@ next-env.d.ts
 /public/videos/*.mp4
 /public/videos/*.MOV
 /public/videos/*.mov
+public/.wrangler/
