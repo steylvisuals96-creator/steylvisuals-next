@@ -120,8 +120,8 @@ export default function Hero() {
           transition={{ duration: 0.4 }}
         >
           <video
-            src="/videos/web/appartement-sint-truiden.mp4"
-            poster="/videos/web/appartement-sint-truiden.jpg"
+            src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/relay.mp4"
+            poster="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/relay.jpg"
             autoPlay
             muted
             loop

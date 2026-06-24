@@ -65,7 +65,7 @@ export default function Nav({ dark = false }: { dark?: boolean }) {
         {/* Logo */}
         <Link href="/" aria-label="SteylVisuals — home" className="relative z-[60]" onClick={() => setMenuOpen(false)}>
           <Image
-            src="/logo/logo-cropped.png"
+            src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/logo/logo-cropped.png"
             alt="SteylVisuals"
             width={180}
             height={104}

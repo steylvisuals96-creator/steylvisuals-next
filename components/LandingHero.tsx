@@ -261,7 +261,7 @@ export default function LandingHero() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/DSCF3335 (1).jpg"
+              src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/images/sam-portrait.jpg"
               alt="Sam Steylaerts — SteylVisuals"
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", filter: "brightness(0.88)" }}
             />

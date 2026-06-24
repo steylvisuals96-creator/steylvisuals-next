@@ -13,12 +13,12 @@ const M = "#888";         // muted
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 const listings = [
-  { id: 1, type: "Woning", title: "Uitzonderlijke woning", location: "Riemst", price: "€ 499.900", beds: 3, area: 184, image: "/som-listings/listing-1.jpg" },
-  { id: 2, type: "Woning", title: "Gezinswoning", location: "Hasselt", price: "€ 497.500", beds: 4, area: 317, image: "/som-listings/listing-2.jpg" },
-  { id: 3, type: "Appartement", title: "Appartement", location: "Hasselt", price: "€ 274.900", beds: 2, area: 90, image: "/som-listings/listing-3.jpg" },
-  { id: 4, type: "Penthouse", title: "Penthouse", location: "Diest", price: "€ 419.000", beds: 2, area: 122, image: "/som-listings/listing-4.jpg" },
-  { id: 5, type: "Eengezinswoning", title: "Eengezinswoning", location: "Genk", price: "€ 397.000", beds: 4, area: 173, image: "/som-listings/listing-5.jpg" },
-  { id: 6, type: "Appartement", title: "Appartement", location: "Maasmechelen", price: "€ 349.000", beds: 2, area: 100, image: "/som-listings/listing-6.jpg" },
+  { id: 1, type: "Woning", title: "Uitzonderlijke woning", location: "Riemst", price: "€ 499.900", beds: 3, area: 184, image: "https://pub-28e65866cf1641928966914639cc84ef.r2.dev/som-listings/listing-1.jpg" },
+  { id: 2, type: "Woning", title: "Gezinswoning", location: "Hasselt", price: "€ 497.500", beds: 4, area: 317, image: "https://pub-28e65866cf1641928966914639cc84ef.r2.dev/som-listings/listing-2.jpg" },
+  { id: 3, type: "Appartement", title: "Appartement", location: "Hasselt", price: "€ 274.900", beds: 2, area: 90, image: "https://pub-28e65866cf1641928966914639cc84ef.r2.dev/som-listings/listing-3.jpg" },
+  { id: 4, type: "Penthouse", title: "Penthouse", location: "Diest", price: "€ 419.000", beds: 2, area: 122, image: "https://pub-28e65866cf1641928966914639cc84ef.r2.dev/som-listings/listing-4.jpg" },
+  { id: 5, type: "Eengezinswoning", title: "Eengezinswoning", location: "Genk", price: "€ 397.000", beds: 4, area: 173, image: "https://pub-28e65866cf1641928966914639cc84ef.r2.dev/som-listings/listing-5.jpg" },
+  { id: 6, type: "Appartement", title: "Appartement", location: "Maasmechelen", price: "€ 349.000", beds: 2, area: 100, image: "https://pub-28e65866cf1641928966914639cc84ef.r2.dev/som-listings/listing-6.jpg" },
 ];
 
 const team = [
@@ -42,7 +42,7 @@ function Nav() {
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between h-20 border-b border-transparent"
       style={{ backgroundColor: bg, backdropFilter: blur, paddingLeft: "clamp(1.5rem,5vw,4rem)", paddingRight: "clamp(1.5rem,5vw,4rem)" }}
     >
-      <Image src="/som-logo.png" alt="SOM Vastgoed" width={120} height={84} className="h-10 w-auto" />
+      <Image src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/som-logo.png" alt="SOM Vastgoed" width={120} height={84} className="h-10 w-auto" />
 
       {/* Demo badge */}
       <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex">
@@ -316,7 +316,7 @@ function About() {
           className="relative"
         >
           <div className="overflow-hidden" style={{ borderRadius: "24px", aspectRatio: "4/5" }}>
-            <img src="/som-listings/listing-5.jpg" alt="SOM Vastgoed" className="w-full h-full object-cover" />
+            <img src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/som-listings/listing-5.jpg" alt="SOM Vastgoed" className="w-full h-full object-cover" />
           </div>
           {/* Floating card */}
           <motion.div
@@ -591,7 +591,7 @@ function Footer() {
   return (
     <footer style={{ backgroundColor: "#0a0a0a", padding: "2.5rem clamp(1.5rem,6vw,5rem)" }}>
       <div className="flex items-center justify-between flex-wrap gap-6">
-        <Image src="/som-logo.png" alt="SOM Vastgoed" width={100} height={70} className="h-9 w-auto opacity-90" />
+        <Image src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/som-logo.png" alt="SOM Vastgoed" width={100} height={70} className="h-9 w-auto opacity-90" />
         <div className="flex gap-8 text-xs font-light" style={{ color: "rgba(255,255,255,0.3)" }}>
           <span>Het Dorlik 16 — Hasselt</span>
           <span>+32 11 36 34 32</span>
