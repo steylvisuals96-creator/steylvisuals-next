@@ -1,6 +1,6 @@
 const CORS = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
   "Access-Control-Allow-Headers": "Authorization, Content-Type",
 };
 
@@ -72,6 +72,26 @@ export default {
       if (!key) return json({ error: "key required" }, 400);
       await env.BUCKET.delete(key);
       return json({ deleted: key });
+    }
+
+    // GET /content — read site content
+    if (request.method === "GET" && path === "/content") {
+      const obj = await env.BUCKET.get("content.json");
+      if (!obj) return json({});
+      const text = await obj.text();
+      return new Response(text, {
+        headers: { ...CORS, "Content-Type": "application/json" },
+      });
+    }
+
+    // PUT /content — save site content
+    if (request.method === "PUT" && path === "/content") {
+      const body = await request.text();
+      JSON.parse(body); // validate JSON
+      await env.BUCKET.put("content.json", body, {
+        httpMetadata: { contentType: "application/json" },
+      });
+      return json({ saved: true });
     }
 
     return json({ error: "Not found" }, 404);
