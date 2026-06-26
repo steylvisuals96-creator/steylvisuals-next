@@ -7,7 +7,6 @@ const WORKER_URL = "https://steylvisuals-upload.steylvisuals96.workers.dev";
 const FOLDERS = [
   { id: "images", label: "Foto's", icon: "🖼" },
   { id: "videos/web", label: "Video's", icon: "🎬" },
-  { id: "som-listings", label: "SOM Listings", icon: "🏠" },
   { id: "logo", label: "Logo's", icon: "✦" },
 ];
 
