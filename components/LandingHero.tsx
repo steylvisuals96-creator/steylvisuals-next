@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { useContent } from "@/lib/useContent";
 
 const WORDS = ["video", "design", "content", "impact"];
 
@@ -45,6 +46,7 @@ function MouseGlow({ x, y }: { x: ReturnType<typeof useMotionValue<number>>; y: 
 }
 
 export default function LandingHero() {
+  const content = useContent();
   const [wordIdx, setWordIdx] = useState(0);
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -170,8 +172,7 @@ export default function LandingHero() {
               marginBottom: "3rem",
             }}
           >
-            Van cinematic vastgoedvideo tot een website die converteert.
-            Jouw creatieve partner in België.
+            {content.hero.subtext}
           </motion.p>
 
           {/* CTA buttons */}
@@ -225,11 +226,7 @@ export default function LandingHero() {
             className="flex flex-wrap gap-10 sm:gap-14"
             style={{ borderTop: "1px solid rgba(253,250,247,0.07)", paddingTop: "2rem" }}
           >
-            {[
-              { num: "50+", label: "Panden gefilmd" },
-              { num: "3", label: "Jaar ervaring" },
-              { num: "2", label: "Services" },
-            ].map(({ num, label }) => (
+            {content.stats.map(({ num, label }) => (
               <div key={label}>
                 <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 400, color: "#B8843A", lineHeight: 1 }}>
                   {num}

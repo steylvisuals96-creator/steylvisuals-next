@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useContent } from "@/lib/useContent";
 
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
@@ -15,6 +16,7 @@ const fadeUp = {
 };
 
 export default function Hero() {
+  const content = useContent();
   return (
     <section
       className="min-h-svh grid grid-cols-1 md:grid-cols-2 items-center gap-16 pt-24 pb-16"
@@ -69,9 +71,7 @@ export default function Hero() {
           className="text-base font-light leading-relaxed mb-10"
           style={{ color: "var(--muted)", maxWidth: "420px" }}
         >
-          Short-form video die jouw panden in de kijker zet op Instagram,
-          TikTok en LinkedIn. Professioneel gemaakt, voor makelaars die meer
-          viewings willen.
+          {content.vastgoed.subtext}
         </motion.p>
 
         <motion.div
@@ -82,7 +82,7 @@ export default function Hero() {
           className="flex items-center gap-6 flex-wrap"
         >
           <motion.a
-            href="mailto:Steylvisuals96@gmail.com?subject=Gratis%20demo-edit%20aanvraag"
+            href={`mailto:${content.contact.email}?subject=Gratis%20demo-edit%20aanvraag`}
             className="text-sm font-medium rounded-full px-8 py-4 transition-colors"
             style={{ backgroundColor: "var(--dark)", color: "var(--off-white)" }}
             whileHover={{ backgroundColor: "var(--brown)", scale: 1.02 }}
