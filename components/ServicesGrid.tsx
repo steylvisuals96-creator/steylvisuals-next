@@ -253,9 +253,9 @@ export default function ServicesGrid() {
               maxWidth: "520px",
             }}
           >
-            Twee diensten,
+            Alles onder
             <br />
-            <em style={{ color: "#B8843A", fontStyle: "italic" }}>één visie</em>
+            <em style={{ color: "#B8843A", fontStyle: "italic" }}>één dak</em>
           </h2>
         </motion.div>
 
@@ -266,34 +266,34 @@ export default function ServicesGrid() {
           animate={inView ? "visible" : "hidden"}
         >
           <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
-            {/* Service 1 — Vastgoed Marketing */}
+            {/* Service 1 — Video & Content */}
             <ServiceCard
               href="/vastgoed-marketing"
-              tag="Video · Social"
-              title={"Vastgoed\nMarketing"}
-              description="Cinematic short-form video die jouw panden in de kijker zet op Instagram, TikTok en LinkedIn. Meer viewings, sneller verkopen."
-              cta="Ontdek vastgoed marketing"
+              tag="Video · Reels · Brand"
+              title={"Video &\nContent"}
+              description="Van cinematic brand video tot social content die stopt met scrollen. Wij maken beelden die jouw verhaal vertellen en je publiek laten groeien."
+              cta="Ontdek video & content"
               index={0}
               accent="#B8843A"
-              bullets={["Instagram Reels & TikTok", "Storytelling die verkoopt", "Gratis demo-edit"]}
+              bullets={["Brand video & bedrijfsfilm", "Instagram Reels & TikTok", "Vastgoed & product video"]}
             />
 
             {/* Service 2 — Webdesign */}
             <ServiceCard
               href="/webdesign"
               tag="Next.js · SEO · CMS"
-              title={"Webdesign voor\nmakelaars"}
-              description="Snelle, SEO-geoptimaliseerde websites op maat. Van een krachtige landing page tot een volledige site met blog en CMS."
+              title={"Webdesign &\nDigital"}
+              description="Snelle, op maat gebouwde websites die converteren. Van een krachtige landing page tot een volledige site met admin en CMS."
               cta="Ontdek webdesign"
               index={1}
               accent="#9E7FBF"
-              bullets={["Op maat gebouwd", "SEO + Google Analytics", "Levering binnen 2 weken"]}
+              bullets={["Op maat voor jouw business", "SEO + Google Analytics", "Levering binnen 2 weken"]}
             />
           </div>
 
           {/* Stat cards row */}
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 mt-4">
-            <StatCard num="50+" label="Panden gefilmd" index={2} />
+            <StatCard num="50+" label="Projecten opgeleverd" index={2} />
             <StatCard num="3jr" label="Ervaring" index={3} />
             <StatCard num="100%" label="Op maat" index={4} />
           </div>
@@ -314,7 +314,7 @@ export default function ServicesGrid() {
             textAlign: "center",
           }}
         >
-          &ldquo;Eén aanspreekpunt voor video én web — dat is het SteylVisuals verschil.&rdquo;
+          &ldquo;Eén creatief aanspreekpunt voor video, content én web — dat is het SteylVisuals verschil.&rdquo;
         </motion.p>
       </div>
     </section>

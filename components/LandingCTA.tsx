@@ -71,9 +71,9 @@ export default function LandingCTA() {
             marginBottom: "1.5rem",
           }}
         >
-          Laat jouw merk
+          Klaar om jouw
           <br />
-          <em style={{ color: "#B8843A", fontStyle: "italic" }}>opvallen</em>
+          <em style={{ color: "#B8843A", fontStyle: "italic" }}>verhaal te vertellen?</em>
         </motion.h2>
 
         {/* Subtext */}
@@ -90,7 +90,7 @@ export default function LandingCTA() {
             marginBottom: "3.5rem",
           }}
         >
-          Stuur een mailtje en ik kom binnen 24u terug met een gratis voorstel op maat.
+          Of je nu een video, een website of allebei nodig hebt — stuur een bericht en ontvang binnen 24u een gratis voorstel op maat.
         </motion.p>
 
         {/* Buttons */}
@@ -113,13 +113,13 @@ export default function LandingCTA() {
             whileTap={{ scale: 0.97 }}
             transition={{ duration: 0.2 }}
           >
-            Stuur een mail
+            Gratis gesprek aanvragen
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </motion.a>
           <motion.a
-            href="/vastgoed-marketing"
+            href="/portfolio"
             className="flex items-center gap-2 text-sm font-medium rounded-full cursor-pointer"
             style={{
               border: "1px solid rgba(253,250,247,0.15)",
@@ -131,7 +131,7 @@ export default function LandingCTA() {
             whileTap={{ scale: 0.97 }}
             transition={{ duration: 0.2 }}
           >
-            Bekijk diensten
+            Bekijk portfolio
           </motion.a>
         </motion.div>
 
@@ -147,7 +147,7 @@ export default function LandingCTA() {
             marginTop: "2rem",
           }}
         >
-          Steylvisuals96@gmail.com · Antwerpen, België
+          Steylvisuals96@gmail.com · België
         </motion.p>
       </div>
     </section>

@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSp
 import { useState, useEffect, useRef } from "react";
 import { useContent } from "@/lib/useContent";
 
-const WORDS = ["video", "design", "content", "impact"];
+const WORDS = ["content", "design", "video", "merk", "impact"];
 
 function AnimatedWord({ word }: { word: string }) {
   return (
@@ -31,13 +31,8 @@ function MouseGlow({ x, y }: { x: ReturnType<typeof useMotionValue<number>>; y: 
       className="fixed pointer-events-none hidden md:block"
       aria-hidden="true"
       style={{
-        left: sx,
-        top: sy,
-        x: "-50%",
-        y: "-50%",
-        width: "520px",
-        height: "520px",
-        borderRadius: "50%",
+        left: sx, top: sy, x: "-50%", y: "-50%",
+        width: "520px", height: "520px", borderRadius: "50%",
         background: "radial-gradient(circle, rgba(184,132,58,0.07) 0%, transparent 65%)",
         zIndex: 1,
       }}
@@ -61,12 +56,8 @@ export default function LandingHero() {
   }, []);
 
   useEffect(() => {
-    // Mouse-follow glow — only on devices with a fine pointer
     if (!window.matchMedia("(pointer: fine)").matches) return;
-    const onMove = (e: MouseEvent) => {
-      glowX.set(e.clientX);
-      glowY.set(e.clientY);
-    };
+    const onMove = (e: MouseEvent) => { glowX.set(e.clientX); glowY.set(e.clientY); };
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
   }, [glowX, glowY]);
@@ -78,12 +69,7 @@ export default function LandingHero() {
       style={{ backgroundColor: "#0A0A0A" }}
     >
       {/* SVG noise grain */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ opacity: 0.04 }}
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.04 }} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <filter id="grain">
           <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
           <feColorMatrix type="saturate" values="0" />
@@ -92,28 +78,12 @@ export default function LandingHero() {
       </svg>
 
       {/* Gold radial glow */}
-      <motion.div
-        style={{ y: parallaxY }}
-        className="absolute top-0 left-1/2 pointer-events-none"
-        aria-hidden="true"
-        initial={false}
-      >
-        <div
-          style={{
-            width: "900px",
-            height: "900px",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(184,132,58,0.13) 0%, transparent 65%)",
-            filter: "blur(60px)",
-            transform: "translate(-50%, -40%)",
-          }}
-        />
+      <motion.div style={{ y: parallaxY }} className="absolute top-0 left-1/2 pointer-events-none" aria-hidden="true" initial={false}>
+        <div style={{ width: "900px", height: "900px", borderRadius: "50%", background: "radial-gradient(circle, rgba(184,132,58,0.13) 0%, transparent 65%)", filter: "blur(60px)", transform: "translate(-50%, -40%)" }} />
       </motion.div>
 
-      {/* Mouse-follow glow — desktop only */}
       <MouseGlow x={glowX} y={glowY} />
 
-      {/* Thin gold horizontal line — decorative */}
       <motion.div
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
@@ -130,7 +100,19 @@ export default function LandingHero() {
       >
         {/* Left: text */}
         <div>
-          {/* Giant headline */}
+          {/* Eyebrow */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            className="flex items-center gap-3 mb-8"
+            style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.68rem", fontWeight: 500, letterSpacing: "0.25em", textTransform: "uppercase", color: "#B8843A" }}
+          >
+            <span className="w-5 h-px" style={{ backgroundColor: "#B8843A" }} />
+            Creative Studio · België
+          </motion.p>
+
+          {/* Headline */}
           <div className="mb-10">
             <motion.h1
               initial={{ opacity: 0, y: 55 }}
@@ -145,15 +127,14 @@ export default function LandingHero() {
                 color: "#FDFAF7",
               }}
             >
-              Wij maken
-              <br />
-              <em style={{ fontStyle: "italic", color: "#B8843A" }}>premium</em>
-              {" "}
-              <span style={{ display: "inline-block", position: "relative" }}>
+              Premium{" "}
+              <em style={{ fontStyle: "italic", color: "#B8843A" }}>
                 <AnimatedWord word={WORDS[wordIdx]} />
-              </span>
+              </em>
               <br />
-              voor makelaars
+              voor bedrijven
+              <br />
+              die groeien
             </motion.h1>
           </div>
 
@@ -184,41 +165,31 @@ export default function LandingHero() {
             style={{ marginBottom: "4rem" }}
           >
             <motion.a
-              href="/vastgoed-marketing"
+              href="mailto:Steylvisuals96@gmail.com?subject=Interesse%20in%20SteylVisuals"
               className="flex items-center gap-2 text-sm font-medium rounded-full cursor-pointer"
-              style={{
-                backgroundColor: "#B8843A",
-                color: "#0A0A0A",
-                padding: "1rem 2rem",
-                fontFamily: "var(--font-dm-sans)",
-              }}
+              style={{ backgroundColor: "#B8843A", color: "#0A0A0A", padding: "1rem 2rem", fontFamily: "var(--font-dm-sans)" }}
               whileHover={{ backgroundColor: "#CFA05A", scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.2 }}
             >
-              Vastgoed Marketing
+              Gratis gesprek aanvragen
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </motion.a>
             <motion.a
-              href="/webdesign"
+              href="#services"
               className="flex items-center gap-2 text-sm font-medium rounded-full cursor-pointer"
-              style={{
-                border: "1px solid rgba(253,250,247,0.18)",
-                color: "#FDFAF7",
-                padding: "1rem 2rem",
-                fontFamily: "var(--font-dm-sans)",
-              }}
+              style={{ border: "1px solid rgba(253,250,247,0.18)", color: "#FDFAF7", padding: "1rem 2rem", fontFamily: "var(--font-dm-sans)" }}
               whileHover={{ borderColor: "rgba(184,132,58,0.55)", color: "#B8843A", scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.2 }}
             >
-              Webdesign
+              Ontdek onze diensten
             </motion.a>
           </motion.div>
 
-          {/* Stats row */}
+          {/* Stats */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -228,18 +199,14 @@ export default function LandingHero() {
           >
             {content.stats.map(({ num, label }) => (
               <div key={label}>
-                <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 400, color: "#B8843A", lineHeight: 1 }}>
-                  {num}
-                </p>
-                <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.7rem", color: "rgba(253,250,247,0.38)", marginTop: "0.35rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                  {label}
-                </p>
+                <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 400, color: "#B8843A", lineHeight: 1 }}>{num}</p>
+                <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.7rem", color: "rgba(253,250,247,0.38)", marginTop: "0.35rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>{label}</p>
               </div>
             ))}
           </motion.div>
         </div>
 
-        {/* Right: portrait photo */}
+        {/* Right: portrait */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -247,60 +214,26 @@ export default function LandingHero() {
           className="hidden lg:block relative"
           style={{ height: "clamp(480px, 70vh, 700px)" }}
         >
-          {/* Photo frame */}
-          <div
-            className="w-full h-full overflow-hidden"
-            style={{
-              borderRadius: "16px",
-              border: "1px solid rgba(184,132,58,0.18)",
-              boxShadow: "0 40px 100px rgba(0,0,0,0.55), 0 0 60px rgba(184,132,58,0.05)",
-            }}
-          >
+          <div className="w-full h-full overflow-hidden" style={{ borderRadius: "16px", border: "1px solid rgba(184,132,58,0.18)", boxShadow: "0 40px 100px rgba(0,0,0,0.55), 0 0 60px rgba(184,132,58,0.05)" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/images/sam-portrait.jpg"
               alt="Sam Steylaerts — SteylVisuals"
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", filter: "brightness(0.88)" }}
             />
-            {/* Bottom fade + name tag */}
-            <div
-              aria-hidden="true"
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: "45%",
-                background: "linear-gradient(to top, rgba(10,10,10,0.82) 0%, transparent 100%)",
-              }}
-            />
+            <div aria-hidden="true" style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "45%", background: "linear-gradient(to top, rgba(10,10,10,0.82) 0%, transparent 100%)" }} />
             <div style={{ position: "absolute", bottom: "1.5rem", left: "1.5rem" }}>
               <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.2rem", fontWeight: 400, color: "#FDFAF7", lineHeight: 1.2 }}>Sam Steylaerts</p>
               <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.65rem", color: "#B8843A", letterSpacing: "0.12em", textTransform: "uppercase", marginTop: "0.25rem" }}>Oprichter · SteylVisuals</p>
             </div>
           </div>
-
         </motion.div>
       </motion.div>
 
       {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        aria-hidden="true"
-      >
-        <div
-          className="w-px h-14 overflow-hidden"
-          style={{ backgroundColor: "rgba(184,132,58,0.15)" }}
-        >
-          <motion.div
-            className="w-full"
-            style={{ height: "50%", backgroundColor: "#B8843A" }}
-            animate={{ y: ["-100%", "200%"] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-          />
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }} className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" aria-hidden="true">
+        <div className="w-px h-14 overflow-hidden" style={{ backgroundColor: "rgba(184,132,58,0.15)" }}>
+          <motion.div className="w-full" style={{ height: "50%", backgroundColor: "#B8843A" }} animate={{ y: ["-100%", "200%"] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }} />
         </div>
       </motion.div>
     </section>

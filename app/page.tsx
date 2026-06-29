@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "SteylVisuals — Premium Creative Studio België",
-  description: "SteylVisuals maakt cinematic vastgoedvideo en professionele websites voor makelaars en bedrijven in België.",
+  description: "SteylVisuals is een creative studio in België. Wij maken premium video, content en websites voor bedrijven die willen groeien.",
   alternates: { canonical: "/" },
 };
 
