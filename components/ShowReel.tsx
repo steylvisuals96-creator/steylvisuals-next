@@ -116,8 +116,8 @@ export default function ShowReel() {
             }}
           >
             <video
-              src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/summum-nl.mp4"
-              poster="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/summum-nl.jpg"
+              src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/Summum_Pre_-Launch_NL.MOV"
+              poster=""
               autoPlay
               muted
               loop
