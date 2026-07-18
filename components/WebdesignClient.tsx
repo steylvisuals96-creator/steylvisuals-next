@@ -95,12 +95,14 @@ function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) 
   return <span ref={ref}>{val}{suffix}</span>;
 }
 
-/* SOM Vastgoed website mockup — real client site preview */
+/* Specified website mockup — real client site preview */
 function HeroVisual({ y }: { y: MotionValue<number> }) {
-  const SY = "#facb04"; // SOM yellow
-  const SB = "#111111"; // SOM near-black
+  const SB = "#161616"; // Specified dark bg
   const SW = "#ffffff";
-  const SG = "#f7f7f5"; // SOM off-white
+  const SL = "#d4f132"; // Specified lime-green accent
+  const SO = "#4a5228"; // Specified olive (decorative arcs)
+
+  const SECTORS = ["Projectmanagement", "Civiele techniek", "Elektrotechniek", "Werktuigbouwkunde", "Bouw & infra"];
 
   return (
     <motion.div style={{ y }} className="relative">
@@ -111,11 +113,11 @@ function HeroVisual({ y }: { y: MotionValue<number> }) {
         className="relative overflow-hidden"
         style={{
           borderRadius: "20px",
-          border: "1px solid rgba(184,132,58,0.22)",
-          boxShadow: "0 40px 100px rgba(0,0,0,0.65), 0 0 60px rgba(184,132,58,0.07)",
+          border: "1px solid rgba(212,241,50,0.18)",
+          boxShadow: "0 40px 100px rgba(0,0,0,0.65), 0 0 60px rgba(212,241,50,0.05)",
           backgroundColor: SB,
         }}
-        aria-label="SOM Vastgoed website — gebouwd door SteylVisuals"
+        aria-label="Specified website — gebouwd door SteylVisuals"
       >
         {/* Browser chrome */}
         <div style={{ backgroundColor: "#1a1a1a", padding: "0.55rem 0.9rem", display: "flex", alignItems: "center", gap: "0.45rem", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
@@ -124,91 +126,76 @@ function HeroVisual({ y }: { y: MotionValue<number> }) {
           <span style={{ width: "7px", height: "7px", borderRadius: "50%", backgroundColor: "#28c840" }} />
           <div style={{ flex: 1, marginLeft: "0.4rem", backgroundColor: "#111", borderRadius: "5px", padding: "0.18rem 0.65rem", display: "flex", alignItems: "center", gap: "0.35rem" }}>
             <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M2 12h20"/></svg>
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.55rem", color: "rgba(255,255,255,0.22)" }}>som-vastgoed.vercel.app</span>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.55rem", color: "rgba(255,255,255,0.22)" }}>specified-website.vercel.app</span>
           </div>
         </div>
 
-        {/* SOM Nav */}
+        {/* Nav */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.6rem 1rem", backgroundColor: SB, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-          <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.8rem", fontWeight: 700, color: SW, letterSpacing: "-0.01em" }}>SOM <span style={{ color: SY }}>Vastgoed</span></span>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+            <svg width="14" height="10" viewBox="0 0 20 14" fill={SW} aria-hidden="true">
+              <path d="M10 0L20 7H0L10 0Z" opacity="0.9"/>
+              <rect x="3" y="7" width="14" height="7" rx="1" opacity="0.9"/>
+            </svg>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.72rem", fontWeight: 800, color: SW, letterSpacing: "0.05em", textTransform: "uppercase" }}>SPECIFIED</span>
+          </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
-            {["Aanbod", "Nieuwbouw", "Schatting", "Contact"].map(l => (
-              <span key={l} style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.42rem", color: "rgba(255,255,255,0.45)" }}>{l}</span>
+            {["Diensten", "Jobs", "Over ons", "Contact"].map(l => (
+              <span key={l} style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.42rem", color: "rgba(255,255,255,0.5)" }}>{l}</span>
             ))}
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.42rem", backgroundColor: SY, color: SB, borderRadius: "20px", padding: "0.16rem 0.5rem", fontWeight: 600 }}>Gratis schatting</span>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.42rem", backgroundColor: SL, color: SB, borderRadius: "20px", padding: "0.18rem 0.55rem", fontWeight: 700 }}>Neem contact op</span>
           </div>
         </div>
 
-        {/* SOM Hero */}
-        <div style={{ position: "relative", backgroundColor: SB, padding: "1.1rem 1rem 1rem", overflow: "hidden" }}>
-          <div aria-hidden="true" style={{ position: "absolute", top: 0, right: 0, width: "55%", height: "100%", background: `radial-gradient(ellipse at 80% 30%, rgba(250,203,4,0.07) 0%, transparent 65%)` }} />
-          <div aria-hidden="true" style={{ position: "absolute", bottom: 0, left: 0, width: "1px", height: "70%", background: `linear-gradient(to top, transparent, rgba(250,203,4,0.15))` }} />
+        {/* Hero */}
+        <div style={{ position: "relative", backgroundColor: SB, padding: "1.2rem 1rem 0.8rem", overflow: "hidden" }}>
+          {/* Decorative olive arcs */}
+          <div aria-hidden="true" style={{ position: "absolute", top: "-20px", right: "-20px", width: "90px", height: "90px", borderRadius: "50%", border: `2px solid ${SO}`, opacity: 0.5 }} />
+          <div aria-hidden="true" style={{ position: "absolute", bottom: "-30px", left: "-30px", width: "80px", height: "80px", borderRadius: "50%", border: `2px solid ${SO}`, opacity: 0.35 }} />
 
-          <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "0.45rem" }}>
-            <div style={{ height: "1px", width: "10px", backgroundColor: SY }} />
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.42rem", color: SY, letterSpacing: "0.1em", textTransform: "uppercase" }}>Vastgoed Limburg</span>
-          </div>
-          <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.25rem", fontWeight: 400, color: SW, lineHeight: 1.1, marginBottom: "0.25rem" }}>
-            Vastgoed in Hasselt<br />&amp; omgeving
+          <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "1.6rem", fontWeight: 900, color: "rgba(255,255,255,0.18)", lineHeight: 1, textTransform: "uppercase", letterSpacing: "-0.02em", marginBottom: "0.05rem" }}>
+            WE
           </p>
-          <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.78rem", fontStyle: "italic", color: SY, marginBottom: "0.55rem" }}>
-            Uw thuis vinden, dat doen we samen.
+          <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "1.55rem", fontWeight: 900, color: "rgba(255,255,255,0.2)", lineHeight: 1, textTransform: "uppercase", letterSpacing: "-0.02em", marginBottom: "0.75rem" }}>
+            POSSIBILITIES.
           </p>
-          <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.42rem", color: "rgba(255,255,255,0.4)", maxWidth: "60%", lineHeight: 1.5, marginBottom: "0.7rem" }}>
-            Gevestigd makelaarskantoor met vestigingen in Hasselt, Sint-Truiden en Genk.
-          </p>
-          <div style={{ display: "flex", gap: "0.45rem" }}>
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.42rem", backgroundColor: SY, color: SB, borderRadius: "20px", padding: "0.2rem 0.65rem", fontWeight: 600 }}>Bekijk ons aanbod</span>
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.42rem", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "20px", padding: "0.2rem 0.65rem" }}>Gratis waardebepaling</span>
-          </div>
 
-          {/* Stats strip */}
-          <div style={{ display: "flex", gap: "0", marginTop: "0.9rem", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "0.65rem" }}>
-            {[["500+", "Verkopen"], ["15+", "Jaar actief"], ["3", "Vestigingen"]].map(([n, l]) => (
-              <div key={l} style={{ flex: 1, textAlign: "center" }}>
-                <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.9rem", fontWeight: 400, color: SY, lineHeight: 1 }}>{n}</p>
-                <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.38rem", color: "rgba(255,255,255,0.3)", marginTop: "2px" }}>{l}</p>
-              </div>
+          <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.4rem", color: "rgba(255,255,255,0.45)", maxWidth: "65%", lineHeight: 1.6, marginBottom: "0.7rem" }}>
+            Specified verbindt technische toptalenten met ambitieuze ingenieursbureaus en industriële bedrijven.
+          </p>
+
+          <div style={{ display: "flex", gap: "0.4rem", marginBottom: "0.9rem" }}>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.4rem", backgroundColor: SL, color: SB, borderRadius: "20px", padding: "0.2rem 0.6rem", fontWeight: 700 }}>Bekijk vacatures</span>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.4rem", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: "20px", padding: "0.2rem 0.6rem" }}>Neem contact op</span>
+          </div>
+        </div>
+
+        {/* Sector ticker */}
+        <div style={{ backgroundColor: "rgba(255,255,255,0.04)", borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)", padding: "0.4rem 0", overflow: "hidden" }}>
+          <div style={{ display: "flex", gap: "1.5rem", whiteSpace: "nowrap" }}>
+            {[...SECTORS, ...SECTORS].map((s, i) => (
+              <span key={i} style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.38rem", fontWeight: 600, color: i % 2 === 0 ? SW : "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase", flexShrink: 0 }}>
+                {s}
+                {i < SECTORS.length * 2 - 1 && <span style={{ color: SL, marginLeft: "1.5rem" }}>·</span>}
+              </span>
             ))}
           </div>
         </div>
 
-        {/* SOM Listings */}
-        <div style={{ backgroundColor: SG, padding: "0.75rem 1rem" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-            <span style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.72rem", fontWeight: 500, color: SB }}>Actueel aanbod</span>
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.4rem", color: "#b89000" }}>Alle panden →</span>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.45rem" }}>
-            {[
-              { type: "Woning", loc: "Riemst", price: "€ 499.900", beds: 3, sqm: "184 m²", tag: "Nieuw" },
-              { type: "Woning", loc: "Hasselt", price: "€ 497.500", beds: 4, sqm: "317 m²", tag: null },
-              { type: "Appartement", loc: "Hasselt", price: "€ 274.900", beds: 2, sqm: "90 m²", tag: "Nieuw" },
-            ].map((p) => (
-              <div key={p.loc + p.price} style={{ backgroundColor: SW, borderRadius: "5px", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}>
-                <div style={{ height: "44px", backgroundColor: "#e8e4de", position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9l9-6 9 6"/><path d="M9 22V12h6v10"/></svg>
-                  {p.tag && <span style={{ position: "absolute", top: "0.28rem", left: "0.28rem", fontFamily: "var(--font-dm-sans)", fontSize: "0.36rem", backgroundColor: SY, color: SB, borderRadius: "3px", padding: "0.08rem 0.28rem", fontWeight: 600 }}>{p.tag}</span>}
-                  <span style={{ position: "absolute", top: "0.28rem", right: "0.28rem", fontFamily: "var(--font-dm-sans)", fontSize: "0.36rem", backgroundColor: "rgba(17,17,17,0.7)", color: SW, borderRadius: "3px", padding: "0.08rem 0.28rem" }}>{p.type}</span>
-                </div>
-                <div style={{ padding: "0.35rem 0.4rem" }}>
-                  <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.6rem", fontWeight: 500, color: SB, marginBottom: "0.08rem" }}>{p.loc}</p>
-                  <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.52rem", fontWeight: 700, color: SB, marginBottom: "0.15rem" }}>{p.price}</p>
-                  <div style={{ display: "flex", gap: "0.3rem", borderTop: "1px solid #f0f0f0", paddingTop: "0.2rem" }}>
-                    <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.36rem", color: "#888" }}>{p.beds} slpk</span>
-                    <span style={{ color: "#ddd", fontSize: "0.36rem" }}>·</span>
-                    <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.36rem", color: "#888" }}>{p.sqm}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Stats */}
+        <div style={{ display: "flex", backgroundColor: SB, padding: "0.7rem 1rem", gap: "0", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+          {[["0+", "Plaatsingen gedaan"], ["15+", "Sectoren"], ["100%", "Op maat"]].map(([n, l]) => (
+            <div key={l} style={{ flex: 1, textAlign: "center" }}>
+              <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.9rem", fontWeight: 800, color: SL, lineHeight: 1, letterSpacing: "-0.02em" }}>{n}</p>
+              <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.36rem", color: "rgba(255,255,255,0.3)", marginTop: "3px" }}>{l}</p>
+            </div>
+          ))}
         </div>
 
         {/* Status bar */}
         <div style={{ padding: "0.45rem 0.9rem", backgroundColor: "#1a1a1a", borderTop: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", gap: "0.45rem" }}>
           <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#4ade80", flexShrink: 0 }} />
-          <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.52rem", color: "rgba(255,255,255,0.35)" }}>som-vastgoed.vercel.app — Gebouwd door SteylVisuals</span>
+          <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.52rem", color: "rgba(255,255,255,0.35)" }}>specified-website.vercel.app — Gebouwd door SteylVisuals</span>
         </div>
       </motion.div>
 
@@ -222,14 +209,14 @@ function HeroVisual({ y }: { y: MotionValue<number> }) {
           top: "2.5rem",
           right: "-1.75rem",
           backgroundColor: "#111",
-          border: "1px solid rgba(184,132,58,0.22)",
+          border: "1px solid rgba(212,241,50,0.22)",
           borderRadius: "14px",
           padding: "1rem 1.25rem",
           boxShadow: "0 20px 40px rgba(0,0,0,0.45)",
         }}
       >
-        <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.8rem", fontWeight: 300, color: "#B8843A", lineHeight: 1 }}>3x</p>
-        <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.62rem", color: "rgba(253,250,247,0.4)", marginTop: "4px", letterSpacing: "0.06em" }}>meer leads</p>
+        <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "1.8rem", fontWeight: 900, color: SL, lineHeight: 1 }}>100%</p>
+        <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.62rem", color: "rgba(253,250,247,0.4)", marginTop: "4px", letterSpacing: "0.06em" }}>op maat</p>
       </motion.div>
     </motion.div>
   );
