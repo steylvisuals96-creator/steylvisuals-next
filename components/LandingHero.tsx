@@ -217,7 +217,7 @@ export default function LandingHero() {
           <div className="w-full h-full overflow-hidden" style={{ borderRadius: "16px", border: "1px solid rgba(184,132,58,0.18)", boxShadow: "0 40px 100px rgba(0,0,0,0.55), 0 0 60px rgba(184,132,58,0.05)" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/images/sam-portrait.jpg"
+              src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/images/DSCF3335__1_.jpg"
               alt="Sam Steylaerts — SteylVisuals"
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", filter: "brightness(0.88)" }}
             />
