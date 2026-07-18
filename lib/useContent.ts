@@ -12,12 +12,12 @@ export const DEFAULT_CONTENT = {
     linkedin: "",
   },
   hero: {
-    subtext: "Van cinematic vastgoedvideo tot een website die converteert. Jouw creatieve partner in België.",
+    subtext: "Van premium video tot een website die converteert. Jouw creatieve partner in België.",
   },
   stats: [
-    { num: "50+", label: "Panden gefilmd" },
+    { num: "50+", label: "Projecten opgeleverd" },
     { num: "3", label: "Jaar ervaring" },
-    { num: "2", label: "Services" },
+    { num: "3", label: "Services" },
   ],
   vastgoed: {
     subtext: "Short-form video die jouw panden in de kijker zet op Instagram, TikTok en LinkedIn. Professioneel gemaakt, voor makelaars die meer viewings willen.",
