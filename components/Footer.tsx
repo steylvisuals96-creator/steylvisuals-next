@@ -12,7 +12,7 @@ export default function Footer() {
         </Link>
 
         <nav className="flex items-center gap-6 text-xs font-light" style={{ color: "rgba(242,237,232,0.4)" }}>
-          <Link href="/vastgoed-marketing" style={{ color: "inherit", textDecoration: "none" }}>Vastgoed Marketing</Link>
+          <Link href="/vastgoed-marketing" style={{ color: "inherit", textDecoration: "none" }}>Marketing</Link>
           <Link href="/webdesign" style={{ color: "inherit", textDecoration: "none" }}>Webdesign</Link>
           <Link href="/portfolio" style={{ color: "inherit", textDecoration: "none" }}>Portfolio</Link>
           <a href="mailto:Steylvisuals96@gmail.com" style={{ color: "inherit", textDecoration: "none" }}>Contact</a>
