@@ -12,7 +12,6 @@ const navLinks = [
   { label: "Marketing", href: "/vastgoed-marketing" },
   { label: "Webdesign", href: "/webdesign" },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Website Quiz", href: "/website-quiz", highlight: true },
 ];
 
 export default function Nav({ dark = false }: { dark?: boolean }) {
