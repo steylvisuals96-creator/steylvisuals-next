@@ -23,6 +23,22 @@ const PROJECTS: WebProject[] = [
     features: ["Live panden via API", "Eigen CMS panel", "SEO geoptimaliseerd"],
   },
   {
+    title: "Specified",
+    subtitle: "Website & CMS — Engineering Recruitment",
+    tags: ["Next.js", "CMS", "Recruitment"],
+    accent: "#d4f132",
+    href: "https://specified-website.vercel.app/",
+    features: ["Vacatures via CMS beheren", "Sector-specifieke landingspagina's", "Volledig op maat ontworpen"],
+  },
+  {
+    title: "Specified CMS",
+    subtitle: "Custom content management systeem",
+    tags: ["Next.js", "Admin", "Op maat"],
+    accent: "#7ec8c8",
+    href: "https://specified-cms.vercel.app/",
+    features: ["Vacatures aanmaken & bewerken", "Geen technische kennis vereist", "Live preview bij elke wijziging"],
+  },
+  {
     title: "SteylVisuals.be",
     subtitle: "Portfolio & Admin panel",
     tags: ["Next.js", "Cloudflare R2", "Workers"],
@@ -149,7 +165,7 @@ function WebCard({ project, index }: { project: WebProject; index: number }) {
 
 export default function WebsitePortfolio() {
   return (
-    <div className="grid gap-6 grid-cols-1 md:grid-cols-2 max-w-[1100px] mx-auto">
+    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 max-w-[1100px] mx-auto">
       {PROJECTS.map((p, i) => (
         <WebCard key={p.title} project={p} index={i} />
       ))}

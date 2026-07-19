@@ -110,7 +110,7 @@ function HeroVisual({ y }: { y: MotionValue<number> }) {
         initial={{ opacity: 0, scale: 0.96, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 1.1, delay: 0.3, ease: EASE }}
-        className="relative overflow-hidden"
+        className="relative overflow-hidden cursor-pointer"
         style={{
           borderRadius: "20px",
           border: "1px solid rgba(212,241,50,0.18)",
@@ -118,6 +118,7 @@ function HeroVisual({ y }: { y: MotionValue<number> }) {
           backgroundColor: SB,
         }}
         aria-label="Specified website — gebouwd door SteylVisuals"
+        onClick={() => window.open("https://specified-website.vercel.app/", "_blank")}
       >
         {/* Browser chrome */}
         <div style={{ backgroundColor: "#1a1a1a", padding: "0.55rem 0.9rem", display: "flex", alignItems: "center", gap: "0.45rem", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
