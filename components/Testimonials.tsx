@@ -46,7 +46,7 @@ export default function Testimonials() {
         </AnimateIn>
         <AnimateIn delay={0.1}>
           <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem,4.5vw,4rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--dark)" }}>
-            Wat makelaars<br /><em style={{ color: "var(--muted)" }}>over ons zeggen</em>
+            Wat klanten<br /><em style={{ color: "var(--muted)" }}>over ons zeggen</em>
           </h2>
         </AnimateIn>
       </div>

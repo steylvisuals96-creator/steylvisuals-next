@@ -18,15 +18,15 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "SteylVisuals — Premium video & webdesign voor makelaars",
-  description: "Creative studio in België: cinematic vastgoedvideo's en professionele websites voor makelaars en bedrijven. Vraag je gratis voorstel aan.",
+  title: "SteylVisuals — Premium video & webdesign voor bedrijven",
+  description: "Creative studio in België: premium video, content en professionele websites voor bedrijven die willen groeien. Vraag je gratis voorstel aan.",
   metadataBase: new URL("https://steylvisuals.be"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "SteylVisuals — Premium video & webdesign voor makelaars",
-    description: "Cinematic vastgoedvideo en websites die converteren. Meer viewings, meer verkopen.",
+    title: "SteylVisuals — Premium video & webdesign voor bedrijven",
+    description: "Premium video, content en websites die converteren. Jouw creatieve partner in België.",
     type: "website",
     url: "https://steylvisuals.be",
     siteName: "SteylVisuals",
@@ -36,14 +36,14 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "SteylVisuals — Cinematic real estate video",
+        alt: "SteylVisuals — Creative Studio België",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SteylVisuals — Premium video & webdesign voor makelaars",
-    description: "Cinematic vastgoedvideo en websites die converteren. Meer viewings, meer verkopen.",
+    title: "SteylVisuals — Premium video & webdesign voor bedrijven",
+    description: "Premium video, content en websites die converteren. Jouw creatieve partner in België.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -66,7 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
               name: "SteylVisuals",
-              description: "Creative studio voor makelaars: cinematic vastgoedvideo's en professionele websites. Instagram Reels, TikTok, drone shots en webdesign.",
+              description: "Creative studio in België: premium video, content en professionele websites voor bedrijven die willen groeien.",
               url: "https://steylvisuals.be",
               email: "Steylvisuals96@gmail.com",
               founder: {

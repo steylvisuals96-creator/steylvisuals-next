@@ -2,9 +2,9 @@
 
 const items = [
   "Instagram Reels", "TikTok", "LinkedIn Video", "Drone Shots",
-  "Gratis Demo-Edit", "Vlaamse Makelaars", "Meer Viewings", "Short-Form Content",
+  "Brand Video", "Webdesign", "Short-Form Content", "CMS op maat",
   "Instagram Reels", "TikTok", "LinkedIn Video", "Drone Shots",
-  "Gratis Demo-Edit", "Vlaamse Makelaars", "Meer Viewings", "Short-Form Content",
+  "Brand Video", "Webdesign", "Short-Form Content", "CMS op maat",
 ];
 
 export default function Marquee() {

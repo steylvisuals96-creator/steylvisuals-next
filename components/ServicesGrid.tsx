@@ -275,7 +275,7 @@ export default function ServicesGrid() {
               cta="Ontdek video & content"
               index={0}
               accent="#B8843A"
-              bullets={["Brand video & bedrijfsfilm", "Instagram Reels & TikTok", "Vastgoed & product video"]}
+              bullets={["Brand video & bedrijfsfilm", "Instagram Reels & TikTok", "Product & event video"]}
             />
 
             {/* Service 2 — Webdesign */}

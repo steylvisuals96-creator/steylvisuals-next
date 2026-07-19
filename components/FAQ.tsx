@@ -23,11 +23,11 @@ const faqs = [
   },
   {
     q: "Wat is de gratis demo-edit precies?",
-    a: "Stuur me ruwe footage van een pand — ik monteer gratis een volledige Reel zodat je de kwaliteit kunt beoordelen. Zonder verplichting, zonder betaling.",
+    a: "Stuur me ruwe footage — ik monteer gratis een volledige Reel zodat je de kwaliteit kunt beoordelen. Zonder verplichting, zonder betaling.",
   },
   {
-    q: "Kan ik meerdere panden per maand laten filmen?",
-    a: "Dat hangt af van het pakket. Bij Groei plan ik één volledige dag per maand in — we bespreken samen welke panden prioriteit krijgen. Extra shoots zijn mogelijk in overleg.",
+    q: "Kan ik meerdere shoots per maand boeken?",
+    a: "Dat hangt af van het pakket. Bij Groei plan ik één volledige dag per maand in — we bespreken samen wat prioriteit krijgt. Extra shoots zijn mogelijk in overleg.",
   },
 ];
 

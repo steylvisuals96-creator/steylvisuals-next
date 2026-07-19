@@ -20,7 +20,7 @@ export default function Showcase() {
         </AnimateIn>
         <AnimateIn delay={0.2}>
           <p className="text-sm font-light leading-relaxed mb-10" style={{ color: "rgba(242,237,232,0.45)", maxWidth: "380px" }}>
-            Verticale video&apos;s geoptimaliseerd voor Reels en TikTok — cinematic, strak en op maat van jouw pand. Vraag een gratis demo-edit aan en oordeel zelf.
+            Verticale video&apos;s geoptimaliseerd voor Reels en TikTok — cinematic, strak en op maat van jouw merk. Vraag een gratis demo-edit aan en oordeel zelf.
           </p>
         </AnimateIn>
         <AnimateIn delay={0.3}>

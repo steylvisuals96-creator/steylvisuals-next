@@ -36,7 +36,7 @@ export default function Hero() {
           style={{ color: "var(--gold)" }}
         >
           <span className="w-5 h-px" style={{ backgroundColor: "var(--gold)" }} />
-          Vastgoed marketing
+          Video Marketing
         </motion.p>
 
         <motion.h1
@@ -54,7 +54,7 @@ export default function Hero() {
             color: "var(--dark)",
           }}
         >
-          Vastgoedvideo&apos;s die
+          Video&apos;s die
           <br />
           <em style={{ fontStyle: "italic", color: "var(--brown-warm)" }}>
             opvallen én

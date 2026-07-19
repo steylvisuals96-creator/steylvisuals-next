@@ -404,7 +404,7 @@ export default function WebdesignClient() {
               style={{ color: "#B8843A" }}
             >
               <span className="w-4 h-px" style={{ backgroundColor: "#B8843A" }} />
-              Webdesign voor makelaars
+              Webdesign voor bedrijven
             </motion.p>
 
             <motion.h1
@@ -556,7 +556,7 @@ export default function WebdesignClient() {
               <div>
                 <h3 className="mb-1" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.4rem", fontWeight: 500, color: "#FDFAF7" }}>SEO inbegrepen</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(253,250,247,0.42)" }}>
-                  Technische SEO, meta tags en sitemap. Makelaars vinden jou via Google.
+                  Technische SEO, meta tags en sitemap. Klanten vinden jou via Google.
                 </p>
               </div>
             </motion.div>
@@ -591,7 +591,7 @@ export default function WebdesignClient() {
               <div>
                 <h3 className="mb-1" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.4rem", fontWeight: 500, color: "#FDFAF7" }}>Zelf beheren</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "rgba(253,250,247,0.42)" }}>
-                  Via een eenvoudig CMS pas jij teksten en panden aan zonder technische kennis.
+                  Via een eenvoudig CMS pas jij teksten en content aan zonder technische kennis.
                 </p>
               </div>
             </motion.div>

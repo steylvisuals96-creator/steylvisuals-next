@@ -5,10 +5,10 @@ import AnimateIn from "./AnimateIn";
 
 const steps = [
   { num: "001", title: "Gratis demo-edit", desc: "Stuur ruwe footage — ik edit gratis een Reel zodat je de kwaliteit ziet. Zonder verplichting." },
-  { num: "002", title: "Kennismakingsgesprek", desc: "We bespreken jouw stijl, doelen en welk pakket het best past bij jouw kantoor." },
-  { num: "003", title: "Filmen", desc: "Jij filmt met mijn Film Guide, of ik kom ter plaatse voor een professionele shoot met drone." },
-  { num: "004", title: "Montage & levering", desc: "Ik edit, kleurgrade en lever binnen 1 week kant-en-klare video's voor elk platform." },
-  { num: "005", title: "Meer viewings", desc: "Jij post, engaget en ziet hoe jouw panden meer aandacht krijgen op social media." },
+  { num: "002", title: "Kennismakingsgesprek", desc: "We bespreken jouw stijl, doelen en welk pakket het best past bij jouw project." },
+  { num: "003", title: "Filmen of bouwen", desc: "Ik kom ter plaatse voor een shoot, of we starten meteen met de ontwikkeling van jouw website." },
+  { num: "004", title: "Montage & levering", desc: "Ik edit, kleurgrade en lever binnen 1 week kant-en-klare content of een live website op." },
+  { num: "005", title: "Meer resultaat", desc: "Jij post, deelt en ziet hoe jouw merk meer aandacht krijgt op social media en online." },
 ];
 
 export default function Process() {
@@ -31,7 +31,7 @@ export default function Process() {
           </div>
           <AnimateIn delay={0.2} className="flex items-end">
             <p className="text-sm font-light leading-relaxed" style={{ color: "var(--muted)", maxWidth: "380px" }}>
-              In vijf eenvoudige stappen zet ik jouw pand om in content die écht werkt op social media.
+              In vijf eenvoudige stappen zet ik jouw project om in content of een website die écht resultaat oplevert.
             </p>
           </AnimateIn>
         </div>
