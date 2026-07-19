@@ -40,12 +40,6 @@ const REELS: Reel[] = [
     location: "Sint-Truiden",
     tag: "Reel",
   },
-  {
-    src: "https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/Relay_Versie_1.MOV",
-    poster: "",
-    title: "Brand video",
-    tag: "Relay",
-  },
 ];
 
 export default function PortfolioPage() {
