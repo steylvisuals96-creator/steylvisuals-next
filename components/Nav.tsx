@@ -83,7 +83,7 @@ export default function Nav({ dark = false }: { dark?: boolean }) {
               href={link.href}
               className="hidden md:block text-sm font-normal transition-opacity hover:opacity-70"
               style={{
-                color: link.highlight ? "var(--gold)" : linkColor,
+                color: linkColor,
                 fontFamily: "var(--font-dm-sans)",
               }}
             >
