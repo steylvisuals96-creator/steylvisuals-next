@@ -9,7 +9,7 @@ const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Vastgoed Marketing", href: "/vastgoed-marketing" },
+  { label: "Marketing", href: "/vastgoed-marketing" },
   { label: "Webdesign", href: "/webdesign" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Website Quiz", href: "/website-quiz", highlight: true },
