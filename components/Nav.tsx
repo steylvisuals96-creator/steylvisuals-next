@@ -187,10 +187,10 @@ export default function Nav({ dark = false }: { dark?: boolean }) {
                         fontFamily: "var(--font-cormorant)",
                         fontSize: "clamp(2.2rem, 9vw, 3rem)",
                         fontWeight: 400,
-                        fontStyle: link.highlight ? "italic" : "normal",
+                        fontStyle: "normal",
                         lineHeight: 1.1,
                         letterSpacing: "-0.02em",
-                        color: link.highlight ? "#B8843A" : "#FDFAF7",
+                        color: "#FDFAF7",
                       }}
                     >
                       {link.label}
