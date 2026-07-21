@@ -18,7 +18,7 @@ export default function OverMij() {
           className="w-full h-full"
         >
           <Image
-            src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/images/sam-portrait.jpg"
+            src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/images/DSCF3335__1_.jpg"
             alt="Sam Steylaerts — SteylVisuals"
             fill
             className="object-cover object-top"
