@@ -17,8 +17,8 @@ export default function Home() {
       <Nav dark />
       <main>
         <LandingHero />
-        <ShowReel />
         <ServicesGrid />
+        <ShowReel />
         <LandingCTA />
       </main>
       <Footer />
