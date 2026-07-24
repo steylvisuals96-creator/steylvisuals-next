@@ -1,31 +1,162 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   SteylVisuals — Brand Guidelines, editie 01 · 2026
+   Ground state is black. Gold is punctuation, not decoration.
+   See DESIGN.md for the rules these tokens serve.
+   ========================================================================== */
+
 :root {
-  --dark: #1C0E07;
-  --dark-mid: #2E1609;
-  --brown: #3A1A08;
-  --brown-warm: #5C2E12;
-  --gold: #B8843A;
-  --gold-light: #CFA05A;
-  --beige: #F2EDE8;
-  --beige-mid: #E8DFD5;
-  --beige-deep: #D4C9BB;
-  --off-white: #FDFAF7;
-  --muted: #7A6355;
+  /* Neutrals */
+  --black: #0D0B09;
+  --panel: #1A1512;
+  --panel-hover: #1F1915;
+  --brown: #3B1E0B;
+  --cream: #F1EDE6;
+
+  /* Accent — rationed to ~10% of any view */
+  --gold: #C9974A;
+  --gold-light: #E6C894;
+
+  /* Derived text tones. Cream at 70% is 8.4:1 on black; 60% is the floor. */
+  --cream-muted: rgba(241, 237, 230, 0.7);
+  --cream-faint: rgba(241, 237, 230, 0.6);
+  --hairline: rgba(241, 237, 230, 0.08);
+  --hairline-strong: rgba(241, 237, 230, 0.2);
+  --hairline-gold: rgba(201, 151, 74, 0.35);
+
+  /* Shape — near-square, established in implementation */
+  --r-sm: 2px;
+  --r-md: 4px;
+
+  /* Motion — timings lifted from the brandbook's motion spec */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-dot: 400ms;
+  --dur-wipe: 500ms;
+  --dur-hold: 1200ms;
+  --dur-out: 600ms;
+  --dur-state: 300ms;
+
+  /* Semantic z-index scale */
+  --z-sticky: 100;
+  --z-overlay: 200;
+  --z-nav: 300;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  background-color: var(--black);
+}
 
 body {
-  background-color: var(--off-white);
-  color: var(--dark);
+  background-color: var(--black);
+  color: var(--cream);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 ::selection {
   background-color: var(--gold);
-  color: var(--off-white);
+  color: var(--black);
+}
+
+/* Cormorant speaks; Poppins works. Headings never inherit the body sans. */
+h1, h2, h3, h4 {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 300;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+h1 { line-height: 1.05; }
+h2, h3, h4 { line-height: 1.15; }
+
+p { text-wrap: pretty; }
+
+/* The kicker: Poppins 500 at 0.26em. The tracking is the signature. */
+.kicker {
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold);
+  line-height: 1;
+}
+
+/* Montserrat 800 is the wordmark's alone — never exposed as a heading class. */
+.wordmark {
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.nav-link {
+  transition: color var(--dur-state) var(--ease-out);
+}
+.nav-link:hover {
+  color: var(--gold);
+}
+
+/* Lift is tonal, never a shadow or a scale. Gold arrives on intent only. */
+.service-card {
+  transition: background-color var(--dur-state) var(--ease-out),
+              border-color var(--dur-state) var(--ease-out);
+}
+.service-card:hover {
+  background-color: var(--panel-hover);
+  border-color: var(--hairline-gold);
+}
+.pricing-card {
+  transition: background-color var(--dur-state) var(--ease-out),
+              border-color var(--dur-state) var(--ease-out);
+}
+.pricing-card:hover {
+  background-color: var(--panel-hover);
+  border-color: var(--hairline-gold);
+}
+.service-cta {
+  transition: color var(--dur-state) var(--ease-out),
+              border-color var(--dur-state) var(--ease-out);
+}
+.service-card:hover .service-cta {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* Fields are underline-only. Focus takes the rule to gold; no glow, no box. */
+input,
+textarea,
+select {
+  color: var(--cream);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+}
+input::placeholder,
+textarea::placeholder {
+  /* Placeholders are held to the same 4.5:1 as body text. */
+  color: var(--cream-muted);
+  opacity: 1;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-bottom-color: var(--gold) !important;
+}
+/* Native dropdowns render options on the OS surface, not the page's. */
+select option {
+  background-color: var(--panel);
+  color: var(--cream);
+}
+
+/* Focus is always visible and always cream — gold would vanish on gold. */
+:focus-visible {
+  outline: 2px solid var(--cream);
+  outline-offset: 2px;
 }
 
 @keyframes marquee {
@@ -35,21 +166,29 @@ body {
 .animate-marquee { animation: marquee 24s linear infinite; }
 .animate-marquee-slow { animation: marquee 45s linear infinite; }
 
-/* Custom scrollbar — subtle gold on dark */
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: var(--off-white); }
-::-webkit-scrollbar-thumb {
-  background: var(--beige-deep);
-  border-radius: 100px;
-  border: 2px solid var(--off-white);
-}
-::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-
 @keyframes scrollPulse {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
 }
 .animate-scroll-pulse { animation: scrollPulse 2.5s ease-in-out infinite; }
+
+/* The dot's entrance — the one element allowed to move on its own. */
+@keyframes dotIn {
+  from { opacity: 0; transform: translateX(-1.5em); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-dot-in {
+  animation: dotIn var(--dur-dot) var(--ease-out) both;
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb {
+  background: #2B231C;
+  border-radius: 100px;
+  border: 2px solid var(--black);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -57,5 +196,10 @@ body {
   .animate-marquee-slow,
   .animate-scroll-pulse {
     animation: none;
+  }
+  .animate-dot-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

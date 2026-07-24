@@ -608,7 +608,7 @@ function Footer() {
 /* ─── ROOT ─── */
 export default function SOMClient() {
   return (
-    <div style={{ fontFamily: "var(--font-dm-sans), DM Sans, sans-serif" }}>
+    <div style={{ fontFamily: "var(--font-poppins), Poppins, sans-serif" }}>
       {/* Floating demo badge */}
       <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 rounded-full text-xs font-semibold shadow-xl flex items-center gap-2 pointer-events-none"
         style={{ backgroundColor: Y, color: B, boxShadow: `0 8px 30px rgba(250,203,4,0.4)` }}>

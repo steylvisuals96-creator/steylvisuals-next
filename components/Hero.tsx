@@ -21,7 +21,7 @@ export default function Hero() {
     <section
       className="min-h-svh grid grid-cols-1 md:grid-cols-2 items-center gap-16 pt-24 pb-16"
       style={{
-        backgroundColor: "var(--beige)",
+        backgroundColor: "var(--black)",
         padding: "calc(72px + 3rem) clamp(1.5rem, 6vw, 5rem) clamp(4rem, 8vh, 6rem)",
       }}
     >
@@ -33,9 +33,8 @@ export default function Hero() {
           animate="visible"
           variants={fadeUp}
           className="flex items-center gap-3 text-xs font-medium tracking-widest uppercase mb-8"
-          style={{ color: "var(--gold)" }}
+          style={{ color: "var(--cream-muted)" }}
         >
-          <span className="w-5 h-px" style={{ backgroundColor: "var(--gold)" }} />
           Video Marketing
         </motion.p>
 
@@ -48,15 +47,15 @@ export default function Hero() {
           style={{
             fontFamily: "var(--font-cormorant)",
             fontSize: "clamp(2.6rem, 5.5vw, 5rem)",
-            fontWeight: 400,
+            fontWeight: 300,
             lineHeight: 1.08,
-            letterSpacing: "-0.02em",
-            color: "var(--dark)",
+            letterSpacing: 0,
+            color: "var(--cream)",
           }}
         >
           Video&apos;s die
           <br />
-          <em style={{ fontStyle: "italic", color: "var(--brown-warm)" }}>
+          <em style={{ fontStyle: "italic", color: "var(--cream-muted)" }}>
             opvallen én
           </em>
           <br />
@@ -69,7 +68,7 @@ export default function Hero() {
           animate="visible"
           variants={fadeUp}
           className="text-base font-light leading-relaxed mb-10"
-          style={{ color: "var(--muted)", maxWidth: "420px" }}
+          style={{ color: "var(--cream-muted)", maxWidth: "420px" }}
         >
           {content.vastgoed.subtext}
         </motion.p>
@@ -83,9 +82,9 @@ export default function Hero() {
         >
           <motion.a
             href={`mailto:${content.contact.email}?subject=Gratis%20demo-edit%20aanvraag`}
-            className="text-sm font-medium rounded-full px-8 py-4 transition-colors"
-            style={{ backgroundColor: "var(--dark)", color: "var(--off-white)" }}
-            whileHover={{ backgroundColor: "var(--brown)", scale: 1.02 }}
+            className="text-sm font-medium rounded-[2px] px-8 py-4 transition-colors"
+            style={{ backgroundColor: "var(--gold)", color: "var(--black)" }}
+            whileHover={{ backgroundColor: "var(--gold-light)" }}
             whileTap={{ scale: 0.97 }}
           >
             Gratis demo-edit aanvragen
@@ -93,8 +92,8 @@ export default function Hero() {
           <motion.a
             href="#showcase"
             className="text-sm font-normal pb-0.5 border-b transition-colors"
-            style={{ color: "var(--brown)", borderColor: "var(--beige-deep)" }}
-            whileHover={{ borderColor: "var(--brown)" }}
+            style={{ color: "var(--cream)", borderColor: "var(--hairline-strong)" }}
+            whileHover={{ borderColor: "var(--hairline-gold)" }}
           >
             Bekijk voorbeelden
           </motion.a>
@@ -142,7 +141,7 @@ export default function Hero() {
 
           {/* Text overlay */}
           <div style={{ position: "absolute", bottom: "1.5rem", left: "1.75rem", right: "1.75rem" }}>
-            <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.35rem", fontWeight: 400, color: "#FDFAF7", lineHeight: 1.25 }}>
+            <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)", lineHeight: 1.25 }}>
               Zo zet je jouw merk<br />
               <em style={{ color: "var(--gold)" }}>in de kijker</em>
             </p>
@@ -154,7 +153,7 @@ export default function Hero() {
               position: "absolute",
               top: "1.25rem",
               right: "1.25rem",
-              backgroundColor: "rgba(253,250,247,0.12)",
+              backgroundColor: "rgba(241,237,230,0.12)",
               backdropFilter: "blur(8px)",
               borderRadius: "8px",
               padding: "0.35rem 0.65rem",
@@ -164,7 +163,7 @@ export default function Hero() {
             }}
           >
             <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#4ade80" }} />
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.6rem", color: "rgba(253,250,247,0.7)" }}>Live preview</span>
+            <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6rem", color: "rgba(241,237,230,0.7)" }}>Live preview</span>
           </div>
         </motion.div>
       </motion.div>

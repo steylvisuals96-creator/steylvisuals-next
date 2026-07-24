@@ -33,7 +33,7 @@ function MouseGlow({ x, y }: { x: ReturnType<typeof useMotionValue<number>>; y: 
       style={{
         left: sx, top: sy, x: "-50%", y: "-50%",
         width: "520px", height: "520px", borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(184,132,58,0.07) 0%, transparent 65%)",
+        background: "radial-gradient(circle, rgba(201,151,74,0.07) 0%, transparent 65%)",
         zIndex: 1,
       }}
     />
@@ -66,7 +66,7 @@ export default function LandingHero() {
     <section
       ref={ref}
       className="relative min-h-svh flex flex-col justify-center overflow-hidden"
-      style={{ backgroundColor: "#0A0A0A" }}
+      style={{ backgroundColor: "var(--black)" }}
     >
       {/* SVG noise grain */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.04 }} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -79,7 +79,7 @@ export default function LandingHero() {
 
       {/* Gold radial glow */}
       <motion.div style={{ y: parallaxY }} className="absolute top-0 left-1/2 pointer-events-none" aria-hidden="true" initial={false}>
-        <div style={{ width: "900px", height: "900px", borderRadius: "50%", background: "radial-gradient(circle, rgba(184,132,58,0.13) 0%, transparent 65%)", filter: "blur(60px)", transform: "translate(-50%, -40%)" }} />
+        <div style={{ width: "900px", height: "900px", borderRadius: "50%", background: "radial-gradient(circle, rgba(201,151,74,0.13) 0%, transparent 65%)", filter: "blur(60px)", transform: "translate(-50%, -40%)" }} />
       </motion.div>
 
       <MouseGlow x={glowX} y={glowY} />
@@ -89,7 +89,7 @@ export default function LandingHero() {
         animate={{ scaleX: 1 }}
         transition={{ duration: 1.4, delay: 1, ease: [0.16, 1, 0.3, 1] }}
         className="absolute left-0 right-0 pointer-events-none"
-        style={{ bottom: "20%", height: "1px", backgroundColor: "rgba(184,132,58,0.08)", transformOrigin: "left" }}
+        style={{ bottom: "20%", height: "1px", backgroundColor: "rgba(201,151,74,0.08)", transformOrigin: "left" }}
         aria-hidden="true"
       />
 
@@ -105,10 +105,9 @@ export default function LandingHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="flex items-center gap-3 mb-8"
-            style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.68rem", fontWeight: 500, letterSpacing: "0.25em", textTransform: "uppercase", color: "#B8843A" }}
+            className="mb-8"
+            style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)" }}
           >
-            <span className="w-5 h-px" style={{ backgroundColor: "#B8843A" }} />
             Creative Studio · België
           </motion.p>
 
@@ -120,15 +119,15 @@ export default function LandingHero() {
               transition={{ duration: 1.1, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 fontFamily: "var(--font-cormorant)",
-                fontSize: "clamp(3rem, 5.5vw, 7rem)",
-                fontWeight: 400,
-                lineHeight: 1.02,
-                letterSpacing: "-0.025em",
-                color: "#FDFAF7",
+                fontSize: "clamp(2.75rem, 6vw, 4.75rem)",
+                fontWeight: 300,
+                lineHeight: 1.05,
+                letterSpacing: 0,
+                color: "var(--cream)",
               }}
             >
               Premium{" "}
-              <em style={{ fontStyle: "italic", color: "#B8843A" }}>
+              <em style={{ fontStyle: "italic", color: "var(--gold)" }}>
                 <AnimatedWord word={WORDS[wordIdx]} />
               </em>
               <br />
@@ -144,11 +143,11 @@ export default function LandingHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontFamily: "var(--font-dm-sans)",
+              fontFamily: "var(--font-poppins)",
               fontSize: "1.05rem",
               fontWeight: 300,
               lineHeight: 1.7,
-              color: "rgba(253,250,247,0.52)",
+              color: "var(--cream-muted)",
               maxWidth: "420px",
               marginBottom: "3rem",
             }}
@@ -166,24 +165,41 @@ export default function LandingHero() {
           >
             <motion.a
               href="mailto:Steylvisuals96@gmail.com?subject=Interesse%20in%20SteylVisuals"
-              className="flex items-center gap-2 text-sm font-medium rounded-full cursor-pointer"
-              style={{ backgroundColor: "#B8843A", color: "#0A0A0A", padding: "1rem 2rem", fontFamily: "var(--font-dm-sans)" }}
-              whileHover={{ backgroundColor: "#CFA05A", scale: 1.03 }}
+              className="cursor-pointer"
+              style={{
+                backgroundColor: "var(--gold)",
+                color: "var(--black)",
+                padding: "1.125rem 2.5rem",
+                borderRadius: "var(--r-sm)",
+                fontFamily: "var(--font-poppins)",
+                fontSize: "0.6875rem",
+                fontWeight: 500,
+                letterSpacing: "0.26em",
+                textTransform: "uppercase",
+              }}
+              whileHover={{ backgroundColor: "var(--gold-light)" }}
               whileTap={{ scale: 0.97 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.3 }}
             >
               Gratis gesprek aanvragen
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
             </motion.a>
             <motion.a
               href="#services"
-              className="flex items-center gap-2 text-sm font-medium rounded-full cursor-pointer"
-              style={{ border: "1px solid rgba(253,250,247,0.18)", color: "#FDFAF7", padding: "1rem 2rem", fontFamily: "var(--font-dm-sans)" }}
-              whileHover={{ borderColor: "rgba(184,132,58,0.55)", color: "#B8843A", scale: 1.02 }}
+              className="cursor-pointer"
+              style={{
+                border: "1px solid rgba(241,237,230,0.25)",
+                color: "var(--cream)",
+                padding: "1.125rem 2.5rem",
+                borderRadius: "var(--r-sm)",
+                fontFamily: "var(--font-poppins)",
+                fontSize: "0.6875rem",
+                fontWeight: 500,
+                letterSpacing: "0.26em",
+                textTransform: "uppercase",
+              }}
+              whileHover={{ borderColor: "rgba(201,151,74,0.55)", color: "var(--gold)" }}
               whileTap={{ scale: 0.97 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.3 }}
             >
               Ontdek onze diensten
             </motion.a>
@@ -195,12 +211,12 @@ export default function LandingHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9 }}
             className="flex flex-wrap gap-10 sm:gap-14"
-            style={{ borderTop: "1px solid rgba(253,250,247,0.07)", paddingTop: "2rem" }}
+            style={{ borderTop: "1px solid var(--hairline)", paddingTop: "2rem" }}
           >
             {content.stats.map(({ num, label }) => (
               <div key={label}>
-                <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 400, color: "#B8843A", lineHeight: 1 }}>{num}</p>
-                <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.7rem", color: "rgba(253,250,247,0.38)", marginTop: "0.35rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>{label}</p>
+                <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", lineHeight: 1.15 }}>{num}</p>
+                <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, color: "var(--cream-muted)", marginTop: "0.5rem", letterSpacing: "0.26em", textTransform: "uppercase" }}>{label}</p>
               </div>
             ))}
           </motion.div>
@@ -214,7 +230,7 @@ export default function LandingHero() {
           className="hidden lg:block relative"
           style={{ height: "clamp(480px, 70vh, 700px)" }}
         >
-          <div className="w-full h-full overflow-hidden" style={{ borderRadius: "16px", border: "1px solid rgba(184,132,58,0.18)", boxShadow: "0 40px 100px rgba(0,0,0,0.55), 0 0 60px rgba(184,132,58,0.05)" }}>
+          <div className="w-full h-full overflow-hidden" style={{ borderRadius: "var(--r-md)", border: "1px solid var(--hairline)" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/images/DSCF3335__1_.jpg"
@@ -223,8 +239,8 @@ export default function LandingHero() {
             />
             <div aria-hidden="true" style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "45%", background: "linear-gradient(to top, rgba(10,10,10,0.82) 0%, transparent 100%)" }} />
             <div style={{ position: "absolute", bottom: "1.5rem", left: "1.5rem" }}>
-              <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.2rem", fontWeight: 400, color: "#FDFAF7", lineHeight: 1.2 }}>Sam Steylaerts</p>
-              <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "0.65rem", color: "#B8843A", letterSpacing: "0.12em", textTransform: "uppercase", marginTop: "0.25rem" }}>Oprichter · SteylVisuals</p>
+              <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", lineHeight: 1.15 }}>Sam Steylaerts</p>
+              <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, color: "var(--cream-muted)", letterSpacing: "0.26em", textTransform: "uppercase", marginTop: "0.5rem" }}>Oprichter · SteylVisuals</p>
             </div>
           </div>
         </motion.div>
@@ -232,8 +248,8 @@ export default function LandingHero() {
 
       {/* Scroll indicator */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }} className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" aria-hidden="true">
-        <div className="w-px h-14 overflow-hidden" style={{ backgroundColor: "rgba(184,132,58,0.15)" }}>
-          <motion.div className="w-full" style={{ height: "50%", backgroundColor: "#B8843A" }} animate={{ y: ["-100%", "200%"] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }} />
+        <div className="w-px h-14 overflow-hidden" style={{ backgroundColor: "rgba(201,151,74,0.15)" }}>
+          <motion.div className="w-full" style={{ height: "50%", backgroundColor: "var(--cream-muted)" }} animate={{ y: ["-100%", "200%"] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }} />
         </div>
       </motion.div>
     </section>

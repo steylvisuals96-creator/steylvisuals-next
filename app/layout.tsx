@@ -1,19 +1,27 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, Poppins, Montserrat } from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400"],
   style: ["normal", "italic"],
   variable: "--font-cormorant",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-dm-sans",
+  weight: ["300", "400", "500"],
+  variable: "--font-poppins",
+  display: "swap",
+});
+
+// Wordmark only. Never exposed to page content — see DESIGN.md, The Locked Wordmark Rule.
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["800"],
+  variable: "--font-montserrat",
   display: "swap",
 });
 
@@ -54,11 +62,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="nl" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html lang="nl" className={`${cormorant.variable} ${poppins.variable} ${montserrat.variable}`}>
       <head>
+        <meta name="theme-color" content="var(--black)" />
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" async></script>
       </head>
-      <body style={{ fontFamily: "var(--font-dm-sans), DM Sans, sans-serif" }}>
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

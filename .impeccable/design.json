@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-25T00:30:00Z",
+  "title": "Design System: SteylVisuals",
+  "extensions": {
+    "colorMeta": {
+      "black": {
+        "role": "neutral",
+        "displayName": "Studio Black",
+        "canonical": "#0D0B09",
+        "tonalRamp": ["#0D0B09", "#1A1512", "#2B231C", "#3F342A", "#5A4C40", "#847668", "#B5AA9D", "#E8E2D9"]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Panel",
+        "canonical": "#1A1512",
+        "tonalRamp": ["#0D0B09", "#1A1512", "#271F1A", "#372C24", "#4E4038", "#75655A", "#A79789", "#E0D8CD"]
+      },
+      "brown": {
+        "role": "neutral",
+        "displayName": "Deep Brown",
+        "canonical": "#3B1E0B",
+        "tonalRamp": ["#160B04", "#261307", "#3B1E0B", "#542C11", "#71401C", "#9A6236", "#C6966A", "#EBD3B6"]
+      },
+      "gold": {
+        "role": "primary",
+        "displayName": "Signal Gold",
+        "canonical": "#C9974A",
+        "tonalRamp": ["#241A0B", "#3E2C13", "#5C421C", "#7C5926", "#9D7231", "#BE8B3E", "#C9974A", "#E6C894"]
+      },
+      "gold-light": {
+        "role": "primary",
+        "displayName": "Lit Gold",
+        "canonical": "#E6C894",
+        "tonalRamp": ["#2B2312", "#463A1E", "#63522A", "#826C37", "#A28845", "#C2A566", "#E6C894", "#F5E7C9"]
+      },
+      "cream": {
+        "role": "neutral",
+        "displayName": "Cream",
+        "canonical": "#F1EDE6",
+        "tonalRamp": ["#1C1A16", "#332F29", "#4D4740", "#6A635A", "#8A8278", "#ADA69B", "#D0CAC1", "#F1EDE6"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero lines only, one per page. Italic available for a single emphasized word." },
+      "headline": { "displayName": "Headline", "purpose": "Section openers. Never below 18px." },
+      "title": { "displayName": "Title", "purpose": "Card headings, pull quotes and names — the serif labelling something rather than opening a section." },
+      "subline": { "displayName": "Subline", "purpose": "The sentence under a headline. Poppins Light with open tracking." },
+      "body": { "displayName": "Body", "purpose": "All running text. Measure capped at 65-75ch, never below 15px." },
+      "label": { "displayName": "Label / Kicker", "purpose": "Kickers, nav, buttons, metadata. The 0.26em tracking is the signature." },
+      "wordmark": { "displayName": "Wordmark", "purpose": "Montserrat 800, logo only. Never available to page content." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-out-brand", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Default entrance easing. Exponential ease-out, no bounce." },
+      { "name": "dot-in", "value": "400ms", "purpose": "The dot enters. The only element permitted to animate independently." },
+      { "name": "word-wipe", "value": "500ms", "purpose": "Wordmark wipes open behind the dot." },
+      { "name": "sub-in", "value": "400ms", "purpose": "VISUALS tracks in, letter-spacing settling back to rest." },
+      { "name": "hold", "value": "1200ms", "purpose": "Full lockup holds before the wipe." },
+      { "name": "wipe-out", "value": "600ms", "purpose": "Dot grows to a full gold field as scene transition. ease-in-out." },
+      { "name": "state", "value": "300ms", "purpose": "Hover and focus state changes on buttons, cards and nav." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one action worth pressing in a view. Gold field, black text.",
+      "html": "<button class=\"ds-btn-primary\">Gratis gesprek aanvragen</button>",
+      "css": ".ds-btn-primary { background: #C9974A; color: #0D0B09; font-family: Poppins, system-ui, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; padding: 18px 40px; border: none; border-radius: 2px; cursor: pointer; transition: background 300ms cubic-bezier(0.16,1,0.3,1); } .ds-btn-primary:hover { background: #E6C894; } .ds-btn-primary:focus-visible { outline: 2px solid #F1EDE6; outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "The secondary action beside a primary. Hairline border, no fill.",
+      "html": "<button class=\"ds-btn-ghost\">Bekijk portfolio</button>",
+      "css": ".ds-btn-ghost { background: transparent; color: #F1EDE6; font-family: Poppins, system-ui, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; padding: 18px 40px; border: 1px solid rgba(241,237,230,0.25); border-radius: 2px; cursor: pointer; transition: color 300ms cubic-bezier(0.16,1,0.3,1), border-color 300ms cubic-bezier(0.16,1,0.3,1); } .ds-btn-ghost:hover { color: #C9974A; border-color: rgba(201,151,74,0.55); } .ds-btn-ghost:focus-visible { outline: 2px solid #F1EDE6; outline-offset: 2px; }"
+    },
+    {
+      "name": "Section Opener",
+      "kind": "custom",
+      "refersTo": "label",
+      "description": "The brandbook's three-voice stack: gold kicker, light serif headline, Poppins body. The sanctioned way to open a section.",
+      "html": "<div class=\"ds-opener\"><p class=\"ds-opener-kicker\">Creative studio · België</p><h2 class=\"ds-opener-head\">Van premium video tot een website die <em>converteert</em></h2><p class=\"ds-opener-body\">Poppins draagt alle lopende tekst, labels en navigatie. De serif spreekt, de sans werkt.</p></div>",
+      "css": ".ds-opener { max-width: 68ch; } .ds-opener-kicker { font-family: Poppins, system-ui, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: #C9974A; margin: 0 0 20px; } .ds-opener-head { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: clamp(1.75rem, 3.5vw, 2.5rem); line-height: 1.15; color: #F1EDE6; margin: 0 0 20px; text-wrap: balance; } .ds-opener-head em { font-style: italic; } .ds-opener-body { font-family: Poppins, system-ui, sans-serif; font-size: 16px; font-weight: 400; line-height: 1.7; color: rgba(241,237,230,0.7); margin: 0; }"
+    },
+    {
+      "name": "Panel Card",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "One tonal step up from the ground. Hairline border warms to gold on hover; no shadow.",
+      "html": "<div class=\"ds-panel\"><h3 class=\"ds-panel-title\">Webdesign</h3><p class=\"ds-panel-body\">Een site die laadt, converteert en van jou is — geen template.</p></div>",
+      "css": ".ds-panel { background: #1A1512; border: 1px solid rgba(241,237,230,0.08); border-radius: 4px; padding: 40px; transition: border-color 300ms cubic-bezier(0.16,1,0.3,1), background 300ms cubic-bezier(0.16,1,0.3,1); } .ds-panel:hover { border-color: rgba(201,151,74,0.35); background: #1F1915; } .ds-panel-title { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 1.75rem; line-height: 1.15; color: #F1EDE6; margin: 0 0 12px; } .ds-panel-body { font-family: Poppins, system-ui, sans-serif; font-size: 16px; line-height: 1.7; color: rgba(241,237,230,0.7); margin: 0; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Underline only, never a boxed field. Focus takes the rule to gold.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Naam</span><input class=\"ds-input\" type=\"text\" placeholder=\"Jouw naam\"></label>",
+      "css": ".ds-field { display: block; } .ds-field-label { display: block; font-family: Poppins, system-ui, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: rgba(241,237,230,0.7); margin-bottom: 10px; } .ds-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(241,237,230,0.2); border-radius: 0; padding: 14px 0; font-family: Poppins, system-ui, sans-serif; font-size: 16px; color: #F1EDE6; transition: border-color 300ms cubic-bezier(0.16,1,0.3,1); } .ds-input::placeholder { color: rgba(241,237,230,0.7); } .ds-input:focus { outline: none; border-bottom: 2px solid #C9974A; }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "label",
+      "description": "Uppercase Poppins at label tracking. Transparent over the hero, panel background once scrolled.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link ds-nav-link--active\" href=\"#\">Webdesign</a><a class=\"ds-nav-link\" href=\"#\">Video</a><a class=\"ds-nav-link\" href=\"#\">Portfolio</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 36px; align-items: center; } .ds-nav-link { font-family: Poppins, system-ui, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: #F1EDE6; text-decoration: none; transition: color 300ms cubic-bezier(0.16,1,0.3,1); } .ds-nav-link:hover, .ds-nav-link--active { color: #C9974A; } .ds-nav-link:focus-visible { outline: 2px solid #F1EDE6; outline-offset: 4px; }"
+    },
+    {
+      "name": "Logo Lockup",
+      "kind": "custom",
+      "refersTo": "wordmark",
+      "description": "Steyl. in Montserrat 800 with the gold dot, VISUALS beneath in Poppins left-aligned to the S.",
+      "html": "<div class=\"ds-logo\"><span class=\"ds-logo-word\">Steyl<span class=\"ds-logo-dot\">.</span></span><span class=\"ds-logo-sub\">Visuals</span></div>",
+      "css": ".ds-logo { display: inline-flex; flex-direction: column; align-items: flex-start; line-height: 1; } .ds-logo-word { font-family: Montserrat, sans-serif; font-weight: 800; font-size: 34px; letter-spacing: -0.035em; color: #F1EDE6; } .ds-logo-dot { color: #C9974A; } .ds-logo-sub { font-family: Poppins, system-ui, sans-serif; font-weight: 400; font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase; color: #F1EDE6; margin-top: 6px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Gold Punctuation",
+    "overview": "The brand is a full stop. Everything else on the page is the quiet sentence that earns it. That single gold dot in the wordmark is the only thing in the system permitted to be loud, and it works only because the ninety percent around it refuses to compete — held black, unhurried type, generous air, no second accent asking for attention.\n\nThis inverts how most studio sites behave. The instinct is to open loud and stay loud; here the surface is dark and still, and gold arrives once per view to mark the thing that matters — a kicker, a number, the dot, the one button worth pressing. When gold shows up twice in a viewport, one of them is decoration and should be removed. The ratio in the brandbook — roughly 70% black, 20% cream, 10% gold — is not a suggestion about mood, it is the mechanism.\n\nTypography carries the warmth that the palette deliberately withholds. Cormorant Garamond Light speaks — hero lines, section openers, pull quotes — and Poppins works, carrying every label, paragraph, button and nav item without ever raising its voice. Montserrat 800 belongs to the logo and to nothing else.",
+    "keyCharacteristics": [
+      "Black-first: #0D0B09 is the ground state of every surface, not a dark-mode variant",
+      "One accent, rationed: gold appears roughly once per viewport",
+      "Two voices, strictly divided: serif speaks, sans works",
+      "Motion belongs to the dot; the wordmark never animates letter-by-letter",
+      "Flat by default — depth comes from tonal steps, not shadows"
+    ],
+    "rules": [
+      { "name": "The One Punctuation Rule", "body": "Gold appears once per viewport. A gold kicker and a gold button in the same screenful means one of them is decoration — cut it. The dot in the logo does not count against the budget; it is the brand mark, not an accent.", "section": "colors" },
+      { "name": "The 70/20/10 Rule", "body": "Roughly 70% black, 20% cream, 10% gold, measured by area across any full view. Screenshot a page, squint, and if gold reads as a texture rather than as punctuation, the ratio has slipped.", "section": "colors" },
+      { "name": "The Contrast Pairing Rule", "body": "Only four text pairings are approved: cream on black (16.8:1), gold on black (7.5:1), black on gold (7.5:1), brown on cream (13.1:1). Cream on gold is 2.2:1 and fails — logo lockup and display type only. A gold button takes black text.", "section": "colors" },
+      { "name": "The Muted Floor Rule", "body": "Secondary text is cream at 70% opacity (8.4:1 on black), never a gray. 60% is the hard floor (6.4:1); below that, raise the opacity rather than accepting the wash.", "section": "colors" },
+      { "name": "The Two Voices Rule", "body": "Cormorant speaks, Poppins works. A serif button, nav item or form label is a category error. Equally, a Poppins hero throws away the only warmth in the system.", "section": "typography" },
+      { "name": "The Locked Wordmark Rule", "body": "Montserrat 800 is the logo's alone. Using it for a heading dissolves the wordmark's distinctiveness, because its weight stops being unique to the mark.", "section": "typography" },
+      { "name": "The Kicker Cadence Rule", "body": "The three-voice stack (gold kicker, light serif headline, Poppins body) is a deliberate brand system and the sanctioned section opener. But it earns its place by carrying a real word. A kicker that only says ABOUT above a heading that already says About is filler; drop it.", "section": "typography" },
+      { "name": "The No-Shadow Rule", "body": "If an element needs to separate from its surroundings, use a tonal step or a hairline border. Reaching for box-shadow on this ground means the hierarchy problem is elsewhere.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep #0D0B09 as the ground state of every surface; light sections are the exception that must be argued for.",
+      "Do give a gold button black text — cream on gold fails contrast at 2.2:1.",
+      "Do use cream at 70% opacity for secondary text rather than any gray.",
+      "Do let only the dot animate independently: in at 0.4s ease-out, hold 1.2s, wipe out at 0.6s ease-in-out.",
+      "Do drop VISUALS from the lockup below 90px, and fall back to the S. icon below 32px.",
+      "Do keep at least one dot-diameter of clear space around the mark, with nothing intruding."
+    ],
+    "donts": [
+      "Don't use Montserrat 800 anywhere but the logo.",
+      "Don't let gold appear twice in one viewport, or use it as a filled panel behind running text.",
+      "Don't set Cormorant below 18px, or Poppins body below 15px.",
+      "Don't add box-shadow — depth is tonal on this ground.",
+      "Don't animate the wordmark letter-by-letter, scale it, rotate it, or omit or recolor the dot outside the three approved versions.",
+      "Don't place the logo over a busy image without a dark gradient beneath it.",
+      "Don't introduce a second accent color, including a red for errors — error states use Lit Gold."
+    ]
+  }
+}

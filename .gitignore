@@ -45,3 +45,6 @@ next-env.d.ts
 /public/videos/*.MOV
 /public/videos/*.mov
 public/.wrangler/
+
+# Cloudflare build cache
+.wrangler/

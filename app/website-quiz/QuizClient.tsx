@@ -121,7 +121,7 @@ export default function QuizClient() {
   };
 
   return (
-    <div className="min-h-[100dvh] bg-[var(--off-white)]">
+    <div className="min-h-[100dvh] bg-[var(--black)]">
 
       {/* ── Demo preview overlay ── */}
       <AnimatePresence>
@@ -135,17 +135,17 @@ export default function QuizClient() {
           >
             <div
               className="flex items-center justify-between px-6 py-3 shrink-0"
-              style={{ background: "var(--dark)" }}
+              style={{ background: "var(--black)" }}
             >
-              <span className="text-sm" style={{ color: "var(--beige)", fontFamily: "var(--font-dm-sans)" }}>
+              <span className="text-sm" style={{ color: "var(--cream)", fontFamily: "var(--font-poppins)" }}>
                 {DEMOS.find(d => d.slug === preview)?.name} — Live demo
               </span>
               <button
                 onClick={() => setPreview(null)}
                 className="flex items-center gap-2 text-sm transition-colors cursor-pointer"
-                style={{ color: "var(--muted)" }}
-                onMouseOver={e => (e.currentTarget.style.color = "var(--beige)")}
-                onMouseOut={e => (e.currentTarget.style.color = "var(--muted)")}
+                style={{ color: "var(--cream-muted)" }}
+                onMouseOver={e => (e.currentTarget.style.color = "var(--cream)")}
+                onMouseOut={e => (e.currentTarget.style.color = "var(--cream-muted)")}
               >
                 Sluiten <span className="text-xl leading-none">×</span>
               </button>
@@ -167,9 +167,9 @@ export default function QuizClient() {
           <Link
             href="/"
             className="text-xs font-mono tracking-widest uppercase transition-colors"
-            style={{ color: "var(--muted)" }}
-            onMouseOver={e => (e.currentTarget.style.color = "var(--dark)")}
-            onMouseOut={e => (e.currentTarget.style.color = "var(--muted)")}
+            style={{ color: "var(--cream-muted)" }}
+            onMouseOver={e => (e.currentTarget.style.color = "var(--black)")}
+            onMouseOut={e => (e.currentTarget.style.color = "var(--cream-muted)")}
           >
             ← SteylVisuals
           </Link>
@@ -179,14 +179,14 @@ export default function QuizClient() {
         {step >= 0 && step < TOTAL && (
           <div className="mb-12">
             <div className="flex justify-between mb-2">
-              <span className="text-xs font-mono" style={{ color: "var(--muted)" }}>
+              <span className="text-xs font-mono" style={{ color: "var(--cream-muted)" }}>
                 Vraag {step + 1} / {TOTAL}
               </span>
-              <span className="text-xs font-mono" style={{ color: "var(--muted)" }}>
+              <span className="text-xs font-mono" style={{ color: "var(--cream-muted)" }}>
                 {Math.round(((step + 1) / TOTAL) * 100)}%
               </span>
             </div>
-            <div className="h-px relative" style={{ background: "var(--beige-deep)" }}>
+            <div className="h-px relative" style={{ background: "var(--hairline-strong)" }}>
               <motion.div
                 className="absolute inset-y-0 left-0"
                 style={{ background: "var(--gold)" }}
@@ -210,18 +210,17 @@ export default function QuizClient() {
                   fontSize: "clamp(2rem, 5vw, 3.2rem)",
                   fontFamily: "var(--font-cormorant)",
                   fontWeight: 300,
-                  color: "var(--dark)",
+                  color: "var(--cream)",
                 }}>
                   Welke website past bij uw vastgoedkantoor?
                 </h1>
-                <p className="text-base leading-relaxed mb-8 max-w-md" style={{ color: "var(--muted)" }}>
+                <p className="text-base leading-relaxed mb-8 max-w-md" style={{ color: "var(--cream-muted)" }}>
                   Beantwoord 8 korte vragen. Op basis van uw antwoorden tonen wij de stijl die het best bij u past — en u kunt elke demo live bekijken in dit venster.
                 </p>
-                <div className="flex items-center gap-2 text-sm mb-12" style={{ color: "var(--muted)" }}>
-                  <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "var(--gold)" }} />
+                <div className="flex items-center gap-2 text-sm mb-12" style={{ color: "var(--cream-muted)" }}>
                   Duurt ongeveer 2 minuten · Volledig vrijblijvend
                 </div>
-                <Btn label="Start de quiz →" onClick={next} active />
+                <Btn label="Start de quiz" onClick={next} active />
               </motion.div>
             )}
 
@@ -386,11 +385,11 @@ export default function QuizClient() {
                   fontSize: "clamp(1.8rem, 4.5vw, 2.8rem)",
                   fontFamily: "var(--font-cormorant)",
                   fontWeight: 300,
-                  color: "var(--dark)",
+                  color: "var(--cream)",
                 }}>
                   Laat uw gegevens achter.
                 </h2>
-                <p className="text-sm leading-relaxed mb-8 max-w-md" style={{ color: "var(--muted)" }}>
+                <p className="text-sm leading-relaxed mb-8 max-w-md" style={{ color: "var(--cream-muted)" }}>
                   Wij contacteren u voor een vrijblijvend gesprek over uw website — geen verplichtingen, geen spam.
                 </p>
 
@@ -398,7 +397,7 @@ export default function QuizClient() {
 
                   {/* Naam */}
                   <div>
-                    <label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: "var(--muted)" }}>
+                    <label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: "var(--cream-muted)" }}>
                       Naam *
                     </label>
                     <input
@@ -409,15 +408,15 @@ export default function QuizClient() {
                       value={contact.naam}
                       onChange={e => setContact(c => ({ ...c, naam: e.target.value }))}
                       className="w-full border-b-2 bg-transparent pb-3 outline-none transition-colors text-lg"
-                      style={{ borderColor: "var(--beige-deep)", fontFamily: "var(--font-cormorant)", color: "var(--dark)" }}
+                      style={{ borderColor: "var(--hairline-strong)", fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}
                       onFocus={e => (e.currentTarget.style.borderColor = "var(--gold)")}
-                      onBlur={e => (e.currentTarget.style.borderColor = "var(--beige-deep)")}
+                      onBlur={e => (e.currentTarget.style.borderColor = "var(--hairline-strong)")}
                     />
                   </div>
 
                   {/* E-mail */}
                   <div>
-                    <label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: "var(--muted)" }}>
+                    <label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: "var(--cream-muted)" }}>
                       E-mailadres *
                     </label>
                     <input
@@ -428,16 +427,16 @@ export default function QuizClient() {
                       value={contact.email}
                       onChange={e => setContact(c => ({ ...c, email: e.target.value }))}
                       className="w-full border-b-2 bg-transparent pb-3 outline-none transition-colors text-lg"
-                      style={{ borderColor: "var(--beige-deep)", fontFamily: "var(--font-cormorant)", color: "var(--dark)" }}
+                      style={{ borderColor: "var(--hairline-strong)", fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}
                       onFocus={e => (e.currentTarget.style.borderColor = "var(--gold)")}
-                      onBlur={e => (e.currentTarget.style.borderColor = "var(--beige-deep)")}
+                      onBlur={e => (e.currentTarget.style.borderColor = "var(--hairline-strong)")}
                     />
                   </div>
 
                   {/* Telefoon */}
                   <div>
-                    <label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: "var(--muted)" }}>
-                      Telefoonnummer <span style={{ color: "var(--beige-deep)" }}>(optioneel)</span>
+                    <label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: "var(--cream-muted)" }}>
+                      Telefoonnummer <span style={{ color: "var(--cream-muted)" }}>(optioneel)</span>
                     </label>
                     <input
                       type="tel"
@@ -446,9 +445,9 @@ export default function QuizClient() {
                       value={contact.telefoon}
                       onChange={e => setContact(c => ({ ...c, telefoon: e.target.value }))}
                       className="w-full border-b-2 bg-transparent pb-3 outline-none transition-colors text-lg"
-                      style={{ borderColor: "var(--beige-deep)", fontFamily: "var(--font-cormorant)", color: "var(--dark)" }}
+                      style={{ borderColor: "var(--hairline-strong)", fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}
                       onFocus={e => (e.currentTarget.style.borderColor = "var(--gold)")}
-                      onBlur={e => (e.currentTarget.style.borderColor = "var(--beige-deep)")}
+                      onBlur={e => (e.currentTarget.style.borderColor = "var(--hairline-strong)")}
                     />
                   </div>
 
@@ -459,9 +458,9 @@ export default function QuizClient() {
                   <div className="flex items-center gap-4 mt-4">
                     <button type="button" onClick={() => go(8)}
                       className="text-sm transition-colors cursor-pointer"
-                      style={{ color: "var(--muted)" }}
-                      onMouseOver={e => (e.currentTarget.style.color = "var(--dark)")}
-                      onMouseOut={e => (e.currentTarget.style.color = "var(--muted)")}
+                      style={{ color: "var(--cream-muted)" }}
+                      onMouseOver={e => (e.currentTarget.style.color = "var(--black)")}
+                      onMouseOut={e => (e.currentTarget.style.color = "var(--cream-muted)")}
                     >
                       ← Terug
                     </button>
@@ -470,16 +469,16 @@ export default function QuizClient() {
                       disabled={submitting || !contact.naam || !contact.email}
                       className="inline-flex items-center gap-2 px-8 py-3.5 text-sm transition-all duration-200 cursor-pointer disabled:cursor-not-allowed"
                       style={(submitting || !contact.naam || !contact.email) ? {
-                        background: "var(--beige-mid)",
-                        color: "var(--beige-deep)",
+                        background: "var(--hairline)",
+                        color: "var(--cream-muted)",
                       } : {
-                        background: "var(--dark)",
-                        color: "var(--beige)",
+                        background: "var(--gold)",
+                        color: "var(--black)",
                       }}
-                      onMouseOver={e => { if (!submitting && contact.naam && contact.email) (e.currentTarget as HTMLButtonElement).style.background = "var(--brown-warm)"; }}
-                      onMouseOut={e => { if (!submitting && contact.naam && contact.email) (e.currentTarget as HTMLButtonElement).style.background = "var(--dark)"; }}
+                      onMouseOver={e => { if (!submitting && contact.naam && contact.email) (e.currentTarget as HTMLButtonElement).style.background = "var(--gold-light)"; }}
+                      onMouseOut={e => { if (!submitting && contact.naam && contact.email) (e.currentTarget as HTMLButtonElement).style.background = "var(--gold)"; }}
                     >
-                      {submitting ? "Verzenden…" : "Verstuur aanvraag →"}
+                      {submitting ? "Verzenden…" : "Verstuur aanvraag"}
                     </button>
                   </div>
                 </form>
@@ -500,19 +499,19 @@ export default function QuizClient() {
                   fontSize: "clamp(1.8rem, 4.5vw, 2.8rem)",
                   fontFamily: "var(--font-cormorant)",
                   fontWeight: 300,
-                  color: "var(--dark)",
+                  color: "var(--cream)",
                 }}>
                   Bedankt, {contact.naam || "u"}.
                 </h2>
-                <p className="text-base leading-relaxed mb-10 max-w-md" style={{ color: "var(--muted)" }}>
+                <p className="text-base leading-relaxed mb-10 max-w-md" style={{ color: "var(--cream-muted)" }}>
                   Uw aanvraag is ontvangen. We nemen zo snel mogelijk contact met u op — normaal gezien binnen 1 werkdag.
                 </p>
-                <div className="border-t pt-6" style={{ borderColor: "var(--beige-deep)" }}>
-                  <p className="text-xs font-mono uppercase tracking-widest mb-3" style={{ color: "var(--muted)" }}>
+                <div className="border-t pt-6" style={{ borderColor: "var(--hairline-strong)" }}>
+                  <p className="text-xs font-mono uppercase tracking-widest mb-3" style={{ color: "var(--cream-muted)" }}>
                     Aanbevolen stijl
                   </p>
-                  <p className="text-sm" style={{ color: "var(--dark)" }}>
-                    {DEMOS.find(d => d.slug === rec)?.name} — <span style={{ color: "var(--muted)" }}>{DEMOS.find(d => d.slug === rec)?.label}</span>
+                  <p className="text-sm" style={{ color: "var(--cream)" }}>
+                    {DEMOS.find(d => d.slug === rec)?.name} — <span style={{ color: "var(--cream-muted)" }}>{DEMOS.find(d => d.slug === rec)?.label}</span>
                   </p>
                 </div>
               </motion.div>
@@ -527,15 +526,15 @@ export default function QuizClient() {
                   fontSize: "clamp(1.8rem, 4.5vw, 2.8rem)",
                   fontFamily: "var(--font-cormorant)",
                   fontWeight: 300,
-                  color: "var(--dark)",
+                  color: "var(--cream)",
                 }}>
                   {answers.kantoorNaam
                     ? `${answers.kantoorNaam}, wij hebben uw stijl gevonden.`
                     : "Wij hebben uw stijl gevonden."}
                 </h2>
-                <p className="text-sm leading-relaxed mb-10 max-w-lg" style={{ color: "var(--muted)" }}>
+                <p className="text-sm leading-relaxed mb-10 max-w-lg" style={{ color: "var(--cream-muted)" }}>
                   Op basis van uw antwoorden past de{" "}
-                  <strong style={{ color: "var(--dark)" }}>
+                  <strong style={{ color: "var(--cream)" }}>
                     {DEMOS.find(d => d.slug === rec)?.name}
                   </strong>{" "}
                   stijl het best bij uw kantoor. Klik op een demo om hem live te bekijken — u kunt daarna gewoon sluiten en hier verdergaan.
@@ -555,33 +554,33 @@ export default function QuizClient() {
                         className="relative text-left p-5 border-2 cursor-pointer transition-all duration-200 group"
                         style={isRec ? {
                           borderColor: "var(--gold)",
-                          background: "var(--dark)",
+                          background: "var(--black)",
                         } : {
-                          borderColor: "var(--beige-deep)",
-                          background: "#fff",
+                          borderColor: "var(--hairline-strong)",
+                          background: "var(--panel)",
                         }}
-                        onMouseOver={e => { if (!isRec) e.currentTarget.style.borderColor = "var(--dark)"; }}
-                        onMouseOut={e => { if (!isRec) e.currentTarget.style.borderColor = "var(--beige-deep)"; }}
+                        onMouseOver={e => { if (!isRec) e.currentTarget.style.borderColor = "var(--black)"; }}
+                        onMouseOut={e => { if (!isRec) e.currentTarget.style.borderColor = "var(--hairline-strong)"; }}
                       >
                         {isRec && (
                           <span
                             className="absolute top-3 right-3 text-[10px] font-mono px-2 py-0.5 uppercase tracking-widest"
-                            style={{ background: "var(--gold)", color: "var(--dark)" }}
+                            style={{ background: "var(--gold)", color: "var(--black)" }}
                           >
                             Aanbevolen
                           </span>
                         )}
-                        <p className="text-xs font-mono mb-2" style={{ color: isRec ? "var(--gold)" : "var(--muted)" }}>
+                        <p className="text-xs font-mono mb-2" style={{ color: isRec ? "var(--gold)" : "var(--cream-muted)" }}>
                           0{i + 1}
                         </p>
-                        <h3 className="text-base font-medium mb-1" style={{ color: isRec ? "var(--beige)" : "var(--dark)" }}>
+                        <h3 className="text-base font-medium mb-1" style={{ color: isRec ? "var(--black)" : "var(--cream)" }}>
                           {demo.name}
                         </h3>
-                        <p className="text-xs mb-4" style={{ color: "var(--muted)" }}>
+                        <p className="text-xs mb-4" style={{ color: "var(--cream-muted)" }}>
                           {demo.label}
                         </p>
                         <span className="text-xs flex items-center gap-1 transition-all duration-200 group-hover:gap-2"
-                          style={{ color: isRec ? "var(--gold-light)" : "var(--dark)" }}>
+                          style={{ color: isRec ? "var(--gold-light)" : "var(--black)" }}>
                           Demo bekijken →
                         </span>
                       </motion.button>
@@ -590,8 +589,8 @@ export default function QuizClient() {
                 </div>
 
                 {/* Summary */}
-                <div className="border-t pt-7 mb-8" style={{ borderColor: "var(--beige-deep)" }}>
-                  <p className="text-xs font-mono uppercase tracking-widest mb-4" style={{ color: "var(--muted)" }}>
+                <div className="border-t pt-7 mb-8" style={{ borderColor: "var(--hairline-strong)" }}>
+                  <p className="text-xs font-mono uppercase tracking-widest mb-4" style={{ color: "var(--cream-muted)" }}>
                     Uw antwoorden
                   </p>
                   <div className="space-y-2">
@@ -605,8 +604,8 @@ export default function QuizClient() {
                       ...(answers.functies.length ? [["Functies", answers.functies.join(", ")]] : []),
                     ] as [string, string][]).map(([label, val]) => val ? (
                       <div key={label} className="flex gap-4 text-sm">
-                        <span className="w-28 shrink-0" style={{ color: "var(--muted)" }}>{label}</span>
-                        <span style={{ color: "var(--dark)" }}>{val}</span>
+                        <span className="w-28 shrink-0" style={{ color: "var(--cream-muted)" }}>{label}</span>
+                        <span style={{ color: "var(--cream)" }}>{val}</span>
                       </div>
                     ) : null)}
                   </div>
@@ -617,23 +616,23 @@ export default function QuizClient() {
                   <button
                     onClick={() => go(9)}
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 text-sm transition-colors duration-200 cursor-pointer"
-                    style={{ background: "var(--dark)", color: "var(--beige)" }}
-                    onMouseOver={e => (e.currentTarget.style.background = "var(--brown-warm)")}
-                    onMouseOut={e => (e.currentTarget.style.background = "var(--dark)")}
+                    style={{ background: "var(--gold)", color: "var(--black)" }}
+                    onMouseOver={e => (e.currentTarget.style.background = "var(--gold-light)")}
+                    onMouseOut={e => (e.currentTarget.style.background = "var(--gold)")}
                   >
                     Vraag een vrijblijvend voorstel aan →
                   </button>
                   <button
                     onClick={() => { setStep(-1); setAnswers(INITIAL); setContact(CONTACT_INITIAL); setDir(-1); }}
                     className="inline-flex items-center justify-center px-6 py-4 text-sm border cursor-pointer transition-colors duration-200"
-                    style={{ borderColor: "var(--beige-deep)", color: "var(--muted)" }}
+                    style={{ borderColor: "var(--hairline-strong)", color: "var(--cream-muted)" }}
                     onMouseOver={e => {
-                      (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--dark)";
-                      (e.currentTarget as HTMLButtonElement).style.color = "var(--dark)";
+                      (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--black)";
+                      (e.currentTarget as HTMLButtonElement).style.color = "var(--black)";
                     }}
                     onMouseOut={e => {
-                      (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--beige-deep)";
-                      (e.currentTarget as HTMLButtonElement).style.color = "var(--muted)";
+                      (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--hairline-strong)";
+                      (e.currentTarget as HTMLButtonElement).style.color = "var(--cream-muted)";
                     }}
                   >
                     Opnieuw beginnen
@@ -653,7 +652,7 @@ export default function QuizClient() {
 
 function Label({ text, gold }: { text: string; gold?: boolean }) {
   return (
-    <p className="text-xs font-mono tracking-widest uppercase mb-4" style={{ color: gold ? "var(--gold)" : "var(--gold)" }}>
+    <p className="text-xs tracking-widest uppercase mb-4" style={{ fontFamily: "var(--font-poppins)", fontWeight: 500, letterSpacing: "0.26em", color: "var(--cream-muted)" }}>
       {text}
     </p>
   );
@@ -666,11 +665,11 @@ function Q({ children, sub }: { children: React.ReactNode; sub?: string }) {
         fontSize: "clamp(1.6rem, 4vw, 2.4rem)",
         fontFamily: "var(--font-cormorant)",
         fontWeight: 300,
-        color: "var(--dark)",
+        color: "var(--cream)",
       }}>
         {children}
       </h2>
-      {sub && <p className="mt-2 text-sm" style={{ color: "var(--muted)" }}>{sub}</p>}
+      {sub && <p className="mt-2 text-sm" style={{ color: "var(--cream-muted)" }}>{sub}</p>}
     </div>
   );
 }
@@ -695,15 +694,15 @@ function TextIn({
         autoFocus
         className="w-full border-b-2 bg-transparent pb-3 outline-none transition-colors"
         style={{
-          borderColor: "var(--beige-deep)",
+          borderColor: "var(--hairline-strong)",
           fontSize: "1.5rem",
           fontFamily: "var(--font-cormorant)",
-          color: "var(--dark)",
+          color: "var(--cream)",
         }}
         onFocus={e => (e.currentTarget.style.borderColor = "var(--gold)")}
-        onBlur={e => (e.currentTarget.style.borderColor = "var(--beige-deep)")}
+        onBlur={e => (e.currentTarget.style.borderColor = "var(--hairline-strong)")}
       />
-      {hint && <p className="mt-2 text-xs" style={{ color: "var(--muted)" }}>{hint}</p>}
+      {hint && <p className="mt-2 text-xs" style={{ color: "var(--cream-muted)" }}>{hint}</p>}
     </div>
   );
 }
@@ -725,16 +724,16 @@ function Chips({
             onClick={() => toggle(opt)}
             className="px-4 py-2 text-sm border transition-all duration-150 cursor-pointer"
             style={on ? {
-              borderColor: "var(--dark)",
-              background: "var(--dark)",
-              color: "var(--beige)",
+              borderColor: "var(--black)",
+              background: "var(--gold)",
+              color: "var(--black)",
             } : {
-              borderColor: "var(--beige-deep)",
+              borderColor: "var(--hairline-strong)",
               background: "transparent",
-              color: "var(--muted)",
+              color: "var(--cream-muted)",
             }}
-            onMouseOver={e => { if (!on) { (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--dark)"; (e.currentTarget as HTMLButtonElement).style.color = "var(--dark)"; } }}
-            onMouseOut={e => { if (!on) { (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--beige-deep)"; (e.currentTarget as HTMLButtonElement).style.color = "var(--muted)"; } }}
+            onMouseOver={e => { if (!on) { (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--black)"; (e.currentTarget as HTMLButtonElement).style.color = "var(--black)"; } }}
+            onMouseOut={e => { if (!on) { (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--hairline-strong)"; (e.currentTarget as HTMLButtonElement).style.color = "var(--cream-muted)"; } }}
           >
             {opt}
           </button>
@@ -762,27 +761,27 @@ function Radios({
             className="w-full text-left px-5 py-4 border-2 transition-all duration-150 cursor-pointer"
             style={on ? {
               borderColor: "var(--gold)",
-              background: "var(--dark)",
+              background: "var(--black)",
             } : {
-              borderColor: "var(--beige-deep)",
-              background: "#fff",
+              borderColor: "var(--hairline-strong)",
+              background: "var(--panel)",
             }}
-            onMouseOver={e => { if (!on) (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--dark)"; }}
-            onMouseOut={e => { if (!on) (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--beige-deep)"; }}
+            onMouseOver={e => { if (!on) (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--black)"; }}
+            onMouseOut={e => { if (!on) (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--hairline-strong)"; }}
           >
             <div className="flex items-start gap-3">
               <span
                 className="w-4 h-4 rounded-full border-2 mt-0.5 shrink-0 flex items-center justify-center transition-colors"
-                style={on ? { borderColor: "var(--gold)", background: "var(--gold)" } : { borderColor: "var(--beige-deep)" }}
+                style={on ? { borderColor: "var(--gold)", background: "var(--gold)" } : { borderColor: "var(--hairline-strong)" }}
               >
-                {on && <span className="w-1.5 h-1.5 rounded-full block" style={{ background: "var(--dark)" }} />}
+                {on && <span className="w-1.5 h-1.5 rounded-full block" style={{ background: "var(--black)" }} />}
               </span>
               <div>
-                <p className="text-sm font-medium" style={{ color: on ? "var(--beige)" : "var(--dark)" }}>
+                <p className="text-sm font-medium" style={{ color: on ? "var(--black)" : "var(--cream)" }}>
                   {opt.label}
                 </p>
                 {opt.sub && (
-                  <p className="text-xs mt-0.5" style={{ color: "var(--muted)" }}>
+                  <p className="text-xs mt-0.5" style={{ color: "var(--cream-muted)" }}>
                     {opt.sub}
                   </p>
                 )}
@@ -810,15 +809,15 @@ function Nav({
         <button
           onClick={onBack}
           className="text-sm transition-colors cursor-pointer"
-          style={{ color: "var(--muted)" }}
-          onMouseOver={e => (e.currentTarget.style.color = "var(--dark)")}
-          onMouseOut={e => (e.currentTarget.style.color = "var(--muted)")}
+          style={{ color: "var(--cream-muted)" }}
+          onMouseOver={e => (e.currentTarget.style.color = "var(--black)")}
+          onMouseOut={e => (e.currentTarget.style.color = "var(--cream-muted)")}
         >
           ← Vorige
         </button>
       )}
       <Btn
-        label={isLast ? "Bekijk mijn resultaat →" : "Volgende →"}
+        label={isLast ? "Bekijk mijn resultaat" : "Volgende"}
         onClick={onNext}
         active={can}
       />
@@ -833,14 +832,14 @@ function Btn({ label, onClick, active }: { label: string; onClick: () => void; a
       disabled={!active}
       className="inline-flex items-center gap-2 px-8 py-3.5 text-sm transition-all duration-200 cursor-pointer disabled:cursor-not-allowed"
       style={active ? {
-        background: "var(--dark)",
-        color: "var(--beige)",
+        background: "var(--gold)",
+        color: "var(--black)",
       } : {
-        background: "var(--beige-mid)",
-        color: "var(--beige-deep)",
+        background: "var(--hairline)",
+        color: "var(--cream-muted)",
       }}
-      onMouseOver={e => { if (active) (e.currentTarget as HTMLButtonElement).style.background = "var(--brown-warm)"; }}
-      onMouseOut={e => { if (active) (e.currentTarget as HTMLButtonElement).style.background = "var(--dark)"; }}
+      onMouseOver={e => { if (active) (e.currentTarget as HTMLButtonElement).style.background = "var(--gold-light)"; }}
+      onMouseOut={e => { if (active) (e.currentTarget as HTMLButtonElement).style.background = "var(--gold)"; }}
     >
       {label}
     </button>

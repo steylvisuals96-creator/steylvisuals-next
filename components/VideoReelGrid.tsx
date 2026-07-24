@@ -56,9 +56,9 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
         className="relative overflow-hidden"
         style={{
           aspectRatio: "9/16",
-          borderRadius: "20px",
+          borderRadius: "var(--r-md)",
           backgroundColor: "#000",
-          border: "1px solid rgba(184,132,58,0.14)",
+          border: "1px solid rgba(201,151,74,0.14)",
           boxShadow: "0 30px 70px rgba(0,0,0,0.45)",
         }}
       >
@@ -89,16 +89,16 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
         <span
           className="absolute top-3 left-3"
           style={{
-            fontFamily: "var(--font-dm-sans)",
+            fontFamily: "var(--font-poppins)",
             fontSize: "0.62rem",
             fontWeight: 500,
             letterSpacing: "0.16em",
             textTransform: "uppercase",
-            color: "#FDFAF7",
+            color: "var(--cream)",
             backgroundColor: "rgba(10,10,10,0.55)",
             backdropFilter: "blur(6px)",
-            border: "1px solid rgba(253,250,247,0.16)",
-            borderRadius: "100px",
+            border: "1px solid rgba(241,237,230,0.16)",
+            borderRadius: "var(--r-sm)",
             padding: "0.3rem 0.7rem",
           }}
         >
@@ -109,11 +109,11 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
         <span
           className="absolute top-3 right-3 flex items-center gap-1.5"
           style={{
-            fontFamily: "var(--font-dm-sans)",
+            fontFamily: "var(--font-poppins)",
             fontSize: "0.6rem",
             letterSpacing: "0.12em",
             textTransform: "uppercase",
-            color: active ? "#B8843A" : "rgba(253,250,247,0.5)",
+            color: active ? "var(--gold)" : "rgba(241,237,230,0.5)",
             transition: "color 0.3s",
           }}
         >
@@ -133,8 +133,8 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
               fontSize: "1.45rem",
               fontWeight: 500,
               lineHeight: 1.1,
-              letterSpacing: "-0.01em",
-              color: "#FDFAF7",
+              letterSpacing: 0,
+              color: "var(--cream)",
             }}
           >
             {reel.title}
@@ -143,9 +143,9 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
             <p
               className="flex items-center gap-1.5 mt-1"
               style={{
-                fontFamily: "var(--font-dm-sans)",
+                fontFamily: "var(--font-poppins)",
                 fontSize: "0.72rem",
-                color: "rgba(253,250,247,0.65)",
+                color: "rgba(241,237,230,0.65)",
               }}
             >
               <svg width="9" height="11" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true">

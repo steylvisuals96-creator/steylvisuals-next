@@ -35,18 +35,16 @@ function Stars() {
 
 export default function Testimonials() {
   return (
-    <section style={{ backgroundColor: "var(--off-white)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
+    <section style={{ backgroundColor: "var(--black)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
       <div className="text-center mb-14">
         <AnimateIn>
-          <p className="inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-5" style={{ color: "var(--gold)" }}>
-            <span className="w-4 h-px" style={{ backgroundColor: "var(--gold)" }} />
+          <p className="inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-5" style={{ color: "var(--cream-muted)" }}>
             Ervaringen
-            <span className="w-4 h-px" style={{ backgroundColor: "var(--gold)" }} />
           </p>
         </AnimateIn>
         <AnimateIn delay={0.1}>
-          <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2rem,4.5vw,4rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--dark)" }}>
-            Wat klanten<br /><em style={{ color: "var(--muted)" }}>over ons zeggen</em>
+          <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
+            Wat klanten<br /><em style={{ color: "var(--cream-muted)" }}>over ons zeggen</em>
           </h2>
         </AnimateIn>
       </div>
@@ -62,19 +60,19 @@ export default function Testimonials() {
             whileHover={{ y: -4, boxShadow: "0 16px 48px rgba(28,14,7,0.08)" }}
             className="flex flex-col gap-5"
             style={{
-              backgroundColor: "var(--beige)",
-              borderRadius: "20px",
+              backgroundColor: "var(--black)",
+              borderRadius: "var(--r-md)",
               padding: "clamp(1.75rem,3vw,2.25rem)",
-              border: "1px solid var(--beige-mid)",
+              border: "1px solid var(--hairline)",
             }}
           >
             <Stars />
-            <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem", fontWeight: 400, lineHeight: 1.6, color: "var(--dark)", fontStyle: "italic", flex: 1 }}>
+            <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, lineHeight: 1.6, color: "var(--cream)", fontStyle: "italic", flex: 1 }}>
               &ldquo;{r.quote}&rdquo;
             </p>
-            <div className="pt-4 border-t" style={{ borderColor: "var(--beige-mid)" }}>
-              <p className="text-sm font-medium" style={{ color: "var(--dark)" }}>{r.name}</p>
-              <p className="text-xs font-light" style={{ color: "var(--muted)" }}>{r.role}</p>
+            <div className="pt-4 border-t" style={{ borderColor: "var(--hairline)" }}>
+              <p className="text-sm font-medium" style={{ color: "var(--cream)" }}>{r.name}</p>
+              <p className="text-xs font-light" style={{ color: "var(--cream-muted)" }}>{r.role}</p>
             </div>
           </motion.article>
         ))}

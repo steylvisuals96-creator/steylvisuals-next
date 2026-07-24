@@ -25,16 +25,16 @@ function MarqueeRow() {
               fontSize: "clamp(3rem, 7vw, 6.5rem)",
               fontWeight: 300,
               fontStyle: "italic",
-              letterSpacing: "-0.02em",
+              letterSpacing: 0,
               color: "transparent",
-              WebkitTextStroke: "1px rgba(184,132,58,0.35)",
+              WebkitTextStroke: "1px rgba(201,151,74,0.35)",
             }}
           >
             {word}
           </span>
           <span
             className="w-2 h-2 rounded-full flex-shrink-0"
-            style={{ backgroundColor: "rgba(184,132,58,0.4)" }}
+            style={{ backgroundColor: "rgba(201,151,74,0.4)" }}
             aria-hidden="true"
           />
         </span>
@@ -62,12 +62,12 @@ export default function ShowReel() {
     <section
       ref={ref}
       className="relative overflow-hidden"
-      style={{ backgroundColor: "#0A0A0A", padding: "7rem 0" }}
+      style={{ backgroundColor: "var(--black)", padding: "7rem 0" }}
     >
       {/* Top hairline */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-[min(90%,1200px)]"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(184,132,58,0.25), transparent)" }}
+        style={{ background: "linear-gradient(90deg, transparent, rgba(201,151,74,0.25), transparent)" }}
         aria-hidden="true"
       />
 
@@ -84,17 +84,15 @@ export default function ShowReel() {
           transition={{ duration: 0.7, ease: EASE }}
           className="flex items-center gap-3 mb-14"
           style={{
-            fontFamily: "var(--font-dm-sans)",
+            fontFamily: "var(--font-poppins)",
             fontSize: "0.68rem",
             fontWeight: 500,
             letterSpacing: "0.25em",
             textTransform: "uppercase",
-            color: "#B8843A",
+            color: "var(--gold)",
           }}
         >
-          <span className="w-5 h-px" style={{ backgroundColor: "#B8843A" }} />
           Showreel
-          <span className="w-5 h-px" style={{ backgroundColor: "#B8843A" }} />
         </motion.p>
 
         {/* Phone mockup with video */}
@@ -112,7 +110,7 @@ export default function ShowReel() {
               aspectRatio: "9/19.5",
               backgroundColor: "#000",
               boxShadow:
-                "0 60px 120px rgba(0,0,0,0.6), 0 0 0 8px rgba(255,255,255,0.05), 0 0 90px rgba(184,132,58,0.12)",
+                "0 60px 120px rgba(0,0,0,0.6), 0 0 0 8px rgba(255,255,255,0.05), 0 0 90px rgba(201,151,74,0.12)",
             }}
           >
             <video
@@ -136,11 +134,11 @@ export default function ShowReel() {
           transition={{ duration: 0.9, delay: 0.5 }}
           className="text-center mt-14"
           style={{
-            fontFamily: "var(--font-dm-sans)",
+            fontFamily: "var(--font-poppins)",
             fontSize: "0.85rem",
             fontWeight: 300,
             lineHeight: 1.7,
-            color: "rgba(253,250,247,0.42)",
+            color: "var(--cream-muted)",
             maxWidth: "380px",
           }}
         >
