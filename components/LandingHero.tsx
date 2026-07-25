@@ -100,23 +100,23 @@ export default function LandingHero() {
       >
         {/* Left: text */}
         <div>
-          {/* Eyebrow */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
+          {/*
+            The eyebrow and headline are deliberately NOT animated from opacity 0.
+            They are the LCP element on mobile, and gating them behind a JS
+            reveal cost ~3s of render delay — plus it meant the copy was invisible
+            to anything that never runs rAF (background tabs, link-preview
+            renderers). The supporting elements below still animate in.
+          */}
+          <p
             className="mb-8"
             style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)" }}
           >
             Creative Studio · België
-          </motion.p>
+          </p>
 
           {/* Headline */}
           <div className="mb-10">
-            <motion.h1
-              initial={{ opacity: 0, y: 55 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.1, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            <h1
               style={{
                 fontFamily: "var(--font-cormorant)",
                 fontSize: "clamp(2.75rem, 6vw, 4.75rem)",
@@ -134,7 +134,7 @@ export default function LandingHero() {
               voor bedrijven
               <br />
               die groeien
-            </motion.h1>
+            </h1>
           </div>
 
           {/* Subtext */}

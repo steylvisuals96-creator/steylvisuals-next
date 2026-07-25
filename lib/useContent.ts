@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 
-const CONTENT_URL = "https://pub-28e65866cf1641928966914639cc84ef.r2.dev/content.json";
+// Same-origin: the R2 bucket sends no CORS header for this origin, so a direct
+// fetch was blocked on every load. See app/api/content/route.ts.
+const CONTENT_URL = "/api/content";
 
 export const DEFAULT_CONTENT = {
   contact: {
