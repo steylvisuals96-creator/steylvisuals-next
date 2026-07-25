@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { HERO_PORTRAIT } from "./LandingHero";
 import AnimateIn from "./AnimateIn";
 
 export default function OverMij() {
@@ -17,10 +18,10 @@ export default function OverMij() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="w-full h-full"
         >
-          {/* Same portrait as the homepage hero — the self-hosted derivatives,
-              not the 9.4MB original. Below the fold here, so it lazy-loads. */}
+          {/* Same portrait as the homepage hero, from the same R2 key so both
+              update together when it is replaced. Below the fold, so lazy. */}
           <Image
-            src="/images/sam-portrait-1280.jpg"
+            src={HERO_PORTRAIT}
             alt="Sam Steylaerts — SteylVisuals"
             fill
             sizes="(min-width: 768px) 50vw, 100vw"

@@ -2,7 +2,12 @@
 
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { useContent } from "@/lib/useContent";
+
+// Editable from /admin: replace the object in R2 under the same key.
+export const HERO_PORTRAIT =
+  "https://pub-28e65866cf1641928966914639cc84ef.r2.dev/images/DSCF3335__1_.jpg";
 
 const WORDS = ["content", "design", "video", "merk", "impact"];
 
@@ -232,24 +237,20 @@ export default function LandingHero() {
         >
           <div className="w-full h-full overflow-hidden" style={{ borderRadius: "var(--r-md)", border: "1px solid var(--hairline)" }}>
             {/*
-              Self-hosted, pre-sized derivatives. The original was a 9.4MB
-              4160x6240 camera JPEG served unoptimised from R2 for a ~500px slot,
-              which was the LCP. This block only renders at lg and up, so `sizes`
-              resolves to the smallest candidate below that breakpoint instead of
-              downloading a desktop-sized file phones never show.
+              Source stays in R2 so it remains replaceable from /admin; Vercel
+              resizes and re-encodes it at the edge. This block only renders at lg
+              and up, so `sizes` resolves to the smallest candidate below that
+              breakpoint rather than fetching a desktop-sized file phones never show.
             */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-                src="/images/sam-portrait-960.jpg"
-                sizes="(min-width: 1024px) 42vw, 1px"
-                srcSet="/images/sam-portrait-640.jpg 640w, /images/sam-portrait-960.jpg 960w, /images/sam-portrait-1280.jpg 1280w"
-                width={1280}
-                height={1920}
-                alt="Sam Steylaerts — SteylVisuals"
-                fetchPriority="high"
-                decoding="async"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", filter: "brightness(0.88)" }}
-              />
+            <Image
+              src={HERO_PORTRAIT}
+              sizes="(min-width: 1024px) 42vw, 1px"
+              width={1280}
+              height={1920}
+              alt="Sam Steylaerts — SteylVisuals"
+              priority
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", filter: "brightness(0.88)" }}
+            />
             <div aria-hidden="true" style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "45%", background: "linear-gradient(to top, rgba(10,10,10,0.82) 0%, transparent 100%)" }} />
             <div style={{ position: "absolute", bottom: "1.5rem", left: "1.5rem" }}>
               <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", lineHeight: 1.15 }}>Sam Steylaerts</p>
