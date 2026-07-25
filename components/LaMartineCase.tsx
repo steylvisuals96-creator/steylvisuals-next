@@ -157,7 +157,6 @@ export default function LaMartineCase() {
                 height={p.h}
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 loading="lazy"
-                style={{ width: "100%", height: "auto", display: "block" }}
               />
             </motion.figure>
           ))}
