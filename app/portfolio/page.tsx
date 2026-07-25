@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import LaMartineCase from "@/components/LaMartineCase";
 import VideoReelGrid, { type Reel } from "@/components/VideoReelGrid";
 import WebsitePortfolio from "@/components/WebsitePortfolio";
 
@@ -52,7 +53,7 @@ export default function PortfolioPage() {
           <div className="max-w-[1100px] mx-auto">
             <p
               className="inline-flex items-center gap-2 mb-6"
-              style={{ fontFamily: "var(--font-poppins)", fontSize: "0.68rem", fontWeight: 500, letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--gold)" }}
+              style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--gold)" }}
             >
               Portfolio
             </p>
@@ -71,10 +72,14 @@ export default function PortfolioPage() {
           </div>
         </section>
 
+        {/* Lead case — the most complete piece of real client work, so it opens
+            the page rather than sitting as a fourth tile in the reel grid. */}
+        <LaMartineCase />
+
         {/* Section: Video & Content */}
         <section style={{ padding: "0 clamp(1.5rem,6vw,5rem) clamp(4rem,8vh,6rem)" }}>
           <div className="max-w-[1100px] mx-auto mb-12">
-            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.68rem", fontWeight: 500, letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--gold)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--gold)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
               Video &amp; Content
             </p>
             <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
@@ -87,7 +92,7 @@ export default function PortfolioPage() {
         {/* Section: Websites */}
         <section style={{ padding: "clamp(4rem,8vh,7rem) clamp(1.5rem,6vw,5rem)" }}>
           <div className="max-w-[1100px] mx-auto mb-12">
-            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.68rem", fontWeight: 500, letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--cream-muted)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
               Webdesign &amp; CMS
             </p>
             <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
@@ -106,13 +111,13 @@ export default function PortfolioPage() {
             <p className="mb-3" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)" }}>
               Jouw project hier?
             </p>
-            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.9rem", fontWeight: 300, color: "var(--cream-muted)", marginBottom: "2rem" }}>
+            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "1rem", fontWeight: 300, color: "var(--cream-muted)", marginBottom: "2rem" }}>
               Stuur een bericht en ontvang binnen 24u een voorstel op maat.
             </p>
             <a
               href="mailto:Steylvisuals96@gmail.com?subject=Interesse%20in%20SteylVisuals"
               className="inline-block rounded-[2px]"
-              style={{ fontFamily: "var(--font-poppins)", fontSize: "0.85rem", fontWeight: 500, backgroundColor: "var(--gold)", color: "var(--black)", padding: "1rem 2.25rem", textDecoration: "none" }}
+              style={{ fontFamily: "var(--font-poppins)", fontSize: "1rem", fontWeight: 500, backgroundColor: "var(--gold)", color: "var(--black)", padding: "1rem 2.25rem", textDecoration: "none" }}
             >
               Gratis gesprek aanvragen
             </a>
