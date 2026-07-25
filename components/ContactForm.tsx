@@ -85,10 +85,11 @@ export default function ContactForm() {
 
               <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--cream-muted)" }}>Voornaam</label>
+                  <label htmlFor="cf-voornaam" className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--cream-muted)" }}>Voornaam</label>
                   <input
                     type="text"
                     name="voornaam"
+                    id="cf-voornaam"
                     required
                     placeholder="Jouw voornaam"
                     className="text-sm font-light outline-none"
@@ -96,10 +97,11 @@ export default function ContactForm() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--cream-muted)" }}>Achternaam</label>
+                  <label htmlFor="cf-achternaam" className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--cream-muted)" }}>Achternaam</label>
                   <input
                     type="text"
                     name="achternaam"
+                    id="cf-achternaam"
                     placeholder="Jouw achternaam"
                     className="text-sm font-light outline-none"
                     style={{ backgroundColor: "transparent", border: "none", borderBottom: "1px solid var(--hairline-strong)", borderRadius: 0, padding: "0.875rem 0", color: "var(--cream)" }}
@@ -108,10 +110,11 @@ export default function ContactForm() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--cream-muted)" }}>E-mail</label>
+                <label htmlFor="cf-email" className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--cream-muted)" }}>E-mail</label>
                 <input
                   type="email"
                   name="_replyto"
+                  id="cf-email"
                   required
                   placeholder="jouw@email.be"
                   className="text-sm font-light outline-none"
@@ -120,9 +123,10 @@ export default function ContactForm() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--cream-muted)" }}>Pakket</label>
+                <label htmlFor="cf-pakket" className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--cream-muted)" }}>Pakket</label>
                 <select
                   name="pakket"
+                  id="cf-pakket"
                   className="text-sm font-light outline-none"
                   style={{ backgroundColor: "transparent", border: "none", borderBottom: "1px solid var(--hairline-strong)", borderRadius: 0, padding: "0.875rem 0", color: "var(--cream)", appearance: "none" }}
                 >
@@ -135,9 +139,10 @@ export default function ContactForm() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--cream-muted)" }}>Bericht</label>
+                <label htmlFor="cf-bericht" className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--cream-muted)" }}>Bericht</label>
                 <textarea
                   name="bericht"
+                  id="cf-bericht"
                   rows={4}
                   placeholder="Vertel me over jouw kantoor en doelen..."
                   className="text-sm font-light outline-none resize-none"
