@@ -23,19 +23,19 @@ export const metadata = {
 const REELS: Reel[] = [
   {
     src: "/videos/web/showreel.mp4",
-    poster: "",
+    poster: "/videos/web/showreel-poster.jpg",
     title: "3D render → video",
     tag: "NL",
   },
   {
-    src: "https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/Summum_Pre_-Launch.MOV",
-    poster: "",
+    src: "/videos/web/summum-en.mp4",
+    poster: "/videos/web/summum-en-poster.jpg",
     title: "3D render → video",
     tag: "ENG",
   },
   {
-    src: "https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/Appartement_Sint-Truiden_Vertical.mp4",
-    poster: "",
+    src: "/videos/web/appartement-sint-truiden-reel.mp4",
+    poster: "/videos/web/appartement-sint-truiden-reel-poster.jpg",
     title: "Appartement",
     location: "Sint-Truiden",
     tag: "Reel",

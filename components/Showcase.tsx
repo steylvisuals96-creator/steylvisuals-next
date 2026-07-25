@@ -1,9 +1,29 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import AnimateIn from "./AnimateIn";
 
 export default function Showcase() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const reduce = useReducedMotion();
+
+  // 4MB file: nothing fetched until the phone is on screen.
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !reduce) {
+        if (el.preload !== "auto") { el.preload = "auto"; el.load(); }
+        el.play().catch(() => {});
+      } else {
+        el.pause();
+      }
+    }, { threshold: 0.4 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [reduce]);
+
   return (
     <section id="showcase" className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight: "75vh", backgroundColor: "var(--black)" }}>
       <div style={{ padding: "clamp(4rem,10vh,7rem) clamp(1.5rem,6vw,5rem)" }} className="flex flex-col justify-center">
@@ -47,19 +67,19 @@ export default function Showcase() {
               overflow: "hidden",
               aspectRatio: "9/19.5",
               backgroundColor: "#000",
-              boxShadow: "0 50px 100px rgba(0,0,0,0.5), 0 0 0 7px rgba(255,255,255,0.06)",
+              boxShadow: "0 0 0 7px rgba(255,255,255,0.06)",
             }}
             whileHover={{ scale: 1.03 }}
             transition={{ duration: 0.4 }}
           >
             <video
+              ref={videoRef}
               src="/videos/web/summum-nl.mp4"
               poster="/videos/web/summum-nl.jpg"
-              autoPlay
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="none"
               className="w-full h-full object-cover"
             />
           </motion.div>

@@ -30,6 +30,13 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !reduce) {
+          // preload="none" in the markup, so nothing is fetched until a reel is
+          // actually on screen. Previously preload="metadata" pulled from every
+          // reel on load, including a 72MB source.
+          if (el.preload !== "auto") {
+            el.preload = "auto";
+            el.load();
+          }
           el.play().catch(() => {});
           setActive(true);
         } else {
@@ -58,8 +65,7 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
           aspectRatio: "9/16",
           borderRadius: "var(--r-md)",
           backgroundColor: "#000",
-          border: "1px solid rgba(201,151,74,0.14)",
-          boxShadow: "0 30px 70px rgba(0,0,0,0.45)",
+          border: "1px solid var(--hairline)",
         }}
       >
         <motion.video
@@ -69,7 +75,7 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
           className="w-full h-full object-cover"
           whileHover={{ scale: 1.04 }}
           transition={{ duration: 0.6, ease: EASE }}
@@ -90,7 +96,7 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
           className="absolute top-3 left-3"
           style={{
             fontFamily: "var(--font-poppins)",
-            fontSize: "0.62rem",
+            fontSize: "0.6875rem",
             fontWeight: 500,
             letterSpacing: "0.16em",
             textTransform: "uppercase",
@@ -110,7 +116,7 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
           className="absolute top-3 right-3 flex items-center gap-1.5"
           style={{
             fontFamily: "var(--font-poppins)",
-            fontSize: "0.6rem",
+            fontSize: "0.6875rem",
             letterSpacing: "0.12em",
             textTransform: "uppercase",
             color: active ? "var(--gold)" : "rgba(241,237,230,0.5)",
@@ -130,7 +136,7 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
           <h3
             style={{
               fontFamily: "var(--font-cormorant)",
-              fontSize: "1.45rem",
+              fontSize: "1.5rem",
               fontWeight: 500,
               lineHeight: 1.1,
               letterSpacing: 0,
@@ -144,7 +150,7 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
               className="flex items-center gap-1.5 mt-1"
               style={{
                 fontFamily: "var(--font-poppins)",
-                fontSize: "0.72rem",
+                fontSize: "0.6875rem",
                 color: "rgba(241,237,230,0.65)",
               }}
             >

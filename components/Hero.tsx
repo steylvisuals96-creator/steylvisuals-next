@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { useContent } from "@/lib/useContent";
 
@@ -17,6 +18,25 @@ const fadeUp = {
 
 export default function Hero() {
   const content = useContent();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const reduce = useReducedMotion();
+
+  // preload="none" until the reel is on screen — it used to autoplay a 72MB file.
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !reduce) {
+        if (el.preload !== "auto") { el.preload = "auto"; el.load(); }
+        el.play().catch(() => {});
+      } else {
+        el.pause();
+      }
+    }, { threshold: 0.4 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [reduce]);
+
   return (
     <section
       className="min-h-svh grid grid-cols-1 md:grid-cols-2 items-center gap-16 pt-24 pb-16"
@@ -46,9 +66,9 @@ export default function Hero() {
           className="mb-6"
           style={{
             fontFamily: "var(--font-cormorant)",
-            fontSize: "clamp(2.6rem, 5.5vw, 5rem)",
+            fontSize: "clamp(2.75rem, 6vw, 4.75rem)",
             fontWeight: 300,
-            lineHeight: 1.08,
+            lineHeight: 1.05,
             letterSpacing: 0,
             color: "var(--cream)",
           }}
@@ -113,21 +133,25 @@ export default function Hero() {
             borderRadius: "28px",
             aspectRatio: "9/16",
             width: "clamp(220px, 24vw, 300px)",
-            boxShadow: "0 40px 80px rgba(28,14,7,0.18)",
           }}
           whileHover={{ scale: 1.01 }}
           transition={{ duration: 0.4 }}
         >
+          {/* Same 72MB R2 source the portfolio used; now the 5MB local encode,
+              behind a poster and loaded only once it is on screen. */}
           <video
-            src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/Appartement_Sint-Truiden_Vertical.mp4"
-            poster=""
-            autoPlay
+            ref={videoRef}
+            poster="/videos/web/appartement-sint-truiden-reel-poster.jpg"
             muted
             loop
             playsInline
+            preload="none"
             className="w-full h-full"
             style={{ objectFit: "cover" }}
-          />
+          >
+            <source src="/videos/web/appartement-sint-truiden-reel.webm" type="video/webm" />
+            <source src="/videos/web/appartement-sint-truiden-reel.mp4" type="video/mp4" />
+          </video>
 
           {/* Dark gradient overlay */}
           <div
@@ -155,15 +179,15 @@ export default function Hero() {
               right: "1.25rem",
               backgroundColor: "rgba(241,237,230,0.12)",
               backdropFilter: "blur(8px)",
-              borderRadius: "8px",
+              borderRadius: "var(--r-md)",
               padding: "0.35rem 0.65rem",
               display: "flex",
               alignItems: "center",
               gap: "0.4rem",
             }}
           >
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#4ade80" }} />
-            <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6rem", color: "rgba(241,237,230,0.7)" }}>Live preview</span>
+            <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "var(--gold)" }} />
+            <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", color: "var(--cream-muted)" }}>Live preview</span>
           </div>
         </motion.div>
       </motion.div>
