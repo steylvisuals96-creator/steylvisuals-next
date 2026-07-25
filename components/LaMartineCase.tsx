@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -38,6 +38,33 @@ const PHOTOS: { slug: string; w: number; h: number; wide: boolean }[] = [
 export default function LaMartineCase() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
+
+  // Lightbox. <dialog> gives Escape, the focus trap and the top layer for free,
+  // so it can't be clipped by an ancestor's overflow or stacking context.
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const [shown, setShown] = useState<number | null>(null);
+
+  useEffect(() => {
+    const d = dialogRef.current;
+    if (!d) return;
+    if (shown !== null && !d.open) d.showModal();
+    if (shown === null && d.open) d.close();
+  }, [shown]);
+
+  const step = useCallback((delta: number) => {
+    setShown((i) => (i === null ? i : (i + delta + PHOTOS.length) % PHOTOS.length));
+  }, []);
+
+  const onKey = useCallback(
+    (e: React.KeyboardEvent<HTMLDialogElement>) => {
+      if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+      // <dialog> closes on Escape by itself, but handling it explicitly keeps
+      // the behaviour identical whatever wraps the page.
+      if (e.key === "Escape") { e.preventDefault(); setShown(null); }
+    },
+    [step],
+  );
 
   // preload="none": the 34MB film costs nothing until someone asks for it.
   function start() {
@@ -142,13 +169,16 @@ export default function LaMartineCase() {
 
         <div className="lm-gallery">
           {PHOTOS.map((p, i) => (
-            <motion.figure
+            <motion.button
               key={p.slug}
+              type="button"
+              onClick={() => setShown(i)}
               className={p.wide ? "lm-item lm-item--wide" : "lm-item"}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.6, delay: (i % 3) * 0.06, ease: [0.16, 1, 0.3, 1] }}
+              aria-label={`Foto ${i + 1} van ${PHOTOS.length} — groter bekijken`}
             >
               <Image
                 src={R2 + "/images/" + p.slug + ".jpg"}
@@ -158,10 +188,51 @@ export default function LaMartineCase() {
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 loading="lazy"
               />
-            </motion.figure>
+            </motion.button>
           ))}
         </div>
       </div>
+
+      <dialog
+        ref={dialogRef}
+        className="lm-lightbox"
+        onClose={() => setShown(null)}
+        onCancel={(e) => { e.preventDefault(); setShown(null); }}
+        onKeyDown={onKey}
+        // Anywhere that is not the photo or a control dismisses.
+        onClick={(e) => { if (!(e.target as HTMLElement).closest("img, button")) setShown(null); }}
+        aria-label="Vergrote weergave"
+      >
+        {shown !== null && (
+          <>
+            <div className="lm-lb-stage">
+              {/* contain, niet cover: vergroten is juist bedoeld om het hele
+                  kader te zien, dus hier wordt niets bijgesneden. */}
+              <Image
+                key={PHOTOS[shown].slug}
+                src={R2 + "/images/" + PHOTOS[shown].slug + ".jpg"}
+                alt=""
+                width={PHOTOS[shown].w}
+                height={PHOTOS[shown].h}
+                sizes="92vw"
+                priority
+              />
+            </div>
+
+            <button type="button" className="lm-lb-close" onClick={() => setShown(null)} aria-label="Sluiten">
+              <span aria-hidden="true">&times;</span>
+            </button>
+
+            <div className="lm-lb-bar">
+              <button type="button" className="lm-lb-nav" onClick={() => step(-1)}>Vorige</button>
+              <p className="lm-lb-count" aria-live="polite">
+                {String(shown + 1).padStart(2, "0")} / {PHOTOS.length}
+              </p>
+              <button type="button" className="lm-lb-nav" onClick={() => step(1)}>Volgende</button>
+            </div>
+          </>
+        )}
+      </dialog>
     </section>
   );
 }
