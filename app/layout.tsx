@@ -72,7 +72,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* A literal value — theme-color is read by the UA, which has no CSS vars. */}
         <meta name="theme-color" content="#0D0B09" />
         <Script id="sting-gate" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: STING_GATE }} />
-        <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" async></script>
       </head>
       <body>
         <script
@@ -99,17 +98,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         {children}
-        <script dangerouslySetInnerHTML={{ __html: `
-          if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-              if (!user) {
-                window.netlifyIdentity.on("login", () => {
-                  document.location.href = "/admin/";
-                });
-              }
-            });
-          }
-        `}} />
       </body>
     </html>
   );

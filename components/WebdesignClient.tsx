@@ -264,7 +264,7 @@ function ContactSection() {
             </p>
           </AnimateIn>
           <AnimateIn delay={0.1}>
-            <h2 className="mb-6" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
+            <h2 className="mb-6" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
               Klaar om op te<br /><em style={{ color: "var(--gold)" }}>vallen?</em>
             </h2>
           </AnimateIn>
@@ -300,7 +300,7 @@ function ContactSection() {
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
-              <h3 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, color: "var(--cream)" }}>Aanvraag ontvangen!</h3>
+              <h3 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)" }}>Aanvraag ontvangen!</h3>
               <p className="text-sm font-light" style={{ color: "var(--cream-muted)" }}>Ik neem binnen 24 uur contact met je op.</p>
             </motion.div>
           ) : (
@@ -498,7 +498,7 @@ export default function WebdesignClient() {
       <section style={{ backgroundColor: "var(--black)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
         <div className="max-w-[1100px] mx-auto">
           <AnimateIn>
-            <h2 className="mb-12" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)", maxWidth: "560px" }}>
+            <h2 className="mb-12" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)", maxWidth: "560px" }}>
               Meer dan een website,<br /><em style={{ color: "var(--cream-muted)" }}>een verkoopsmachine</em>
             </h2>
           </AnimateIn>
@@ -622,7 +622,7 @@ export default function WebdesignClient() {
       >
         <div className="max-w-[1100px] mx-auto">
           <AnimateIn>
-            <h2 className="mb-4" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
+            <h2 className="mb-4" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
               Van idee tot <em style={{ color: "var(--gold)" }}>live website</em>
             </h2>
           </AnimateIn>
@@ -696,7 +696,7 @@ export default function WebdesignClient() {
         <div className="max-w-[1100px] mx-auto grid gap-16 items-center grid-cols-1 md:grid-cols-2">
           <div>
             <AnimateIn>
-              <h2 className="mb-6" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
+              <h2 className="mb-6" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
                 Website en video,<br /><em style={{ color: "var(--cream-muted)" }}>one stop shop</em>
               </h2>
             </AnimateIn>

@@ -17,10 +17,14 @@ export default function OverMij() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="w-full h-full"
         >
+          {/* Same portrait as the homepage hero — the self-hosted derivatives,
+              not the 9.4MB original. Below the fold here, so it lazy-loads. */}
           <Image
-            src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/images/DSCF3335__1_.jpg"
+            src="/images/sam-portrait-1280.jpg"
             alt="Sam Steylaerts — SteylVisuals"
             fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            loading="lazy"
             className="object-cover object-top"
             style={{ filter: "sepia(0.08) contrast(1.05)" }}
           />

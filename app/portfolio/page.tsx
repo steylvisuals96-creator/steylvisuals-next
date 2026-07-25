@@ -22,7 +22,7 @@ export const metadata = {
 
 const REELS: Reel[] = [
   {
-    src: "https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/Summum_Pre_-Launch_NL.MOV",
+    src: "/videos/web/showreel.mp4",
     poster: "",
     title: "3D render → video",
     tag: "NL",

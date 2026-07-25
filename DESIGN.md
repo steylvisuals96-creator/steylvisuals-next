@@ -217,7 +217,9 @@ Rules and dividers are 1px hairlines, gold when they are marking something and c
 
 A full-screen black overlay playing the logo sting, on the homepage only. It runs **once per session**, never under `prefers-reduced-motion`, and is dismissible by click, Esc, or a skip control. The hero renders underneath and is never gated on it: a blocked autoplay, a failed fetch or a headless render all leave the page fully intact, and the overlay is `display: none` by default so prerendered HTML is never a black screen.
 
-The source render is 5s and ends on a cream end card at ~3.8s. The shipped file is cut at **2.8s** — dot in, wordmark wipe, VISUALS, one beat of hold — so the overlay's own 0.6s fade stands in for the brandbook's wipe and the transition into the hero stays black-to-black.
+The sting plays on the brand's Deep Brown field (`#3B1E0B`), with the cream lockup over it. The overlay's own background matches that brown so the letterboxed bars either side of the 16:9 video read as one surface; the 0.6s fade then carries brown into the black hero.
+
+The source render is 5s and ends on a cream end card at ~3.8s. The shipped file is cut at **3.0s** — dot in, wordmark wipe, VISUALS, and the glow sweep — which matches the brandbook's 1.8s intro plus 1.2s hold, stops well clear of the wipe, and lets the overlay's fade stand in for it.
 
 **Known deviation:** the dot in the current sting render is cream (`#F1EDE6`), not Signal Gold. The brandbook states the dot is always gold and lists recolouring it as a "niet". Re-render from source to correct it; do not fix it in code.
 

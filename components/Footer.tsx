@@ -1,14 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
     <footer style={{ background: "linear-gradient(180deg, var(--black) 0%, #140A05 45%, var(--black) 100%)", padding: "clamp(3.5rem,7vh,5.5rem) clamp(1.5rem,6vw,5rem) clamp(2.5rem,5vh,4rem)" }}>
       <div className="flex items-center justify-between flex-wrap gap-6">
-        <Link href="/">
-          <Image src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/logo/logo-cropped.png" alt="SteylVisuals" width={180} height={104} className="h-10 w-auto brightness-0 invert" />
+        {/* Was a remote PNG recoloured with brightness-0 invert; the real lockup
+            costs no request and keeps the dot gold. */}
+        <Link href="/" aria-label="SteylVisuals — home">
+          <Logo size={26} variant="cream" />
         </Link>
 
         <nav className="flex items-center gap-6 text-xs font-light" style={{ color: "var(--cream-muted)" }}>

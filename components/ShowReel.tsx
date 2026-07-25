@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
@@ -54,9 +54,23 @@ function MarqueeRow() {
 
 export default function ShowReel() {
   const ref = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const inView = useInView(ref, { once: true, margin: "-15%" });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const phoneY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+
+  // Nothing is fetched until the reel is actually on screen; the poster stands
+  // in until then. Autoplay would have ignored preload="none" and downloaded
+  // on load.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!inView || !v) return;
+    v.preload = "auto";
+    v.load();
+    v.play().catch(() => {
+      /* autoplay refused — the poster remains, which is a fine resting state */
+    });
+  }, [inView]);
 
   return (
     <section
@@ -113,17 +127,25 @@ export default function ShowReel() {
                 "0 60px 120px rgba(0,0,0,0.6), 0 0 0 8px rgba(255,255,255,0.05), 0 0 90px rgba(201,151,74,0.12)",
             }}
           >
+            {/*
+              Was a 36MB 1080x1920 QuickTime with uncompressed PCM audio, pulled
+              from R2 on every load for a 300px-wide slot. Now a 1.2MB self-hosted
+              encode with the audio dropped (the element is muted), held at
+              preload="none" behind a poster until it scrolls into view.
+            */}
             <video
-              src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/Summum_Pre_-Launch_NL.MOV"
-              poster=""
-              autoPlay
+              ref={videoRef}
+              poster="/videos/web/showreel-poster.jpg"
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="none"
               className="w-full h-full object-cover"
               title="SteylVisuals showreel"
-            />
+            >
+              <source src="/videos/web/showreel.webm" type="video/webm" />
+              <source src="/videos/web/showreel.mp4" type="video/mp4" />
+            </video>
           </div>
         </motion.div>
 
@@ -135,7 +157,7 @@ export default function ShowReel() {
           className="text-center mt-14"
           style={{
             fontFamily: "var(--font-poppins)",
-            fontSize: "0.85rem",
+            fontSize: "1rem",
             fontWeight: 300,
             lineHeight: 1.7,
             color: "var(--cream-muted)",

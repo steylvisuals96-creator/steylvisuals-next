@@ -105,7 +105,9 @@ p { text-wrap: pretty; }
   position: fixed;
   inset: 0;
   z-index: var(--z-sting);
-  background-color: var(--black);
+  /* Matches the sting's own brown field, so the letterboxed bars either side of
+     the 16:9 video read as one surface instead of black bars around brown. */
+  background-color: var(--brown);
   align-items: center;
   justify-content: center;
   cursor: pointer;
