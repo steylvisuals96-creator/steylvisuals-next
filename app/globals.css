@@ -42,6 +42,7 @@
   --z-sticky: 100;
   --z-overlay: 200;
   --z-nav: 300;
+  --z-sting: 400;
 }
 
 html {
@@ -94,6 +95,65 @@ p { text-wrap: pretty; }
   font-weight: 800;
   letter-spacing: -0.035em;
   line-height: 1;
+}
+
+/* Brand intro overlay. Hidden by default so the prerendered HTML and any
+   headless render show the hero, never a black screen; the parse-time gate in
+   LogoSting opts a first-time visitor in. */
+.sting {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-sting);
+  background-color: var(--black);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity var(--dur-out) var(--ease-in-out);
+}
+.sting[data-leaving] {
+  opacity: 0;
+}
+.sting-video {
+  width: 100%;
+  height: 100%;
+  /* contain, not cover: the wordmark is wide and cover would crop "Steyl."
+     on portrait phones. Letterboxing onto black reads as intentional here. */
+  object-fit: contain;
+}
+.sting-skip {
+  position: absolute;
+  right: clamp(1.5rem, 5vw, 3.5rem);
+  bottom: clamp(1.5rem, 5vw, 3.5rem);
+  background: transparent;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--r-sm);
+  color: var(--cream-muted);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  transition: color var(--dur-state) var(--ease-out),
+              border-color var(--dur-state) var(--ease-out);
+}
+.sting-skip:hover {
+  color: var(--gold);
+  border-color: var(--hairline-gold);
+}
+
+/* Reduced motion never opts in via the gate; this is the belt-and-braces case
+   of the preference changing after load. */
+@media (prefers-reduced-motion: reduce) {
+  .sting {
+    display: none !important;
+  }
+  body {
+    overflow: auto !important;
+  }
 }
 
 .nav-link {

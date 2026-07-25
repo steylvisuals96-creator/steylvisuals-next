@@ -213,6 +213,14 @@ Rules and dividers are 1px hairlines, gold when they are marking something and c
 ### Logo Lockup (signature)
 "Steyl." in Montserrat 800 at `-0.035em` tracking with the period in Signal Gold, and "VISUALS" beneath in Poppins 400 at `0.5em` tracking, left-aligned to the S rather than centered. Clear space on all sides is at minimum the diameter of the dot. Below 90px wide the "VISUALS" line drops; below 32px only the "S." icon is used (favicon, avatar, app icon).
 
+### Brand Intro (signature)
+
+A full-screen black overlay playing the logo sting, on the homepage only. It runs **once per session**, never under `prefers-reduced-motion`, and is dismissible by click, Esc, or a skip control. The hero renders underneath and is never gated on it: a blocked autoplay, a failed fetch or a headless render all leave the page fully intact, and the overlay is `display: none` by default so prerendered HTML is never a black screen.
+
+The source render is 5s and ends on a cream end card at ~3.8s. The shipped file is cut at **2.8s** — dot in, wordmark wipe, VISUALS, one beat of hold — so the overlay's own 0.6s fade stands in for the brandbook's wipe and the transition into the hero stays black-to-black.
+
+**Known deviation:** the dot in the current sting render is cream (`#F1EDE6`), not Signal Gold. The brandbook states the dot is always gold and lists recolouring it as a "niet". Re-render from source to correct it; do not fix it in code.
+
 ## Do's and Don'ts
 
 ### Do:

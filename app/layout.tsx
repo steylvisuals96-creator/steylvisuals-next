@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Poppins, Montserrat } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
+import { STING_GATE } from "@/components/LogoSting";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -62,9 +64,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="nl" className={`${cormorant.variable} ${poppins.variable} ${montserrat.variable}`}>
+    <html
+      lang="nl"
+      className={`${cormorant.variable} ${poppins.variable} ${montserrat.variable}`}
+    >
       <head>
-        <meta name="theme-color" content="var(--black)" />
+        {/* A literal value — theme-color is read by the UA, which has no CSS vars. */}
+        <meta name="theme-color" content="#0D0B09" />
+        <Script id="sting-gate" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: STING_GATE }} />
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" async></script>
       </head>
       <body>

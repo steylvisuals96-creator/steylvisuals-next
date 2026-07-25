@@ -1,3 +1,4 @@
+import LogoSting from "@/components/LogoSting";
 import Nav from "@/components/Nav";
 import LandingHero from "@/components/LandingHero";
 import ShowReel from "@/components/ShowReel";
@@ -14,6 +15,8 @@ export const metadata = {
 export default function Home() {
   return (
     <>
+      {/* First in the tree so the skip control is the first tab stop. */}
+      <LogoSting />
       <Nav />
       <main>
         <LandingHero />
