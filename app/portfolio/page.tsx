@@ -1,6 +1,7 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import LaMartineCase from "@/components/LaMartineCase";
+import CaseCard from "@/components/CaseCard";
+import { CASES } from "@/lib/cases";
 import VideoReelGrid, { type Reel } from "@/components/VideoReelGrid";
 import WebsitePortfolio from "@/components/WebsitePortfolio";
 
@@ -72,9 +73,23 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        {/* Lead case — the most complete piece of real client work, so it opens
-            the page rather than sitting as a fourth tile in the reel grid. */}
-        <LaMartineCase />
+        {/* Cases open the page: real client work, each leading to its own page.
+            Adding one is a data entry in lib/cases.ts. */}
+        <section style={{ padding: "0 clamp(1.5rem,6vw,5rem) clamp(4rem,8vh,6rem)" }}>
+          <div className="max-w-[1100px] mx-auto mb-12">
+            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)" }}>
+              Uitgelicht werk
+            </p>
+            <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
+              Cases
+            </h2>
+          </div>
+          <div className="max-w-[1100px] mx-auto flex flex-col gap-6">
+            {CASES.map((c, i) => (
+              <CaseCard key={c.slug} item={c} index={i} />
+            ))}
+          </div>
+        </section>
 
         {/* Section: Video & Content */}
         <section style={{ padding: "0 clamp(1.5rem,6vw,5rem) clamp(4rem,8vh,6rem)" }}>
