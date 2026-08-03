@@ -104,7 +104,7 @@ export default function CaseDetail({ item }: { item: PortfolioCase }) {
             style={{
               fontFamily: "var(--font-poppins)",
               fontSize: "1rem",
-              fontWeight: 300,
+              fontWeight: 400,
               lineHeight: 1.7,
               color: "var(--cream-muted)",
               maxWidth: "52ch",

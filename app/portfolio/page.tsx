@@ -66,7 +66,7 @@ export default function PortfolioPage() {
             </h1>
             <p
               className="mt-6"
-              style={{ fontFamily: "var(--font-poppins)", fontSize: "1rem", fontWeight: 300, lineHeight: 1.7, color: "var(--cream-muted)", maxWidth: "480px" }}
+              style={{ fontFamily: "var(--font-poppins)", fontSize: "1rem", fontWeight: 400, lineHeight: 1.7, color: "var(--cream-muted)", maxWidth: "480px" }}
             >
               Video, content en websites voor bedrijven die willen opvallen. Bekijk wat we al hebben gemaakt.
             </p>
@@ -126,7 +126,7 @@ export default function PortfolioPage() {
             <p className="mb-3" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)" }}>
               Jouw project hier?
             </p>
-            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "1rem", fontWeight: 300, color: "var(--cream-muted)", marginBottom: "2rem" }}>
+            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "1rem", fontWeight: 400, color: "var(--cream-muted)", marginBottom: "2rem" }}>
               Stuur een bericht en ontvang binnen 24u een voorstel op maat.
             </p>
             <a

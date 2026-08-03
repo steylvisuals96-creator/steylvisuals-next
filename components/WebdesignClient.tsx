@@ -429,7 +429,7 @@ export default function WebdesignClient() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.22, ease: EASE }}
-              className="text-base font-light leading-relaxed mb-10"
+              className="text-base font-normal leading-relaxed mb-10"
               style={{ color: "var(--cream-muted)", maxWidth: "400px" }}
             >
               Geen templates, geen compromissen. Elke site volledig op maat gebouwd, razendsnel en gemaakt om te converteren.

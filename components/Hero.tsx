@@ -87,7 +87,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={fadeUp}
-          className="text-base font-light leading-relaxed mb-10"
+          className="text-base font-normal leading-relaxed mb-10"
           style={{ color: "var(--cream-muted)", maxWidth: "420px" }}
         >
           {content.vastgoed.subtext}

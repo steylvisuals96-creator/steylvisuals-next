@@ -150,7 +150,7 @@ export default function LandingHero() {
             style={{
               fontFamily: "var(--font-poppins)",
               fontSize: "1.05rem",
-              fontWeight: 300,
+              fontWeight: 400,
               lineHeight: 1.7,
               color: "var(--cream-muted)",
               maxWidth: "420px",

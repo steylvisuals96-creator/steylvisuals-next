@@ -107,7 +107,7 @@ function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25, ease: EASE }}
-          className="mb-10 text-base font-light leading-relaxed"
+          className="mb-10 text-base font-normal leading-relaxed"
           style={{ color: "rgba(255,255,255,0.55)", maxWidth: "480px" }}
         >
           Gevestigd makelaarskantoor met vestigingen in Hasselt, Sint-Truiden en Genk.
