@@ -1,7 +1,6 @@
 import LogoSting from "@/components/LogoSting";
 import Nav from "@/components/Nav";
 import LandingHero from "@/components/LandingHero";
-import ShowReel from "@/components/ShowReel";
 import ServicesGrid from "@/components/ServicesGrid";
 import LandingCTA from "@/components/LandingCTA";
 import Footer from "@/components/Footer";
@@ -21,7 +20,6 @@ export default function Home() {
       <main>
         <LandingHero />
         <ServicesGrid />
-        <ShowReel />
         <LandingCTA />
       </main>
       <Footer />
