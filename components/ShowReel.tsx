@@ -135,7 +135,7 @@ export default function ShowReel() {
             */}
             <video
               ref={videoRef}
-              src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/Summum_Pre_-Launch_NL.MOV"
+              src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/Appartement_Sint-Truiden_Vertical.mp4"
               poster=""
               muted
               loop
