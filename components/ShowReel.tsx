@@ -135,17 +135,15 @@ export default function ShowReel() {
             */}
             <video
               ref={videoRef}
-              poster="/videos/web/showreel-poster.jpg"
+              src="https://pub-28e65866cf1641928966914639cc84ef.r2.dev/videos/web/Summum_Pre_-Launch_NL.MOV"
+              poster=""
               muted
               loop
               playsInline
               preload="none"
               className="w-full h-full object-cover"
               title="SteylVisuals showreel"
-            >
-              <source src="/videos/web/showreel.webm" type="video/webm" />
-              <source src="/videos/web/showreel.mp4" type="video/mp4" />
-            </video>
+            />
           </div>
         </motion.div>
 
