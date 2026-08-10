@@ -230,7 +230,8 @@ export default function InspirationLibrary({
         <div>
           <h2 style={{ fontFamily: "serif", fontSize: "1.4rem", fontWeight: 400, color: cream }}>Inspiratie-library</h2>
           <p style={{ fontSize: "0.75rem", color: muted, marginTop: "0.25rem" }}>
-            {items.length} beelden{unanalyzedCount > 0 && ` · ${unanalyzedCount} nog te analyseren`}
+            {items.length} {items.length === 1 ? "beeld" : "beelden"}
+            {unanalyzedCount > 0 && ` · ${unanalyzedCount} nog te analyseren`}
           </p>
         </div>
         <button
@@ -368,8 +369,17 @@ function Card({
   return (
     <div style={{ breakInside: "avoid", marginBottom: "1rem", backgroundColor: "#111", borderRadius: "10px", overflow: "hidden", border: `1px solid ${item.analyzed ? "rgba(201,151,74,0.2)" : "rgba(255,255,255,0.07)"}` }}>
       <div style={{ position: "relative" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={item.url} alt={item.style || "inspiratie"} style={{ width: "100%", display: "block" }} />
+        {/* Volledige pagina-screenshots zijn extreem hoog. Ongelimiteerd worden
+            kaarten dan honderden pixels lang en verdwijnt het overzicht, dus
+            toon een bovenkant-uitsnede; klikken opent het beeld op ware grootte. */}
+        <a href={item.url} target="_blank" rel="noopener noreferrer" style={{ display: "block" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={item.url}
+            alt={item.style || "inspiratie"}
+            style={{ width: "100%", maxHeight: "420px", objectFit: "cover", objectPosition: "top", display: "block", cursor: "zoom-in" }}
+          />
+        </a>
         {!item.analyzed && (
           <span style={{ position: "absolute", top: "0.5rem", left: "0.5rem", fontSize: "0.62rem", padding: "0.2rem 0.5rem", borderRadius: "999px", backgroundColor: "rgba(13,11,9,0.85)", color: gold, letterSpacing: "0.06em", textTransform: "uppercase" }}>
             Nog te analyseren
