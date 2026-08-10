@@ -612,21 +612,37 @@ function Card({
   onDelete: () => void;
 }) {
   const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
   const direction = directions.find((d) => d.id === item.directionId);
+
+  function copyBrief() {
+    if (!direction) return;
+    navigator.clipboard.writeText(briefBlock(direction));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
 
   return (
     <div style={{ backgroundColor: "#111", borderRadius: radius, overflow: "hidden", border: `1px solid ${item.analyzed ? "rgba(201,151,74,0.2)" : "rgba(255,255,255,0.07)"}` }}>
       <div style={{ position: "relative" }}>
-        {/* Volledige pagina-screenshots zijn extreem hoog. Ongelimiteerd worden
-            kaarten dan honderden pixels lang en verdwijnt het overzicht, dus
-            toon een bovenkant-uitsnede; klikken opent het beeld op ware grootte. */}
-        <a href={item.url} target="_blank" rel="noopener noreferrer" style={{ display: "block" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={item.url}
-            alt={item.style || "inspiratie"}
-            style={{ width: "100%", height: "260px", objectFit: "cover", objectPosition: "top", display: "block", cursor: "zoom-in" }}
-          />
+        {/* Volledige pagina-screenshots zijn extreem hoog; toon een bovenkant-
+            uitsnede. Het beeld zelf is niet klikbaar — de volledige screenshot
+            openen kan via het vergroot-icoon, zodat de kaart niet per ongeluk
+            de foto opent. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={item.url}
+          alt={item.style || "inspiratie"}
+          style={{ width: "100%", height: "260px", objectFit: "cover", objectPosition: "top", display: "block" }}
+        />
+        <a
+          href={item.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Volledige screenshot openen"
+          style={{ position: "absolute", bottom: "0.5rem", right: "0.5rem", width: "26px", height: "26px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: radius, backgroundColor: "rgba(13,11,9,0.8)", color: cream, fontSize: "0.85rem", textDecoration: "none", lineHeight: 1 }}
+        >
+          ⤢
         </a>
         {!item.analyzed && (
           <span style={{ position: "absolute", top: "0.5rem", left: "0.5rem", fontSize: "0.62rem", padding: "0.2rem 0.5rem", borderRadius: radius, backgroundColor: "rgba(13,11,9,0.85)", color: gold, letterSpacing: "0.06em", textTransform: "uppercase" }}>
@@ -662,6 +678,15 @@ function Card({
               <span key={i} style={{ fontSize: "0.65rem", padding: "0.15rem 0.45rem", borderRadius: radius, backgroundColor: "rgba(201,151,74,0.1)", color: gold }}>{t}</span>
             ))}
           </div>
+        )}
+
+        {direction && (
+          <button
+            onClick={copyBrief}
+            style={{ width: "100%", marginTop: "0.4rem", fontSize: "0.7rem", padding: "0.5rem", backgroundColor: copied ? "#4ade80" : gold, border: "none", borderRadius: radius, color: "var(--black)", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", cursor: "pointer" }}
+          >
+            {copied ? "Gekopieerd ✓" : "Kopieer briefing"}
+          </button>
         )}
 
         <div style={{ display: "flex", gap: "0.4rem", marginTop: "0.4rem" }}>
