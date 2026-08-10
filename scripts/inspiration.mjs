@@ -198,12 +198,64 @@ async function push(file) {
   }
 }
 
+// Het kopieerbare briefingblok van een richting — zelfde vorm als in de admin,
+// zodat de genereer-skill exact krijgt wat "Kopieer briefing" in de UI geeft.
+function briefBlock(d) {
+  const lines = [`STIJLRICHTING: ${d.name}`, ""];
+  if (d.description) lines.push(d.description, "");
+  const fonts = [d.fonts?.heading && `kop — ${d.fonts.heading}`, d.fonts?.body && `tekst — ${d.fonts.body}`].filter(Boolean);
+  if (fonts.length) lines.push(`LETTERTYPES: ${fonts.join(" · ")}`, "");
+  const p = d.palette || {};
+  const pal = [
+    p.bg && `achtergrond ${p.bg}`,
+    p.ink && `tekst ${p.ink}`,
+    p.accent && `accent ${p.accent}`,
+    p.support?.length && `support ${p.support.join(", ")}`,
+  ].filter(Boolean);
+  if (pal.length) lines.push(`PALET: ${pal.join(" · ")}`, "");
+  if (d.vocab?.length) lines.push(`VOCABULAIRE: ${d.vocab.join(", ")}`, "");
+  if (d.deployFor) lines.push(`INZETTEN VOOR: ${d.deployFor}`, "");
+  if (d.risk) lines.push(`RISICO: ${d.risk}`);
+  return lines.join("\n").trim();
+}
+
+// Menu van alle richtingen (id + naam + hoeveel beelden), voor de skill of Sam
+// om uit te kiezen.
+async function listDirections() {
+  const { items, directions } = await getLibrary();
+  const count = (id) => items.filter((it) => it.directionId === id).length;
+  for (const d of directions) {
+    process.stdout.write(`${d.id}\t${d.name} (${count(d.id)} beeld(en))\n`);
+  }
+  console.error(`\n${directions.length} richting(en).`);
+}
+
+// Volledige briefing(en) voor de opgegeven richting-id's (of alle als er geen
+// id's zijn). Dit is de tekst die de genereer-skill in de bouwprompt giet.
+async function printBriefs(ids) {
+  const { directions } = await getLibrary();
+  const chosen = ids.length ? directions.filter((d) => ids.includes(d.id)) : directions;
+  if (!chosen.length) {
+    console.error(ids.length ? `Geen richting gevonden voor: ${ids.join(", ")}` : "Geen richtingen in de library.");
+    process.exit(1);
+  }
+  process.stdout.write(chosen.map(briefBlock).join("\n\n---\n\n") + "\n");
+}
+
 async function main() {
   loadEnv();
-  const [cmd, arg] = process.argv.slice(2);
-  if (cmd === "pull") return pull(arg === "--all");
-  if (cmd === "push") return push(arg);
-  console.error("Gebruik:\n  node scripts/inspiration.mjs pull [--all]\n  node scripts/inspiration.mjs push <bestand.json>");
+  const [cmd, ...rest] = process.argv.slice(2);
+  if (cmd === "pull") return pull(rest[0] === "--all");
+  if (cmd === "push") return push(rest[0]);
+  if (cmd === "directions") return listDirections();
+  if (cmd === "brief") return printBriefs(rest);
+  console.error(
+    "Gebruik:\n" +
+      "  node scripts/inspiration.mjs pull [--all]\n" +
+      "  node scripts/inspiration.mjs push <bestand.json>\n" +
+      "  node scripts/inspiration.mjs directions\n" +
+      "  node scripts/inspiration.mjs brief [richting-id ...]"
+  );
   process.exit(1);
 }
 
