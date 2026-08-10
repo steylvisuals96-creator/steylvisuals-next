@@ -94,6 +94,26 @@ export default {
       return json({ saved: true });
     }
 
+    // GET /library — read the inspiration library index
+    if (request.method === "GET" && path === "/library") {
+      const obj = await env.BUCKET.get("library.json");
+      if (!obj) return json({ items: [] });
+      const text = await obj.text();
+      return new Response(text, {
+        headers: { ...CORS, "Content-Type": "application/json" },
+      });
+    }
+
+    // PUT /library — save the inspiration library index
+    if (request.method === "PUT" && path === "/library") {
+      const body = await request.text();
+      JSON.parse(body); // validate JSON
+      await env.BUCKET.put("library.json", body, {
+        httpMetadata: { contentType: "application/json" },
+      });
+      return json({ saved: true });
+    }
+
     return json({ error: "Not found" }, 404);
   },
 };

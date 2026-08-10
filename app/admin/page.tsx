@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
+import InspirationLibrary from "./InspirationLibrary";
 
 const WORKER_URL = "https://steylvisuals-upload.steylvisuals96.workers.dev";
 
@@ -63,7 +64,7 @@ function Input({ label, value, onChange, multiline = false }: {
 export default function AdminPage() {
   const [token, setToken] = useState("");
   const [authed, setAuthed] = useState(false);
-  const [view, setView] = useState<"files" | "content">("files");
+  const [view, setView] = useState<"files" | "content" | "inspiration">("files");
   const [folder, setFolder] = useState("images");
   const [files, setFiles] = useState<FileItem[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -236,6 +237,15 @@ export default function AdminPage() {
             <span>✏️</span> Teksten
           </button>
 
+          {/* Inspiratie section */}
+          <p style={{ fontSize: "0.65rem", color: "var(--cream-muted)", letterSpacing: "0.1em", textTransform: "uppercase", margin: "1rem 0 0.5rem", paddingLeft: "0.5rem" }}>Library</p>
+          <button
+            onClick={() => setView("inspiration")}
+            style={{ display: "flex", alignItems: "center", gap: "0.6rem", width: "100%", padding: "0.6rem 0.75rem", borderRadius: "8px", border: "none", cursor: "pointer", textAlign: "left", fontSize: "0.85rem", backgroundColor: view === "inspiration" ? "rgba(201,151,74,0.15)" : "transparent", color: view === "inspiration" ? "var(--gold)" : "rgba(241,237,230,0.6)" }}
+          >
+            <span>✦</span> Inspiratie
+          </button>
+
           {/* Media section */}
           <p style={{ fontSize: "0.65rem", color: "var(--cream-muted)", letterSpacing: "0.1em", textTransform: "uppercase", margin: "1rem 0 0.5rem", paddingLeft: "0.5rem" }}>Media</p>
           {FOLDERS.map(f => (
@@ -297,6 +307,11 @@ export default function AdminPage() {
                 <Input label="Ondertitel" value={content.vastgoed.subtext} onChange={v => setContent(c => ({ ...c, vastgoed: { ...c.vastgoed, subtext: v } }))} multiline />
               </section>
             </div>
+          )}
+
+          {/* INSPIRATIE LIBRARY */}
+          {view === "inspiration" && (
+            <InspirationLibrary token={token} workerUrl={WORKER_URL} />
           )}
 
           {/* FILE BROWSER */}
