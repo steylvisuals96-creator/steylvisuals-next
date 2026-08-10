@@ -1,0 +1,10 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [
+      "app/admin/InspirationLibrary.tsx",
+      "app/admin/page.tsx"
+    ],
+    "ignoreValues": []
+  }
+}
