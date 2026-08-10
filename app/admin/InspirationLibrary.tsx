@@ -385,7 +385,7 @@ export default function InspirationLibrary({
           {items.length === 0 ? "Nog geen inspiratie. Upload je eerste beelden hierboven." : "Geen beelden in deze selectie."}
         </p>
       ) : (
-        <div style={{ columnWidth: "260px", columnGap: "1rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "1rem", alignItems: "start" }}>
           {filtered.map((item) => (
             <Card
               key={item.id}
@@ -522,7 +522,7 @@ function Card({
   const direction = directions.find((d) => d.id === item.directionId);
 
   return (
-    <div style={{ breakInside: "avoid", marginBottom: "1rem", backgroundColor: "#111", borderRadius: radius, overflow: "hidden", border: `1px solid ${item.analyzed ? "rgba(201,151,74,0.2)" : "rgba(255,255,255,0.07)"}` }}>
+    <div style={{ backgroundColor: "#111", borderRadius: radius, overflow: "hidden", border: `1px solid ${item.analyzed ? "rgba(201,151,74,0.2)" : "rgba(255,255,255,0.07)"}` }}>
       <div style={{ position: "relative" }}>
         {/* Volledige pagina-screenshots zijn extreem hoog. Ongelimiteerd worden
             kaarten dan honderden pixels lang en verdwijnt het overzicht, dus
@@ -532,7 +532,7 @@ function Card({
           <img
             src={item.url}
             alt={item.style || "inspiratie"}
-            style={{ width: "100%", maxHeight: "420px", objectFit: "cover", objectPosition: "top", display: "block", cursor: "zoom-in" }}
+            style={{ width: "100%", height: "260px", objectFit: "cover", objectPosition: "top", display: "block", cursor: "zoom-in" }}
           />
         </a>
         {!item.analyzed && (
