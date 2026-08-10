@@ -112,15 +112,16 @@ const ANALYSIS_FIELDS = [
   "client",
 ];
 
-const DIRECTION_FIELDS = ["name", "description", "deployFor", "risk", "vocab"];
+const DIRECTION_FIELDS = ["name", "description", "deployFor", "risk", "vocab", "fonts", "palette"];
 
 async function pull(all) {
   const { items, directions } = await getLibrary();
   const todo = all ? items : items.filter((it) => !it.analyzed);
   const out = {
     // Bestaande richtingen meegeven zodat nieuwe beelden bij een bestaande
-    // richting gezet kunnen worden in plaats van een duplicaat te maken.
-    directions: directions.map((d) => ({ id: d.id, name: d.name, vocab: d.vocab })),
+    // richting gezet kunnen worden in plaats van een duplicaat te maken, en
+    // zodat de analyse-sessie ontbrekende fonts/palet kan aanvullen (#1).
+    directions: directions.map((d) => ({ id: d.id, name: d.name, vocab: d.vocab, fonts: d.fonts, palette: d.palette })),
     items: todo.map((it) => ({ id: it.id, url: it.url, client: it.client })),
   };
   process.stdout.write(JSON.stringify(out, null, 2) + "\n");
@@ -149,7 +150,11 @@ async function push(file) {
       console.error("Elke richting heeft een `id` nodig — overgeslagen.");
       continue;
     }
-    const base = dirById.get(d.id) || { id: d.id, name: d.id, description: "", deployFor: "", risk: "", vocab: [] };
+    const base = dirById.get(d.id) || {
+      id: d.id, name: d.id, description: "", deployFor: "", risk: "", vocab: [],
+      fonts: { heading: "", body: "" },
+      palette: { bg: "", ink: "", accent: "", support: [] },
+    };
     const patch = {};
     for (const f of DIRECTION_FIELDS) if (d[f] !== undefined) patch[f] = d[f];
     dirById.set(d.id, { ...base, ...patch });

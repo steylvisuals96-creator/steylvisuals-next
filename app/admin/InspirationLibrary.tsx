@@ -43,7 +43,29 @@ export type Direction = {
   deployFor: string;
   risk: string;
   vocab: string[];
+  fonts: { heading: string; body: string };
+  palette: { bg: string; ink: string; accent: string; support: string[] };
 };
+
+// library.json van vóór #1 heeft geen fonts/palette op richtingen — vul defaults
+// zodat oude richtingen niet crashen op ontbrekende geneste velden.
+function normalizeDirection(d: Partial<Direction> & { id: string }): Direction {
+  return {
+    id: d.id,
+    name: d.name ?? "",
+    description: d.description ?? "",
+    deployFor: d.deployFor ?? "",
+    risk: d.risk ?? "",
+    vocab: Array.isArray(d.vocab) ? d.vocab : [],
+    fonts: { heading: d.fonts?.heading ?? "", body: d.fonts?.body ?? "" },
+    palette: {
+      bg: d.palette?.bg ?? "",
+      ink: d.palette?.ink ?? "",
+      accent: d.palette?.accent ?? "",
+      support: Array.isArray(d.palette?.support) ? d.palette!.support : [],
+    },
+  };
+}
 
 const EMPTY_ANALYSIS = {
   analyzed: false,
@@ -72,6 +94,15 @@ const radius = "var(--r-sm)";
 function briefBlock(d: Direction) {
   const lines = [`STIJLRICHTING: ${d.name}`, ""];
   if (d.description) lines.push(d.description, "");
+  const fonts = [d.fonts.heading && `kop — ${d.fonts.heading}`, d.fonts.body && `tekst — ${d.fonts.body}`].filter(Boolean);
+  if (fonts.length) lines.push(`LETTERTYPES: ${fonts.join(" · ")}`, "");
+  const pal = [
+    d.palette.bg && `achtergrond ${d.palette.bg}`,
+    d.palette.ink && `tekst ${d.palette.ink}`,
+    d.palette.accent && `accent ${d.palette.accent}`,
+    d.palette.support.length && `support ${d.palette.support.join(", ")}`,
+  ].filter(Boolean);
+  if (pal.length) lines.push(`PALET: ${pal.join(" · ")}`, "");
   if (d.vocab.length) lines.push(`VOCABULAIRE: ${d.vocab.join(", ")}`, "");
   if (d.deployFor) lines.push(`INZETTEN VOOR: ${d.deployFor}`, "");
   if (d.risk) lines.push(`RISICO: ${d.risk}`);
@@ -108,7 +139,7 @@ export default function InspirationLibrary({
       if (res.ok) {
         const data = await res.json();
         setItems(Array.isArray(data.items) ? data.items : []);
-        setDirections(Array.isArray(data.directions) ? data.directions : []);
+        setDirections((Array.isArray(data.directions) ? data.directions : []).map(normalizeDirection));
       }
     } finally {
       setLoading(false);
@@ -208,6 +239,8 @@ export default function InspirationLibrary({
       deployFor: "",
       risk: "",
       vocab: [],
+      fonts: { heading: "", body: "" },
+      palette: { bg: "", ink: "", accent: "", support: [] },
     };
     const next = [...directions, d];
     setDirections(next);
@@ -441,6 +474,14 @@ export function DirectionPanel({
           <Field label="Inzetten voor" value={direction.deployFor} onChange={(v) => onChange({ deployFor: v })} />
           <Field label="Risico — de gedurfde zet" value={direction.risk} onChange={(v) => onChange({ risk: v })} multiline />
           <Field label="Vocabulaire (komma)" value={direction.vocab.join(", ")} onChange={(v) => onChange({ vocab: splitList(v) })} multiline />
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+            <Field label="Kop-lettertype" value={direction.fonts.heading} onChange={(v) => onChange({ fonts: { ...direction.fonts, heading: v } })} />
+            <Field label="Tekst-lettertype" value={direction.fonts.body} onChange={(v) => onChange({ fonts: { ...direction.fonts, body: v } })} />
+            <Field label="Palet — achtergrond (hex)" value={direction.palette.bg} onChange={(v) => onChange({ palette: { ...direction.palette, bg: v } })} />
+            <Field label="Palet — tekst / ink (hex)" value={direction.palette.ink} onChange={(v) => onChange({ palette: { ...direction.palette, ink: v } })} />
+            <Field label="Palet — accent (hex)" value={direction.palette.accent} onChange={(v) => onChange({ palette: { ...direction.palette, accent: v } })} />
+            <Field label="Palet — support (komma, hex)" value={direction.palette.support.join(", ")} onChange={(v) => onChange({ palette: { ...direction.palette, support: splitList(v) } })} />
+          </div>
         </div>
       ) : (
         <>
@@ -464,6 +505,35 @@ export function DirectionPanel({
               {direction.deployFor}
             </p>
           )}
+
+          {(() => {
+            const swatches = [
+              ["achtergrond", direction.palette.bg],
+              ["tekst", direction.palette.ink],
+              ["accent", direction.palette.accent],
+              ...direction.palette.support.map((c) => ["support", c] as [string, string]),
+            ].filter(([, hex]) => hex);
+            const fonts = [direction.fonts.heading, direction.fonts.body].filter(Boolean);
+            if (!swatches.length && !fonts.length) return null;
+            return (
+              <div style={{ display: "flex", gap: "2.5rem", flexWrap: "wrap", alignItems: "center", marginBottom: "1.25rem" }}>
+                {fonts.length > 0 && (
+                  <div>
+                    <span style={{ color: gold, fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", marginRight: "0.6rem" }}>Letters</span>
+                    <span style={{ fontSize: "0.85rem", color: cream }}>{fonts.join(" · ")}</span>
+                  </div>
+                )}
+                {swatches.length > 0 && (
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <span style={{ color: gold, fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Palet</span>
+                    {swatches.map(([role, hex], i) => (
+                      <span key={i} title={`${role} ${hex}`} style={{ width: "22px", height: "22px", borderRadius: radius, backgroundColor: hex, border: "1px solid rgba(255,255,255,0.2)" }} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           {direction.vocab.length > 0 && (
             <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap", marginBottom: "1.25rem" }}>
