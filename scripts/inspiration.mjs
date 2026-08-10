@@ -13,13 +13,25 @@
  * Het upload-token wordt uit .env.local gelezen (SV_UPLOAD_TOKEN), zodat het
  * nooit in de chat of in git terechtkomt. .env.local staat in .gitignore.
  *
- * Formaat van het push-bestand: een JSON-array van objecten met minstens `id`
- * en de analysevelden, bv:
- *   [{ "id": "insp_x", "colors": ["#111"], "style": "editorial minimal",
- *      "typography": "hoog contrast serif + grotesk", "layout": "asymmetrisch grid",
- *      "mood": "rustig, luxueus", "useCase": "hero", "tags": ["luxe","vastgoed"],
- *      "notes": "..." }]
- * Elk gepusht item krijgt automatisch analyzed:true.
+ * Het push-bestand is een object met `items` en/of `directions`:
+ *   {
+ *     "directions": [
+ *       { "id": "dir_dither_mono", "name": "Dither Mono",
+ *         "description": "Rauw zwart-wit met bitmap-textuur...",
+ *         "deployFor": "Portfolio's, ateliers — waar soberheid als zelfvertrouwen leest.",
+ *         "risk": "Dither het volledige hero-beeld naar 1-bit.",
+ *         "vocab": ["bitmap dither", "stark B&W", "film grain"] }
+ *     ],
+ *     "items": [
+ *       { "id": "insp_x", "directionId": "dir_dither_mono", "colors": ["#111"],
+ *         "style": "editorial minimal", "typography": "hoog contrast serif",
+ *         "layout": "asymmetrisch grid", "mood": "rustig, luxueus",
+ *         "useCase": "hero", "tags": ["luxe","vastgoed"], "notes": "..." }
+ *     ]
+ *   }
+ * Een kale array wordt nog steeds aanvaard en geldt dan als `items`.
+ * Elk gepusht item krijgt automatisch analyzed:true. Richtingen worden gemerged
+ * op id: bestaande worden bijgewerkt, nieuwe toegevoegd.
  */
 
 import { readFileSync } from "node:fs";
@@ -66,17 +78,20 @@ async function getLibrary() {
     process.exit(1);
   }
   const data = await res.json();
-  return Array.isArray(data.items) ? data.items : [];
+  return {
+    items: Array.isArray(data.items) ? data.items : [],
+    directions: Array.isArray(data.directions) ? data.directions : [],
+  };
 }
 
-async function putLibrary(items) {
+async function putLibrary(items, directions) {
   const res = await fetch(`${WORKER_URL}/library`, {
     method: "PUT",
     headers: {
       Authorization: `Bearer ${token()}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ items }),
+    body: JSON.stringify({ items, directions }),
   });
   if (!res.ok) {
     console.error(`Library opslaan mislukt (${res.status})`);
@@ -85,6 +100,7 @@ async function putLibrary(items) {
 }
 
 const ANALYSIS_FIELDS = [
+  "directionId",
   "colors",
   "style",
   "typography",
@@ -96,13 +112,21 @@ const ANALYSIS_FIELDS = [
   "client",
 ];
 
+const DIRECTION_FIELDS = ["name", "description", "deployFor", "risk", "vocab"];
+
 async function pull(all) {
-  const items = await getLibrary();
+  const { items, directions } = await getLibrary();
   const todo = all ? items : items.filter((it) => !it.analyzed);
-  const out = todo.map((it) => ({ id: it.id, url: it.url, client: it.client }));
+  const out = {
+    // Bestaande richtingen meegeven zodat nieuwe beelden bij een bestaande
+    // richting gezet kunnen worden in plaats van een duplicaat te maken.
+    directions: directions.map((d) => ({ id: d.id, name: d.name, vocab: d.vocab })),
+    items: todo.map((it) => ({ id: it.id, url: it.url, client: it.client })),
+  };
   process.stdout.write(JSON.stringify(out, null, 2) + "\n");
   console.error(
-    `\n${todo.length} van ${items.length} item(s) ${all ? "totaal" : "nog te analyseren"}.`
+    `\n${todo.length} van ${items.length} beeld(en) ${all ? "totaal" : "nog te analyseren"}, ` +
+      `${directions.length} bestaande richting(en).`
   );
 }
 
@@ -111,27 +135,56 @@ async function push(file) {
     console.error("Geef een JSON-bestand mee: node scripts/inspiration.mjs push out.json");
     process.exit(1);
   }
-  const analyses = JSON.parse(readFileSync(file, "utf8"));
-  if (!Array.isArray(analyses)) {
-    console.error("Het push-bestand moet een JSON-array zijn.");
-    process.exit(1);
+  const parsed = JSON.parse(readFileSync(file, "utf8"));
+  // Een kale array blijft toegestaan en telt als `items`.
+  const analyses = Array.isArray(parsed) ? parsed : parsed.items || [];
+  const newDirs = Array.isArray(parsed) ? [] : parsed.directions || [];
+
+  const { items, directions } = await getLibrary();
+
+  // Richtingen mergen op id: bestaande bijwerken, nieuwe toevoegen.
+  const dirById = new Map(directions.map((d) => [d.id, d]));
+  for (const d of newDirs) {
+    if (!d.id) {
+      console.error("Elke richting heeft een `id` nodig — overgeslagen.");
+      continue;
+    }
+    const base = dirById.get(d.id) || { id: d.id, name: d.id, description: "", deployFor: "", risk: "", vocab: [] };
+    const patch = {};
+    for (const f of DIRECTION_FIELDS) if (d[f] !== undefined) patch[f] = d[f];
+    dirById.set(d.id, { ...base, ...patch });
   }
+  const nextDirs = [...dirById.values()];
+
   const byId = new Map(analyses.map((a) => [a.id, a]));
-  const items = await getLibrary();
   let updated = 0;
-  const next = items.map((it) => {
+  const nextItems = items.map((it) => {
     const a = byId.get(it.id);
     if (!a) return it;
     updated++;
     const patch = {};
-    for (const f of ANALYSIS_FIELDS) {
-      if (a[f] !== undefined) patch[f] = a[f];
-    }
+    for (const f of ANALYSIS_FIELDS) if (a[f] !== undefined) patch[f] = a[f];
     return { ...it, ...patch, analyzed: true };
   });
+
+  // Een verwijzing naar een niet-bestaande richting zou het beeld onzichtbaar
+  // maken in de richtingen-balk, dus vang dat hier af in plaats van in de UI.
+  const dirIds = new Set(nextDirs.map((d) => d.id));
+  const orphans = nextItems.filter((it) => it.directionId && !dirIds.has(it.directionId));
+
   const missing = analyses.filter((a) => !items.some((it) => it.id === a.id));
-  await putLibrary(next);
-  console.error(`${updated} item(s) bijgewerkt en gemarkeerd als geanalyseerd.`);
+  await putLibrary(nextItems, nextDirs);
+
+  console.error(
+    `${updated} beeld(en) bijgewerkt en gemarkeerd als geanalyseerd. ` +
+      `${nextDirs.length} richting(en) in de library.`
+  );
+  if (orphans.length) {
+    console.error(
+      `Let op: ${orphans.length} beeld(en) verwijzen naar een onbekende richting: ` +
+        [...new Set(orphans.map((o) => o.directionId))].join(", ")
+    );
+  }
   if (missing.length) {
     console.error(
       `Let op: ${missing.length} id('s) uit het bestand bestaan niet in de library: ` +
