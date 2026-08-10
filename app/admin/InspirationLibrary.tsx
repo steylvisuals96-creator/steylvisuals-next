@@ -84,6 +84,20 @@ function newId(prefix: string) {
   return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
 }
 
+// Bundel visueel gelijkende kleuren tot één "bucket" door elk kanaal naar een
+// stap van 48 af te ronden. Zo klappen bijna-identieke aardetinten (#2e2a26 en
+// #2d2b25) samen tot één filterstip i.p.v. dertig losse hexes, en matcht een
+// filter ook kleuren die net niet exact gelijk zijn.
+function colorBucket(hex: string): string | null {
+  const m = hex.replace("#", "").trim();
+  if (m.length !== 6 || /[^0-9a-fA-F]/.test(m)) return null;
+  const q = (i: number) => {
+    const v = Math.round(parseInt(m.slice(i, i + 2), 16) / 48) * 48;
+    return Math.min(255, v).toString(16).padStart(2, "0");
+  };
+  return `#${q(0)}${q(2)}${q(4)}`;
+}
+
 const gold = "var(--gold)";
 const cream = "var(--cream)";
 const muted = "var(--cream-muted)";
@@ -270,10 +284,16 @@ export default function InspirationLibrary({
     persist(next, directions);
   }
 
-  const allColors = useMemo(() => {
-    const set = new Set<string>();
-    items.forEach((it) => it.colors?.forEach((c) => set.add(c.toLowerCase())));
-    return [...set];
+  // Eén stip per kleur-bucket, met de eerst-geziene echte kleur als weergave.
+  const colorSwatches = useMemo(() => {
+    const byBucket = new Map<string, string>();
+    items.forEach((it) =>
+      it.colors?.forEach((c) => {
+        const b = colorBucket(c);
+        if (b && !byBucket.has(b)) byBucket.set(b, c);
+      })
+    );
+    return [...byBucket.entries()].map(([bucket, hex]) => ({ bucket, hex }));
   }, [items]);
 
   const todoCount = items.filter((it) => !it.analyzed).length;
@@ -283,7 +303,7 @@ export default function InspirationLibrary({
     return items.filter((it) => {
       if (filter === "todo" && it.analyzed) return false;
       if (filter !== "all" && filter !== "todo" && it.directionId !== filter) return false;
-      if (activeColor && !it.colors?.some((c) => c.toLowerCase() === activeColor)) return false;
+      if (activeColor && !it.colors?.some((c) => colorBucket(c) === activeColor)) return false;
       if (q) {
         const hay = [it.client, it.style, it.typography, it.layout, it.mood, it.useCase, it.notes, ...(it.tags || [])]
           .join(" ")
@@ -383,30 +403,33 @@ export default function InspirationLibrary({
       )}
 
       {/* Secundaire filters */}
-      <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center", marginBottom: "1.25rem" }}>
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Zoek op stijl, mood, klant, tag..."
-          style={{ flex: 1, minWidth: "220px", padding: "0.6rem 0.9rem", backgroundColor: "#1a1a1a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: radius, color: cream, fontSize: "0.85rem", outline: "none" }}
-        />
-        {allColors.length > 0 && (
-          <div style={{ display: "flex", gap: "0.35rem", flexWrap: "wrap", alignItems: "center" }}>
-            {allColors.map((c) => (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "1.25rem" }}>
+        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Zoek op stijl, mood, klant, tag..."
+            style={{ flex: 1, minWidth: "220px", padding: "0.6rem 0.9rem", backgroundColor: "#1a1a1a", border: "1px solid rgba(255,255,255,0.1)", borderRadius: radius, color: cream, fontSize: "0.85rem", outline: "none" }}
+          />
+          {(query || activeColor) && (
+            <button onClick={() => { setQuery(""); setActiveColor(null); }} style={{ fontSize: "0.75rem", color: gold, background: "none", border: "none", cursor: "pointer" }}>
+              Wis filters
+            </button>
+          )}
+        </div>
+        {colorSwatches.length > 0 && (
+          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", alignItems: "center" }}>
+            <span style={{ color: gold, fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", marginRight: "0.25rem" }}>Kleur</span>
+            {colorSwatches.map(({ bucket, hex }) => (
               <button
-                key={c}
-                onClick={() => setActiveColor(activeColor === c ? null : c)}
-                title={c}
-                style={{ width: "20px", height: "20px", borderRadius: radius, backgroundColor: c, cursor: "pointer", border: activeColor === c ? `2px solid ${gold}` : "1px solid rgba(255,255,255,0.2)" }}
+                key={bucket}
+                onClick={() => setActiveColor(activeColor === bucket ? null : bucket)}
+                title={hex}
+                style={{ width: "28px", height: "28px", borderRadius: radius, backgroundColor: hex, cursor: "pointer", border: activeColor === bucket ? `2px solid ${gold}` : "1px solid rgba(255,255,255,0.2)", boxShadow: activeColor === bucket ? "0 0 0 2px rgba(201,151,74,0.3)" : "none" }}
               />
             ))}
           </div>
-        )}
-        {(query || activeColor) && (
-          <button onClick={() => { setQuery(""); setActiveColor(null); }} style={{ fontSize: "0.75rem", color: gold, background: "none", border: "none", cursor: "pointer" }}>
-            Wis filters
-          </button>
         )}
       </div>
 
