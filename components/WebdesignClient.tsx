@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform, useInView, type MotionValue } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import AnimateIn from "./AnimateIn";
+import AIAgentDemo from "./AIAgentDemo";
 
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
@@ -755,6 +756,7 @@ export default function WebdesignClient() {
         </div>
       </section>
 
+      <AIAgentDemo />
       <ContactSection />
     </>
   );
