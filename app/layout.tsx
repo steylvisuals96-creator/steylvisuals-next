@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Poppins, Montserrat } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import { STING_GATE } from "@/components/LogoSting";
+import ChatWidget from "@/components/ChatWidget";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -98,6 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         {children}
+        <ChatWidget />
       </body>
     </html>
   );
