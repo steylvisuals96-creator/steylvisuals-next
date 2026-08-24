@@ -55,6 +55,12 @@ const ICONS: Record<string, React.ReactNode> = {
       <polyline points="16 7 22 7 22 13" />
     </>
   ),
+  inbox: (
+    <>
+      <path d="M22 12h-6l-2 3h-4l-2-3H2" />
+      <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11Z" />
+    </>
+  ),
 };
 
 function FeatureIcon({ name, gold = false }: { name: string; gold?: boolean }) {
@@ -608,6 +614,27 @@ export default function WebdesignClient() {
                 <h3 className="mb-1" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Video-ready</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "380px" }}>
                   Combineer je website met maandelijkse Reels en TikTok content. Website + video is de sterkste combinatie.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Sluit de grid af met het onderscheidende stuk t.o.v. vaste
+                vastgoedplatformen zoals Zabun: zij geven geen leadbeheer op
+                maat, wij wel. Vol-breed zodat het niet verdwijnt tussen de
+                rest. */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.7, delay: 0.23, ease: EASE }}
+              className="sm:col-span-3 flex flex-col sm:flex-row sm:items-center gap-6 p-7 sm:p-9"
+              style={{ backgroundColor: "rgba(201,151,74,0.07)", borderRadius: "var(--r-md)", border: "1px solid rgba(201,151,74,0.25)" }}
+            >
+              <FeatureIcon name="inbox" gold />
+              <div>
+                <h3 className="mb-2" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Leads centraal beheerd</h3>
+                <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "560px" }}>
+                  Aanvragen uit je AI-assistent en contactformulieren komen op één plek binnen, worden automatisch aan de juiste persoon toegewezen en krijgen opvolging zodat er nooit een lead zoek raakt. Iets wat een vast platform als Zabun je niet biedt.
                 </p>
               </div>
             </motion.div>
