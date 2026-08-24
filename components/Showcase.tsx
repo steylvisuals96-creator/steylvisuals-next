@@ -74,8 +74,8 @@ export default function Showcase() {
           >
             <video
               ref={videoRef}
-              src="/videos/web/summum-nl.mp4"
-              poster="/videos/web/summum-nl.jpg"
+              src="/videos/web/appartement-sint-truiden-reel.mp4"
+              poster="/videos/web/appartement-sint-truiden-reel-poster.jpg"
               muted
               loop
               playsInline

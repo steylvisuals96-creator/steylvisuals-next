@@ -58,6 +58,35 @@ export default function PortfolioPage() {
             >
               Video, content en websites voor bedrijven die willen opvallen. Bekijk wat we al hebben gemaakt.
             </p>
+
+            {/* Concreet bewijs i.p.v. een belofte over betrouwbaarheid — zelfde
+                signaal als de link in de footer, hier bovenaan zodat een
+                sceptische bezoeker het meteen ziet. */}
+            <a
+              href="https://stats.uptimerobot.com/aIPn0em2Sd"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex items-center gap-3"
+              style={{
+                border: "1px solid rgba(62,207,114,0.3)",
+                backgroundColor: "rgba(62,207,114,0.06)",
+                borderRadius: "var(--r-sm)",
+                padding: "0.6rem 1.1rem",
+                textDecoration: "none",
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="w-2 h-2 rounded-full"
+                style={{ background: "#3ecf72", boxShadow: "0 0 8px rgba(62,207,114,0.7)" }}
+              />
+              <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.8rem", fontWeight: 500, color: "var(--cream)" }}>
+                Live uptime-status
+              </span>
+              <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.75rem", color: "var(--cream-muted)" }}>
+                — bekijk zelf
+              </span>
+            </a>
           </div>
         </section>
 
