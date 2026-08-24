@@ -90,7 +90,22 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        {/* Cases open the page: real client work, each leading to its own page.
+        {/* Section: Websites — vooraan gezet: dit is het sterkste bewijs voor
+            een vastgoed-/webdesign-lead, moet niet onder Cases en Reels
+            verstopt zitten. */}
+        <section style={{ padding: "0 clamp(1.5rem,6vw,5rem) clamp(4rem,8vh,6rem)" }}>
+          <div className="max-w-[1100px] mx-auto mb-12">
+            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              Webdesign &amp; CMS
+            </p>
+            <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
+              Websites op maat
+            </h2>
+          </div>
+          <WebsitePortfolio />
+        </section>
+
+        {/* Cases: real client work, each leading to its own page.
             Adding one is a data entry in lib/cases.ts. */}
         <section style={{ padding: "0 clamp(1.5rem,6vw,5rem) clamp(4rem,8vh,6rem)" }}>
           <div className="max-w-[1100px] mx-auto mb-12">
@@ -119,19 +134,6 @@ export default function PortfolioPage() {
             </h2>
           </div>
           <VideoReelGrid reels={REELS} />
-        </section>
-
-        {/* Section: Websites */}
-        <section style={{ padding: "clamp(4rem,8vh,7rem) clamp(1.5rem,6vw,5rem)" }}>
-          <div className="max-w-[1100px] mx-auto mb-12">
-            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
-              Webdesign &amp; CMS
-            </p>
-            <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
-              Websites op maat
-            </h2>
-          </div>
-          <WebsitePortfolio />
         </section>
 
         {/* CTA */}
