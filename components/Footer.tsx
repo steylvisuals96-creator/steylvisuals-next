@@ -53,9 +53,27 @@ export default function Footer() {
         <p className="text-xs font-light" style={{ color: "var(--cream-muted)" }}>
           © {new Date().getFullYear()} SteylVisuals — Sam Steylaerts
         </p>
-        <p className="text-xs font-light" style={{ color: "var(--cream-muted)" }}>
-          Video · Webdesign · België
-        </p>
+        <div className="flex items-center gap-6 flex-wrap">
+          {/* Publieke uptime-status (UptimeRobot) — bewijs i.p.v. een belofte,
+              zelfde reden als de badge op de portfolio-pagina. */}
+          <a
+            href="https://stats.uptimerobot.com/aIPn0em2Sd"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-xs font-light"
+            style={{ color: "var(--cream-muted)", textDecoration: "none" }}
+          >
+            <span
+              aria-hidden="true"
+              className="w-1.5 h-1.5 rounded-full"
+              style={{ background: "#3ecf72", boxShadow: "0 0 6px rgba(62,207,114,0.6)" }}
+            />
+            Live status
+          </a>
+          <p className="text-xs font-light" style={{ color: "var(--cream-muted)" }}>
+            Video · Webdesign · België
+          </p>
+        </div>
       </div>
     </footer>
   );

@@ -24,18 +24,6 @@ export const metadata = {
 
 const REELS: Reel[] = [
   {
-    src: "/videos/web/showreel.mp4",
-    poster: "/videos/web/showreel-poster.jpg",
-    title: "3D render → video",
-    tag: "NL",
-  },
-  {
-    src: "/videos/web/summum-en.mp4",
-    poster: "/videos/web/summum-en-poster.jpg",
-    title: "3D render → video",
-    tag: "ENG",
-  },
-  {
     src: "/videos/web/appartement-sint-truiden-reel.mp4",
     poster: "/videos/web/appartement-sint-truiden-reel-poster.jpg",
     title: "Appartement",
