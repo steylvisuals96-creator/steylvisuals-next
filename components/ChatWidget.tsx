@@ -180,6 +180,7 @@ export default function ChatWidget() {
         aria-modal="true"
         aria-label="Chat met SteylVisuals"
         inert={!open}
+        className="sv-chat-panel"
         style={{
           position: "fixed",
           bottom: "1rem",
@@ -198,18 +199,6 @@ export default function ChatWidget() {
           pointerEvents: open ? "auto" : "none",
         }}
       >
-        {/* Responsive: wider on desktop via CSS */}
-        <style>{`
-          @media (min-width: 640px) {
-            #${CSS.escape(panelId)} {
-              left: auto !important;
-              width: 380px;
-              right: 1.5rem !important;
-              bottom: 1.5rem !important;
-            }
-          }
-        `}</style>
-
         {/* Header */}
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", padding: "1.25rem 1.25rem 1rem", borderBottom: "1px solid var(--hairline)" }}>
           <div>

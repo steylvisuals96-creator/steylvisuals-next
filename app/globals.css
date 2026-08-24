@@ -544,3 +544,13 @@ select option {
     transform: none;
   }
 }
+
+/* ---- Chat widget -------------------------------------------------------- */
+@media (min-width: 640px) {
+  .sv-chat-panel {
+    left: auto !important;
+    width: 380px;
+    right: 1.5rem !important;
+    bottom: 1.5rem !important;
+  }
+}
