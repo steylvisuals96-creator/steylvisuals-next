@@ -46,11 +46,27 @@ Stel voor contact op te nemen via steylvisuals96@gmail.com. Vraag kort naar hun 
 
 type Msg = { role: "user" | "assistant"; content: string };
 
+// Regel-gebaseerd, geen echte AI: kan dus niet redeneren over een willekeurig
+// antwoord. In plaats van op elke beurt opnieuw op trefwoorden te matchen
+// (en terug te vallen op de generieke opener zodra niets matcht — de bug die
+// hier stond), volgt de mock een vaste 2-beurten-flow op basis van hoeveel
+// keer de bezoeker al iets typte: beurt 1 kiest de richting, beurt 2 sluit
+// altijd netjes af, ongeacht welke chip er precies werd aangeklikt.
 function mockReply(messages: Msg[]): string {
+  const userTurns = messages.filter((m) => m.role === "user").length;
   const last = messages[messages.length - 1]?.content?.toLowerCase() || "";
-  if (last.includes("video")) return "Super, video marketing is precies wat SteylVisuals doet! Vertel eens: voor welk merk of bedrijf is dit, en wat wil je ermee bereiken? [Brand film|Productvideo|Social media reels]";
-  if (last.includes("website") || last.includes("web")) return "Geweldig, we bouwen websites met een eigen beheerpaneel. Voor welk bedrijf is dit? [Showcase site|E-commerce|Portfolio]";
-  return "Hallo! Ik help je graag verder. Waarvoor kan ik je vandaag iets vertellen? [Video marketing|Webdesign|Beide]";
+
+  if (userTurns <= 1) {
+    if (last.includes("video")) {
+      return "Super, video marketing is precies wat SteylVisuals doet! Vertel eens: voor welk merk of bedrijf is dit, en wat wil je ermee bereiken? [Brand film|Productvideo|Social media reels]";
+    }
+    if (last.includes("website") || last.includes("web")) {
+      return "Geweldig, we bouwen websites met een eigen beheerpaneel. Voor welk bedrijf is dit? [Showcase site|E-commerce|Portfolio]";
+    }
+    return "Hallo! Ik help je graag verder. Waarvoor kan ik je vandaag iets vertellen? [Video marketing|Webdesign|Beide]";
+  }
+
+  return `Top, dat klinkt goed! Dit is een simpele demo-versie — voor een echt gesprek op maat van "${messages[messages.length - 1]?.content || "jouw project"}" mail je best naar steylvisuals96@gmail.com, dan bekijken we het samen.`;
 }
 
 export async function POST(req: NextRequest) {

@@ -5,6 +5,43 @@
       "app/admin/InspirationLibrary.tsx",
       "app/admin/page.tsx"
     ],
-    "ignoreValues": []
+    "ignoreValues": [
+      {
+        "rule": "design-system-color",
+        "value": "rgba(62,207,114,0.06)",
+        "files": [
+          "components/WebdesignClient.tsx"
+        ],
+        "createdAt": "2026-08-24T13:35:45.751Z",
+        "reason": "reuses the live-status green already established in Footer.tsx and portfolio badge"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "rgba(62,207,114,0.3)",
+        "files": [
+          "components/WebdesignClient.tsx"
+        ],
+        "createdAt": "2026-08-24T13:35:45.831Z",
+        "reason": "reuses the live-status green already established in Footer.tsx and portfolio badge"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#3ecf72",
+        "files": [
+          "components/WebdesignClient.tsx"
+        ],
+        "createdAt": "2026-08-24T13:35:45.915Z",
+        "reason": "reuses the live-status green already established in Footer.tsx and portfolio badge"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "rgba(62,207,114,0.8)",
+        "files": [
+          "components/WebdesignClient.tsx"
+        ],
+        "createdAt": "2026-08-24T13:35:46.005Z",
+        "reason": "reuses the live-status green already established in Footer.tsx and portfolio badge"
+      }
+    ]
   }
 }

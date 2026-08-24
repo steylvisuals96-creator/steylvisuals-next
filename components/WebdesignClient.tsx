@@ -643,6 +643,58 @@ export default function WebdesignClient() {
         </div>
       </section>
 
+      {/* ── BETROUWBAARHEID: concreet bewijs i.p.v. een belofte — zelfde
+          badge-stijl als op /portfolio, hier uitgewerkt tot een eigen
+          sectie omdat "wat als de site offline gaat" precies het bezwaar
+          was dat een eerdere prospect had. ── */}
+      <section
+        style={{ backgroundColor: "var(--black)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)", borderTop: "1px solid rgba(201,151,74,0.08)" }}
+      >
+        <div className="max-w-[1100px] mx-auto grid gap-12 items-center grid-cols-1 md:grid-cols-2">
+          <div>
+            <AnimateIn>
+              <h2 className="mb-4" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
+                Nooit zomaar <em style={{ color: "var(--gold)" }}>offline</em>
+              </h2>
+            </AnimateIn>
+            <AnimateIn delay={0.1}>
+              <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "460px" }}>
+                Elke site draait op Vercel, met een volledige versiegeschiedenis via Git — bij een probleem is een vorige werkende versie binnen seconden hersteld, niet dagen. Geen belofte, gewoon live te checken.
+              </p>
+            </AnimateIn>
+          </div>
+
+          <AnimateIn direction="right" delay={0.1}>
+            <a
+              href="https://stats.uptimerobot.com/aIPn0em2Sd"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-5 p-8"
+              style={{
+                border: "1px solid rgba(62,207,114,0.3)",
+                backgroundColor: "rgba(62,207,114,0.06)",
+                borderRadius: "var(--r-md)",
+                textDecoration: "none",
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="rounded-full flex-shrink-0"
+                style={{ width: "14px", height: "14px", background: "#3ecf72", boxShadow: "0 0 14px rgba(62,207,114,0.8)" }}
+              />
+              <div>
+                <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.95rem", fontWeight: 500, color: "var(--cream)" }}>
+                  Live uptime-status
+                </p>
+                <p className="mt-1" style={{ fontFamily: "var(--font-poppins)", fontSize: "0.78rem", color: "var(--cream-muted)" }}>
+                  Publiek en real-time gemonitord — bekijk de statuspagina →
+                </p>
+              </div>
+            </a>
+          </AnimateIn>
+        </div>
+      </section>
+
       {/* ── WERKWIJZE: numbered divider list, no cards ── */}
       <section
         id="werkwijze"
