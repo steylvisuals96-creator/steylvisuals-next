@@ -49,3 +49,5 @@ public/.wrangler/
 
 # Cloudflare build cache
 .wrangler/
+.env
+scrollcraft/

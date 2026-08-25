@@ -41,6 +41,159 @@
         ],
         "createdAt": "2026-08-24T13:35:46.005Z",
         "reason": "reuses the live-status green already established in Footer.tsx and portfolio badge"
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": ".site-media",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T18:39:15.638Z",
+        "reason": "intentional: overflow:clip is the reveal-wipe/parallax mask for the media frame, not a popover being cut off"
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": ".beforeafter",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T18:39:15.726Z",
+        "reason": "intentional: overflow:clip masks the raw/finished photo wipe reveal, not a popover being cut off"
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T18:42:41.260Z",
+        "reason": "chaptered-editorial reveal/parallax media frames (.site-media, .beforeafter) and the engine's own body overflow-x:clip (scrollcraft.css, never edited) all clip on purpose; no popovers or menus in this page need to escape a clipping ancestor"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.72rem",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/style.css"
+        ],
+        "createdAt": "2026-08-25T19:01:51.932Z",
+        "reason": "standalone scrollcraft build, independent type scale from app DESIGN.md"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "2.4rem",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/style.css"
+        ],
+        "createdAt": "2026-08-25T19:01:52.013Z",
+        "reason": "standalone scrollcraft build, independent type scale from app DESIGN.md"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "2px",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/style.css"
+        ],
+        "createdAt": "2026-08-25T19:09:45.160Z",
+        "reason": "standard underline-link offset (.site-copy__link, .colophon__cta border-bottom used as text-decoration), not a boxed container with cramped text"
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "body",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T19:37:26.465Z",
+        "reason": "engine's own body { overflow-x: clip } (scrollcraft.css, never edited); no popovers/menus on this page need to escape it"
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "figure.site-media",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T19:37:26.549Z",
+        "reason": "intentional reveal/parallax clip mask on real client-site screenshots, not a popover being cut off"
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "figure.beforeafter",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T19:37:35.164Z",
+        "reason": "intentional reveal-wipe clip mask over the real raw/HDR photo pair, not a popover being cut off"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "rgb(201, 168, 118)",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T19:38:26.671Z",
+        "reason": "standalone scrollcraft build's own accent token (--sc-accent), independent from app DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "inter",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T19:38:26.752Z",
+        "reason": "standalone scrollcraft build's own type system (--sc-font-text), independent from app DESIGN.md"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "fraunces",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T19:38:26.833Z",
+        "reason": "standalone scrollcraft build's own type system (--sc-font-display), independent from app DESIGN.md"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "12px",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T19:38:26.916Z",
+        "reason": "standalone scrollcraft build's own radius scale (--sc-r-md), independent from app DESIGN.md"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "6px",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T19:38:26.997Z",
+        "reason": "standalone scrollcraft build's own radius scale (--sc-r-sm), independent from app DESIGN.md"
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "figure.chapter-figure",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T19:47:38.619Z",
+        "reason": "rounded-corner inset photo (object-fit:cover + border-radius on the img), not a popover being cut off"
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "figure.ai-photo",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T19:47:38.693Z",
+        "reason": "rounded-corner inset thumbnail (object-fit:cover + border-radius on the img), not a popover being cut off"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "20px",
+        "files": [
+          "scrollcraft/builds/steylvisuals-capabilities/index.html"
+        ],
+        "createdAt": "2026-08-25T19:47:53.952Z",
+        "reason": "standalone scrollcraft build's own radius scale, independent from app DESIGN.md"
       }
     ]
   }
