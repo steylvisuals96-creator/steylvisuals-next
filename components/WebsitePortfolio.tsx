@@ -18,7 +18,7 @@ const PROJECTS: WebProject[] = [
     title: "SOM Vastgoed",
     subtitle: "Website & CMS op maat",
     tags: ["Next.js", "CMS", "Zabun API"],
-    accent: "var(--gold)",
+    accent: "#C9974A",
     href: "/demo/som-vastgoed",
     features: ["Live panden via API", "Eigen CMS panel", "SEO geoptimaliseerd"],
   },
@@ -42,8 +42,20 @@ const PROJECTS: WebProject[] = [
     title: "SteylVisuals.be",
     subtitle: "Portfolio & Admin panel",
     tags: ["Next.js", "Cloudflare R2", "Workers"],
-    accent: "var(--gold)",
+    accent: "#C9974A",
     features: ["Media upload via admin", "Content bewerken zonder code", "Automatisch deploys via Git"],
+  },
+  {
+    title: "Worldflight",
+    subtitle: "One studio, one flight — full service pitch",
+    tags: ["Next.js", "AI", "Automation", "Video"],
+    accent: "#C4B89A",
+    href: "https://steylvisuals-worldflight.vercel.app/",
+    features: [
+      "Websites, AI & video in één verhaal",
+      "Automatische lead-pipeline op Claude",
+      "La Martine, SOM & Specified als live cases",
+    ],
   },
 ];
 
@@ -57,7 +69,7 @@ function WebCard({ project, index }: { project: WebProject; index: number }) {
       className="group flex flex-col"
       style={{
         borderRadius: "var(--r-md)",
-        border: `1px solid rgba(${project.accent === "var(--gold)" ? "184,132,58" : "158,127,191"},0.18)`,
+        border: `1px solid ${project.accent}30`,
         backgroundColor: "rgba(241,237,230,0.03)",
         overflow: "hidden",
         cursor: project.href ? "pointer" : "default",
@@ -162,7 +174,7 @@ function WebCard({ project, index }: { project: WebProject; index: number }) {
 
 export default function WebsitePortfolio() {
   return (
-    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 max-w-[1100px] mx-auto">
+    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 max-w-[1100px] mx-auto">
       {PROJECTS.map((p, i) => (
         <WebCard key={p.title} project={p} index={i} />
       ))}
