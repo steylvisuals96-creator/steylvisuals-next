@@ -316,7 +316,7 @@ export default function AIAgentDemo() {
               ))}
 
               {busy && (
-                <div style={{ display: "flex", gap: "4px", alignItems: "center", paddingLeft: "0.25rem" }}>
+                <div style={{ display: "flex", gap: "5px", alignItems: "center", paddingLeft: "0.25rem" }}>
                   {[0, 1, 2].map((i) => (
                     <span
                       key={i}
@@ -326,8 +326,7 @@ export default function AIAgentDemo() {
                         height: "5px",
                         borderRadius: "50%",
                         backgroundColor: "var(--gold)",
-                        opacity: 0.6,
-                        animation: `sv-dot-bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
+                        animation: `sv-dot-pulse 1.4s cubic-bezier(0.4,0,0.6,1) ${i * 0.22}s infinite`,
                       }}
                     />
                   ))}
@@ -394,9 +393,9 @@ export default function AIAgentDemo() {
 
       {/* Dot bounce keyframes */}
       <style>{`
-        @keyframes sv-dot-bounce {
-          0%, 80%, 100% { transform: translateY(0); opacity: 0.6; }
-          40% { transform: translateY(-5px); opacity: 1; }
+        @keyframes sv-dot-pulse {
+          0%, 100% { opacity: 0.2; transform: scale(0.75); }
+          50% { opacity: 1; transform: scale(1); }
         }
       `}</style>
     </section>
