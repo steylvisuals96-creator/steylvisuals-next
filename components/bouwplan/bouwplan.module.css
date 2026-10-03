@@ -1,0 +1,764 @@
+/*
+ * Homepage flight. Brand tokens come from globals.css (DESIGN.md): black,
+ * panel, cream, gold, gold-light, Cormorant for display, Poppins for text,
+ * 2px corners. The twist for this page is brass light, not new colours.
+ */
+
+.root {
+  --gutter: clamp(16px, 4vw, 64px);
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --hair: rgba(241, 237, 230, 0.1);
+  position: relative;
+  background: var(--black);
+  color: var(--cream);
+}
+
+/* ---------------------------------------------------------------- stage */
+
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  /* The poster under the canvas: the same paper and grid, so the first paint
+     and a browser without WebGL both still read as the plan. */
+  background:
+    radial-gradient(ellipse 60% 50% at 40% 70%, rgba(201, 151, 74, 0.12), transparent 70%),
+    linear-gradient(rgba(201, 151, 74, 0.07) 1px, transparent 1px) 0 0 / 64px 64px,
+    linear-gradient(90deg, rgba(201, 151, 74, 0.07) 1px, transparent 1px) 0 0 / 64px 64px,
+    #15110d;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.root[data-gl="off"] .canvas {
+  display: none;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.spacer {
+  position: relative;
+  width: 1px;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------- header */
+
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: var(--z-nav);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 32px;
+  padding: 18px var(--gutter);
+  background: linear-gradient(rgba(13, 11, 9, 0.82), rgba(13, 11, 9, 0));
+}
+
+.brand {
+  display: inline-flex;
+  text-decoration: none;
+}
+
+.route {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.map {
+  width: 148px;
+  height: 40px;
+  flex: none;
+}
+
+.mapSheet {
+  fill: none;
+  stroke: rgba(201, 151, 74, 0.3);
+  stroke-width: 0.6;
+}
+
+.mapWall {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 0.9;
+}
+
+.mapThread {
+  stroke: var(--gold-light);
+  stroke-width: 0.6;
+  stroke-dasharray: 2 2;
+  opacity: 0.6;
+}
+
+.mapMarker {
+  fill: var(--cream);
+  stroke: var(--black);
+  stroke-width: 1;
+}
+
+.legs {
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legs button {
+  padding: 8px 8px;
+  border: 0;
+  background: none;
+  font: 500 0.75rem/1 var(--font-poppins), system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  color: rgba(241, 237, 230, 0.55);
+  cursor: pointer;
+  transition: color 160ms var(--ease);
+}
+
+.legs button:hover {
+  color: var(--cream);
+}
+
+.legs button[aria-current="true"] {
+  color: var(--gold-light);
+}
+
+.headerLinks {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font: 400 0.8125rem/1 var(--font-poppins), system-ui, sans-serif;
+}
+
+.headerLinks a:not(.btn) {
+  color: rgba(241, 237, 230, 0.75);
+  text-decoration: none;
+  transition: color 160ms var(--ease);
+}
+
+.headerLinks a:not(.btn):hover {
+  color: var(--cream);
+}
+
+/* ---------------------------------------------------------------- copy */
+
+.copy {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.win {
+  position: absolute;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity, transform;
+}
+
+.lead {
+  left: var(--gutter);
+  bottom: 13vh;
+  max-width: 44rem;
+}
+
+.trail {
+  right: var(--gutter);
+  bottom: 13vh;
+  max-width: 34rem;
+}
+
+.low {
+  bottom: 9vh;
+}
+
+.center {
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.finale {
+  bottom: 8vh;
+}
+
+.block {
+  position: relative;
+}
+
+.narrow {
+  max-width: 30rem;
+}
+
+/* Density only where the type sits, never across the frame. */
+.scrim {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  width: calc(100% + 60vw);
+  height: calc(100% + 50vh);
+  bottom: -14vh;
+}
+
+.scrimLead {
+  left: calc(-1 * var(--gutter) - 10vw);
+  background: radial-gradient(ellipse 55% 60% at 22% 72%, rgba(13, 11, 9, 0.88), rgba(13, 11, 9, 0.6) 45%, rgba(13, 11, 9, 0) 75%);
+}
+
+.scrimTrail {
+  right: calc(-1 * var(--gutter) - 10vw);
+  background: radial-gradient(ellipse 55% 60% at 78% 72%, rgba(13, 11, 9, 0.88), rgba(13, 11, 9, 0.6) 45%, rgba(13, 11, 9, 0) 75%);
+}
+
+.scrimCenter {
+  inset: 0;
+  width: auto;
+  height: auto;
+  background: radial-gradient(ellipse 34% 26% at 50% 52%, rgba(13, 11, 9, 0.78), rgba(13, 11, 9, 0.4) 55%, rgba(13, 11, 9, 0) 80%);
+}
+
+.display {
+  margin: 0 0 24px;
+  max-width: 17ch;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(2.75rem, 6vw, 4.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+.headline {
+  margin: 0 0 20px;
+  max-width: 16ch;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.008em;
+  text-wrap: balance;
+}
+
+.title {
+  margin: 0 0 14px;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.sub {
+  margin: 0;
+  max-width: 40ch;
+  font: 400 1rem/1.72 var(--font-poppins), system-ui, sans-serif;
+  letter-spacing: 0.005em;
+  color: rgba(241, 237, 230, 0.82);
+  text-wrap: pretty;
+}
+
+.kicker {
+  margin: 0 0 18px;
+  font: 500 0.6875rem/1 var(--font-poppins), system-ui, sans-serif;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.muted {
+  color: rgba(241, 237, 230, 0.6);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 32px;
+  margin-top: 36px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 17px 30px;
+  border-radius: var(--r-sm);
+  background: var(--gold);
+  color: var(--black);
+  font: 500 0.6875rem/1 var(--font-poppins), system-ui, sans-serif;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 160ms var(--ease), transform 120ms var(--ease);
+}
+
+.btn:hover {
+  background: var(--gold-light);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.textLink {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  font: 500 0.875rem/1.4 var(--font-poppins), system-ui, sans-serif;
+  color: var(--cream);
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 7px;
+  cursor: pointer;
+  transition: text-underline-offset 160ms var(--ease), color 160ms var(--ease);
+}
+
+.actions .textLink {
+  margin-top: 0;
+}
+
+.textLink:hover {
+  color: var(--gold-light);
+  text-underline-offset: 4px;
+}
+
+.root :focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 4px;
+  border-radius: var(--r-sm);
+}
+
+/* ----------------------------------------------- the site that builds itself */
+
+.assembly {
+  right: var(--gutter);
+  top: 15vh;
+  width: min(48vw, 680px);
+}
+
+.frame {
+  overflow: hidden;
+  border: 1px solid rgba(241, 237, 230, 0.16);
+  border-radius: var(--r-md);
+  background: #0f0c0a;
+  box-shadow:
+    inset 0 1px 0 rgba(241, 237, 230, 0.06),
+    0 40px 90px -30px rgba(0, 0, 0, 0.85),
+    0 12px 30px -12px rgba(13, 11, 9, 0.9);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--hair);
+  font: 400 0.6875rem/1 var(--font-poppins), system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  color: rgba(241, 237, 230, 0.55);
+}
+
+.status {
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 0;
+  transition: opacity 200ms var(--ease);
+}
+
+.status.on {
+  opacity: 1;
+}
+
+.screen {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  container-type: inline-size;
+  background: #0d0b09;
+}
+
+.screen > * {
+  position: absolute;
+  inset: 0;
+}
+
+/* 1. the plan */
+.aGrid {
+  background:
+    linear-gradient(rgba(201, 151, 74, 0.2) 1px, transparent 1px) 0 0 / 100% 12.5%,
+    linear-gradient(90deg, rgba(201, 151, 74, 0.2) 1px, transparent 1px) 0 0 / 10% 100%;
+  clip-path: inset(0 0 calc((1 - clamp(0, var(--s) * 6, 1)) * 100%) 0);
+  display: flex;
+  justify-content: space-around;
+  padding-top: 1.2cqw;
+  font: 500 1.1cqw/1 var(--font-poppins), system-ui, sans-serif;
+  color: rgba(230, 200, 148, 0.7);
+}
+
+/* 2. wireframe */
+.aWire i {
+  position: absolute;
+  border: 1px dashed rgba(230, 200, 148, 0.65);
+  opacity: calc(clamp(0, (var(--s) - 0.2 - var(--i) * 0.035) * 14, 1) * (1 - clamp(0, (var(--s) - 0.66) * 10, 1)));
+}
+
+.aWire i:nth-child(1) { top: 5%; left: 4%; width: 92%; height: 7%; }
+.aWire i:nth-child(2) { top: 31%; left: 16%; width: 68%; height: 26%; }
+.aWire i:nth-child(3) { top: 64%; left: 24%; width: 52%; height: 4%; }
+.aWire i:nth-child(4) { top: 71%; left: 33%; width: 34%; height: 4%; }
+.aWire i:nth-child(5) { top: 82%; left: 42%; width: 16%; height: 6%; }
+
+/* 3. colour (the client's own ground) */
+.aColor {
+  background:
+    linear-gradient(rgba(241, 237, 230, 0.05) 1px, transparent 1px) 0 0 / 100% 12.5%,
+    linear-gradient(90deg, rgba(241, 237, 230, 0.05) 1px, transparent 1px) 0 0 / 10% 100%,
+    #1b1a15;
+  opacity: clamp(0, (var(--s) - 0.62) * 9, 1);
+}
+
+/* 4. type, tracking in from wide to set */
+.aType {
+  opacity: clamp(0, (var(--s) - 0.42) * 9, 1);
+  color: #ece8df;
+}
+
+.aLogo {
+  position: absolute;
+  top: 6.4%;
+  left: 5%;
+  font: 700 1.5cqw/1 "Arial Narrow", "Roboto Condensed", var(--font-poppins), sans-serif;
+  font-stretch: condensed;
+  letter-spacing: 0.08em;
+}
+
+.aTitle {
+  position: absolute;
+  top: 44.5%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font: 700 11.6cqw/1 "Arial Narrow", "Roboto Condensed", var(--font-poppins), sans-serif;
+  font-stretch: condensed;
+  letter-spacing: calc(0.02em + (1 - clamp(0, (var(--s) - 0.42) * 4, 1)) * 0.22em);
+}
+
+.aLine {
+  position: absolute;
+  top: 87%;
+  left: 18%;
+  right: 18%;
+  text-align: center;
+  font: 500 1.45cqw/1.5 var(--font-poppins), sans-serif;
+}
+
+/* 5. the real thing, wiped in, with the pen still on its edge */
+.aLive {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: inset(0 calc((1 - clamp(0, (var(--s) - 0.84) * 7, 1)) * 100%) 0 0);
+}
+
+.aEdge {
+  inset: 0 auto 0 0 !important;
+  width: 2px;
+  background: var(--gold-light);
+  transform: translateX(calc(clamp(0, (var(--s) - 0.84) * 7, 1) * 100cqw));
+  opacity: calc(clamp(0, (var(--s) - 0.84) * 40, 1) * (1 - clamp(0, (var(--s) - 0.97) * 40, 1)));
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  margin: 18px 2px 0;
+  padding: 0;
+  list-style: none;
+  font: 500 0.6875rem/1 var(--font-poppins), system-ui, sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(241, 237, 230, 0.35);
+}
+
+.steps li {
+  transition: color 200ms var(--ease);
+}
+
+.steps li.on {
+  color: var(--gold-light);
+}
+
+/* ------------------------------------------------------- the lead, the peak */
+
+.clockBig {
+  margin: 0 0 14px;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(5rem, 13vw, 11rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.flow {
+  right: var(--gutter);
+  top: 13vh;
+  width: min(420px, 34vw);
+  padding: 22px 24px 18px;
+  border: 1px solid rgba(241, 237, 230, 0.14);
+  border-radius: var(--r-md);
+  background: rgba(17, 13, 10, 0.94);
+  box-shadow:
+    inset 0 1px 0 rgba(241, 237, 230, 0.06),
+    0 40px 90px -30px rgba(0, 0, 0, 0.85);
+}
+
+.flowHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.flowHead .kicker {
+  margin: 0;
+}
+
+.flowClock {
+  position: relative;
+  margin: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 1.5rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.morning {
+  position: absolute;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  color: var(--gold-light);
+  transition: opacity 240ms var(--ease);
+}
+
+.night {
+  transition: opacity 240ms var(--ease);
+}
+
+.morning.on {
+  opacity: 1;
+}
+
+.flowClock:has(.morning.on) .night {
+  opacity: 0;
+}
+
+.leadInfo {
+  display: grid;
+  gap: 4px;
+  margin: 18px 0 14px;
+  padding: 14px 0;
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+  font: 400 0.875rem/1.4 var(--font-poppins), system-ui, sans-serif;
+}
+
+.leadInfo strong {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.flowBody {
+  --row: 78px;
+  position: relative;
+}
+
+.flowSteps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.flowSteps li {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 12px;
+  height: var(--row);
+  padding-top: 12px;
+  box-sizing: border-box;
+  opacity: 0.3;
+  transition: opacity 220ms var(--ease);
+}
+
+.flowSteps li.on {
+  opacity: 1;
+}
+
+.flowSteps time {
+  padding-left: 10px;
+  font: 500 0.75rem/1.5 var(--font-poppins), system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  color: var(--gold);
+}
+
+.flowTitle {
+  margin: 0 0 3px;
+  font: 500 0.9rem/1.35 var(--font-poppins), system-ui, sans-serif;
+}
+
+.flowDetail {
+  margin: 0;
+  font: 400 0.78rem/1.45 var(--font-poppins), system-ui, sans-serif;
+  color: rgba(241, 237, 230, 0.66);
+}
+
+/* The lead itself: a frame that travels down the steps as they fire. */
+.leadCard {
+  position: absolute;
+  left: -10px;
+  right: -10px;
+  top: 0;
+  height: var(--row);
+  border: 1px solid var(--gold);
+  border-radius: var(--r-sm);
+  background: rgba(201, 151, 74, 0.08);
+  opacity: clamp(0, calc(var(--k) + 1), 1);
+  transform: translateY(calc(max(var(--k), 0) * var(--row)));
+  will-change: transform;
+}
+
+/* --------------------------------------------------------------- finale */
+
+.index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  margin: 44px 0 0;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--hair);
+  list-style: none;
+  font: 400 0.8125rem/1.4 var(--font-poppins), system-ui, sans-serif;
+}
+
+.index a {
+  color: rgba(241, 237, 230, 0.75);
+  text-decoration: none;
+  transition: color 160ms var(--ease);
+}
+
+.index a:hover {
+  color: var(--gold-light);
+}
+
+.colophon {
+  margin: 18px 0 0;
+  font: 400 0.75rem/1 var(--font-poppins), system-ui, sans-serif;
+  color: rgba(241, 237, 230, 0.5);
+}
+
+/* --------------------------------------------------------------- narrow */
+
+@media (max-width: 1100px) {
+  .route .legs {
+    display: none;
+  }
+  .headerLinks a:not(.btn) {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .header {
+    grid-template-columns: auto 1fr;
+    padding: 14px 16px;
+  }
+  .route {
+    display: none;
+  }
+  .headerLinks {
+    justify-content: flex-end;
+  }
+  .btn {
+    padding: 14px 18px;
+    letter-spacing: 0.18em;
+  }
+  .lead,
+  .trail {
+    left: 16px;
+    right: 16px;
+    max-width: none;
+    bottom: 6vh;
+  }
+  .scrim {
+    left: -16px !important;
+    right: -16px !important;
+    width: auto;
+    height: calc(100% + 30vh);
+    bottom: -6vh;
+    background: linear-gradient(rgba(13, 11, 9, 0), rgba(13, 11, 9, 0.78) 34%, rgba(13, 11, 9, 0.92));
+  }
+  .display {
+    font-size: 2.75rem;
+  }
+  .headline {
+    font-size: 1.75rem;
+  }
+  .sub {
+    font-size: 1rem;
+  }
+  .assembly {
+    left: 16px;
+    right: 16px;
+    top: 11vh;
+    width: auto;
+  }
+  .steps {
+    letter-spacing: 0.06em;
+  }
+  .flow {
+    left: 16px;
+    right: 16px;
+    top: 10vh;
+    width: auto;
+    padding: 16px;
+  }
+  .flowBody {
+    --row: 44px;
+  }
+  .flowDetail {
+    display: none;
+  }
+  .leadInfo {
+    margin: 12px 0 8px;
+    padding: 10px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root *,
+  .root *::before,
+  .root *::after {
+    transition: none !important;
+  }
+}

@@ -194,6 +194,39 @@
         ],
         "createdAt": "2026-08-25T19:47:53.952Z",
         "reason": "standalone scrollcraft build's own radius scale, independent from app DESIGN.md"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "clamp(5rem, 13vw, 11rem)",
+        "createdAt": "2026-10-03T18:12:30.982Z",
+        "reason": "Claude: the 23:14 clock is the authored silence before the page's single peak (BRIEF.md), deliberately oversized"
+      },
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [
+          "components/bouwplan/bouwplan.module.css"
+        ],
+        "createdAt": "2026-10-03T18:12:31.060Z",
+        "reason": "Claude: the grid is the blueprint paper itself (poster under the WebGL plan world), an actual blueprint surface"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "app/admin/AccessCodes.tsx"
+        ],
+        "createdAt": "2026-10-03T18:24:17.464Z",
+        "reason": "Claude: internal /admin panel, Sam's standing rule (memory project_steylvisuals_inspiratie) is that DESIGN.md governs the public site, not /admin; values mirror app/admin/page.tsx"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "app/admin/AccessCodes.tsx"
+        ],
+        "createdAt": "2026-10-03T18:24:17.591Z",
+        "reason": "Claude: internal /admin panel, Sam's standing rule (memory project_steylvisuals_inspiratie) is that DESIGN.md governs the public site, not /admin; values mirror app/admin/page.tsx"
       }
     ]
   }
