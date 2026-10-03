@@ -4,23 +4,27 @@ import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+import { CSS3DRenderer, CSS3DObject } from "three/addons/renderers/CSS3DRenderer.js";
 import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
-import { BAYS, BEAT, clamp01, smooth } from "./track";
+import { BAYS, BEAT, smooth } from "./track";
 
 /**
- * The world the homepage flies through, rendered live: a building plan drawn
- * on dark paper, the building rising out of it, the client rooms inside, and
- * the gold thread in the core that a lead runs along.
+ * The world the homepage flies through, rendered live. It opens on a studio
+ * desk where a laptop builds a real client site, walks through the gallery of
+ * client rooms, and ends at an office desk in the tower where a phone and a
+ * CRM screen show a lead being handled overnight.
  *
- * Everything is a function of `t` (see track.ts). The world holds no scroll
- * state of its own, so scrubbing backwards un-builds it exactly.
+ * The device screens are real HTML, placed in the scene with a CSS3D layer
+ * that follows the WebGL camera, so their type stays crisp and readable.
+ * Everything is a function of `t` (see track.ts).
  */
 
 const HEX = {
   night: 0x0d0b09,
-  paper: 0x15110d,
+  floor: 0x17130f,
   gold: 0xc9974a,
   goldLight: 0xe6c894,
   cream: 0xf1ede6,
@@ -32,13 +36,15 @@ const WALL_H = 6;
 const TOWER_H = 24;
 const CORE = new THREE.Vector3(0, 0, -36);
 const CORE_R = 5.5;
-const HELIX_R = 3.2;
+const DESK_H = 0.75;
+// CSS transforms lose precision at metre scale, so the CSS layer runs at x100.
+const CSS_SCALE = 100;
 
-const easeOut = (x: number) => 1 - Math.pow(1 - clamp01(x), 3);
+export const STUDIO = new THREE.Vector3(0.55, 0, 6.15);
+export const OFFICE = new THREE.Vector3(0, 0, -36.1);
 
-type Key = { t: number; p: THREE.Vector3; q: THREE.Vector3; linger: number };
+type Key = { t: number; p: THREE.Vector3; q: THREE.Vector3; linger: number; close: boolean };
 
-// Shared by every hand-written shader so fog matches the built-in materials.
 const FOG_GLSL = /* glsl */ `
   uniform vec3 uFogColor;
   uniform float uFogDensity;
@@ -65,6 +71,9 @@ const WORLD_VERT = /* glsl */ `
 `;
 
 export type WorldOptions = { mobile: boolean; reduced: boolean };
+export type ScreenId = "laptop" | "studioPhone" | "monitor" | "officePhone";
+
+type Screen = { el: HTMLDivElement; obj: CSS3DObject; anchor: THREE.Object3D; from: number; to: number };
 
 export class BouwplanWorld {
   private renderer: THREE.WebGLRenderer;
@@ -72,30 +81,26 @@ export class BouwplanWorld {
   private camera: THREE.PerspectiveCamera;
   private composer: EffectComposer | null = null;
   private bloom: UnrealBloomPass | null = null;
+  private css: CSS3DRenderer;
+  private cssScene = new THREE.Scene();
+  private cssCamera = new THREE.PerspectiveCamera();
   private lineMats: LineMaterial[] = [];
   private fog = { uFogColor: { value: new THREE.Color(HEX.night) }, uFogDensity: { value: 0.03 } };
 
   private groundU!: Record<string, THREE.IUniform>;
-  private strokeU!: Record<string, THREE.IUniform>;
-  private threadU!: Record<string, THREE.IUniform>;
   private skyU!: Record<string, THREE.IUniform>;
   private dustU!: Record<string, THREE.IUniform>;
 
-  private walls: { g: THREE.Object3D; start: number; dur: number }[] = [];
-  private ghostMat!: LineMaterial;
-  private roofMat!: THREE.MeshStandardMaterial;
-  private roofEdge!: LineMaterial;
-  private titleMat!: THREE.MeshBasicMaterial;
-  private screens: { g: THREE.Group; mat: THREE.MeshBasicMaterial; light: THREE.PointLight; at: number }[] = [];
-  private nodes: { mesh: THREE.Mesh; mat: THREE.MeshStandardMaterial; u: number }[] = [];
-  private thread!: THREE.CatmullRomCurve3;
-  private uCore = 0.4;
-  private orb!: THREE.Sprite;
-  private orbLight!: THREE.PointLight;
-  private coreLight!: THREE.PointLight;
+  private bays: { g: THREE.Group; mat: THREE.MeshBasicMaterial; light: THREE.PointLight; at: number }[] = [];
+  private screens = new Map<ScreenId, Screen>();
+  private laptopGlow!: THREE.PointLight;
+  private studioPhoneGlow!: THREE.PointLight;
+  private monitorGlow!: THREE.PointLight;
+  private officePhoneGlow!: THREE.PointLight;
   private sun!: THREE.DirectionalLight;
   private hemi!: THREE.HemisphereLight;
   private keys: Key[] = [];
+  private portrait = false;
 
   private pos = new THREE.Vector3();
   private tgt = new THREE.Vector3();
@@ -103,19 +108,27 @@ export class BouwplanWorld {
   private nightC = new THREE.Color(HEX.night);
   private dawnC = new THREE.Color(HEX.dawn);
   private tmpC = new THREE.Color();
+  private tmpV = new THREE.Vector3();
+  private tmpQ = new THREE.Quaternion();
 
-  constructor(canvas: HTMLCanvasElement, private opts: WorldOptions) {
+  constructor(canvas: HTMLCanvasElement, cssHost: HTMLElement, private opts: WorldOptions) {
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, opts.mobile ? 1.5 : 2));
     this.renderer.toneMapping = THREE.NeutralToneMapping;
     this.renderer.toneMappingExposure = 1.05;
     this.renderer.setClearColor(HEX.night, 1);
 
-    this.camera = new THREE.PerspectiveCamera(50, 1, 0.1, 400);
+    this.camera = new THREE.PerspectiveCamera(50, 1, 0.02, 400);
     this.scene.background = new THREE.Color(HEX.night);
     this.scene.fog = new THREE.FogExp2(HEX.night, 0.03);
 
-    // A soft studio reflection so brass and glass have something to catch.
+    this.css = new CSS3DRenderer();
+    this.css.domElement.style.position = "absolute";
+    this.css.domElement.style.inset = "0";
+    this.css.domElement.style.pointerEvents = "none";
+    cssHost.appendChild(this.css.domElement);
+
+    // A soft studio reflection so brass, glass and aluminium have something to catch.
     const pmrem = new THREE.PMREMGenerator(this.renderer);
     this.scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     this.scene.environmentIntensity = 0.32;
@@ -124,12 +137,10 @@ export class BouwplanWorld {
     this.buildLights();
     this.buildSky();
     this.buildGround();
-    this.buildPlan();
-    this.buildTitleBlock();
     this.buildBuilding();
-    this.buildGhost();
-    this.buildScreens();
-    this.buildThread();
+    this.buildBays();
+    this.buildStudio();
+    this.buildOffice();
     this.buildDust();
     this.buildKeys();
 
@@ -137,10 +148,17 @@ export class BouwplanWorld {
       const rt = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: 4 });
       this.composer = new EffectComposer(this.renderer, rt);
       this.composer.addPass(new RenderPass(this.scene, this.camera));
-      this.bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.4, 0.55, 0.88);
+      this.bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.35, 0.55, 0.9);
       this.composer.addPass(this.bloom);
       this.composer.addPass(new OutputPass());
     }
+  }
+
+  /** The HTML containers for each device screen; React renders into them. */
+  screenHosts(): Record<ScreenId, HTMLElement> {
+    const out = {} as Record<ScreenId, HTMLElement>;
+    this.screens.forEach((s, id) => (out[id] = s.el));
+    return out;
   }
 
   /* ---------------------------------------------------------------- build */
@@ -156,15 +174,33 @@ export class BouwplanWorld {
     return new LineSegments2(g, mat);
   }
 
+  /**
+   * A device screen: an anchor in the WebGL scene (so it moves with its
+   * device) mirrored by a CSS3D object holding real HTML.
+   */
+  private screen(id: ScreenId, parent: THREE.Object3D, local: THREE.Vector3, pxW: number, pxH: number, metresW: number, from: number, to: number) {
+    const anchor = new THREE.Object3D();
+    anchor.position.copy(local);
+    parent.add(anchor);
+    const el = document.createElement("div");
+    el.style.width = `${pxW}px`;
+    el.style.height = `${pxH}px`;
+    el.style.overflow = "hidden";
+    el.style.background = "#050404";
+    el.style.backfaceVisibility = "hidden";
+    const obj = new CSS3DObject(el);
+    el.style.pointerEvents = "none";
+    obj.scale.setScalar((metresW * CSS_SCALE) / pxW);
+    this.cssScene.add(obj);
+    this.screens.set(id, { el, obj, anchor, from, to });
+  }
+
   private buildLights() {
     this.hemi = new THREE.HemisphereLight(0x5a4030, 0x0d0b09, 0.7);
     this.scene.add(this.hemi);
     this.sun = new THREE.DirectionalLight(0xffc88a, 0);
     this.sun.position.set(-30, 18, -70);
     this.scene.add(this.sun);
-    this.coreLight = new THREE.PointLight(HEX.gold, 0, 22, 1.6);
-    this.coreLight.position.set(CORE.x, 4, CORE.z);
-    this.scene.add(this.coreLight);
   }
 
   private buildSky() {
@@ -178,7 +214,6 @@ export class BouwplanWorld {
       uniforms: this.skyU,
       side: THREE.BackSide,
       depthWrite: false,
-      fog: false,
       vertexShader: WORLD_VERT,
       fragmentShader: /* glsl */ `
         uniform vec3 uNight, uDawnTop, uDawnLow;
@@ -187,12 +222,10 @@ export class BouwplanWorld {
         void main() {
           vec3 d = normalize(vW - cameraPosition);
           float h = clamp(d.y, -0.2, 1.0);
-          // The sun comes up behind the tower, low and to the east.
           float east = pow(max(dot(normalize(vec3(d.x, 0.0, d.z)), normalize(vec3(-0.45, 0.0, -1.0))), 0.0), 3.0);
           float horizon = exp(-max(h, 0.0) * 7.0);
           vec3 dawn = mix(uDawnTop, uDawnLow, horizon * (0.35 + 0.65 * east));
-          vec3 col = mix(uNight, dawn, uDawn);
-          gl_FragColor = vec4(col, 1.0);
+          gl_FragColor = vec4(mix(uNight, dawn, uDawn), 1.0);
           ${OUT_GLSL}
         }`,
     });
@@ -205,11 +238,9 @@ export class BouwplanWorld {
     const pools = Array.from({ length: 6 }, () => new THREE.Vector4(0, 0, 1, 0));
     this.groundU = {
       ...this.fog,
-      uPaper: { value: new THREE.Color(HEX.paper) },
+      uFloor: { value: new THREE.Color(HEX.floor) },
       uLine: { value: new THREE.Color(HEX.gold) },
       uWarm: { value: new THREE.Color(HEX.goldLight) },
-      uLamp: { value: new THREE.Vector3(0, 15, 8) },
-      uLampI: { value: 1 },
       uPools: { value: pools },
       uDawn: { value: 0 },
     };
@@ -218,8 +249,8 @@ export class BouwplanWorld {
       vertexShader: WORLD_VERT,
       fragmentShader: /* glsl */ `
         ${FOG_GLSL}
-        uniform vec3 uPaper, uLine, uWarm, uLamp;
-        uniform float uLampI, uDawn;
+        uniform vec3 uFloor, uLine, uWarm;
+        uniform float uDawn;
         uniform vec4 uPools[6];
         varying vec3 vW;
         float grid(vec2 p, float s) {
@@ -230,18 +261,17 @@ export class BouwplanWorld {
         float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
         void main() {
           vec2 p = vW.xz;
-          float g = grid(p, 1.0) * 0.07 + grid(p, 5.0) * 0.17;
-          vec2 dl = p - uLamp.xy;
-          float lamp = exp(-dot(dl, dl) / (uLamp.z * uLamp.z)) * uLampI;
+          // Polished concrete with a faint tile joint every metre.
+          float g = grid(p, 1.0) * 0.05;
           float pools = 0.0;
           for (int i = 0; i < 6; i++) {
             vec2 d = p - uPools[i].xy;
             pools += exp(-dot(d, d) / (uPools[i].z * uPools[i].z)) * uPools[i].w;
           }
-          float light = 0.5 + lamp * 1.9 + pools + uDawn * 0.6;
-          vec3 col = uPaper * light + uLine * g * (0.35 + lamp + pools * 0.7 + uDawn * 0.6);
+          float light = 0.42 + pools + uDawn * 0.6;
+          vec3 col = uFloor * light + uLine * g * (0.25 + pools * 0.6 + uDawn * 0.4);
           col += uWarm * pools * 0.05;
-          col += (hash(floor(p * 48.0)) - 0.5) * 0.010 * light;
+          col += (hash(floor(p * 60.0)) - 0.5) * 0.012 * light;
           col = mix(col, uFogColor, fogFactor(vW));
           gl_FragColor = vec4(col, 1.0);
           ${OUT_GLSL}
@@ -252,189 +282,6 @@ export class BouwplanWorld {
     this.scene.add(ground);
   }
 
-  /**
-   * The drawing on the paper. Every stroke is a thin quad carrying its own
-   * draw order, and the fragment shader cuts it off at `uDraw`, which is how a
-   * pen line can stop halfway along a wall.
-   */
-  private buildPlan() {
-    type Stroke = { pts: [number, number][]; w: number; a: number; b: number; dash?: number };
-    const S: Stroke[] = [];
-    const rect = (x1: number, z1: number, x2: number, z2: number, w: number, a: number, b: number, dash?: number) =>
-      S.push({ pts: [[x1, z1], [x2, z1], [x2, z2], [x1, z2], [x1, z1]], w, a, b, dash });
-    const arc = (cx: number, cz: number, r: number, a0: number, a1: number, w: number, a: number, b: number, n = 24) => {
-      const pts: [number, number][] = [];
-      for (let i = 0; i <= n; i++) {
-        const an = a0 + ((a1 - a0) * i) / n;
-        pts.push([cx + Math.sin(an) * r, cz + Math.cos(an) * r]);
-      }
-      S.push({ pts, w, a, b });
-    };
-
-    // Sheet border and the lot, nearest the camera first.
-    rect(-17, 23, 17, -52, 0.05, 0.0, 0.32);
-    rect(-16.4, 22.4, 16.4, -51.4, 0.025, 0.04, 0.36);
-    for (let i = 0; i < 14; i++) {
-      const z = 22.4 - i * 5.3;
-      S.push({ pts: [[-17, z], [-16.4, z]], w: 0.03, a: 0.08 + i * 0.01, b: 0.12 + i * 0.01 });
-      S.push({ pts: [[16.4, z], [17, z]], w: 0.03, a: 0.08 + i * 0.01, b: 0.12 + i * 0.01 });
-    }
-    rect(-13, 13, 13, -48, 0.03, 0.06, 0.4, 0.5);
-    // Path from the street to the door, and the parking.
-    S.push({ pts: [[-2, 13], [-2, 0]], w: 0.05, a: 0.1, b: 0.28 });
-    S.push({ pts: [[2, 13], [2, 0]], w: 0.05, a: 0.1, b: 0.28 });
-    rect(-11, 10.5, -4.5, 3.5, 0.04, 0.14, 0.3);
-    for (let i = 1; i < 4; i++) S.push({ pts: [[-11, 3.5 + i * 1.75], [-4.5, 3.5 + i * 1.75]], w: 0.025, a: 0.2, b: 0.32 });
-    // North arrow.
-    arc(9.5, 9.5, 1.6, 0, Math.PI * 2, 0.035, 0.12, 0.3, 40);
-    S.push({ pts: [[9.5, 7.6], [9.5, 11.4]], w: 0.04, a: 0.2, b: 0.3 });
-    S.push({ pts: [[8.9, 10.6], [9.5, 11.4], [10.1, 10.6]], w: 0.04, a: 0.26, b: 0.32 });
-    // Dimension line along the front.
-    S.push({ pts: [[-8, 2.2], [8, 2.2]], w: 0.025, a: 0.3, b: 0.45 });
-    S.push({ pts: [[-8, 1.6], [-8, 2.8]], w: 0.025, a: 0.3, b: 0.33 });
-    S.push({ pts: [[8, 1.6], [8, 2.8]], w: 0.025, a: 0.42, b: 0.45 });
-
-    // The building itself.
-    const wall = 0.16;
-    S.push({ pts: [[-2, 0], [-8, 0], [-8, -44], [8, -44], [8, 0], [2, 0]], w: wall, a: 0.32, b: 0.72 });
-    for (const z of [-7.5, -14.5, -21.5, -28.5]) {
-      S.push({ pts: [[-8, z], [-4.8, z]], w: wall * 0.8, a: 0.55, b: 0.68 });
-      S.push({ pts: [[8, z], [4.8, z]], w: wall * 0.8, a: 0.57, b: 0.7 });
-    }
-    arc(CORE.x, CORE.z, CORE_R, 0, Math.PI * 2, wall, 0.6, 0.86, 64);
-    arc(CORE.x, CORE.z, HELIX_R, 0, Math.PI * 2, 0.03, 0.7, 0.9, 64);
-    // Door swings and a dimension down the long side.
-    arc(-2, 0, 2, Math.PI / 2, Math.PI, 0.03, 0.66, 0.74, 16);
-    arc(2, 0, 2, -Math.PI / 2, -Math.PI, 0.03, 0.66, 0.74, 16);
-    S.push({ pts: [[10.4, 0], [10.4, -44]], w: 0.025, a: 0.72, b: 0.95 });
-    S.push({ pts: [[9.8, 0], [11, 0]], w: 0.025, a: 0.72, b: 0.75 });
-    S.push({ pts: [[9.8, -44], [11, -44]], w: 0.025, a: 0.92, b: 0.95 });
-    // Inlaid line down the nave: where the thread will run.
-    S.push({ pts: [[0, 2], [0, -30]], w: 0.03, a: 0.74, b: 1.0, dash: 0.6 });
-
-    const P: number[] = [];
-    const O: number[] = [];
-    const I: number[] = [];
-    let v = 0;
-    const quad = (x1: number, z1: number, x2: number, z2: number, w: number, o1: number, o2: number) => {
-      const dx = x2 - x1, dz = z2 - z1;
-      const len = Math.hypot(dx, dz) || 1;
-      const nx = (-dz / len) * (w / 2), nz = (dx / len) * (w / 2);
-      // Extend each quad by half a width so polyline corners close.
-      const ex = (dx / len) * (w / 2), ez = (dz / len) * (w / 2);
-      P.push(x1 + nx - ex, 0, z1 + nz - ez, x1 - nx - ex, 0, z1 - nz - ez, x2 + nx + ex, 0, z2 + nz + ez, x2 - nx + ex, 0, z2 - nz + ez);
-      O.push(o1, o1, o2, o2);
-      I.push(v, v + 1, v + 2, v + 2, v + 1, v + 3);
-      v += 4;
-    };
-    for (const s of S) {
-      const lens = [0];
-      for (let i = 1; i < s.pts.length; i++) lens.push(lens[i - 1] + Math.hypot(s.pts[i][0] - s.pts[i - 1][0], s.pts[i][1] - s.pts[i - 1][1]));
-      const L = lens[lens.length - 1] || 1;
-      const ord = (d: number) => s.a + (s.b - s.a) * (d / L);
-      for (let i = 1; i < s.pts.length; i++) {
-        const [x1, z1] = s.pts[i - 1], [x2, z2] = s.pts[i];
-        if (!s.dash) {
-          quad(x1, z1, x2, z2, s.w, ord(lens[i - 1]), ord(lens[i]));
-          continue;
-        }
-        const seg = lens[i] - lens[i - 1];
-        for (let d = 0; d < seg; d += s.dash * 2) {
-          const e = Math.min(d + s.dash, seg);
-          const f1 = d / seg, f2 = e / seg;
-          quad(x1 + (x2 - x1) * f1, z1 + (z2 - z1) * f1, x1 + (x2 - x1) * f2, z1 + (z2 - z1) * f2, s.w, ord(lens[i - 1] + d), ord(lens[i - 1] + e));
-        }
-      }
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute("position", new THREE.Float32BufferAttribute(P, 3));
-    geo.setAttribute("aOrder", new THREE.Float32BufferAttribute(O, 1));
-    geo.setIndex(I);
-
-    this.strokeU = { ...this.fog, uDraw: { value: 0 }, uColor: { value: new THREE.Color(HEX.gold) }, uHot: { value: new THREE.Color(HEX.cream) } };
-    const mat = new THREE.ShaderMaterial({
-      uniforms: this.strokeU,
-      side: THREE.DoubleSide,
-      polygonOffset: true,
-      polygonOffsetFactor: -2,
-      polygonOffsetUnits: -2,
-      vertexShader: /* glsl */ `
-        attribute float aOrder;
-        varying float vOrder;
-        varying vec3 vW;
-        void main() {
-          vOrder = aOrder;
-          vec4 w = modelMatrix * vec4(position, 1.0);
-          vW = w.xyz;
-          gl_Position = projectionMatrix * viewMatrix * w;
-        }`,
-      fragmentShader: /* glsl */ `
-        ${FOG_GLSL}
-        uniform float uDraw;
-        uniform vec3 uColor, uHot;
-        varying float vOrder;
-        varying vec3 vW;
-        void main() {
-          if (vOrder > uDraw) discard;
-          // The last stretch behind the pen is still wet: hotter and brighter.
-          float wet = (1.0 - smoothstep(0.0, 0.03, uDraw - vOrder)) * step(uDraw, 0.999);
-          vec3 col = mix(uColor * 0.9, uHot * 2.2, wet);
-          col = mix(col, uFogColor, fogFactor(vW));
-          gl_FragColor = vec4(col, 1.0);
-          ${OUT_GLSL}
-        }`,
-    });
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.y = 0.012;
-    this.scene.add(mesh);
-  }
-
-  /** The cartouche in the corner of the sheet, set in real type on a canvas. */
-  private buildTitleBlock() {
-    const c = document.createElement("canvas");
-    c.width = 1024;
-    c.height = 640;
-    const g = c.getContext("2d")!;
-    const gold = "#C9974A";
-    g.strokeStyle = gold;
-    g.fillStyle = gold;
-    g.lineWidth = 4;
-    g.strokeRect(8, 8, 1008, 624);
-    g.lineWidth = 2;
-    for (const y of [200, 330, 460]) {
-      g.beginPath();
-      g.moveTo(8, y);
-      g.lineTo(1016, y);
-      g.stroke();
-    }
-    g.beginPath();
-    g.moveTo(560, 330);
-    g.lineTo(560, 632);
-    g.stroke();
-    g.font = "800 92px Montserrat, Arial, sans-serif";
-    g.fillText("Steyl.", 48, 140);
-    g.font = "500 30px Poppins, Arial, sans-serif";
-    const rows: [string, number, number][] = [
-      ["PROJECT", 48, 250], ["Jouw website, met alles erachter", 48, 300],
-      ["SCHAAL", 48, 380], ["1:1, tot op de pixel", 48, 430],
-      ["BLAD", 600, 380], ["01 van 01", 600, 430],
-      ["GETEKEND", 48, 510], ["SteylVisuals", 48, 560],
-      ["STATUS", 600, 510], ["In opbouw", 600, 560],
-    ];
-    for (const [s, x, y] of rows) {
-      g.globalAlpha = s === s.toUpperCase() ? 0.6 : 1;
-      g.fillText(s, x, y);
-    }
-    const tex = new THREE.CanvasTexture(c);
-    tex.colorSpace = THREE.SRGBColorSpace;
-    tex.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
-    this.titleMat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false });
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(6.4, 4), this.titleMat);
-    m.rotation.x = -Math.PI / 2;
-    m.position.set(11.6, 0.02, 17.6);
-    this.scene.add(m);
-  }
-
   private buildBuilding() {
     const glass = new THREE.MeshStandardMaterial({
       color: 0x2b2019, transparent: true, opacity: 0.34, roughness: 0.12, metalness: 0.65,
@@ -443,46 +290,35 @@ export class BouwplanWorld {
     const brass = new THREE.MeshStandardMaterial({ color: HEX.gold, metalness: 0.9, roughness: 0.3, emissive: HEX.gold, emissiveIntensity: 0.06 });
     const edge = this.lineMat(HEX.goldLight, 1.3, 0.85);
 
-    const [r0, r1] = BEAT.rise;
-    const wall = (x1: number, z1: number, x2: number, z2: number, h: number, start: number) => {
+    const wall = (x1: number, z1: number, x2: number, z2: number) => {
       const len = Math.hypot(x2 - x1, z2 - z1);
-      const geo = new THREE.BoxGeometry(len, h, 0.14).translate(0, h / 2, 0);
+      const geo = new THREE.BoxGeometry(len, WALL_H, 0.14).translate(0, WALL_H / 2, 0);
       const g = new THREE.Group();
-      const m = new THREE.Mesh(geo, glass);
-      g.add(m, this.edges(geo, edge));
+      g.add(new THREE.Mesh(geo, glass), this.edges(geo, edge));
       g.position.set((x1 + x2) / 2, 0, (z1 + z2) / 2);
       g.rotation.y = -Math.atan2(z2 - z1, x2 - x1);
-      g.visible = false;
       this.scene.add(g);
-      this.walls.push({ g, start, dur: 0.55 });
     };
-    const span = r1 - r0 - 0.9;
-    wall(-8, 0, -2, 0, WALL_H, r0);
-    wall(2, 0, 8, 0, WALL_H, r0 + 0.04);
-    wall(-8, 0, -8, -44, WALL_H, r0 + span * 0.15);
-    wall(8, 0, 8, -44, WALL_H, r0 + span * 0.2);
-    wall(-8, -44, 8, -44, WALL_H, r0 + span * 0.35);
-    [-7.5, -14.5, -21.5, -28.5].forEach((z, i) => {
-      wall(-8, z, -4.8, z, WALL_H, r0 + span * (0.3 + i * 0.12));
-      wall(8, z, 4.8, z, WALL_H, r0 + span * (0.34 + i * 0.12));
-    });
-    // Brass columns at the corners and along the long walls.
+    wall(-8, 0, -2, 0);
+    wall(2, 0, 8, 0);
+    wall(-8, 0, -8, -44);
+    wall(8, 0, 8, -44);
+    wall(-8, -44, 8, -44);
+    for (const z of [-7.5, -14.5, -21.5, -28.5]) {
+      wall(-8, z, -4.8, z);
+      wall(8, z, 4.8, z);
+    }
     for (const x of [-8, 8]) {
       for (let z = 0; z >= -44; z -= 7.33) {
-        const geo = new THREE.BoxGeometry(0.28, WALL_H + 0.2, 0.28).translate(0, (WALL_H + 0.2) / 2, 0);
-        const g = new THREE.Group();
-        g.add(new THREE.Mesh(geo, brass));
-        g.position.set(x, 0, z);
-        g.visible = false;
-        this.scene.add(g);
-        this.walls.push({ g, start: r0 + 0.1 + (-z / 44) * span * 0.6, dur: 0.4 });
+        const col = new THREE.Mesh(new THREE.BoxGeometry(0.28, WALL_H + 0.2, 0.28).translate(0, (WALL_H + 0.2) / 2, 0), brass);
+        col.position.set(x, 0, z);
+        this.scene.add(col);
       }
     }
 
-    // The core: a glass tower with brass ribs and rings, the last thing to rise.
+    // The tower: a glass drum with brass ribs. The office sits at its foot.
     const tower = new THREE.Group();
-    const shell = new THREE.CylinderGeometry(CORE_R, CORE_R, TOWER_H, 64, 1, true).translate(0, TOWER_H / 2, 0);
-    tower.add(new THREE.Mesh(shell, glass));
+    tower.add(new THREE.Mesh(new THREE.CylinderGeometry(CORE_R, CORE_R, TOWER_H, 64, 1, true).translate(0, TOWER_H / 2, 0), glass));
     const ribs = 18;
     for (let i = 0; i < ribs; i++) {
       const a = ((i + 0.5) / ribs) * Math.PI * 2;
@@ -497,62 +333,23 @@ export class BouwplanWorld {
       tower.add(ring);
     }
     tower.position.copy(CORE);
-    tower.visible = false;
     this.scene.add(tower);
-    this.walls.push({ g: tower, start: r0 + span * 0.55, dur: 0.9 });
 
-    // Roof: a glass slab with a round opening for the tower, fades in last.
     const shape = new THREE.Shape([new THREE.Vector2(-8, 0), new THREE.Vector2(8, 0), new THREE.Vector2(8, 44), new THREE.Vector2(-8, 44)]);
     const hole = new THREE.Path();
     hole.absarc(0, 36, CORE_R + 0.05, 0, Math.PI * 2, true);
     shape.holes.push(hole);
     const roofGeo = new THREE.ShapeGeometry(shape, 48);
     roofGeo.rotateX(-Math.PI / 2);
-    this.roofMat = glass.clone();
-    this.roofMat.opacity = 0;
-    this.roofEdge = this.lineMat(HEX.goldLight, 1.3, 0);
+    const roofMat = glass.clone();
+    roofMat.opacity = 0.2;
     const roof = new THREE.Group();
-    roof.add(new THREE.Mesh(roofGeo, this.roofMat), this.edges(roofGeo, this.roofEdge));
+    roof.add(new THREE.Mesh(roofGeo, roofMat), this.edges(roofGeo, this.lineMat(HEX.goldLight, 1.3, 0.7)));
     roof.position.y = WALL_H;
     this.scene.add(roof);
   }
 
-  /**
-   * The building as it will be, sketched in the air before a single wall
-   * stands: dashed, faint, gone once the real thing has risen through it.
-   */
-  private buildGhost() {
-    const P: number[] = [];
-    const seg = (a: THREE.Vector3, b: THREE.Vector3) => P.push(a.x, a.y, a.z, b.x, b.y, b.z);
-    const V = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
-    const box: [number, number][] = [[-8, 0], [8, 0], [8, -44], [-8, -44]];
-    for (let i = 0; i < 4; i++) {
-      const [x1, z1] = box[i], [x2, z2] = box[(i + 1) % 4];
-      seg(V(x1, WALL_H, z1), V(x2, WALL_H, z2));
-      seg(V(x1, 0, z1), V(x1, WALL_H, z1));
-    }
-    const n = 48;
-    for (const y of [0, WALL_H, 12, 18, TOWER_H]) {
-      for (let i = 0; i < n; i++) {
-        const a1 = (i / n) * Math.PI * 2, a2 = ((i + 1) / n) * Math.PI * 2;
-        seg(V(CORE.x + Math.sin(a1) * CORE_R, y, CORE.z + Math.cos(a1) * CORE_R), V(CORE.x + Math.sin(a2) * CORE_R, y, CORE.z + Math.cos(a2) * CORE_R));
-      }
-    }
-    for (let i = 0; i < 8; i++) {
-      const a = (i / 8) * Math.PI * 2;
-      const x = CORE.x + Math.sin(a) * CORE_R, z = CORE.z + Math.cos(a) * CORE_R;
-      seg(V(x, 0, z), V(x, TOWER_H, z));
-    }
-    const geo = new LineSegmentsGeometry();
-    geo.setPositions(P);
-    this.ghostMat = new LineMaterial({ color: HEX.goldLight, linewidth: 1, transparent: true, opacity: 0.3, dashed: true, dashSize: 0.5, gapSize: 0.45, worldUnits: false });
-    this.lineMats.push(this.ghostMat);
-    const ghost = new LineSegments2(geo, this.ghostMat);
-    ghost.computeLineDistances();
-    this.scene.add(ghost);
-  }
-
-  private buildScreens() {
+  private buildBays() {
     const loader = new THREE.TextureLoader();
     const frame = this.lineMat(HEX.gold, 1.6, 1);
     const backing = new THREE.MeshStandardMaterial({ color: 0x120e0b, roughness: 0.6, metalness: 0.3 });
@@ -565,110 +362,207 @@ export class BouwplanWorld {
         mat.needsUpdate = true;
       });
       const g = new THREE.Group();
-      const screen = new THREE.Mesh(new THREE.PlaneGeometry(5.44, 3.4), mat);
       const back = new THREE.Mesh(new THREE.BoxGeometry(5.74, 3.7, 0.12), backing);
       back.position.z = -0.08;
-      const rectGeo = new THREE.PlaneGeometry(5.74, 3.7);
-      const outline = this.edges(rectGeo, frame);
+      const outline = this.edges(new THREE.PlaneGeometry(5.74, 3.7), frame);
       outline.position.z = 0.01;
-      g.add(back, screen, outline);
-      const side = bay.side;
-      g.position.set(side * 7.55, 2.7, bay.z);
-      g.rotation.y = side < 0 ? Math.PI / 2 - 0.35 : -Math.PI / 2 + 0.35;
+      g.add(back, new THREE.Mesh(new THREE.PlaneGeometry(5.44, 3.4), mat), outline);
+      g.position.set(bay.side * 7.55, 2.7, bay.z);
+      g.rotation.y = bay.side < 0 ? Math.PI / 2 - 0.35 : -Math.PI / 2 + 0.35;
       this.scene.add(g);
-
       const light = new THREE.PointLight(HEX.goldLight, 0, 11, 1.8);
-      light.position.set(side * 5.4, 2.6, bay.z + 0.6);
+      light.position.set(bay.side * 5.4, 2.6, bay.z + 0.6);
       this.scene.add(light);
-      g.visible = false;
-      this.screens.push({ g, mat, light, at: BEAT.bays[i] });
+      this.bays.push({ g, mat, light, at: BEAT.bays[i] });
     });
   }
 
-  private buildThread() {
-    const pts: THREE.Vector3[] = [];
-    for (let z = 3; z >= -30; z -= 3) pts.push(new THREE.Vector3(0, 0.035, z));
-    pts.push(new THREE.Vector3(0, 0.25, -32.2));
-    const turns = 1.5;
-    const steps = 72;
-    for (let i = 0; i <= steps; i++) {
-      const f = i / steps;
-      const a = f * turns * Math.PI * 2;
-      pts.push(new THREE.Vector3(Math.sin(a) * HELIX_R, 0.6 + f * 22.4, CORE.z + Math.cos(a) * HELIX_R));
-    }
-    pts.push(new THREE.Vector3(0, TOWER_H + 0.6, CORE.z));
-    this.thread = new THREE.CatmullRomCurve3(pts, false, "centripetal");
+  /* ----------------------------------------------------------- furniture */
 
-    // Where along the thread (by length) the climb starts.
-    for (let u = 0; u <= 1; u += 0.0005) {
-      if (this.thread.getPointAt(u).y > 0.55) {
-        this.uCore = u;
-        break;
+  private deskMats() {
+    return {
+      wood: new THREE.MeshStandardMaterial({ color: 0x2e1f15, roughness: 0.5, metalness: 0.05 }),
+      steel: new THREE.MeshStandardMaterial({ color: 0x141210, roughness: 0.35, metalness: 0.8 }),
+      alu: new THREE.MeshStandardMaterial({ color: 0x3b3834, roughness: 0.3, metalness: 0.85 }),
+      glassBlack: new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.12, metalness: 0.4 }),
+      ceramic: new THREE.MeshStandardMaterial({ color: 0xe9e2d7, roughness: 0.45 }),
+      brass: new THREE.MeshStandardMaterial({ color: HEX.gold, metalness: 0.9, roughness: 0.3 }),
+      paper: new THREE.MeshStandardMaterial({ color: 0xe8e0d2, roughness: 0.9 }),
+      cover: new THREE.MeshStandardMaterial({ color: 0x1f1a16, roughness: 0.7 }),
+    };
+  }
+
+  private desk(at: THREE.Vector3, w: number, d: number, m: ReturnType<BouwplanWorld["deskMats"]>) {
+    const g = new THREE.Group();
+    const top = new THREE.Mesh(new RoundedBoxGeometry(w, 0.035, d, 2, 0.006), m.wood);
+    top.position.y = DESK_H - 0.0175;
+    g.add(top);
+    for (const sx of [-1, 1]) {
+      for (const sz of [-1, 1]) {
+        const leg = new THREE.Mesh(new THREE.BoxGeometry(0.03, DESK_H - 0.035, 0.03), m.steel);
+        leg.position.set(sx * (w / 2 - 0.06), (DESK_H - 0.035) / 2, sz * (d / 2 - 0.06));
+        g.add(leg);
       }
     }
+    g.position.copy(at);
+    this.scene.add(g);
+    return g;
+  }
 
-    this.threadU = {
-      ...this.fog,
-      uPulse: { value: 0 },
-      uLit: { value: 0 },
-      uReveal: { value: -1 },
-      uBrass: { value: new THREE.Color(HEX.brown) },
-      uGold: { value: new THREE.Color(HEX.gold) },
-      uHot: { value: new THREE.Color(HEX.cream) },
-    };
-    const mat = new THREE.ShaderMaterial({
-      uniforms: this.threadU,
-      vertexShader: WORLD_VERT,
-      fragmentShader: /* glsl */ `
-        ${FOG_GLSL}
-        uniform float uPulse, uLit, uReveal;
-        uniform vec3 uBrass, uGold, uHot;
-        varying vec2 vUv;
-        varying vec3 vW;
-        void main() {
-          if (vW.y > uReveal) discard;
-          float u = vUv.x;
-          float behind = step(u, uPulse);
-          float head = exp(-pow((u - uPulse) * 90.0, 2.0)) * uLit;
-          float trail = behind * (0.45 + 0.55 * exp((u - uPulse) * 18.0)) * uLit;
-          vec3 col = uBrass * 0.9 + uGold * trail * 0.95 + uHot * head * 2.4;
-          col = mix(col, uFogColor, fogFactor(vW) * 0.7);
-          gl_FragColor = vec4(col, 1.0);
-          ${OUT_GLSL}
-        }`,
+  private lamp(at: THREE.Vector3, m: ReturnType<BouwplanWorld["deskMats"]>, intensity: number) {
+    const g = new THREE.Group();
+    const base = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.075, 0.015, 32), m.brass);
+    base.position.y = 0.0075;
+    const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.42, 12), m.brass);
+    pole.position.y = 0.22;
+    const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.005, 0.005, 0.26, 12), m.brass);
+    arm.rotation.z = Math.PI / 2;
+    arm.position.set(0.13, 0.43, 0);
+    const shade = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.09, 32, 1, true), m.brass);
+    shade.material = m.brass.clone();
+    (shade.material as THREE.MeshStandardMaterial).side = THREE.DoubleSide;
+    shade.position.set(0.26, 0.4, 0);
+    const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.018, 16, 8), new THREE.MeshBasicMaterial({ color: 0xfff1d6 }));
+    bulb.position.set(0.26, 0.37, 0);
+    const light = new THREE.PointLight(0xffd9a3, intensity, 3.5, 2);
+    light.position.set(0.26, 0.34, 0);
+    g.add(base, pole, arm, shade, bulb, light);
+    g.position.copy(at);
+    this.scene.add(g);
+    return g;
+  }
+
+  private phone(at: THREE.Vector3, yaw: number, id: ScreenId, from: number, to: number, m: ReturnType<BouwplanWorld["deskMats"]>) {
+    const g = new THREE.Group();
+    const body = new THREE.Mesh(new RoundedBoxGeometry(0.0715, 0.0078, 0.147, 3, 0.0035), m.glassBlack);
+    body.position.y = 0.0039;
+    const rim = new THREE.Mesh(new RoundedBoxGeometry(0.0725, 0.0062, 0.148, 3, 0.0035), m.alu);
+    rim.position.y = 0.0031;
+    g.add(rim, body);
+    g.position.copy(at);
+    g.rotation.y = yaw;
+    this.scene.add(g);
+    // Screen faces up, its top edge pointing away from the camera.
+    const local = new THREE.Vector3(0, 0.0081, 0);
+    this.screen(id, g, local, 390, 844, 0.066, from, to);
+    const s = this.screens.get(id)!;
+    s.anchor.rotation.set(-Math.PI / 2, 0, 0);
+    return g;
+  }
+
+  private buildStudio() {
+    const m = this.deskMats();
+    this.desk(STUDIO, 1.7, 0.8, m);
+    const top = DESK_H;
+
+    // Laptop, screen facing the camera (+z), lid leaning back.
+    const laptop = new THREE.Group();
+    laptop.position.set(STUDIO.x + 0.17, top, STUDIO.z - 0.03);
+    const base = new THREE.Mesh(new RoundedBoxGeometry(0.312, 0.011, 0.218, 2, 0.004), m.alu);
+    base.position.y = 0.0055;
+    const kc = document.createElement("canvas");
+    kc.width = 512;
+    kc.height = 200;
+    const kg = kc.getContext("2d")!;
+    kg.fillStyle = "#15130f";
+    kg.fillRect(0, 0, 512, 200);
+    kg.fillStyle = "#26231f";
+    const rows = [14, 14, 13, 12, 9];
+    rows.forEach((n, r) => {
+      const kw = (500 - (n - 1) * 6) / n;
+      for (let i = 0; i < n; i++) kg.fillRect(6 + i * (kw + 6), 8 + r * 38, kw, 32);
     });
-    this.scene.add(new THREE.Mesh(new THREE.TubeGeometry(this.thread, 900, 0.055, 8, false), mat));
+    const ktex = new THREE.CanvasTexture(kc);
+    ktex.colorSpace = THREE.SRGBColorSpace;
+    const keys = new THREE.Mesh(new THREE.PlaneGeometry(0.27, 0.105), new THREE.MeshStandardMaterial({ map: ktex, roughness: 0.6 }));
+    keys.rotation.x = -Math.PI / 2;
+    keys.position.set(0, 0.0112, -0.035);
+    const pad = new THREE.Mesh(new THREE.PlaneGeometry(0.11, 0.068), new THREE.MeshStandardMaterial({ color: 0x34312d, roughness: 0.25, metalness: 0.6 }));
+    pad.rotation.x = -Math.PI / 2;
+    pad.position.set(0, 0.0112, 0.064);
+    const lid = new THREE.Group();
+    lid.position.set(0, 0.011, -0.109);
+    lid.rotation.x = -0.32;
+    const shell = new THREE.Mesh(new RoundedBoxGeometry(0.312, 0.206, 0.006, 2, 0.003).translate(0, 0.103, 0), m.alu);
+    const bezel = new THREE.Mesh(new THREE.PlaneGeometry(0.304, 0.198), m.glassBlack);
+    bezel.position.set(0, 0.103, 0.0031);
+    lid.add(shell, bezel);
+    laptop.add(base, keys, pad, lid);
+    this.scene.add(laptop);
+    this.screen("laptop", lid, new THREE.Vector3(0, 0.106, 0.0034), 1280, 800, 0.29, -1, BEAT.studioOut);
+    this.laptopGlow = new THREE.PointLight(0xfff4e6, 0.35, 1.6, 2);
+    this.laptopGlow.position.set(laptop.position.x, top + 0.14, laptop.position.z + 0.12);
+    this.scene.add(this.laptopGlow);
 
-    // One ring per step of the automation, where the pulse is at that step's beat.
-    BEAT.stages.forEach((t) => {
-      const u = this.pulseU(t);
-      const p = this.thread.getPointAt(u);
-      const tan = this.thread.getTangentAt(u);
-      const mat = new THREE.MeshStandardMaterial({ color: HEX.gold, metalness: 1, roughness: 0.3, emissive: HEX.gold, emissiveIntensity: 0.05 });
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.045, 12, 64), mat);
-      ring.position.copy(p);
-      ring.lookAt(p.clone().add(tan));
-      this.scene.add(ring);
-      this.nodes.push({ mesh: ring, mat, u });
-    });
+    this.phone(new THREE.Vector3(STUDIO.x - 0.27, top, STUDIO.z + 0.15), 0.22, "studioPhone", -1, BEAT.studioOut, m);
+    this.studioPhoneGlow = new THREE.PointLight(0xfff4e6, 0, 0.8, 2);
+    this.studioPhoneGlow.position.set(STUDIO.x - 0.27, top + 0.08, STUDIO.z + 0.15);
+    this.scene.add(this.studioPhoneGlow);
 
-    // The pulse head: a soft sprite plus a real light, so it lights the tower as it climbs.
-    const c = document.createElement("canvas");
-    c.width = c.height = 128;
-    const g = c.getContext("2d")!;
-    const grad = g.createRadialGradient(64, 64, 0, 64, 64, 64);
-    grad.addColorStop(0, "rgba(255,244,225,1)");
-    grad.addColorStop(0.25, "rgba(230,200,148,0.55)");
-    grad.addColorStop(1, "rgba(201,151,74,0)");
-    g.fillStyle = grad;
-    g.fillRect(0, 0, 128, 128);
-    const tex = new THREE.CanvasTexture(c);
-    tex.colorSpace = THREE.SRGBColorSpace;
-    this.orb = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0 }));
-    this.orb.scale.setScalar(0.7);
-    this.scene.add(this.orb);
-    this.orbLight = new THREE.PointLight(HEX.goldLight, 0, 9, 1.5);
-    this.scene.add(this.orbLight);
+    // A mug and a notebook, so the desk belongs to someone.
+    const mug = new THREE.Group();
+    const cup = new THREE.Mesh(new THREE.CylinderGeometry(0.042, 0.037, 0.095, 32, 1, true), m.ceramic);
+    (cup.material as THREE.MeshStandardMaterial).side = THREE.DoubleSide;
+    const bottom = new THREE.Mesh(new THREE.CircleGeometry(0.037, 32), m.ceramic);
+    bottom.rotation.x = -Math.PI / 2;
+    bottom.position.y = -0.047;
+    const coffee = new THREE.Mesh(new THREE.CircleGeometry(0.04, 32), new THREE.MeshStandardMaterial({ color: 0x2a160b, roughness: 0.2 }));
+    coffee.rotation.x = -Math.PI / 2;
+    coffee.position.y = 0.03;
+    const handle = new THREE.Mesh(new THREE.TorusGeometry(0.024, 0.006, 10, 24, Math.PI * 1.2), m.ceramic);
+    handle.position.set(0.045, 0, 0);
+    handle.rotation.z = -Math.PI * 0.6;
+    mug.add(cup, bottom, coffee, handle);
+    mug.position.set(STUDIO.x + 0.58, top + 0.0475, STUDIO.z - 0.12);
+    this.scene.add(mug);
+
+    const book = new THREE.Group();
+    const cover = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.012, 0.21), m.cover);
+    const pages = new THREE.Mesh(new THREE.BoxGeometry(0.144, 0.01, 0.204), m.paper);
+    pages.position.x = 0.002;
+    const pen = new THREE.Mesh(new THREE.CylinderGeometry(0.0045, 0.0045, 0.14, 12), m.brass);
+    pen.rotation.z = Math.PI / 2;
+    pen.rotation.y = 0.5;
+    pen.position.set(0.01, 0.012, 0.02);
+    book.add(cover, pages, pen);
+    book.position.set(STUDIO.x - 0.55, top + 0.006, STUDIO.z + 0.02);
+    book.rotation.y = -0.18;
+    this.scene.add(book);
+
+    this.lamp(new THREE.Vector3(STUDIO.x - 0.72, top, STUDIO.z - 0.22), m, 0.9);
+  }
+
+  private buildOffice() {
+    const m = this.deskMats();
+    this.desk(OFFICE, 1.5, 0.72, m);
+    const top = DESK_H;
+
+    // Monitor on the back edge, facing the chair (+z).
+    const mon = new THREE.Group();
+    mon.position.set(OFFICE.x, top, OFFICE.z - 0.2);
+    const foot = new THREE.Mesh(new RoundedBoxGeometry(0.24, 0.01, 0.17, 2, 0.004), m.alu);
+    foot.position.y = 0.005;
+    const neck = new THREE.Mesh(new RoundedBoxGeometry(0.05, 0.3, 0.018, 2, 0.006), m.alu);
+    neck.position.set(0, 0.16, -0.04);
+    const panel = new THREE.Group();
+    panel.position.set(0, 0.38, -0.02);
+    const shell = new THREE.Mesh(new RoundedBoxGeometry(0.644, 0.376, 0.014, 2, 0.004), m.alu);
+    const glassFace = new THREE.Mesh(new THREE.PlaneGeometry(0.636, 0.368), m.glassBlack);
+    glassFace.position.z = 0.0071;
+    panel.add(shell, glassFace);
+    mon.add(foot, neck, panel);
+    this.scene.add(mon);
+    this.screen("monitor", panel, new THREE.Vector3(0, 0, 0.0074), 1600, 900, 0.62, BEAT.officeIn, BEAT.officeOut);
+    this.monitorGlow = new THREE.PointLight(0xf6efe4, 0, 2.4, 2);
+    this.monitorGlow.position.set(OFFICE.x, top + 0.38, OFFICE.z + 0.25);
+    this.scene.add(this.monitorGlow);
+
+    this.phone(new THREE.Vector3(OFFICE.x + 0.42, top, OFFICE.z + 0.18), -0.16, "officePhone", BEAT.officeIn, BEAT.officeOut, m);
+    this.officePhoneGlow = new THREE.PointLight(0xfff4e6, 0, 0.9, 2);
+    this.officePhoneGlow.position.set(OFFICE.x + 0.42, top + 0.09, OFFICE.z + 0.18);
+    this.scene.add(this.officePhoneGlow);
+
+    this.lamp(new THREE.Vector3(OFFICE.x - 0.66, top, OFFICE.z - 0.18), m, 0.5);
   }
 
   private buildDust() {
@@ -678,13 +572,13 @@ export class BouwplanWorld {
     for (let i = 0; i < n; i++) {
       pos[i * 3] = (Math.random() - 0.5) * 34;
       pos[i * 3 + 1] = Math.random() * 14 + 0.2;
-      pos[i * 3 + 2] = 24 - Math.random() * 72;
+      pos[i * 3 + 2] = 14 - Math.random() * 62;
       seed[i] = Math.random();
     }
     const geo = new THREE.BufferGeometry();
     geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
     geo.setAttribute("aSeed", new THREE.BufferAttribute(seed, 1));
-    this.dustU = { uTime: { value: 0 }, uColor: { value: new THREE.Color(HEX.goldLight) }, uScale: { value: 1 }, uAlpha: { value: 0.5 } };
+    this.dustU = { uTime: { value: 0 }, uColor: { value: new THREE.Color(HEX.goldLight) }, uScale: { value: 1 }, uAlpha: { value: 0.45 } };
     const mat = new THREE.ShaderMaterial({
       uniforms: this.dustU,
       transparent: true,
@@ -717,165 +611,138 @@ export class BouwplanWorld {
     this.scene.add(new THREE.Points(geo, mat));
   }
 
-  /** Camera keyframes. Leg 4 is sampled from the pulse so the camera chases it. */
+  /** Camera keyframes. `close` frames are pulled back on a portrait screen. */
   private buildKeys() {
-    const K = (t: number, p: [number, number, number], q: [number, number, number], linger = 0) =>
-      this.keys.push({ t, p: new THREE.Vector3(...p), q: new THREE.Vector3(...q), linger });
+    const K = (t: number, p: [number, number, number], q: [number, number, number], linger = 0, close = false) =>
+      this.keys.push({ t, p: new THREE.Vector3(...p), q: new THREE.Vector3(...q), linger, close });
+    const S = STUDIO, O = OFFICE;
 
-    // Leg 1: low over the paper, then lifting to see the whole plan.
-    K(0, [3.2, 3.4, 27], [-0.6, 0, 13]);
-    K(0.8, [1.4, 5.2, 23], [0, 0, 6], 0.2);
-    K(1.6, [0, 14, 21], [0, 0, -13], 0.3);
-    // Leg 2: swing round to a three-quarter view while it rises, then to the door.
-    K(2.5, [-17, 11, 11], [0, 2.5, -16]);
-    K(3.25, [-8, 5.2, 11], [0, 3, -14], 0.2);
-    K(3.8, [0, 2.4, 6.5], [0, 2.4, -10], 0.3);
+    // Leg 1-2: at the studio desk, the laptop on the right of frame.
+    K(0, [S.x - 0.03, 0.99, S.z + 0.4], [S.x - 0.03, 0.84, S.z - 0.17], 0, true);
+    K(0.8, [S.x + 0.01, 0.97, S.z + 0.3], [S.x + 0.01, 0.85, S.z - 0.17], 0, true);
+    K(1.6, [S.x + 0.05, 0.95, S.z + 0.21], [S.x + 0.05, 0.855, S.z - 0.17], 0, true);
+    K(2.5, [S.x + 0.07, 0.955, S.z + 0.18], [S.x + 0.07, 0.855, S.z - 0.17], 0.2, true);
+    // Pull back to take in the phone as the site goes live.
+    K(3.1, [S.x - 0.05, 1.2, S.z + 0.55], [S.x - 0.13, 0.78, S.z - 0.03], 0.5, true);
+    K(3.35, [S.x - 0.09, 1.18, S.z + 0.5], [S.x - 0.17, 0.77, S.z], 0.6, true);
+    // Up and into the building.
+    K(3.8, [0.2, 2.0, 3.0], [0, 2.2, -6], 0.3);
     // Leg 3: hold on each room, standing on the far side of the nave.
     BAYS.forEach((b, i) => {
       K(BEAT.bays[i], [-b.side * 1.7, 2.45, b.z + 5.6], [b.side * 7.5, 2.55, b.z - 0.4], 0.75);
     });
-    // Into the core, then the silence.
-    K(6.4, [0, 2.3, -24.5], [0, 3.2, -36], 0.4);
-    K(7.0, [0, 2.6, -27.6], [0, 4, -36], 0.2);
-    // Leg 4: chase the pulse up the helix.
-    const [c0, c1] = BEAT.climb;
-    for (let i = 0; i <= 10; i++) {
-      const t = c0 + ((c1 - c0) * i) / 10;
-      const p = this.thread.getPointAt(this.pulseU(t));
-      // Ahead of the pulse, on the outside of the helix, looking back down at
-      // it: the lit trail runs away from the lens instead of past it.
-      const a = Math.atan2(p.x - CORE.x, p.z - CORE.z) + 0.75;
-      K(t, [CORE.x + Math.sin(a) * 4.9, p.y + 1.9, CORE.z + Math.cos(a) * 4.9], [p.x, p.y, p.z]);
-    }
+    // Leg 4: into the tower office, then the silence.
+    K(6.4, [0, 1.8, -27.4], [0, 1.0, O.z], 0.4);
+    K(7.0, [0.15, 1.45, -32.6], [0.15, 0.95, O.z], 0.3);
+    // The phone lights up.
+    K(7.38, [O.x + 0.46, 1.05, O.z + 0.48], [O.x + 0.42, 0.755, O.z + 0.17], 0.6, true);
+    // The screen comes on; hold while the steps run.
+    K(7.9, [O.x + 0.06, 1.15, O.z + 0.6], [O.x - 0.13, 1.12, O.z - 0.22], 0.4, true);
+    K(8.6, [O.x + 0.08, 1.14, O.z + 0.63], [O.x - 0.12, 1.12, O.z - 0.22], 0.3, true);
+    K(9.2, [O.x + 0.1, 1.15, O.z + 0.6], [O.x - 0.11, 1.12, O.z - 0.22], 0.3, true);
+    // 07:42: back to the phone.
+    K(9.55, [O.x + 0.46, 1.05, O.z + 0.5], [O.x + 0.42, 0.755, O.z + 0.17], 0.5, true);
+    K(9.9, [1.6, 2.4, -33.0], [0.2, 1.0, O.z], 0.2);
     // Out of the top of the tower and back, to see the whole thing at dawn.
-    K(10.3, [6, 29, -25], [0, 21, -36], 0.2);
+    K(10.5, [6, 29, -25], [0, 18, -36], 0.2);
     K(11.4, [26, 14, 14], [-11, 5, -24], 0.4);
   }
 
   /* --------------------------------------------------------------- update */
 
-  /** Where the pulse is along the thread (0 to 1, by length) at track time t. */
-  pulseU(t: number) {
-    const [f0, f1] = BEAT.floorRun;
-    const [c0, c1] = BEAT.climb;
-    if (t <= f0) return 0;
-    if (t <= f1) return this.uCore * Math.pow((t - f0) / (f1 - f0), 1.4);
-    return this.uCore + (1 - this.uCore) * clamp01((t - c0) / (c1 - c0));
-  }
-
   private cameraAt(t: number) {
     const k = this.keys;
     const n = k.length;
-    if (t <= k[0].t) {
-      this.pos.copy(k[0].p);
-      this.tgt.copy(k[0].q);
-      return;
-    }
-    if (t >= k[n - 1].t) {
-      this.pos.copy(k[n - 1].p);
-      this.tgt.copy(k[n - 1].q);
-      return;
-    }
     let i = 0;
-    while (i < n - 2 && t > k[i + 1].t) i++;
+    if (t <= k[0].t) i = 0;
+    else if (t >= k[n - 1].t) i = n - 2;
+    else while (i < n - 2 && t > k[i + 1].t) i++;
     const a = k[i], b = k[i + 1];
-    let u = (t - a.t) / (b.t - a.t);
-    // Linger: slow into and out of a keyframe that asks for it.
+    let u = Math.min(1, Math.max(0, (t - a.t) / (b.t - a.t)));
     const lin = Math.max(a.linger, b.linger);
     const e = u * u * u * (u * (u * 6 - 15) + 10);
     u = u + (e - u) * lin;
     const p0 = k[Math.max(0, i - 1)], p3 = k[Math.min(n - 1, i + 2)];
-    cr(p0.p, a.p, b.p, p3.p, u, this.pos);
+    const P = (key: Key) => (this.portrait && key.close ? this.tmpV.copy(key.p).sub(key.q).multiplyScalar(1.9).add(key.q).clone() : key.p);
+    cr(P(p0), P(a), P(b), P(p3), u, this.pos);
     cr(p0.q, a.q, b.q, p3.q, u, this.tgt);
   }
 
   update(t: number, time: number, pointer: { x: number; y: number }) {
-    const [d0, d1] = BEAT.draw;
-    this.strokeU.uDraw.value = clamp01((t - d0) / (d1 - d0)) * 1.0001;
-    this.titleMat.opacity = smooth(0.25, 0.9, t) * 0.9;
-
-    this.ghostMat.opacity = 0.3 * (1 - smooth(BEAT.rise[0] + 0.2, BEAT.rise[1] - 0.2, t));
-    for (const w of this.walls) {
-      const s = easeOut((t - w.start) / w.dur);
-      w.g.visible = s > 0.002;
-      w.g.scale.y = Math.max(s, 0.002);
-    }
-    const roof = smooth(BEAT.rise[1] - 0.35, BEAT.rise[1] + 0.15, t);
-    this.roofMat.opacity = roof * 0.2;
-    this.roofEdge.opacity = roof * 0.7;
-
-    // Screens power on as the camera reaches each room.
+    // Bay screens glow faintly from the start and come fully on as you reach them.
     const pools = this.groundU.uPools.value as THREE.Vector4[];
-    const hung = easeOut((t - (BEAT.rise[1] - 0.3)) / 0.45);
-    this.screens.forEach((s, i) => {
-      s.g.visible = hung > 0.002;
-      s.g.scale.setScalar(Math.max(hung, 0.002));
+    this.bays.forEach((s, i) => {
       const on = smooth(s.at - 0.75, s.at - 0.3, t);
-      s.mat.color.setScalar(0.06 + on * 0.84);
+      s.mat.color.setScalar(0.22 + on * 0.68);
       s.light.intensity = on * 26;
       const b = BAYS[i];
-      pools[i].set(b.side * 6.2, b.z, 3.6, on * 0.85);
+      pools[i + 1].set(b.side * 6.2, b.z, 3.6, 0.15 + on * 0.7);
     });
 
-    // The lead.
-    const pu = this.pulseU(t);
-    const live = smooth(BEAT.floorRun[0] - 0.05, BEAT.floorRun[0] + 0.05, t);
-    this.threadU.uPulse.value = pu;
-    this.threadU.uLit.value = live;
-    const head = this.thread.getPointAt(Math.min(pu, 1));
-    this.orb.position.copy(head);
-    (this.orb.material as THREE.SpriteMaterial).opacity = live * 0.75 * (1 - smooth(BEAT.climb[1], BEAT.dawn[1], t) * 0.6);
-    this.orbLight.position.copy(head);
-    this.orbLight.intensity = live * 12;
-    const tower = this.walls[this.walls.length - 1];
-    const towerS = easeOut((t - tower.start) / tower.dur);
-    const reveal = t < BEAT.draw[1] - 0.2 ? -1 : 0.2 + towerS * (TOWER_H + 1.5);
-    this.threadU.uReveal.value = reveal;
-    for (const n of this.nodes) {
-      n.mesh.visible = n.mesh.position.y < reveal;
-      const lit = smooth(n.u - 0.004, n.u + 0.02, pu);
-      n.mat.emissiveIntensity = 0.05 + lit * 1.6;
-    }
-    const coreGlow = smooth(BEAT.silence[0] - 0.4, BEAT.silence[0], t) * 0.25 + live * 0.75;
-    this.coreLight.intensity = coreGlow * 26;
-    pools[4].set(CORE.x, CORE.z, 6.5, coreGlow * 1.1);
-    pools[5].set(0, 1.5, 3.2, smooth(2.8, 3.6, t) * 0.5 * (1 - smooth(6.4, 7, t)));
+    // Devices.
+    const live = smooth(BEAT.phoneLive - 0.05, BEAT.phoneLive + 0.1, t);
+    this.studioPhoneGlow.intensity = live * 0.25;
+    pools[0].set(STUDIO.x - 0.1, STUDIO.z, 1.5, 0.75 * (1 - smooth(3.8, 4.4, t)));
+    const notify = smooth(BEAT.stages[0] - 0.04, BEAT.stages[0] + 0.04, t);
+    const morning = smooth(BEAT.stages[4] - 0.04, BEAT.stages[4] + 0.04, t);
+    const flash = Math.max(notify * (1 - smooth(BEAT.stages[0] + 0.3, BEAT.stages[0] + 0.6, t)), morning);
+    this.officePhoneGlow.intensity = flash * 0.35;
+    const monitor = smooth(BEAT.monitorOn[0], BEAT.monitorOn[1], t);
+    this.monitorGlow.intensity = monitor * 0.9;
+    pools[5].set(OFFICE.x, OFFICE.z + 0.4, 2.4, 0.35 + monitor * 0.35);
 
-    // Lamp over the drawing, then the room lights take over, then the sun.
+    // Night to dawn.
     const dawn = smooth(BEAT.dawn[0], BEAT.dawn[1], t);
-    const travel = smooth(0.8, 3.2, t);
-    this.groundU.uLamp.value.set(-1, 15 - travel * 27, 11 + travel * 10);
-    this.groundU.uLampI.value = (1 - travel * 0.55) * (1 - dawn);
     this.groundU.uDawn.value = dawn;
     this.skyU.uDawn.value = dawn;
     this.sun.intensity = dawn * 2.6;
     this.hemi.intensity = 0.7 + dawn * 0.8;
-
     this.tmpC.copy(this.nightC).lerp(this.dawnC, dawn * 0.85);
     (this.scene.background as THREE.Color).copy(this.tmpC);
     const fog = this.scene.fog as THREE.FogExp2;
     fog.color.copy(this.tmpC);
-    const inside = smooth(3.4, 4.0, t) * (1 - smooth(9.4, 10.2, t));
+    const inside = smooth(3.5, 4.0, t) * (1 - smooth(9.6, 10.3, t));
     fog.density = 0.028 - inside * 0.006 - dawn * 0.017;
     this.fog.uFogColor.value.copy(this.tmpC);
     this.fog.uFogDensity.value = fog.density;
-
     this.dustU.uTime.value = time;
-    this.dustU.uAlpha.value = 0.45 + live * 0.25;
 
     // Camera.
     this.cameraAt(t);
-    const follow = smooth(7.2, 7.45, t) * (1 - smooth(9.55, 9.95, t));
-    this.look.copy(this.tgt).lerp(head, follow);
+    this.look.copy(this.tgt);
     if (!this.opts.reduced) {
-      this.look.x += pointer.x * 0.45;
-      this.look.y += pointer.y * 0.25;
+      // Much less sway at the desks, where the frame is a hand's width away.
+      const near = this.pos.distanceTo(this.tgt) < 1.5 ? 0.06 : 1;
+      this.look.x += pointer.x * 0.45 * near;
+      this.look.y += pointer.y * 0.25 * near;
     }
     this.camera.position.copy(this.pos);
     this.camera.lookAt(this.look);
+    this.camera.updateMatrixWorld();
 
     if (this.composer) this.composer.render();
     else this.renderer.render(this.scene, this.camera);
+
+    // The HTML screens follow their anchors, at x100.
+    this.scene.updateMatrixWorld();
+    this.screens.forEach((s) => {
+      const on = t > s.from && t < s.to;
+      s.obj.visible = on;
+      if (!on) return;
+      s.anchor.getWorldPosition(this.tmpV);
+      s.anchor.getWorldQuaternion(this.tmpQ);
+      s.obj.position.copy(this.tmpV).multiplyScalar(CSS_SCALE);
+      s.obj.quaternion.copy(this.tmpQ);
+    });
+    this.cssCamera.fov = this.camera.fov;
+    this.cssCamera.aspect = this.camera.aspect;
+    this.cssCamera.near = this.camera.near * CSS_SCALE;
+    this.cssCamera.far = this.camera.far * CSS_SCALE;
+    this.cssCamera.updateProjectionMatrix();
+    this.cssCamera.position.copy(this.camera.position).multiplyScalar(CSS_SCALE);
+    this.cssCamera.quaternion.copy(this.camera.quaternion);
+    this.cssCamera.updateMatrixWorld();
+    this.css.render(this.cssScene, this.cssCamera);
   }
 
   cameraXZ() {
@@ -884,15 +751,14 @@ export class BouwplanWorld {
 
   resize(w: number, h: number) {
     this.renderer.setSize(w, h, false);
+    this.css.setSize(w, h);
     this.camera.aspect = w / h;
-    // Portrait screens need a wider lens to keep the same world in frame.
-    this.camera.fov = w / h < 0.8 ? 66 : w / h < 1.2 ? 58 : 50;
-    // The closing shot puts the building beside the copy on a wide screen and
-    // above it on a tall one.
-    const last = this.keys[this.keys.length - 1];
-    if (w / h < 0.8) last.q.set(-3, 3, -20);
-    else last.q.set(-11, 5, -24);
+    this.portrait = w / h < 0.8;
+    this.camera.fov = this.portrait ? 66 : w / h < 1.2 ? 58 : 50;
     this.camera.updateProjectionMatrix();
+    const last = this.keys[this.keys.length - 1];
+    if (this.portrait) last.q.set(-3, 3, -20);
+    else last.q.set(-11, 5, -24);
     const pr = this.renderer.getPixelRatio();
     this.composer?.setSize(w, h);
     this.composer?.setPixelRatio(pr);
@@ -914,6 +780,7 @@ export class BouwplanWorld {
     this.scene.environment?.dispose();
     this.composer?.dispose();
     this.renderer.dispose();
+    this.css.domElement.remove();
   }
 }
 

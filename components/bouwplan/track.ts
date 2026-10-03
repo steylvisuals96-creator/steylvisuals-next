@@ -10,10 +10,10 @@
 export type Leg = { id: string; label: string; w: number };
 
 export const LEGS: Leg[] = [
-  { id: "plan", label: "Bouwplan", w: 1.6 },
-  { id: "opbouw", label: "Opbouw", w: 2.2 },
+  { id: "ontwerp", label: "Ontwerp", w: 1.6 },
+  { id: "bouw", label: "Bouw", w: 2.2 },
   { id: "klanten", label: "Klanten", w: 2.6 },
-  { id: "kern", label: "De kern", w: 3.6 },
+  { id: "opvolging", label: "Opvolging", w: 3.6 },
   { id: "ochtend", label: "Ochtend", w: 1.4 },
 ];
 
@@ -31,15 +31,16 @@ export function legAt(t: number): number {
 
 /** Beats inside the legs, in the same units. */
 export const BEAT = {
-  draw: [-0.7, 1.55] as const, // the plan is drawn on the paper
-  rise: [1.8, 3.45] as const, // walls, tower and roof go up
-  assembly: [1.95, 3.7] as const, // the Specified site builds itself, in step with the walls
+  assembly: [0.1, 3.05] as const, // the laptop builds the site: plan, wireframe, type, colour, live
+  phoneLive: 3.1, // the phone on the desk lights up with the mobile site
+  studioOut: 4.4, // the studio desk is behind us from here
   bays: [4.2, 4.8, 5.4, 6.0], // the camera holds on each client room
+  officeIn: 5.9, // the office desk in the tower comes into play
   silence: [6.4, 7.0] as const, // 23:14, nothing moves
-  floorRun: [7.0, 7.3] as const, // the lead races along the floor into the core
-  climb: [7.3, 9.6] as const, // and climbs the thread at one steady speed
-  stages: [7.35, 7.85, 8.4, 8.95, 9.5], // each node it lights is one step of the automation
-  dawn: [9.6, 10.8] as const,
+  stages: [7.12, 7.95, 8.45, 8.95, 9.45], // aanvraag, mail, CRM, opvolging, afspraak
+  monitorOn: [7.55, 7.75] as const,
+  officeOut: 10.2,
+  dawn: [9.4, 10.8] as const,
 };
 
 /** The client rooms, in the order the camera passes them. */
