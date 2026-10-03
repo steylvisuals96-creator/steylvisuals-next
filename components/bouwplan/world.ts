@@ -43,7 +43,7 @@ const CSS_SCALE = 100;
 export const STUDIO = new THREE.Vector3(0.55, 0, 6.15);
 export const OFFICE = new THREE.Vector3(0, 0, -36.1);
 
-type Key = { t: number; p: THREE.Vector3; q: THREE.Vector3; linger: number; close: boolean };
+type Key = { t: number; p: THREE.Vector3; q: THREE.Vector3; linger: number; close: boolean; pq?: THREE.Vector3 };
 
 const FOG_GLSL = /* glsl */ `
   uniform vec3 uFogColor;
@@ -88,6 +88,9 @@ export class BouwplanWorld {
   private fog = { uFogColor: { value: new THREE.Color(HEX.night) }, uFogDensity: { value: 0.03 } };
 
   private groundU!: Record<string, THREE.IUniform>;
+  private skylineU!: Record<string, THREE.IUniform>;
+  private backdrop!: THREE.MeshBasicMaterial;
+  private loader = new THREE.TextureLoader();
   private skyU!: Record<string, THREE.IUniform>;
   private dustU!: Record<string, THREE.IUniform>;
 
@@ -134,6 +137,7 @@ export class BouwplanWorld {
 
     this.buildLights();
     this.buildSky();
+    this.buildSkyline();
     this.buildGround();
     this.buildBuilding();
     this.buildBays();
@@ -232,6 +236,49 @@ export class BouwplanWorld {
     this.scene.add(sky);
   }
 
+  private tex(src: string, onLoad?: (t: THREE.Texture) => void) {
+    return this.loader.load(src, (t) => {
+      t.colorSpace = THREE.SRGBColorSpace;
+      t.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
+      onLoad?.(t);
+    });
+  }
+
+  /**
+   * A photographed Flemish roofscape at night on a ring far outside the
+   * building, mirrored three times round. It warms with the dawn.
+   */
+  private buildSkyline() {
+    const map = this.tex("/bouwplan/img/skyline.jpg", () => (this.skylineU.uOn.value = 1));
+    map.wrapS = THREE.MirroredRepeatWrapping;
+    this.skylineU = { uMap: { value: map }, uDawn: { value: 0 }, uOn: { value: 0 } };
+    const r = 150;
+    const h = (Math.PI * 2 * r) / 3 / (2560 / 1097);
+    const mat = new THREE.ShaderMaterial({
+      uniforms: this.skylineU,
+      side: THREE.BackSide,
+      depthWrite: false,
+      vertexShader: WORLD_VERT,
+      fragmentShader: /* glsl */ `
+        uniform sampler2D uMap;
+        uniform float uDawn, uOn;
+        varying vec2 vUv;
+        void main() {
+          vec3 c = texture2D(uMap, vec2(vUv.x * 3.0, vUv.y)).rgb;
+          float sky = smoothstep(0.34, 0.62, vUv.y);
+          vec3 dawn = c * vec3(1.9, 1.4, 1.0) + vec3(0.32, 0.14, 0.04) * sky * (1.15 - vUv.y);
+          c = mix(c * 0.85, dawn, uDawn) * uOn;
+          gl_FragColor = vec4(c, 1.0);
+          ${OUT_GLSL}
+        }`,
+    });
+    const ring = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, 96, 1, true), mat);
+    // The roofline sits about a third of the way up the photograph.
+    ring.position.set(0, 3 - h * 0.36 + h / 2, -20);
+    ring.renderOrder = -1;
+    this.scene.add(ring);
+  }
+
   private buildGround() {
     const pools = Array.from({ length: 6 }, () => new THREE.Vector4(0, 0, 1, 0));
     this.groundU = {
@@ -241,14 +288,21 @@ export class BouwplanWorld {
       uWarm: { value: new THREE.Color(HEX.goldLight) },
       uPools: { value: pools },
       uDawn: { value: 0 },
+      uDetail: { value: null },
+      uDetailOn: { value: 0 },
     };
+    const detail = this.loader.load("/bouwplan/img/concrete-detail.jpg", () => (this.groundU.uDetailOn.value = 1));
+    detail.wrapS = detail.wrapT = THREE.MirroredRepeatWrapping;
+    detail.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
+    this.groundU.uDetail.value = detail;
     const mat = new THREE.ShaderMaterial({
       uniforms: this.groundU,
       vertexShader: WORLD_VERT,
       fragmentShader: /* glsl */ `
         ${FOG_GLSL}
         uniform vec3 uFloor, uLine, uWarm;
-        uniform float uDawn;
+        uniform float uDawn, uDetailOn;
+        uniform sampler2D uDetail;
         uniform vec4 uPools[6];
         varying vec3 vW;
         float grid(vec2 p, float s) {
@@ -267,7 +321,9 @@ export class BouwplanWorld {
             pools += exp(-dot(d, d) / (uPools[i].z * uPools[i].z)) * uPools[i].w;
           }
           float light = 0.42 + pools + uDawn * 0.6;
-          vec3 col = uFloor * light + uLine * g * (0.25 + pools * 0.6 + uDawn * 0.4);
+          // Photographed concrete, high-passed so only its texture remains.
+          float det = (texture2D(uDetail, p * 0.2).r - 0.5) * uDetailOn;
+          vec3 col = uFloor * light * (1.0 + det * 1.1) + uLine * g * (0.25 + pools * 0.6 + uDawn * 0.4);
           col += uWarm * pools * 0.05;
           col += (hash(floor(p * 60.0)) - 0.5) * 0.012 * light;
           col = mix(col, uFogColor, fogFactor(vW));
@@ -379,7 +435,7 @@ export class BouwplanWorld {
 
   private deskMats() {
     return {
-      wood: new THREE.MeshStandardMaterial({ color: 0x2e1f15, roughness: 0.5, metalness: 0.05 }),
+      wood: new THREE.MeshStandardMaterial({ map: this.tex("/bouwplan/img/walnut.jpg"), roughness: 0.42, metalness: 0.05 }),
       steel: new THREE.MeshStandardMaterial({ color: 0x141210, roughness: 0.35, metalness: 0.8 }),
       alu: new THREE.MeshStandardMaterial({ color: 0x3b3834, roughness: 0.3, metalness: 0.85 }),
       glassBlack: new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.12, metalness: 0.4 }),
@@ -528,6 +584,13 @@ export class BouwplanWorld {
     this.scene.add(book);
 
     this.lamp(new THREE.Vector3(STUDIO.x - 0.74, top, STUDIO.z - 0.08), m, 0.9, 1.15);
+
+    // The studio around the desk: a photograph, far out of focus, that
+    // dissolves as the camera rises towards the gallery.
+    this.backdrop = new THREE.MeshBasicMaterial({ map: this.tex("/bouwplan/img/studio.jpg"), transparent: true, depthWrite: false, fog: false });
+    const wall = new THREE.Mesh(new THREE.PlaneGeometry(8, 4.5), this.backdrop);
+    wall.position.set(STUDIO.x, 1.8, STUDIO.z - 2.6);
+    this.scene.add(wall);
   }
 
   private buildOffice() {
@@ -608,15 +671,17 @@ export class BouwplanWorld {
 
   /** Camera keyframes. `close` frames are pulled back on a portrait screen. */
   private buildKeys() {
-    const K = (t: number, p: [number, number, number], q: [number, number, number], linger = 0, close = false) =>
-      this.keys.push({ t, p: new THREE.Vector3(...p), q: new THREE.Vector3(...q), linger, close });
+    const K = (t: number, p: [number, number, number], q: [number, number, number], linger = 0, close = false, pq?: [number, number, number]) =>
+      this.keys.push({ t, p: new THREE.Vector3(...p), q: new THREE.Vector3(...q), linger, close, pq: pq && new THREE.Vector3(...pq) });
+    // On a tall screen there is no room beside the laptop for the copy, so frame it centred.
+    const laptopScreen: [number, number, number] = [STUDIO.x + 0.17, 0.84, STUDIO.z - 0.17];
     const S = STUDIO, O = OFFICE;
 
     // Leg 1-2: at the studio desk, the laptop on the right of frame.
-    K(0, [S.x - 0.03, 0.99, S.z + 0.4], [S.x - 0.03, 0.84, S.z - 0.17], 0, true);
-    K(0.8, [S.x + 0.01, 0.97, S.z + 0.3], [S.x + 0.01, 0.85, S.z - 0.17], 0, true);
-    K(1.6, [S.x + 0.06, 0.94, S.z + 0.27], [S.x + 0.06, 0.872, S.z - 0.17], 0, true);
-    K(2.5, [S.x + 0.08, 0.94, S.z + 0.25], [S.x + 0.08, 0.872, S.z - 0.17], 0.2, true);
+    K(0, [S.x - 0.03, 0.99, S.z + 0.4], [S.x - 0.03, 0.84, S.z - 0.17], 0, true, laptopScreen);
+    K(0.8, [S.x + 0.01, 0.97, S.z + 0.3], [S.x + 0.01, 0.85, S.z - 0.17], 0, true, laptopScreen);
+    K(1.6, [S.x + 0.06, 0.94, S.z + 0.27], [S.x + 0.06, 0.872, S.z - 0.17], 0, true, laptopScreen);
+    K(2.5, [S.x + 0.08, 0.94, S.z + 0.25], [S.x + 0.08, 0.872, S.z - 0.17], 0.2, true, laptopScreen);
     // Pull back to take in the phone as the site goes live.
     K(3.1, [S.x - 0.2, 1.0, S.z + 0.38], [S.x - 0.24, 0.765, S.z + 0.13], 0.5, true);
     K(3.35, [S.x - 0.23, 0.97, S.z + 0.34], [S.x - 0.26, 0.762, S.z + 0.14], 0.6, true);
@@ -658,9 +723,10 @@ export class BouwplanWorld {
     const e = u * u * u * (u * (u * 6 - 15) + 10);
     u = u + (e - u) * lin;
     const p0 = k[Math.max(0, i - 1)], p3 = k[Math.min(n - 1, i + 2)];
-    const P = (key: Key) => (this.portrait && key.close ? this.tmpV.copy(key.p).sub(key.q).multiplyScalar(1.9).add(key.q).clone() : key.p);
+    const Q = (key: Key) => (this.portrait && key.pq ? key.pq : key.q);
+    const P = (key: Key) => (this.portrait && key.close ? this.tmpV.copy(key.p).sub(key.q).multiplyScalar(1.9).add(Q(key)).clone() : key.p);
     cr(P(p0), P(a), P(b), P(p3), u, this.pos);
-    cr(p0.q, a.q, b.q, p3.q, u, this.tgt);
+    cr(Q(p0), Q(a), Q(b), Q(p3), u, this.tgt);
   }
 
   update(t: number, time: number, pointer: { x: number; y: number }) {
@@ -680,8 +746,12 @@ export class BouwplanWorld {
     this.monitorGlow.intensity = monitor * 0.9;
     pools[5].set(OFFICE.x, OFFICE.z + 0.4, 2.4, 0.35 + monitor * 0.35);
 
+    this.backdrop.opacity = 1 - smooth(3.3, 3.72, t);
+    this.backdrop.visible = this.backdrop.opacity > 0.002;
+
     // Night to dawn.
     const dawn = smooth(BEAT.dawn[0], BEAT.dawn[1], t);
+    this.skylineU.uDawn.value = dawn;
     this.groundU.uDawn.value = dawn;
     this.skyU.uDawn.value = dawn;
     this.sun.intensity = dawn * 2.6;

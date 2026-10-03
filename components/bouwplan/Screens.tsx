@@ -85,9 +85,9 @@ function StatusBar({ time }: { time: string }) {
   );
 }
 
-function Notification({ app, icon, title, body, when, step }: { app: string; icon: "check" | "globe" | "cal"; title: string; body: string; when: string; step?: string }) {
+function Notification({ app, icon, title, body, when, step, thumb }: { app: string; icon: "check" | "globe" | "cal"; title: string; body: string; when: string; step?: string; thumb?: string }) {
   return (
-    <div className={s.notif} data-step={step}>
+    <div className={`${s.notif} ${thumb ? s.withThumb : ""}`} data-step={step}>
       <span className={s.appIcon} aria-hidden="true">
         {icon === "check" && <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>}
         {icon === "globe" && <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><path d="M3.5 12h17M12 3.5c2.6 2.4 2.6 14.6 0 17M12 3.5c-2.6 2.4-2.6 14.6 0 17" /></svg>}
@@ -101,6 +101,7 @@ function Notification({ app, icon, title, body, when, step }: { app: string; ico
         <p className={s.notifTitle}>{title}</p>
         <p className={s.notifBody}>{body}</p>
       </div>
+      {thumb && <img className={s.thumb} src={thumb} alt="" width={640} height={480} />}
     </div>
   );
 }
@@ -147,7 +148,7 @@ export function OfficePhoneScreen() {
           <span className={s.lockClock}>23:14</span>
         </div>
         <div className={s.stack}>
-          <Notification app="Website" icon="globe" title="Nieuwe aanvraag" body={`${LEAD.title} · ${LEAD.object}`} when="nu" />
+          <Notification app="Website" icon="globe" title="Nieuwe aanvraag" body={`${LEAD.title} · ${LEAD.object}`} when="nu" thumb={LEAD.img} />
         </div>
         <div className={s.dim} data-step={rel(s0 + 0.5, from, to)} />
       </div>
@@ -159,7 +160,7 @@ export function OfficePhoneScreen() {
           <span className={s.lockClock}>07:42</span>
         </div>
         <div className={s.stack}>
-          <Notification app="Agenda" icon="cal" title="Plaatsbezoek bevestigd" body="Vrijdag 10:00 · Villa met tuin, Herent" when="nu" />
+          <Notification app="Agenda" icon="cal" title="Plaatsbezoek bevestigd" body="Vrijdag 10:00 · Villa met tuin, Herent" when="nu" thumb={LEAD.img} />
           <Notification app="Website" icon="globe" title="Nieuwe aanvraag" body={`${LEAD.title} · ${LEAD.object}`} when="8 u." />
         </div>
       </div>
@@ -222,6 +223,7 @@ export function MonitorScreen() {
                   </h4>
                   {ci === 0 && (
                     <article className={s.lead} data-step={at(4)}>
+                      <img className={s.leadImg} src={LEAD.img} alt="" width={640} height={480} />
                       <p className={s.leadNew}>
                         <span>Nieuw · website</span>
                         <span>23:14</span>
@@ -246,9 +248,12 @@ export function MonitorScreen() {
                     .filter((k) => k.col === ci)
                     .map((k) => (
                       <article key={k.object} className={s.card} data-shift={ci === 0 ? "up" : ci === 2 ? "down" : undefined} data-step={ci === 1 ? undefined : at(4)}>
-                        <p className={s.cardKind}>{k.title}</p>
-                        <p className={s.cardObject}>{k.object}</p>
-                        <p className={s.cardMeta}>{k.meta}</p>
+                        <img className={s.cardImg} src={k.img} alt="" width={640} height={480} />
+                        <div>
+                          <p className={s.cardKind}>{k.title}</p>
+                          <p className={s.cardObject}>{k.object}</p>
+                          <p className={s.cardMeta}>{k.meta}</p>
+                        </div>
                       </article>
                     ))}
                 </section>

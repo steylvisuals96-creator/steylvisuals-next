@@ -37,6 +37,7 @@ export const CLIENTS = [
  * and the page marks it as a sample scenario on its face.
  */
 export const LEAD = {
+  img: "/bouwplan/img/villa.jpg",
   title: "Schattingsaanvraag",
   object: "Villa met tuin, Herent",
   source: "via het formulier op je site",
@@ -53,10 +54,10 @@ export const LEAD = {
 export const BOARD = {
   columns: ["Nieuw", "Gecontacteerd", "Plaatsbezoek"],
   cards: [
-    { col: 0, title: "Waardebepaling", object: "Appartement, Hasselt", meta: "2 dagen geleden" },
-    { col: 1, title: "Verkoop", object: "Rijwoning, Genk", meta: "Gebeld, terugbellen di" },
-    { col: 1, title: "Waardebepaling", object: "Halfopen, Diepenbeek", meta: "Mail beantwoord" },
-    { col: 2, title: "Verkoop", object: "Penthouse, Leuven", meta: "Ma 14:00" },
+    { col: 0, title: "Waardebepaling", object: "Appartement, Hasselt", meta: "2 dagen", img: "/bouwplan/img/hasselt.jpg" },
+    { col: 1, title: "Verkoop", object: "Rijwoning, Genk", meta: "Terugbellen di", img: "/bouwplan/img/genk.jpg" },
+    { col: 1, title: "Waardebepaling", object: "Halfopen, Diepenbeek", meta: "Gemaild", img: "/bouwplan/img/diepenbeek.jpg" },
+    { col: 2, title: "Verkoop", object: "Penthouse, Leuven", meta: "Ma 14:00", img: "/bouwplan/img/leuven.jpg" },
   ],
 };
 
