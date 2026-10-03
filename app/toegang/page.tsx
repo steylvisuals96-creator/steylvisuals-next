@@ -3,7 +3,7 @@ import Logo from "@/components/Logo";
 import AccessForm from "./AccessForm";
 
 export const metadata: Metadata = {
-  title: "Toegang — SteylVisuals",
+  title: "Toegang · SteylVisuals",
   robots: { index: false, follow: false },
 };
 
