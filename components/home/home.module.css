@@ -708,6 +708,121 @@
 }
 
 
+html:has(.root) {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:has(.root) {
+    scroll-behavior: auto;
+  }
+}
+
+.closeGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(40px, 6vw, 112px);
+  align-items: start;
+}
+
+.closeAlt {
+  margin: 28px 0 0;
+  font: 400 0.9375rem/1.6 var(--font-poppins), system-ui, sans-serif;
+  color: rgba(241, 237, 230, 0.7);
+}
+
+.form {
+  display: grid;
+  gap: 18px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field > span {
+  font: 500 0.6875rem/1 var(--font-poppins), system-ui, sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(241, 237, 230, 0.7);
+}
+
+.field em {
+  margin-left: 6px;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: rgba(241, 237, 230, 0.45);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  border: 1px solid rgba(241, 237, 230, 0.16);
+  border-radius: var(--r-sm);
+  background: rgba(26, 21, 18, 0.85);
+  color: var(--cream);
+  font: 400 1rem/1.5 var(--font-poppins), system-ui, sans-serif;
+  resize: vertical;
+  transition: border-color 160ms ease;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--gold);
+  outline: none;
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 2px;
+}
+
+/* Off-screen for people, still in the form for bots. */
+.trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.formFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 6px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.formError {
+  margin: 0;
+  font: 400 0.9375rem/1.5 var(--font-poppins), system-ui, sans-serif;
+  color: var(--gold-light);
+}
+
+.sent {
+  padding: 32px;
+  border: 1px solid rgba(201, 151, 74, 0.35);
+  border-radius: var(--r-md);
+  background: rgba(26, 21, 18, 0.6);
+}
+
 .index {
   display: flex;
   flex-wrap: wrap;
@@ -834,7 +949,8 @@
 
 @media (max-width: 900px) {
   .hero,
-  .work {
+  .work,
+  .closeGrid {
     grid-template-columns: 1fr;
   }
   .hero {
@@ -883,6 +999,9 @@
 }
 
 @media (max-width: 760px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
   .header {
     padding: 14px 16px;
   }

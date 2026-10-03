@@ -6,6 +6,7 @@ import Link from "next/link";
 import Logo from "@/components/Logo";
 import { CLIENTS, CTA, DEMO, INDEX, LEAD, MAIL, type Client } from "./content";
 import { HeroPhoneScreen, MonitorScreen, PhoneScreen } from "./Screens";
+import ContactForm from "./ContactForm";
 import s from "./home.module.css";
 
 /**
@@ -407,16 +408,19 @@ export default function Home() {
         </section>
 
         {/* Close */}
-        <section className={s.close}>
-          <Rise className={s.display} text="Klaar om jouw systeem te bouwen?" />
-          <p className={s.sub}>Stuur een bericht en ontvang binnen 24 uur een gratis voorstel op maat.</p>
-          <div className={s.actions}>
-            <Link href={CTA.href} className={s.btn}>
-              {CTA.label}
-            </Link>
-            <a className={s.textLink} href={`mailto:${MAIL}?subject=Nieuw%20project`}>
-              {MAIL}
-            </a>
+        <section className={s.close} id="contact">
+          <div className={s.closeGrid}>
+            <div className={s.closeCopy}>
+              <Rise className={s.display} text="Klaar om jouw systeem te bouwen?" />
+              <p className={s.sub}>Stuur een bericht en ontvang binnen 24 uur een gratis voorstel op maat.</p>
+              <p className={s.closeAlt}>
+                Liever mailen?{" "}
+                <a className={s.textLink} href={`mailto:${MAIL}?subject=Nieuw%20project`}>
+                  {MAIL}
+                </a>
+              </p>
+            </div>
+            <ContactForm />
           </div>
           <ul className={s.index}>
             {INDEX.map((l) => (

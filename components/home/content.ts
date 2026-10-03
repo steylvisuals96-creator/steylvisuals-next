@@ -1,6 +1,6 @@
 /** All homepage copy and the demo data, in one place. */
 
-export const CTA = { label: "Start je project", href: "/website-quiz" };
+export const CTA = { label: "Start je project", href: "/#contact" };
 export const MAIL = "steylvisuals96@gmail.com";
 
 /**
