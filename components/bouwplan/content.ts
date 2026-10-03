@@ -45,7 +45,18 @@ export const LEAD = {
     { time: "23:14:04", title: "Bevestiging verstuurd", detail: "In jouw huisstijl, met een link naar je agenda." },
     { time: "23:14:05", title: "Kaart in je CRM", detail: "Fase nieuw, bron website, toegewezen aan de juiste makelaar." },
     { time: "23:14:05", title: "Opvolging ingepland", detail: "Geen afspraak na twee dagen? Dan gaat er vanzelf een herinnering uit." },
-    { time: "07:42", title: "Afspraak in je agenda", detail: "Donderdag 10:00, plaatsbezoek. Ingepland voor je eerste koffie." },
+    { time: "07:42", title: "Afspraak in je agenda", detail: "Vrijdag 10:00, plaatsbezoek. Ingepland voor je eerste koffie." },
+  ],
+};
+
+/** Sample pipeline around the new lead, for the CRM screen. Labelled as a sample on screen. */
+export const BOARD = {
+  columns: ["Nieuw", "Gecontacteerd", "Plaatsbezoek"],
+  cards: [
+    { col: 0, title: "Waardebepaling", object: "Appartement, Hasselt", meta: "2 dagen geleden" },
+    { col: 1, title: "Verkoop", object: "Rijwoning, Genk", meta: "Gebeld, terugbellen di" },
+    { col: 1, title: "Waardebepaling", object: "Halfopen, Diepenbeek", meta: "Mail beantwoord" },
+    { col: 2, title: "Verkoop", object: "Penthouse, Leuven", meta: "Ma 14:00" },
   ],
 };
 

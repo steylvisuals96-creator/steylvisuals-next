@@ -94,9 +94,7 @@ export class BouwplanWorld {
   private bays: { g: THREE.Group; mat: THREE.MeshBasicMaterial; light: THREE.PointLight; at: number }[] = [];
   private screens = new Map<ScreenId, Screen>();
   private laptopGlow!: THREE.PointLight;
-  private studioPhoneGlow!: THREE.PointLight;
   private monitorGlow!: THREE.PointLight;
-  private officePhoneGlow!: THREE.PointLight;
   private sun!: THREE.DirectionalLight;
   private hemi!: THREE.HemisphereLight;
   private keys: Key[] = [];
@@ -409,7 +407,8 @@ export class BouwplanWorld {
     return g;
   }
 
-  private lamp(at: THREE.Vector3, m: ReturnType<BouwplanWorld["deskMats"]>, intensity: number) {
+  private lamp(at: THREE.Vector3, m: ReturnType<BouwplanWorld["deskMats"]>, intensity: number, yaw = 0) {
+    // intensity 0: a lamp that is switched off, with no light in the scene.
     const g = new THREE.Group();
     const base = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.075, 0.015, 32), m.brass);
     base.position.y = 0.0075;
@@ -426,8 +425,10 @@ export class BouwplanWorld {
     bulb.position.set(0.26, 0.37, 0);
     const light = new THREE.PointLight(0xffd9a3, intensity, 3.5, 2);
     light.position.set(0.26, 0.34, 0);
-    g.add(base, pole, arm, shade, bulb, light);
+    g.add(base, pole, arm, shade, bulb);
+    if (intensity > 0) g.add(light);
     g.position.copy(at);
+    g.rotation.y = yaw;
     this.scene.add(g);
     return g;
   }
@@ -495,9 +496,6 @@ export class BouwplanWorld {
     this.scene.add(this.laptopGlow);
 
     this.phone(new THREE.Vector3(STUDIO.x - 0.27, top, STUDIO.z + 0.15), 0.22, "studioPhone", -1, BEAT.studioOut, m);
-    this.studioPhoneGlow = new THREE.PointLight(0xfff4e6, 0, 0.8, 2);
-    this.studioPhoneGlow.position.set(STUDIO.x - 0.27, top + 0.08, STUDIO.z + 0.15);
-    this.scene.add(this.studioPhoneGlow);
 
     // A mug and a notebook, so the desk belongs to someone.
     const mug = new THREE.Group();
@@ -529,7 +527,7 @@ export class BouwplanWorld {
     book.rotation.y = -0.18;
     this.scene.add(book);
 
-    this.lamp(new THREE.Vector3(STUDIO.x - 0.72, top, STUDIO.z - 0.22), m, 0.9);
+    this.lamp(new THREE.Vector3(STUDIO.x - 0.74, top, STUDIO.z - 0.08), m, 0.9, 1.15);
   }
 
   private buildOffice() {
@@ -558,11 +556,8 @@ export class BouwplanWorld {
     this.scene.add(this.monitorGlow);
 
     this.phone(new THREE.Vector3(OFFICE.x + 0.42, top, OFFICE.z + 0.18), -0.16, "officePhone", BEAT.officeIn, BEAT.officeOut, m);
-    this.officePhoneGlow = new THREE.PointLight(0xfff4e6, 0, 0.9, 2);
-    this.officePhoneGlow.position.set(OFFICE.x + 0.42, top + 0.09, OFFICE.z + 0.18);
-    this.scene.add(this.officePhoneGlow);
 
-    this.lamp(new THREE.Vector3(OFFICE.x - 0.66, top, OFFICE.z - 0.18), m, 0.5);
+    this.lamp(new THREE.Vector3(OFFICE.x - 0.66, top, OFFICE.z - 0.18), m, 0);
   }
 
   private buildDust() {
@@ -620,11 +615,11 @@ export class BouwplanWorld {
     // Leg 1-2: at the studio desk, the laptop on the right of frame.
     K(0, [S.x - 0.03, 0.99, S.z + 0.4], [S.x - 0.03, 0.84, S.z - 0.17], 0, true);
     K(0.8, [S.x + 0.01, 0.97, S.z + 0.3], [S.x + 0.01, 0.85, S.z - 0.17], 0, true);
-    K(1.6, [S.x + 0.05, 0.95, S.z + 0.21], [S.x + 0.05, 0.855, S.z - 0.17], 0, true);
-    K(2.5, [S.x + 0.07, 0.955, S.z + 0.18], [S.x + 0.07, 0.855, S.z - 0.17], 0.2, true);
+    K(1.6, [S.x + 0.06, 0.94, S.z + 0.27], [S.x + 0.06, 0.872, S.z - 0.17], 0, true);
+    K(2.5, [S.x + 0.08, 0.94, S.z + 0.25], [S.x + 0.08, 0.872, S.z - 0.17], 0.2, true);
     // Pull back to take in the phone as the site goes live.
-    K(3.1, [S.x - 0.05, 1.2, S.z + 0.55], [S.x - 0.13, 0.78, S.z - 0.03], 0.5, true);
-    K(3.35, [S.x - 0.09, 1.18, S.z + 0.5], [S.x - 0.17, 0.77, S.z], 0.6, true);
+    K(3.1, [S.x - 0.2, 1.0, S.z + 0.38], [S.x - 0.24, 0.765, S.z + 0.13], 0.5, true);
+    K(3.35, [S.x - 0.23, 0.97, S.z + 0.34], [S.x - 0.26, 0.762, S.z + 0.14], 0.6, true);
     // Up and into the building.
     K(3.8, [0.2, 2.0, 3.0], [0, 2.2, -6], 0.3);
     // Leg 3: hold on each room, standing on the far side of the nave.
@@ -635,16 +630,16 @@ export class BouwplanWorld {
     K(6.4, [0, 1.8, -27.4], [0, 1.0, O.z], 0.4);
     K(7.0, [0.15, 1.45, -32.6], [0.15, 0.95, O.z], 0.3);
     // The phone lights up.
-    K(7.38, [O.x + 0.46, 1.05, O.z + 0.48], [O.x + 0.42, 0.755, O.z + 0.17], 0.6, true);
+    K(7.38, [O.x + 0.45, 0.99, O.z + 0.4], [O.x + 0.42, 0.755, O.z + 0.17], 0.6, true);
     // The screen comes on; hold while the steps run.
-    K(7.9, [O.x + 0.06, 1.15, O.z + 0.6], [O.x - 0.13, 1.12, O.z - 0.22], 0.4, true);
-    K(8.6, [O.x + 0.08, 1.14, O.z + 0.63], [O.x - 0.12, 1.12, O.z - 0.22], 0.3, true);
-    K(9.2, [O.x + 0.1, 1.15, O.z + 0.6], [O.x - 0.11, 1.12, O.z - 0.22], 0.3, true);
+    K(7.9, [O.x + 0.01, 1.135, O.z + 0.31], [O.x, 1.13, O.z - 0.22], 0.4, true);
+    K(8.6, [O.x + 0.02, 1.135, O.z + 0.3], [O.x, 1.13, O.z - 0.22], 0.3, true);
+    K(9.55, [O.x + 0.03, 1.135, O.z + 0.31], [O.x, 1.13, O.z - 0.22], 0.4, true);
     // 07:42: back to the phone.
-    K(9.55, [O.x + 0.46, 1.05, O.z + 0.5], [O.x + 0.42, 0.755, O.z + 0.17], 0.5, true);
-    K(9.9, [1.6, 2.4, -33.0], [0.2, 1.0, O.z], 0.2);
+    K(9.82, [O.x + 0.45, 0.99, O.z + 0.4], [O.x + 0.42, 0.755, O.z + 0.17], 0.5, true);
+    K(10.1, [1.6, 2.4, -33.0], [0.2, 1.0, O.z], 0.2);
     // Out of the top of the tower and back, to see the whole thing at dawn.
-    K(10.5, [6, 29, -25], [0, 18, -36], 0.2);
+    K(10.65, [6, 29, -25], [0, 18, -36], 0.2);
     K(11.4, [26, 14, 14], [-11, 5, -24], 0.4);
   }
 
@@ -680,13 +675,7 @@ export class BouwplanWorld {
     });
 
     // Devices.
-    const live = smooth(BEAT.phoneLive - 0.05, BEAT.phoneLive + 0.1, t);
-    this.studioPhoneGlow.intensity = live * 0.25;
     pools[0].set(STUDIO.x - 0.1, STUDIO.z, 1.5, 0.75 * (1 - smooth(3.8, 4.4, t)));
-    const notify = smooth(BEAT.stages[0] - 0.04, BEAT.stages[0] + 0.04, t);
-    const morning = smooth(BEAT.stages[4] - 0.04, BEAT.stages[4] + 0.04, t);
-    const flash = Math.max(notify * (1 - smooth(BEAT.stages[0] + 0.3, BEAT.stages[0] + 0.6, t)), morning);
-    this.officePhoneGlow.intensity = flash * 0.35;
     const monitor = smooth(BEAT.monitorOn[0], BEAT.monitorOn[1], t);
     this.monitorGlow.intensity = monitor * 0.9;
     pools[5].set(OFFICE.x, OFFICE.z + 0.4, 2.4, 0.35 + monitor * 0.35);

@@ -236,6 +236,33 @@
         ],
         "createdAt": "2026-10-03T18:39:16.017Z",
         "reason": "Claude: the 23:14 clock is the authored silence before the page's single peak (BRIEF.md), deliberately oversized"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "components/bouwplan/screens.module.css"
+        ],
+        "createdAt": "2026-10-03T18:43:02.702Z",
+        "reason": "Claude: in-world device UIs (browser chrome, phone lock screens, sample CRM) rendered at device px in the 3D scene; they depict devices, not page typography"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "components/bouwplan/screens.module.css"
+        ],
+        "createdAt": "2026-10-03T18:43:02.804Z",
+        "reason": "Claude: in-world device UIs (browser chrome, phone lock screens, sample CRM) rendered at device px in the 3D scene; they depict devices, not page typography"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          "components/bouwplan/screens.module.css"
+        ],
+        "createdAt": "2026-10-03T18:43:02.925Z",
+        "reason": "Claude: in-world device UIs (browser chrome, phone lock screens, sample CRM) rendered at device px in the 3D scene; they depict devices, not page typography"
       }
     ]
   }

@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import { LEGS, LEG_START, TOTAL, BEAT, BAYS, legAt, clamp01, smooth } from "./track";
-import { ASSEMBLY_STEPS, CLIENTS, CTA, INDEX, LEAD, MAIL } from "./content";
+import { CLIENTS, CTA, INDEX, LEAD, MAIL } from "./content";
+import { LaptopScreen, MonitorScreen, OfficePhoneScreen, StudioPhoneScreen } from "./Screens";
+import type { ScreenId } from "./world";
 import s from "./bouwplan.module.css";
 
 /**
@@ -16,7 +19,8 @@ import s from "./bouwplan.module.css";
  * Copy blocks declare `data-win="from to"` in track units, plateau-shaped so a
  * heading sits at full strength for most of its window. `data-prog="from to"`
  * writes a 0..1 `--s` for scrubbed CSS, and `data-step` children inside it
- * switch on as `--s` passes them.
+ * get `data-on` as `--s` passes them. The device screens in the 3D world are
+ * rendered here too, through portals into the containers the world creates.
  */
 
 const LERP = 0.12;
@@ -28,15 +32,15 @@ type Prog = { el: HTMLElement; from: number; to: number; steps: { el: HTMLElemen
 // Where a reduced-motion visitor's camera rests in each stretch: the posters.
 function restingT(t: number) {
   if (t < 0.8) return 0;
-  if (t < LEG_START[1]) return BEAT.draw[1];
-  if (t < LEG_START[2]) return t < 2.7 ? 2.5 : 3.6;
+  if (t < LEG_START[1]) return 1.6;
+  if (t < LEG_START[2]) return t < 2.9 ? 2.5 : 3.35;
   if (t < LEG_START[3]) {
     return BEAT.bays.reduce((best, b) => (Math.abs(b - t) < Math.abs(best - t) ? b : best), BEAT.bays[0]);
   }
-  if (t < BEAT.floorRun[0]) return 6.75;
-  if (t < LEG_START[4]) {
-    return BEAT.stages.reduce((best, b) => (b <= t + 0.05 ? b : best), BEAT.stages[0]);
-  }
+  if (t < BEAT.silence[1]) return 6.75;
+  if (t < BEAT.stages[1] - 0.2) return 7.38;
+  if (t < BEAT.stages[4] + 0.05) return 8.6;
+  if (t < LEG_START[4]) return 9.82;
   return TOTAL;
 }
 
@@ -45,6 +49,9 @@ export default function Bouwplan() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const spacerRef = useRef<HTMLDivElement>(null);
   const markerRef = useRef<SVGCircleElement>(null);
+  const cssRef = useRef<HTMLDivElement>(null);
+  const scanRef = useRef<(extra?: HTMLElement[]) => void>(() => {});
+  const [hosts, setHosts] = useState<Record<ScreenId, HTMLElement> | null>(null);
 
   useEffect(() => {
     const root = rootRef.current!;
@@ -67,18 +74,31 @@ export default function Bouwplan() {
       world?.resize(canvas.clientWidth, canvas.clientHeight);
     };
 
-    const wins: Win[] = [...root.querySelectorAll<HTMLElement>("[data-win]")].map((el) => {
-      const v = el.dataset.win!;
-      if (v === "hero") return { el, from: -1, to: 1.2, hero: true, finale: false };
-      if (v === "finale") return { el, from: Number(el.dataset.from ?? 10.4), to: Infinity, hero: false, finale: true };
-      const [from, to] = v.split(" ").map(Number);
-      return { el, from, to, hero: false, finale: false };
-    });
-    const progs: Prog[] = [...root.querySelectorAll<HTMLElement>("[data-prog]")].map((el) => {
-      const [from, to] = el.dataset.prog!.split(" ").map(Number);
-      const steps = [...el.querySelectorAll<HTMLElement>("[data-step]")].map((st) => ({ el: st, at: Number(st.dataset.step) }));
-      return { el, from, to, steps };
-    });
+    let wins: Win[] = [];
+    let progs: Prog[] = [];
+    // Run again once the device screens have been portalled into the world.
+    // The world only attaches a screen to the document once it is first in
+    // view, so the screen containers are searched directly as well.
+    const scan = (extra: HTMLElement[] = []) => {
+      const all = (sel: string) => [...new Set([root, ...extra].flatMap((r) => [...r.querySelectorAll<HTMLElement>(sel)]))];
+      wins = all("[data-win]").map((el) => {
+        const v = el.dataset.win!;
+        if (v === "hero") return { el, from: -1, to: 1.2, hero: true, finale: false };
+        if (v === "finale") return { el, from: Number(el.dataset.from ?? 10.4), to: Infinity, hero: false, finale: true };
+        const [from, to] = v.split(" ").map(Number);
+        return { el, from, to, hero: false, finale: false };
+      });
+      progs = all("[data-prog]").map((el) => {
+        const [from, to] = el.dataset.prog!.split(" ").map(Number);
+        // A step belongs to its nearest scrubbed ancestor only.
+        const steps = [...el.querySelectorAll<HTMLElement>("[data-step]")]
+          .filter((st) => st.parentElement?.closest("[data-prog]") === el)
+          .map((st) => ({ el: st, at: Number(st.dataset.step) }));
+        return { el, from, to, steps };
+      });
+    };
+    scan();
+    scanRef.current = scan;
     const leadCard = root.querySelector<HTMLElement>("[data-lead-card]");
     const legButtons = [...root.querySelectorAll<HTMLElement>("[data-leg]")];
 
@@ -88,9 +108,10 @@ export default function Bouwplan() {
       .then(({ BouwplanWorld }) => {
         if (disposed) return;
         try {
-          world = new BouwplanWorld(canvas, { mobile, reduced });
+          world = new BouwplanWorld(canvas, cssRef.current!, { mobile, reduced });
           world.resize(canvas.clientWidth, canvas.clientHeight);
           root.dataset.gl = "on";
+          setHosts(world.screenHosts());
         } catch {
           root.dataset.gl = "off";
         }
@@ -139,7 +160,7 @@ export default function Bouwplan() {
       for (const p of progs) {
         const v = clamp01((cur - p.from) / (p.to - p.from));
         p.el.style.setProperty("--s", v.toFixed(4));
-        for (const st of p.steps) st.el.classList.toggle(s.on, v >= st.at);
+        for (const st of p.steps) st.el.toggleAttribute("data-on", v >= st.at);
       }
       if (leadCard) {
         let k = -1;
@@ -196,6 +217,10 @@ export default function Bouwplan() {
     };
   }, []);
 
+  useEffect(() => {
+    if (hosts) scanRef.current(Object.values(hosts));
+  }, [hosts]);
+
   const goTo = (i: number) => {
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const vh = document.documentElement.clientHeight;
@@ -204,9 +229,10 @@ export default function Bouwplan() {
   };
 
   return (
-    <div ref={rootRef} className={s.root} data-leg="plan">
+    <div ref={rootRef} className={s.root} data-leg="ontwerp">
       <div className={s.stage} aria-hidden="true">
         <canvas ref={canvasRef} className={s.canvas} />
+        <div ref={cssRef} className={s.css3d} />
         <div className={s.grain} />
       </div>
 
@@ -225,7 +251,8 @@ export default function Bouwplan() {
               </g>
             ))}
             <ellipse cx={(26 + 36) * 2} cy={17 * 1.2} rx={5.5 * 2} ry={5.5 * 1.2} className={s.mapWall} />
-            <line x1={(26 - 2) * 2} x2={(26 + 32) * 2} y1={17 * 1.2} y2={17 * 1.2} className={s.mapThread} />
+            <rect x={(26 - 6.55) * 2} y={(0.55 - 0.85 + 17) * 1.2} width={0.8 * 2} height={1.7 * 1.2} className={s.mapDesk} />
+            <rect x={(26 + 35.75) * 2} y={(-0.75 + 17) * 1.2} width={0.7 * 2} height={1.5 * 1.2} className={s.mapDesk} />
             <circle ref={markerRef} r="2.6" cx="2" cy={(2.6 + 17) * 1.2} className={s.mapMarker} />
           </svg>
           <ol className={s.legs}>
@@ -249,7 +276,7 @@ export default function Bouwplan() {
       </header>
 
       <main className={s.copy}>
-        {/* Leg 1: the plan */}
+        {/* Leg 1: the desk */}
         <section className={`${s.win} ${s.lead}`} data-win="hero">
           <div className={`${s.scrim} ${s.scrimLead}`} />
           <div className={s.block}>
@@ -268,7 +295,7 @@ export default function Bouwplan() {
           </div>
         </section>
 
-        {/* Leg 2: it builds itself */}
+        {/* Leg 2: the laptop builds it */}
         <section className={`${s.win} ${s.lead} ${s.low}`} data-win="1.85 3.75">
           <div className={`${s.scrim} ${s.scrimLead}`} />
           <div className={s.block}>
@@ -278,54 +305,6 @@ export default function Bouwplan() {
             </p>
           </div>
         </section>
-
-        <figure
-          className={`${s.win} ${s.assembly}`}
-          data-win="1.8 3.85"
-          data-prog={`${BEAT.assembly[0]} ${BEAT.assembly[1]}`}
-          aria-label="Een site die zichzelf opbouwt: van plan tot live"
-        >
-          <div className={s.frame}>
-            <div className={s.bar}>
-              <span>specified-website.vercel.app</span>
-              <span className={s.status} data-step="0.86">
-                Live
-              </span>
-            </div>
-            <div className={s.screen}>
-              <div className={s.aGrid}>
-                {["A", "B", "C", "D"].map((c) => (
-                  <span key={c}>{c}</span>
-                ))}
-              </div>
-              <div className={s.aWire}>
-                <i style={{ "--i": 0 } as React.CSSProperties} />
-                <i style={{ "--i": 1 } as React.CSSProperties} />
-                <i style={{ "--i": 2 } as React.CSSProperties} />
-                <i style={{ "--i": 3 } as React.CSSProperties} />
-                <i style={{ "--i": 4 } as React.CSSProperties} />
-              </div>
-              <div className={s.aColor} />
-              <div className={s.aType}>
-                <span className={s.aLogo}>SPECIFIED</span>
-                <span className={s.aTitle}>SPECIFIED</span>
-                <span className={s.aLine}>Engineering consultancy uit Antwerpen: onze eigen consultants versterken jouw projecten.</span>
-              </div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className={s.aLive} src="/bouwplan/sites/specified.jpg" alt="De echte homepage van Specified" width={1440} height={900} />
-              <div className={s.aEdge} />
-            </div>
-          </div>
-          <figcaption>
-            <ol className={s.steps}>
-              {ASSEMBLY_STEPS.map((st, i) => (
-                <li key={st} data-step={(i * 0.21).toFixed(2)}>
-                  {st}
-                </li>
-              ))}
-            </ol>
-          </figcaption>
-        </figure>
 
         {/* Leg 3: the rooms */}
         {CLIENTS.map((c, i) => {
@@ -347,7 +326,7 @@ export default function Bouwplan() {
         })}
 
         {/* Leg 4: the silence, then the lead */}
-        <section className={`${s.win} ${s.center}`} data-win={`${BEAT.silence[0] + 0.02} ${BEAT.floorRun[0] + 0.12}`}>
+        <section className={`${s.win} ${s.center}`} data-win={`${BEAT.silence[0] + 0.02} ${BEAT.silence[1] + 0.1}`}>
           <div className={`${s.scrim} ${s.scrimCenter}`} />
           <div className={s.block}>
             <p className={s.clockBig}>23:14.</p>
@@ -355,7 +334,7 @@ export default function Bouwplan() {
           </div>
         </section>
 
-        <section className={`${s.win} ${s.lead} ${s.low}`} data-win={`${BEAT.floorRun[0] + 0.1} ${BEAT.climb[1] + 0.2}`}>
+        <section className={`${s.win} ${s.lead} ${s.low}`} data-win={`${BEAT.silence[1] + 0.06} ${BEAT.stages[1] - 0.12}`}>
           <div className={`${s.scrim} ${s.scrimLead}`} />
           <div className={`${s.block} ${s.narrow}`}>
             <h2 className={s.headline}>Terwijl jij slaapt, volgt je website op.</h2>
@@ -367,7 +346,7 @@ export default function Bouwplan() {
 
         <section
           className={`${s.win} ${s.flow}`}
-          data-win={`${BEAT.floorRun[0]} ${BEAT.climb[1] + 0.3}`}
+          data-win={`${BEAT.stages[0] - 0.05} ${BEAT.stages[4] + 0.3}`}
           data-prog={`${BEAT.stages[0] - 0.01} ${BEAT.stages[4] + 0.01}`}
           aria-label="Voorbeeldscenario: een aanvraag die vanzelf een afspraak wordt"
         >
@@ -406,7 +385,7 @@ export default function Bouwplan() {
         </section>
 
         {/* Leg 5: morning */}
-        <section className={`${s.win} ${s.lead} ${s.finale}`} data-win="finale" data-from="10.35">
+        <section className={`${s.win} ${s.lead} ${s.finale}`} data-win="finale" data-from="10.5">
           <div className={`${s.scrim} ${s.scrimLead}`} />
           <div className={s.block}>
             <h2 className={s.display}>Klaar om jouw systeem te bouwen?</h2>
@@ -432,6 +411,15 @@ export default function Bouwplan() {
           </div>
         </section>
       </main>
+
+      {hosts && (
+        <>
+          {createPortal(<LaptopScreen />, hosts.laptop)}
+          {createPortal(<StudioPhoneScreen />, hosts.studioPhone)}
+          {createPortal(<MonitorScreen />, hosts.monitor)}
+          {createPortal(<OfficePhoneScreen />, hosts.officePhone)}
+        </>
+      )}
 
       <div ref={spacerRef} className={s.spacer} style={{ height: `${(TOTAL + 1) * 100}vh` }} aria-hidden="true" />
     </div>

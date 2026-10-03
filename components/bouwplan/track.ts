@@ -31,7 +31,7 @@ export function legAt(t: number): number {
 
 /** Beats inside the legs, in the same units. */
 export const BEAT = {
-  assembly: [0.1, 3.05] as const, // the laptop builds the site: plan, wireframe, type, colour, live
+  assembly: [-0.45, 3.05] as const, // the laptop builds the site: plan, wireframe, type, colour, live
   phoneLive: 3.1, // the phone on the desk lights up with the mobile site
   studioOut: 4.4, // the studio desk is behind us from here
   bays: [4.2, 4.8, 5.4, 6.0], // the camera holds on each client room
@@ -39,7 +39,7 @@ export const BEAT = {
   silence: [6.4, 7.0] as const, // 23:14, nothing moves
   stages: [7.12, 7.95, 8.45, 8.95, 9.45], // aanvraag, mail, CRM, opvolging, afspraak
   monitorOn: [7.55, 7.75] as const,
-  officeOut: 10.2,
+  officeOut: 10.45,
   dawn: [9.4, 10.8] as const,
 };
 

@@ -34,6 +34,14 @@
   height: 100%;
 }
 
+/* The CSS3D layer: real HTML device screens, moved by the same camera. */
+.css3d {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
 .root[data-gl="off"] .canvas {
   display: none;
 }
@@ -97,11 +105,9 @@
   stroke-width: 0.9;
 }
 
-.mapThread {
-  stroke: var(--gold-light);
-  stroke-width: 0.6;
-  stroke-dasharray: 2 2;
-  opacity: 0.6;
+.mapDesk {
+  fill: var(--gold-light);
+  opacity: 0.8;
 }
 
 .mapMarker {
@@ -346,169 +352,6 @@
   border-radius: var(--r-sm);
 }
 
-/* ----------------------------------------------- the site that builds itself */
-
-.assembly {
-  right: var(--gutter);
-  top: 15vh;
-  width: min(48vw, 680px);
-}
-
-.frame {
-  overflow: hidden;
-  border: 1px solid rgba(241, 237, 230, 0.16);
-  border-radius: var(--r-md);
-  background: #0f0c0a;
-  box-shadow:
-    inset 0 1px 0 rgba(241, 237, 230, 0.06),
-    0 40px 90px -30px rgba(0, 0, 0, 0.85),
-    0 12px 30px -12px rgba(13, 11, 9, 0.9);
-}
-
-.bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 14px;
-  border-bottom: 1px solid var(--hair);
-  font: 400 0.6875rem/1 var(--font-poppins), system-ui, sans-serif;
-  letter-spacing: 0.02em;
-  color: rgba(241, 237, 230, 0.55);
-}
-
-.status {
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold-light);
-  opacity: 0;
-  transition: opacity 200ms var(--ease);
-}
-
-.status.on {
-  opacity: 1;
-}
-
-.screen {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  container-type: inline-size;
-  background: #0d0b09;
-}
-
-.screen > * {
-  position: absolute;
-  inset: 0;
-}
-
-/* 1. the plan */
-.aGrid {
-  background:
-    linear-gradient(rgba(201, 151, 74, 0.2) 1px, transparent 1px) 0 0 / 100% 12.5%,
-    linear-gradient(90deg, rgba(201, 151, 74, 0.2) 1px, transparent 1px) 0 0 / 10% 100%;
-  clip-path: inset(0 0 calc((1 - clamp(0, var(--s) * 6, 1)) * 100%) 0);
-  display: flex;
-  justify-content: space-around;
-  padding-top: 1.2cqw;
-  font: 500 1.1cqw/1 var(--font-poppins), system-ui, sans-serif;
-  color: rgba(230, 200, 148, 0.7);
-}
-
-/* 2. wireframe */
-.aWire i {
-  position: absolute;
-  border: 1px dashed rgba(230, 200, 148, 0.65);
-  opacity: calc(clamp(0, (var(--s) - 0.2 - var(--i) * 0.035) * 14, 1) * (1 - clamp(0, (var(--s) - 0.66) * 10, 1)));
-}
-
-.aWire i:nth-child(1) { top: 5%; left: 4%; width: 92%; height: 7%; }
-.aWire i:nth-child(2) { top: 31%; left: 16%; width: 68%; height: 26%; }
-.aWire i:nth-child(3) { top: 64%; left: 24%; width: 52%; height: 4%; }
-.aWire i:nth-child(4) { top: 71%; left: 33%; width: 34%; height: 4%; }
-.aWire i:nth-child(5) { top: 82%; left: 42%; width: 16%; height: 6%; }
-
-/* 3. colour (the client's own ground) */
-.aColor {
-  background:
-    linear-gradient(rgba(241, 237, 230, 0.05) 1px, transparent 1px) 0 0 / 100% 12.5%,
-    linear-gradient(90deg, rgba(241, 237, 230, 0.05) 1px, transparent 1px) 0 0 / 10% 100%,
-    #1b1a15;
-  opacity: clamp(0, (var(--s) - 0.62) * 9, 1);
-}
-
-/* 4. type, tracking in from wide to set */
-.aType {
-  opacity: clamp(0, (var(--s) - 0.42) * 9, 1);
-  color: #ece8df;
-}
-
-.aLogo {
-  position: absolute;
-  top: 6.4%;
-  left: 5%;
-  font: 700 1.5cqw/1 "Arial Narrow", "Roboto Condensed", var(--font-poppins), sans-serif;
-  font-stretch: condensed;
-  letter-spacing: 0.08em;
-}
-
-.aTitle {
-  position: absolute;
-  top: 44.5%;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font: 700 11.6cqw/1 "Arial Narrow", "Roboto Condensed", var(--font-poppins), sans-serif;
-  font-stretch: condensed;
-  letter-spacing: calc(0.02em + (1 - clamp(0, (var(--s) - 0.42) * 4, 1)) * 0.22em);
-}
-
-.aLine {
-  position: absolute;
-  top: 87%;
-  left: 18%;
-  right: 18%;
-  text-align: center;
-  font: 500 1.45cqw/1.5 var(--font-poppins), sans-serif;
-}
-
-/* 5. the real thing, wiped in, with the pen still on its edge */
-.aLive {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  clip-path: inset(0 calc((1 - clamp(0, (var(--s) - 0.84) * 7, 1)) * 100%) 0 0);
-}
-
-.aEdge {
-  inset: 0 auto 0 0 !important;
-  width: 2px;
-  background: var(--gold-light);
-  transform: translateX(calc(clamp(0, (var(--s) - 0.84) * 7, 1) * 100cqw));
-  opacity: calc(clamp(0, (var(--s) - 0.84) * 40, 1) * (1 - clamp(0, (var(--s) - 0.97) * 40, 1)));
-}
-
-.steps {
-  display: flex;
-  justify-content: space-between;
-  margin: 18px 2px 0;
-  padding: 0;
-  list-style: none;
-  font: 500 0.6875rem/1 var(--font-poppins), system-ui, sans-serif;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(241, 237, 230, 0.35);
-}
-
-.steps li {
-  transition: color 200ms var(--ease);
-}
-
-.steps li.on {
-  color: var(--gold-light);
-}
-
 /* ------------------------------------------------------- the lead, the peak */
 
 .clockBig {
@@ -566,11 +409,11 @@
   transition: opacity 240ms var(--ease);
 }
 
-.morning.on {
+.morning[data-on] {
   opacity: 1;
 }
 
-.flowClock:has(.morning.on) .night {
+.flowClock:has(.morning[data-on]) .night {
   opacity: 0;
 }
 
@@ -611,7 +454,7 @@
   transition: opacity 220ms var(--ease);
 }
 
-.flowSteps li.on {
+.flowSteps li[data-on] {
   opacity: 1;
 }
 
@@ -646,6 +489,18 @@
   opacity: clamp(0, calc(var(--k) + 1), 1);
   transform: translateY(calc(max(var(--k), 0) * var(--row)));
   will-change: transform;
+}
+
+/* On a wide screen the monitor in the world carries this; keep it for screen readers. */
+@media (min-width: 761px) {
+  .flow {
+    width: 1px !important;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    border: 0;
+  }
 }
 
 /* --------------------------------------------------------------- finale */
@@ -726,15 +581,6 @@
   }
   .sub {
     font-size: 1rem;
-  }
-  .assembly {
-    left: 16px;
-    right: 16px;
-    top: 11vh;
-    width: auto;
-  }
-  .steps {
-    letter-spacing: 0.06em;
   }
   .flow {
     left: 16px;
