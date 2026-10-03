@@ -3,7 +3,16 @@
 export const CTA = { label: "Start je project", href: "/website-quiz" };
 export const MAIL = "steylvisuals96@gmail.com";
 
-export const ASSEMBLY_STEPS = ["Plan", "Wireframe", "Typografie", "Kleur", "Live"];
+/**
+ * The CRM demo runs on its own little timeline, in arbitrary units. The pinned
+ * section maps its scroll progress onto it (see Home.tsx), and every screen
+ * state is placed on it here, so phone, monitor and step list stay in step.
+ */
+export const DEMO = {
+  span: [7.0, 9.7] as const,
+  monitorOn: [7.55, 7.75] as const,
+  stages: [7.12, 7.95, 8.45, 8.95, 9.45],
+};
 
 export const CLIENTS = [
   {
@@ -11,24 +20,32 @@ export const CLIENTS = [
     name: "Specified",
     text: "Engineering consultancy uit Antwerpen. Site en eigen CMS: vacatures plaatsen en aanpassen zonder één regel code.",
     href: "https://specified-website.vercel.app/",
+    shot: "/home/sites/specified.jpg",
+    domain: "specified-website.vercel.app",
   },
   {
     id: "lamartine",
     name: "La Martine",
     text: "Biologisch wijndomein in Limoux. Een drietalige site met webshop en verblijven, gebouwd rond hun eigen beeld.",
     href: "https://lamartine-wine.vercel.app/nl",
+    shot: "/home/sites/lamartine.jpg",
+    domain: "lamartine-wine.vercel.app",
   },
   {
     id: "som",
     name: "SOM Vastgoed",
     text: "Makelaar in Limburg. Het aanbod komt live binnen via een koppeling met Zabun, zonder dubbel werk.",
     href: "/demo/som-vastgoed",
+    shot: "/home/sites/som.jpg",
+    domain: "som-vastgoed.vercel.app",
   },
   {
     id: "koppens",
     name: "Koppens Vastgoedmanagement",
     text: "Vastgoedbeheer in Maastricht. Een voorstel dat je niet leest maar doorscrolt, elke dienst een eigen scène.",
     href: "https://koppens-vastgoedmanagement.vercel.app/",
+    shot: "/home/sites/koppens.jpg",
+    domain: "koppens-vastgoedmanagement.vercel.app",
   },
 ];
 
@@ -37,7 +54,7 @@ export const CLIENTS = [
  * and the page marks it as a sample scenario on its face.
  */
 export const LEAD = {
-  img: "/bouwplan/img/villa.jpg",
+  img: "/home/img/villa.jpg",
   title: "Schattingsaanvraag",
   object: "Villa met tuin, Herent",
   source: "via het formulier op je site",
@@ -54,10 +71,10 @@ export const LEAD = {
 export const BOARD = {
   columns: ["Nieuw", "Gecontacteerd", "Plaatsbezoek"],
   cards: [
-    { col: 0, title: "Waardebepaling", object: "Appartement, Hasselt", meta: "2 dagen", img: "/bouwplan/img/hasselt.jpg" },
-    { col: 1, title: "Verkoop", object: "Rijwoning, Genk", meta: "Terugbellen di", img: "/bouwplan/img/genk.jpg" },
-    { col: 1, title: "Waardebepaling", object: "Halfopen, Diepenbeek", meta: "Gemaild", img: "/bouwplan/img/diepenbeek.jpg" },
-    { col: 2, title: "Verkoop", object: "Penthouse, Leuven", meta: "Ma 14:00", img: "/bouwplan/img/leuven.jpg" },
+    { col: 0, title: "Waardebepaling", object: "Appartement, Hasselt", meta: "2 dagen", img: "/home/img/hasselt.jpg" },
+    { col: 1, title: "Verkoop", object: "Rijwoning, Genk", meta: "Terugbellen di", img: "/home/img/genk.jpg" },
+    { col: 1, title: "Waardebepaling", object: "Halfopen, Diepenbeek", meta: "Gemaild", img: "/home/img/diepenbeek.jpg" },
+    { col: 2, title: "Verkoop", object: "Penthouse, Leuven", meta: "Ma 14:00", img: "/home/img/leuven.jpg" },
   ],
 };
 

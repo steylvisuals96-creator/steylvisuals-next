@@ -1,5 +1,5 @@
 import LogoSting from "@/components/LogoSting";
-import Bouwplan from "@/components/bouwplan/Bouwplan";
+import Home from "@/components/home/Home";
 
 export const metadata = {
   title: "SteylVisuals · Websites en automatisatie op maat",
@@ -8,12 +8,12 @@ export const metadata = {
   alternates: { canonical: "/" },
 };
 
-export default function Home() {
+export default function Page() {
   return (
     <>
       {/* First in the tree so the skip control is the first tab stop. */}
       <LogoSting />
-      <Bouwplan />
+      <Home />
     </>
   );
 }

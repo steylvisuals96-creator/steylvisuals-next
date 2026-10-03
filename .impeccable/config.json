@@ -205,7 +205,7 @@
         "rule": "codex-grid-background",
         "value": "*",
         "files": [
-          "components/bouwplan/bouwplan.module.css"
+          "components/home/home.module.css"
         ],
         "createdAt": "2026-10-03T18:12:31.060Z",
         "reason": "Claude: the grid is the blueprint paper itself (poster under the WebGL plan world), an actual blueprint surface"
@@ -232,7 +232,7 @@
         "rule": "design-system-font-size",
         "value": "5rem",
         "files": [
-          "components/bouwplan/bouwplan.module.css"
+          "components/home/home.module.css"
         ],
         "createdAt": "2026-10-03T18:39:16.017Z",
         "reason": "Claude: the 23:14 clock is the authored silence before the page's single peak (BRIEF.md), deliberately oversized"
@@ -241,7 +241,7 @@
         "rule": "design-system-color",
         "value": "*",
         "files": [
-          "components/bouwplan/screens.module.css"
+          "components/home/screens.module.css"
         ],
         "createdAt": "2026-10-03T18:43:02.702Z",
         "reason": "Claude: in-world device UIs (browser chrome, phone lock screens, sample CRM) rendered at device px in the 3D scene; they depict devices, not page typography"
@@ -250,7 +250,7 @@
         "rule": "design-system-font-size",
         "value": "*",
         "files": [
-          "components/bouwplan/screens.module.css"
+          "components/home/screens.module.css"
         ],
         "createdAt": "2026-10-03T18:43:02.804Z",
         "reason": "Claude: in-world device UIs (browser chrome, phone lock screens, sample CRM) rendered at device px in the 3D scene; they depict devices, not page typography"
@@ -259,10 +259,82 @@
         "rule": "design-system-radius",
         "value": "*",
         "files": [
-          "components/bouwplan/screens.module.css"
+          "components/home/screens.module.css"
         ],
         "createdAt": "2026-10-03T18:43:02.925Z",
         "reason": "Claude: in-world device UIs (browser chrome, phone lock screens, sample CRM) rendered at device px in the 3D scene; they depict devices, not page typography"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "38px",
+        "files": [
+          "components/home/home.module.css"
+        ],
+        "createdAt": "2026-10-03T19:19:40.588Z",
+        "reason": "Claude: hardware shapes of the phone body and monitor bezel mockups, not UI corners"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "30px",
+        "files": [
+          "components/home/home.module.css"
+        ],
+        "createdAt": "2026-10-03T19:19:40.689Z",
+        "reason": "Claude: hardware shapes of the phone body and monitor bezel mockups, not UI corners"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "10px",
+        "files": [
+          "components/home/home.module.css"
+        ],
+        "createdAt": "2026-10-03T19:19:40.783Z",
+        "reason": "Claude: hardware shapes of the phone body and monitor bezel mockups, not UI corners"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "components/home/home.module.css"
+        ],
+        "createdAt": "2026-10-03T19:25:16.537Z",
+        "reason": "Claude: iPhone and monitor mockup hardware (desert-titanium rim, black bezel, button shapes), not page UI colours or corners"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          "components/home/home.module.css"
+        ],
+        "createdAt": "2026-10-03T19:25:16.678Z",
+        "reason": "Claude: iPhone and monitor mockup hardware (desert-titanium rim, black bezel, button shapes), not page UI colours or corners"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "components/home/Screens.module.css"
+        ],
+        "createdAt": "2026-10-03T19:25:49.049Z",
+        "reason": "Claude: same in-world device UI file (lock screens, sample CRM) as components/home/screens.module.css; the hook resolves it with a capital S"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "components/home/Screens.module.css"
+        ],
+        "createdAt": "2026-10-03T19:25:49.127Z",
+        "reason": "Claude: same in-world device UI file (lock screens, sample CRM) as components/home/screens.module.css; the hook resolves it with a capital S"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          "components/home/Screens.module.css"
+        ],
+        "createdAt": "2026-10-03T19:25:49.203Z",
+        "reason": "Claude: same in-world device UI file (lock screens, sample CRM) as components/home/screens.module.css; the hook resolves it with a capital S"
       }
     ]
   }

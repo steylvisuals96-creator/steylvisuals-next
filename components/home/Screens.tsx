@@ -1,65 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import { BEAT } from "./track";
-import { ASSEMBLY_STEPS, BOARD, LEAD } from "./content";
+import { BOARD, DEMO, LEAD } from "./content";
 import s from "./screens.module.css";
 
 /**
- * The HTML that lives on the devices in the 3D world. Each screen is driven by
- * the same timeline as the rest of the page: `data-prog="from to"` gives it a
+ * The HTML on the device mockups. The animated ones are driven by the demo
+ * timeline (DEMO in content.ts): `data-prog="from to"` gives it a
  * 0..1 `--s`, and every `data-step` inside switches on (`data-on`) once `--s`
  * passes it. The CRM and phone states are computed from the sample data in
  * content.ts and say on their face that they are a sample.
  */
 
 const rel = (t: number, from: number, to: number) => ((t - from) / (to - from)).toFixed(3);
-
-/* ------------------------------------------------------------- laptop */
-
-export function LaptopScreen() {
-  const [a, b] = BEAT.assembly;
-  return (
-    <div className={s.laptop} data-prog={`${a} ${b}`}>
-      <div className={s.chrome}>
-        <span className={s.lights} aria-hidden="true">
-          <i />
-          <i />
-          <i />
-        </span>
-        <span className={s.url}>specified-website.vercel.app</span>
-        <span className={s.live} data-step="0.86">
-          Live
-        </span>
-      </div>
-      <div className={s.page}>
-        <div className={s.aGrid}>
-          {["A", "B", "C", "D"].map((c) => (
-            <span key={c}>{c}</span>
-          ))}
-        </div>
-        <div className={s.aWire}>
-          {[0, 1, 2, 3, 4].map((i) => (
-            <i key={i} style={{ "--i": i } as React.CSSProperties} />
-          ))}
-        </div>
-        <div className={s.aColor} />
-        <div className={s.aType}>
-          <span className={s.aLogo}>SPECIFIED</span>
-          <span className={s.aTitle}>SPECIFIED</span>
-          <span className={s.aLine}>Engineering consultancy uit Antwerpen: onze eigen consultants versterken jouw projecten.</span>
-        </div>
-        <img className={s.aLive} src="/bouwplan/sites/specified.jpg" alt="" width={1440} height={900} />
-        <div className={s.aEdge} />
-      </div>
-      <ol className={s.build}>
-        {ASSEMBLY_STEPS.map((st, i) => (
-          <li key={st} data-step={(i * 0.21).toFixed(2)}>
-            {st}
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
-}
 
 /* ------------------------------------------------------------- phones */
 
@@ -85,6 +36,21 @@ function StatusBar({ time }: { time: string }) {
   );
 }
 
+/** The bottom of an iOS lock screen: torch, camera, home indicator. */
+function LockFooter() {
+  return (
+    <div className={s.lockFooter} aria-hidden="true">
+      <span className={s.lockBtn}>
+        <svg viewBox="0 0 24 24"><path d="M8 3h8l-1 5H9zM9 8h6v12a1 1 0 01-1 1h-4a1 1 0 01-1-1zM12 12v3" /></svg>
+      </span>
+      <span className={s.lockBtn}>
+        <svg viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z" /><circle cx="12" cy="13" r="3.5" /></svg>
+      </span>
+      <span className={s.homeBar} />
+    </div>
+  );
+}
+
 function Notification({ app, icon, title, body, when, step, thumb }: { app: string; icon: "check" | "globe" | "cal"; title: string; body: string; when: string; step?: string; thumb?: string }) {
   return (
     <div className={`${s.notif} ${thumb ? s.withThumb : ""}`} data-step={step}>
@@ -106,36 +72,8 @@ function Notification({ app, icon, title, body, when, step, thumb }: { app: stri
   );
 }
 
-export function StudioPhoneScreen() {
-  const from = BEAT.phoneLive - 0.3, to = BEAT.phoneLive + 0.2;
-  return (
-    <div className={s.phone} data-prog={`${from} ${to}`}>
-      <div className={s.wall} />
-      <StatusBar time="16:08" />
-      <div className={s.lockTime}>
-        <span className={s.lockDay}>vrijdag 3 oktober</span>
-        <span className={s.lockClock}>16:08</span>
-      </div>
-      <div className={s.stack}>
-        <Notification
-          app="Deploy"
-          icon="check"
-          title="Specified staat live"
-          body="specified-website.vercel.app is bijgewerkt en online."
-          when="nu"
-          step={rel(BEAT.phoneLive - 0.1, from, to)}
-        />
-      </div>
-      <div className={s.site}>
-        <img src="/bouwplan/sites/specified-mobile.jpg" alt="" width={780} height={1688} />
-        <StatusBar time="16:08" />
-      </div>
-    </div>
-  );
-}
-
-export function OfficePhoneScreen() {
-  const [s0, , , , s4] = BEAT.stages;
+export function PhoneScreen() {
+  const [s0, , , , s4] = DEMO.stages;
   const from = s0 - 0.08, to = s4 + 0.08;
   return (
     <div className={s.phone} data-prog={`${from} ${to}`}>
@@ -150,6 +88,7 @@ export function OfficePhoneScreen() {
         <div className={s.stack}>
           <Notification app="Website" icon="globe" title="Nieuwe aanvraag" body={`${LEAD.title} · ${LEAD.object}`} when="nu" thumb={LEAD.img} />
         </div>
+        <LockFooter />
         <div className={s.dim} data-step={rel(s0 + 0.5, from, to)} />
       </div>
       <div className={s.morning} data-step={rel(s4 - 0.02, from, to)}>
@@ -163,7 +102,26 @@ export function OfficePhoneScreen() {
           <Notification app="Agenda" icon="cal" title="Plaatsbezoek bevestigd" body="Vrijdag 10:00 · Villa met tuin, Herent" when="nu" thumb={LEAD.img} />
           <Notification app="Website" icon="globe" title="Nieuwe aanvraag" body={`${LEAD.title} · ${LEAD.object}`} when="8 u." />
         </div>
+        <LockFooter />
       </div>
+    </div>
+  );
+}
+
+/** The hero's phone: the request has just come in. Static, no timeline. */
+export function HeroPhoneScreen() {
+  return (
+    <div className={s.phone}>
+      <div className={s.wall} />
+      <StatusBar time="23:14" />
+      <div className={s.lockTime}>
+        <span className={s.lockDay}>woensdag</span>
+        <span className={s.lockClock}>23:14</span>
+      </div>
+      <div className={s.stack}>
+        <Notification app="Website" icon="globe" title="Nieuwe aanvraag" body={`${LEAD.title} · ${LEAD.object}`} when="nu" thumb={LEAD.img} />
+      </div>
+      <LockFooter />
     </div>
   );
 }
@@ -171,8 +129,8 @@ export function OfficePhoneScreen() {
 /* ------------------------------------------------------------ monitor */
 
 export function MonitorScreen() {
-  const [on0, on1] = BEAT.monitorOn;
-  const st = BEAT.stages;
+  const [on0, on1] = DEMO.monitorOn;
+  const st = DEMO.stages;
   const from = st[0] - 0.01, to = st[4] + 0.05;
   const at = (i: number) => rel(st[i], from, to);
   return (
