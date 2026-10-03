@@ -227,6 +227,15 @@
         ],
         "createdAt": "2026-10-03T18:24:17.591Z",
         "reason": "Claude: internal /admin panel, Sam's standing rule (memory project_steylvisuals_inspiratie) is that DESIGN.md governs the public site, not /admin; values mirror app/admin/page.tsx"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "5rem",
+        "files": [
+          "components/bouwplan/bouwplan.module.css"
+        ],
+        "createdAt": "2026-10-03T18:39:16.017Z",
+        "reason": "Claude: the 23:14 clock is the authored silence before the page's single peak (BRIEF.md), deliberately oversized"
       }
     ]
   }
