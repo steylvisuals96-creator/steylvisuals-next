@@ -335,6 +335,33 @@
         ],
         "createdAt": "2026-10-03T19:25:49.203Z",
         "reason": "Claude: same in-world device UI file (lock screens, sample CRM) as components/home/screens.module.css; the hook resolves it with a capital S"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "components/home/Home.module.css"
+        ],
+        "createdAt": "2026-10-03T19:39:30.120Z",
+        "reason": "Claude: same file as components/home/home.module.css (hook resolves it with a capital H); iPhone/monitor mockup hardware colours and shapes"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          "components/home/Home.module.css"
+        ],
+        "createdAt": "2026-10-03T19:39:30.198Z",
+        "reason": "Claude: same file as components/home/home.module.css (hook resolves it with a capital H); iPhone/monitor mockup hardware colours and shapes"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "5rem",
+        "files": [
+          "components/home/Home.module.css"
+        ],
+        "createdAt": "2026-10-03T19:39:30.277Z",
+        "reason": "Claude: the 23:14 clock, the authored silence before the demo, deliberately oversized"
       }
     ]
   }

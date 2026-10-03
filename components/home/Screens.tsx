@@ -51,9 +51,9 @@ function LockFooter() {
   );
 }
 
-function Notification({ app, icon, title, body, when, step, thumb }: { app: string; icon: "check" | "globe" | "cal"; title: string; body: string; when: string; step?: string; thumb?: string }) {
+function Notification({ app, icon, title, body, when, step, thumb, arrive }: { app: string; icon: "check" | "globe" | "cal"; title: string; body: string; when: string; step?: string; thumb?: string; arrive?: boolean }) {
   return (
-    <div className={`${s.notif} ${thumb ? s.withThumb : ""}`} data-step={step}>
+    <div className={`${s.notif} ${thumb ? s.withThumb : ""} ${arrive ? s.arrive : ""}`} data-step={step}>
       <span className={s.appIcon} aria-hidden="true">
         {icon === "check" && <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>}
         {icon === "globe" && <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><path d="M3.5 12h17M12 3.5c2.6 2.4 2.6 14.6 0 17M12 3.5c-2.6 2.4-2.6 14.6 0 17" /></svg>}
@@ -119,7 +119,7 @@ export function HeroPhoneScreen() {
         <span className={s.lockClock}>23:14</span>
       </div>
       <div className={s.stack}>
-        <Notification app="Website" icon="globe" title="Nieuwe aanvraag" body={`${LEAD.title} · ${LEAD.object}`} when="nu" thumb={LEAD.img} />
+        <Notification app="Website" icon="globe" title="Nieuwe aanvraag" body={`${LEAD.title} · ${LEAD.object}`} when="nu" thumb={LEAD.img} arrive />
       </div>
       <LockFooter />
     </div>

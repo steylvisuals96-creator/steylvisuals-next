@@ -14,13 +14,17 @@ export const DEMO = {
   stages: [7.12, 7.95, 8.45, 8.95, 9.45],
 };
 
-export const CLIENTS = [
+export type Client = { id: string; name: string; text: string; href: string; shot: string; domain: string; tall?: string; frames?: string[] };
+
+export const CLIENTS: Client[] = [
   {
     id: "specified",
     name: "Specified",
     text: "Engineering consultancy uit Antwerpen. Site en eigen CMS: vacatures plaatsen en aanpassen zonder één regel code.",
     href: "https://specified-website.vercel.app/",
-    shot: "/home/sites/specified.jpg",
+    shot: "/home/sites/specified-f0.jpg",
+    // A scroll-driven site: shown as the frames it passes through.
+    frames: ["/home/sites/specified-f0.jpg", "/home/sites/specified-f1.jpg", "/home/sites/specified-f2.jpg", "/home/sites/specified-f3.jpg", "/home/sites/specified-f4.jpg", "/home/sites/specified-f5.jpg"],
     domain: "specified-website.vercel.app",
   },
   {
@@ -29,6 +33,7 @@ export const CLIENTS = [
     text: "Biologisch wijndomein in Limoux. Een drietalige site met webshop en verblijven, gebouwd rond hun eigen beeld.",
     href: "https://lamartine-wine.vercel.app/nl",
     shot: "/home/sites/lamartine.jpg",
+    tall: "/home/sites/lamartine-tall.jpg",
     domain: "lamartine-wine.vercel.app",
   },
   {
@@ -37,6 +42,7 @@ export const CLIENTS = [
     text: "Makelaar in Limburg. Het aanbod komt live binnen via een koppeling met Zabun, zonder dubbel werk.",
     href: "/demo/som-vastgoed",
     shot: "/home/sites/som.jpg",
+    tall: "/home/sites/som-tall.jpg",
     domain: "som-vastgoed.vercel.app",
   },
   {
@@ -45,6 +51,7 @@ export const CLIENTS = [
     text: "Vastgoedbeheer in Maastricht. Een voorstel dat je niet leest maar doorscrolt, elke dienst een eigen scène.",
     href: "https://koppens-vastgoedmanagement.vercel.app/",
     shot: "/home/sites/koppens.jpg",
+    frames: ["/home/sites/koppens-f0.jpg", "/home/sites/koppens-f1.jpg", "/home/sites/koppens-f2.jpg", "/home/sites/koppens-f3.jpg", "/home/sites/koppens-f4.jpg", "/home/sites/koppens-f5.jpg"],
     domain: "koppens-vastgoedmanagement.vercel.app",
   },
 ];

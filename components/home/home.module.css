@@ -34,6 +34,16 @@
   justify-content: space-between;
   padding: 18px var(--gutter);
   background: linear-gradient(rgba(13, 11, 9, 0.88), rgba(13, 11, 9, 0));
+  transition: transform 320ms cubic-bezier(0.23, 1, 0.32, 1), background-color 200ms ease;
+}
+
+.header[data-solid] {
+  background-color: rgba(13, 11, 9, 0.9);
+}
+
+/* Steps aside while reading down; never while it holds keyboard focus. */
+.header[data-hidden]:not(:focus-within) {
+  transform: translateY(-100%);
 }
 
 .brand {
@@ -59,6 +69,28 @@
 }
 
 /* ----------------------------------------------------------------- type */
+
+/* Headings whose words rise from behind their own line, once. */
+.word {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+  vertical-align: top;
+}
+
+.word > span {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .word > span {
+    transition: transform 900ms cubic-bezier(0.23, 1, 0.32, 1) calc(var(--i) * 45ms);
+  }
+  .root[data-anim] .rise:not([data-in]) .word > span {
+    transform: translateY(110%);
+  }
+}
 
 .display {
   margin: 0 0 24px;
@@ -124,7 +156,7 @@
   letter-spacing: 0.24em;
   text-transform: uppercase;
   text-decoration: none;
-  transition: background-color 160ms var(--ease), transform 120ms var(--ease);
+  transition: background-color 160ms ease, transform 120ms var(--ease);
 }
 
 .btn:hover {
@@ -132,7 +164,7 @@
 }
 
 .btn:active {
-  transform: translateY(1px);
+  transform: scale(0.97);
 }
 
 .textLink {
@@ -186,10 +218,33 @@
     0 12px 30px -12px rgba(13, 11, 9, 0.9);
 }
 
-.browser img {
+.viewport {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  container-type: size;
+  background: #0f0c0a;
+}
+
+.still,
+.seqFrame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.tallImg {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* Without scroll timelines a sequence simply shows its first frame. */
+.seqFrame:not(:first-child) {
+  opacity: 0;
 }
 
 .chrome {
@@ -276,6 +331,33 @@
     0 50px 100px -30px rgba(0, 0, 0, 0.9);
 }
 
+.monitorFrame {
+  position: relative;
+}
+
+/* Light the screen and the phone throw onto the desk when they come on. */
+.monitorFrame::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 100%;
+  height: 34%;
+  background: radial-gradient(ellipse 50% 60% at 50% 0%, rgba(241, 237, 230, 0.12), rgba(241, 237, 230, 0) 70%);
+  opacity: var(--mon, 0);
+  pointer-events: none;
+}
+
+.demoPhone::before {
+  content: "";
+  position: absolute;
+  inset: -18% -45%;
+  z-index: -1;
+  background: radial-gradient(ellipse 50% 45% at 50% 55%, rgba(201, 151, 74, 0.26), rgba(201, 151, 74, 0) 70%);
+  opacity: var(--wake, 0);
+  pointer-events: none;
+}
+
 .monitorFrame .fit {
   border-radius: var(--r-sm);
 }
@@ -283,30 +365,99 @@
 /* ----------------------------------------------------------------- hero */
 
 .hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   align-items: center;
   gap: clamp(32px, 5vw, 88px);
   min-height: 100svh;
   padding: 120px var(--gutter) 80px;
-  /* The studio at night, darkened under the copy and into the next section. */
+  background: var(--black);
+}
+
+/* The studio at night, darkened under the copy and into the next section. */
+.heroBg {
+  position: absolute;
+  inset: -4% 0;
+  z-index: -2;
+  background: url("/home/img/hero.jpg") 62% 50% / cover no-repeat;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background:
     linear-gradient(90deg, rgba(13, 11, 9, 0.94) 0%, rgba(13, 11, 9, 0.78) 34%, rgba(13, 11, 9, 0.2) 66%, rgba(13, 11, 9, 0.1) 100%),
-    linear-gradient(0deg, var(--black) 0%, rgba(13, 11, 9, 0) 28%),
-    url("/home/img/hero.jpg") 62% 50% / cover no-repeat,
-    var(--black);
+    linear-gradient(0deg, var(--black) 0%, rgba(13, 11, 9, 0) 28%);
 }
 
 .heroVisual {
   position: relative;
+}
+
+.tilt {
+  position: relative;
   padding-bottom: 8%;
 }
 
-.heroPhone {
+.phoneDepth {
   position: absolute;
   right: -2%;
   bottom: 0;
   width: 27%;
+}
+
+/* First load only: the window settles onto the desk, the phone follows, then
+   the request lands on it and it buzzes once. */
+@media (prefers-reduced-motion: no-preference) {
+  .heroBrowser {
+    animation: windowIn 1000ms cubic-bezier(0.23, 1, 0.32, 1) 120ms both;
+  }
+  .heroPhone {
+    animation: phoneIn 1100ms cubic-bezier(0.23, 1, 0.32, 1) 420ms both;
+  }
+  .heroPhone .iphoneRim {
+    animation: buzz 360ms linear 1.45s 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroBrowser,
+  .heroPhone {
+    animation: fadeIn 400ms ease 120ms both;
+  }
+}
+
+@keyframes windowIn {
+  from {
+    opacity: 0;
+    transform: perspective(1600px) translateY(36px) rotateX(10deg) scale(0.97);
+  }
+}
+
+@keyframes phoneIn {
+  from {
+    opacity: 0;
+    transform: translateY(90px) rotate(6deg);
+  }
+}
+
+@keyframes buzz {
+  0%, 100% { transform: none; }
+  15% { transform: translateX(-1.5px) rotate(-0.8deg); }
+  35% { transform: translateX(1.5px) rotate(0.8deg); }
+  55% { transform: translateX(-1px) rotate(-0.5deg); }
+  75% { transform: translateX(1px) rotate(0.4deg); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
 }
 
 /* ---------------------------------------------------------------- work */
@@ -325,8 +476,13 @@
   align-self: start;
 }
 
+.clientNav {
+  position: relative;
+  margin-top: 48px;
+}
+
 .clients {
-  margin: 48px 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
   border-top: 1px solid var(--hair);
@@ -337,38 +493,57 @@
 }
 
 .clients a {
-  display: grid;
-  gap: 4px;
-  padding: 18px 0;
-  color: inherit;
-  text-decoration: none;
-}
-
-.clientName {
+  display: block;
+  padding: 16px 0 16px 22px;
   font-family: var(--font-cormorant), Georgia, serif;
   font-size: 1.5rem;
   line-height: 1.15;
   color: rgba(241, 237, 230, 0.45);
-  transition: color 200ms var(--ease);
+  text-decoration: none;
+  transition: color 200ms ease;
 }
 
-.clientText {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  font: 400 0.875rem/1.6 var(--font-poppins), system-ui, sans-serif;
-  color: rgba(241, 237, 230, 0.75);
-  transition: opacity 240ms var(--ease);
-}
-
-.clients li[data-active] .clientName,
-.clients a:hover .clientName {
+.clients li[data-active] a {
   color: var(--gold-light);
 }
 
-.clients li[data-active] .clientText {
-  max-height: none;
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .clients a:hover {
+    color: var(--cream);
+  }
+}
+
+/* Slides between names, so the eye follows which site is on screen. */
+.marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 2px;
+  height: calc(1.5rem * 1.15 + 32px);
+  background: var(--gold);
+  transition: transform 460ms cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.clientDetail {
+  min-height: 5.2em;
+  margin: 20px 0 0;
+  max-width: 40ch;
+  font: 400 1rem/1.65 var(--font-poppins), system-ui, sans-serif;
+  color: rgba(241, 237, 230, 0.75);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .clientDetail {
+    animation: detailIn 360ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+}
+
+@keyframes detailIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 }
 
 .shots {
@@ -437,10 +612,29 @@
 }
 
 .steps {
+  position: relative;
   margin: 32px 0 0;
-  padding: 0;
+  padding: 0 0 0 18px;
   list-style: none;
   border-top: 1px solid var(--hair);
+}
+
+/* A rail that fills as the steps run. */
+.steps::before,
+.steps::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--hair);
+}
+
+.steps::after {
+  background: var(--gold);
+  transform: scaleY(var(--s, 0));
+  transform-origin: top;
 }
 
 .steps li {
@@ -482,10 +676,37 @@
 /* ---------------------------------------------------------------- close */
 
 .close {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 160px var(--gutter) 64px;
   border-top: 1px solid var(--hair);
-  background: radial-gradient(ellipse 50% 60% at 20% 40%, rgba(201, 151, 74, 0.12), transparent 70%);
 }
+
+/* A slow warm light that breathes behind the last screen. */
+.close::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -20vw;
+  top: -30vw;
+  width: 80vw;
+  height: 80vw;
+  background: radial-gradient(circle, rgba(201, 151, 74, 0.16), rgba(201, 151, 74, 0) 60%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .close::before {
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes drift {
+  to {
+    transform: translate3d(22vw, 10vw, 0) scale(1.15);
+  }
+}
+
 
 .index {
   display: flex;
@@ -514,6 +735,95 @@
   color: rgba(241, 237, 230, 0.5);
 }
 
+/* ---------------------------------------------------- scroll timelines */
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Hero leaves in depth: photo slowest, window, then the phone nearest. */
+    .heroBg,
+    .heroVisual,
+    .phoneDepth {
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-duration: auto;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+    .heroBg {
+      animation-name: bgOut;
+    }
+    .heroVisual {
+      animation-name: visualOut;
+    }
+    .phoneDepth {
+      animation-name: phoneOut;
+    }
+
+    /* Each client window lands as it enters, then its site scrolls inside it. */
+    .shots {
+      perspective: 1600px;
+    }
+    .shot {
+      view-timeline: --shot block;
+    }
+    .shot .browser {
+      animation: shotIn linear both;
+      animation-timeline: --shot;
+      animation-range: entry 0% entry 80%;
+    }
+    .tallImg {
+      animation: pageScroll linear both;
+      animation-timeline: --shot;
+      animation-range: cover 22% cover 78%;
+    }
+    .seqFrame:not(:first-child) {
+      animation: frameIn linear both;
+      animation-timeline: --shot;
+      animation-range: cover var(--a) cover var(--b);
+    }
+  }
+}
+
+@keyframes bgOut {
+  to {
+    transform: translateY(14%) scale(1.06);
+  }
+}
+
+@keyframes visualOut {
+  to {
+    transform: translateY(-10%);
+  }
+}
+
+@keyframes phoneOut {
+  to {
+    transform: translateY(-28%);
+  }
+}
+
+@keyframes shotIn {
+  from {
+    opacity: 0.35;
+    transform: translateY(80px) rotateX(12deg) scale(0.94);
+  }
+}
+
+@keyframes pageScroll {
+  to {
+    transform: translateY(calc(-100% + 100cqh));
+  }
+}
+
+@keyframes frameIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* --------------------------------------------------------------- narrow */
 
 @media (max-width: 1100px) {
@@ -533,7 +843,7 @@
   .workIntro {
     position: static;
   }
-  .clients {
+  .clientNav {
     display: none;
   }
   .shots {
