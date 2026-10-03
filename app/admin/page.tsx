@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import InspirationLibrary from "./InspirationLibrary";
+import AccessCodes from "./AccessCodes";
 
 const WORKER_URL = "https://steylvisuals-upload.steylvisuals96.workers.dev";
 
@@ -64,7 +65,7 @@ function Input({ label, value, onChange, multiline = false }: {
 export default function AdminPage() {
   const [token, setToken] = useState("");
   const [authed, setAuthed] = useState(false);
-  const [view, setView] = useState<"files" | "content" | "inspiration">("files");
+  const [view, setView] = useState<"files" | "content" | "inspiration" | "access">("files");
   const [folder, setFolder] = useState("images");
   const [files, setFiles] = useState<FileItem[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -237,6 +238,15 @@ export default function AdminPage() {
             <span>✏️</span> Teksten
           </button>
 
+          {/* Toegang section */}
+          <p style={{ fontSize: "0.65rem", color: "var(--cream-muted)", letterSpacing: "0.1em", textTransform: "uppercase", margin: "1rem 0 0.5rem", paddingLeft: "0.5rem" }}>Site</p>
+          <button
+            onClick={() => setView("access")}
+            style={{ display: "flex", alignItems: "center", gap: "0.6rem", width: "100%", padding: "0.6rem 0.75rem", borderRadius: "8px", border: "none", cursor: "pointer", textAlign: "left", fontSize: "0.85rem", backgroundColor: view === "access" ? "rgba(201,151,74,0.15)" : "transparent", color: view === "access" ? "var(--gold)" : "rgba(241,237,230,0.6)" }}
+          >
+            <span>🔑</span> Toegang
+          </button>
+
           {/* Inspiratie section */}
           <p style={{ fontSize: "0.65rem", color: "var(--cream-muted)", letterSpacing: "0.1em", textTransform: "uppercase", margin: "1rem 0 0.5rem", paddingLeft: "0.5rem" }}>Library</p>
           <button
@@ -308,6 +318,9 @@ export default function AdminPage() {
               </section>
             </div>
           )}
+
+          {/* TOEGANG */}
+          {view === "access" && <AccessCodes token={token} />}
 
           {/* INSPIRATIE LIBRARY */}
           {view === "inspiration" && (
