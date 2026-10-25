@@ -13,7 +13,7 @@ export default function CTA() {
           </p>
         </AnimateIn>
         <AnimateIn delay={0.1}>
-          <h2 className="mb-6" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.05, letterSpacing: 0, color: "var(--cream)" }}>
+          <h2 className="mb-6" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.05, letterSpacing: 0, color: "var(--cream)" }}>
             Vraag vandaag nog<br /><em style={{ color: "var(--cream-muted)" }}>jouw gratis Reel aan</em>
           </h2>
         </AnimateIn>

@@ -51,7 +51,7 @@ function ServiceCard({
       <div className="relative z-10">
         <p
           style={{
-            fontFamily: "var(--font-poppins)",
+            fontFamily: "var(--font-tekst)",
             fontSize: "0.6875rem",
             fontWeight: 500,
             letterSpacing: "0.26em",
@@ -65,7 +65,7 @@ function ServiceCard({
 
         <h3
           style={{
-            fontFamily: "var(--font-cormorant)",
+            fontFamily: "var(--font-kop)",
             fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
             fontWeight: 300,
             lineHeight: 1.15,
@@ -80,7 +80,7 @@ function ServiceCard({
 
         <p
           style={{
-            fontFamily: "var(--font-poppins)",
+            fontFamily: "var(--font-tekst)",
             fontSize: "1rem",
             fontWeight: 400,
             lineHeight: 1.7,
@@ -98,7 +98,7 @@ function ServiceCard({
             <li
               key={b}
               style={{
-                fontFamily: "var(--font-poppins)",
+                fontFamily: "var(--font-tekst)",
                 fontSize: "1rem",
                 color: "var(--cream-muted)",
                 borderBottom: "1px solid var(--hairline)",
@@ -114,7 +114,7 @@ function ServiceCard({
       <span
         className="service-cta relative z-10 w-fit"
         style={{
-          fontFamily: "var(--font-poppins)",
+          fontFamily: "var(--font-tekst)",
           fontSize: "0.6875rem",
           fontWeight: 500,
           letterSpacing: "0.26em",
@@ -150,7 +150,7 @@ export default function ServicesGrid() {
         >
           <p
             style={{
-              fontFamily: "var(--font-poppins)",
+              fontFamily: "var(--font-tekst)",
               fontSize: "0.6875rem",
               fontWeight: 500,
               letterSpacing: "0.26em",
@@ -163,7 +163,7 @@ export default function ServicesGrid() {
           </p>
           <h2
             style={{
-              fontFamily: "var(--font-cormorant)",
+              fontFamily: "var(--font-kop)",
               fontSize: "clamp(2.75rem, 6vw, 4.75rem)",
               fontWeight: 300,
               lineHeight: 1.05,
@@ -174,7 +174,7 @@ export default function ServicesGrid() {
           >
             Alles onder
             <br />
-            <em style={{ fontStyle: "italic" }}>één dak</em>
+            <em style={{ fontStyle: "normal" }}>één dak</em>
           </h2>
         </motion.div>
 
@@ -211,9 +211,9 @@ export default function ServicesGrid() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 0.6 }}
           style={{
-            fontFamily: "var(--font-cormorant)",
+            fontFamily: "var(--font-kop)",
             fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-            fontStyle: "italic",
+            fontStyle: "normal",
             fontWeight: 300,
             lineHeight: 1.15,
             color: "var(--cream-muted)",

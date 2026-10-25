@@ -134,7 +134,7 @@ function HeroVisual({ y }: { y: MotionValue<number> }) {
           <span style={{ width: "7px", height: "7px", borderRadius: "50%", backgroundColor: "#28c840" }} />
           <div style={{ flex: 1, marginLeft: "0.4rem", backgroundColor: "#111", borderRadius: "5px", padding: "0.18rem 0.65rem", display: "flex", alignItems: "center", gap: "0.35rem" }}>
             <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M2 12h20"/></svg>
-            <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.55rem", color: "rgba(255,255,255,0.22)" }}>specified-website.vercel.app</span>
+            <span style={{ fontFamily: "var(--font-tekst)", fontSize: "0.55rem", color: "rgba(255,255,255,0.22)" }}>specified-website.vercel.app</span>
           </div>
         </div>
 
@@ -145,13 +145,13 @@ function HeroVisual({ y }: { y: MotionValue<number> }) {
               <path d="M10 0L20 7H0L10 0Z" opacity="0.9"/>
               <rect x="3" y="7" width="14" height="7" rx="1" opacity="0.9"/>
             </svg>
-            <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.72rem", fontWeight: 800, color: SW, letterSpacing: "0.05em", textTransform: "uppercase" }}>SPECIFIED</span>
+            <span style={{ fontFamily: "var(--font-tekst)", fontSize: "0.72rem", fontWeight: 800, color: SW, letterSpacing: "0.05em", textTransform: "uppercase" }}>SPECIFIED</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
             {["Diensten", "Jobs", "Over ons", "Contact"].map(l => (
-              <span key={l} style={{ fontFamily: "var(--font-poppins)", fontSize: "0.42rem", color: "rgba(255,255,255,0.5)" }}>{l}</span>
+              <span key={l} style={{ fontFamily: "var(--font-tekst)", fontSize: "0.42rem", color: "rgba(255,255,255,0.5)" }}>{l}</span>
             ))}
-            <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.42rem", backgroundColor: SL, color: SB, borderRadius: "20px", padding: "0.18rem 0.55rem", fontWeight: 700 }}>Neem contact op</span>
+            <span style={{ fontFamily: "var(--font-tekst)", fontSize: "0.42rem", backgroundColor: SL, color: SB, borderRadius: "20px", padding: "0.18rem 0.55rem", fontWeight: 700 }}>Neem contact op</span>
           </div>
         </div>
 
@@ -161,20 +161,20 @@ function HeroVisual({ y }: { y: MotionValue<number> }) {
           <div aria-hidden="true" style={{ position: "absolute", top: "-20px", right: "-20px", width: "90px", height: "90px", borderRadius: "50%", border: `2px solid ${SO}`, opacity: 0.5 }} />
           <div aria-hidden="true" style={{ position: "absolute", bottom: "-30px", left: "-30px", width: "80px", height: "80px", borderRadius: "50%", border: `2px solid ${SO}`, opacity: 0.35 }} />
 
-          <p style={{ fontFamily: "var(--font-poppins)", fontSize: "1.6rem", fontWeight: 900, color: "rgba(255,255,255,0.18)", lineHeight: 1, textTransform: "uppercase", letterSpacing: "-0.02em", marginBottom: "0.05rem" }}>
+          <p style={{ fontFamily: "var(--font-tekst)", fontSize: "1.6rem", fontWeight: 900, color: "rgba(255,255,255,0.18)", lineHeight: 1, textTransform: "uppercase", letterSpacing: "-0.02em", marginBottom: "0.05rem" }}>
             WE
           </p>
-          <p style={{ fontFamily: "var(--font-poppins)", fontSize: "1.55rem", fontWeight: 900, color: "rgba(255,255,255,0.2)", lineHeight: 1, textTransform: "uppercase", letterSpacing: "-0.02em", marginBottom: "0.75rem" }}>
+          <p style={{ fontFamily: "var(--font-tekst)", fontSize: "1.55rem", fontWeight: 900, color: "rgba(255,255,255,0.2)", lineHeight: 1, textTransform: "uppercase", letterSpacing: "-0.02em", marginBottom: "0.75rem" }}>
             POSSIBILITIES.
           </p>
 
-          <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.4rem", color: "rgba(255,255,255,0.45)", maxWidth: "65%", lineHeight: 1.6, marginBottom: "0.7rem" }}>
+          <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.4rem", color: "rgba(255,255,255,0.45)", maxWidth: "65%", lineHeight: 1.6, marginBottom: "0.7rem" }}>
             Specified verbindt technische toptalenten met ambitieuze ingenieursbureaus en industriële bedrijven.
           </p>
 
           <div style={{ display: "flex", gap: "0.4rem", marginBottom: "0.9rem" }}>
-            <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.4rem", backgroundColor: SL, color: SB, borderRadius: "20px", padding: "0.2rem 0.6rem", fontWeight: 700 }}>Bekijk vacatures</span>
-            <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.4rem", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: "20px", padding: "0.2rem 0.6rem" }}>Neem contact op</span>
+            <span style={{ fontFamily: "var(--font-tekst)", fontSize: "0.4rem", backgroundColor: SL, color: SB, borderRadius: "20px", padding: "0.2rem 0.6rem", fontWeight: 700 }}>Bekijk vacatures</span>
+            <span style={{ fontFamily: "var(--font-tekst)", fontSize: "0.4rem", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: "20px", padding: "0.2rem 0.6rem" }}>Neem contact op</span>
           </div>
         </div>
 
@@ -182,7 +182,7 @@ function HeroVisual({ y }: { y: MotionValue<number> }) {
         <div style={{ backgroundColor: "rgba(255,255,255,0.04)", borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)", padding: "0.4rem 0", overflow: "hidden" }}>
           <div style={{ display: "flex", gap: "1.5rem", whiteSpace: "nowrap" }}>
             {[...SECTORS, ...SECTORS].map((s, i) => (
-              <span key={i} style={{ fontFamily: "var(--font-poppins)", fontSize: "0.38rem", fontWeight: 600, color: i % 2 === 0 ? SW : "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase", flexShrink: 0 }}>
+              <span key={i} style={{ fontFamily: "var(--font-tekst)", fontSize: "0.38rem", fontWeight: 600, color: i % 2 === 0 ? SW : "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase", flexShrink: 0 }}>
                 {s}
                 {i < SECTORS.length * 2 - 1 && <span style={{ color: SL, marginLeft: "1.5rem" }}>·</span>}
               </span>
@@ -194,8 +194,8 @@ function HeroVisual({ y }: { y: MotionValue<number> }) {
         <div style={{ display: "flex", backgroundColor: SB, padding: "0.7rem 1rem", gap: "0", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
           {[["0+", "Plaatsingen gedaan"], ["15+", "Sectoren"], ["100%", "Op maat"]].map(([n, l]) => (
             <div key={l} style={{ flex: 1, textAlign: "center" }}>
-              <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.9rem", fontWeight: 800, color: SL, lineHeight: 1, letterSpacing: "-0.02em" }}>{n}</p>
-              <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.36rem", color: "rgba(255,255,255,0.3)", marginTop: "3px" }}>{l}</p>
+              <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.9rem", fontWeight: 800, color: SL, lineHeight: 1, letterSpacing: "-0.02em" }}>{n}</p>
+              <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.36rem", color: "rgba(255,255,255,0.3)", marginTop: "3px" }}>{l}</p>
             </div>
           ))}
         </div>
@@ -203,7 +203,7 @@ function HeroVisual({ y }: { y: MotionValue<number> }) {
         {/* Status bar */}
         <div style={{ padding: "0.45rem 0.9rem", backgroundColor: "#1a1a1a", borderTop: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", gap: "0.45rem" }}>
           <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#4ade80", flexShrink: 0 }} />
-          <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.52rem", color: "rgba(255,255,255,0.35)" }}>specified-website.vercel.app — Gebouwd door SteylVisuals</span>
+          <span style={{ fontFamily: "var(--font-tekst)", fontSize: "0.52rem", color: "rgba(255,255,255,0.35)" }}>specified-website.vercel.app — Gebouwd door SteylVisuals</span>
         </div>
       </motion.div>
 
@@ -223,8 +223,8 @@ function HeroVisual({ y }: { y: MotionValue<number> }) {
           boxShadow: "0 20px 40px rgba(0,0,0,0.45)",
         }}
       >
-        <p style={{ fontFamily: "var(--font-poppins)", fontSize: "1.8rem", fontWeight: 900, color: SL, lineHeight: 1 }}>100%</p>
-        <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.62rem", color: "var(--cream-muted)", marginTop: "4px", letterSpacing: "0.06em" }}>op maat</p>
+        <p style={{ fontFamily: "var(--font-tekst)", fontSize: "1.8rem", fontWeight: 900, color: SL, lineHeight: 1 }}>100%</p>
+        <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.62rem", color: "var(--cream-muted)", marginTop: "4px", letterSpacing: "0.06em" }}>op maat</p>
       </motion.div>
     </motion.div>
   );
@@ -271,7 +271,7 @@ function ContactSection() {
             </p>
           </AnimateIn>
           <AnimateIn delay={0.1}>
-            <h2 className="mb-6" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
+            <h2 className="mb-6" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
               Klaar om op te<br /><em style={{ color: "var(--gold)" }}>vallen?</em>
             </h2>
           </AnimateIn>
@@ -307,7 +307,7 @@ function ContactSection() {
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
-              <h3 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)" }}>Aanvraag ontvangen!</h3>
+              <h3 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)" }}>Aanvraag ontvangen!</h3>
               <p className="text-sm font-light" style={{ color: "var(--cream-muted)" }}>Ik neem binnen 24 uur contact met je op.</p>
             </motion.div>
           ) : (
@@ -419,7 +419,7 @@ export default function WebdesignClient() {
               transition={{ duration: 1, delay: 0.1, ease: EASE }}
               className="mb-6"
               style={{
-                fontFamily: "var(--font-cormorant)",
+                fontFamily: "var(--font-kop)",
                 fontSize: "clamp(2.8rem,5vw,5.2rem)",
                 fontWeight: 400,
                 lineHeight: 1.04,
@@ -490,10 +490,10 @@ export default function WebdesignClient() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: EASE }}
             >
-              <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, color: "var(--gold)", lineHeight: 1 }}>
+              <p style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, color: "var(--gold)", lineHeight: 1 }}>
                 <AnimatedNumber target={s.value} suffix={s.suffix} />
               </p>
-              <p className="mt-2" style={{ fontFamily: "var(--font-poppins)", fontSize: "clamp(0.6rem,1.2vw,0.75rem)", color: "var(--cream-muted)", maxWidth: "140px", margin: "0.5rem auto 0" }}>
+              <p className="mt-2" style={{ fontFamily: "var(--font-tekst)", fontSize: "clamp(0.6rem,1.2vw,0.75rem)", color: "var(--cream-muted)", maxWidth: "140px", margin: "0.5rem auto 0" }}>
                 {s.label}
               </p>
             </motion.div>
@@ -505,7 +505,7 @@ export default function WebdesignClient() {
       <section style={{ backgroundColor: "var(--black)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
         <div className="max-w-[1100px] mx-auto">
           <AnimateIn>
-            <h2 className="mb-12" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)", maxWidth: "560px" }}>
+            <h2 className="mb-12" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)", maxWidth: "560px" }}>
               Meer dan een website,<br /><em style={{ color: "var(--cream-muted)" }}>een verkoopsmachine</em>
             </h2>
           </AnimateIn>
@@ -524,7 +524,7 @@ export default function WebdesignClient() {
             >
               <FeatureIcon name="zap" />
               <div>
-                <h3 className="mb-2" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Razendsnel geladen</h3>
+                <h3 className="mb-2" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Razendsnel geladen</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "420px" }}>
                   Gebouwd met Next.js, de snelste webtechnologie beschikbaar. Google beloont snelle sites met hogere rankings en meer klikken.
                 </p>
@@ -541,7 +541,7 @@ export default function WebdesignClient() {
             >
               <FeatureIcon name="smartphone" gold />
               <div>
-                <h3 className="mb-1" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Mobiel-first</h3>
+                <h3 className="mb-1" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Mobiel-first</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)" }}>
                   70% van je bezoekers komt via smartphone. Perfect op elk scherm.
                 </p>
@@ -559,7 +559,7 @@ export default function WebdesignClient() {
             >
               <FeatureIcon name="search" gold />
               <div>
-                <h3 className="mb-1" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>SEO inbegrepen</h3>
+                <h3 className="mb-1" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>SEO inbegrepen</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)" }}>
                   Technische SEO, meta tags en sitemap. Klanten vinden jou via Google.
                 </p>
@@ -576,7 +576,7 @@ export default function WebdesignClient() {
             >
               <FeatureIcon name="palette" />
               <div>
-                <h3 className="mb-2" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Jouw stijl, jouw merk</h3>
+                <h3 className="mb-2" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Jouw stijl, jouw merk</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "420px" }}>
                   Geen kant-en-klare templates. Elke site ontworpen op maat van jouw identiteit, kleurenpalet en doelgroep. Niet te verwarren met de buur.
                 </p>
@@ -594,7 +594,7 @@ export default function WebdesignClient() {
             >
               <FeatureIcon name="edit" />
               <div>
-                <h3 className="mb-1" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Zelf beheren</h3>
+                <h3 className="mb-1" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Zelf beheren</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)" }}>
                   Via een eenvoudig CMS pas jij teksten en content aan zonder technische kennis.
                 </p>
@@ -611,7 +611,7 @@ export default function WebdesignClient() {
             >
               <FeatureIcon name="video" />
               <div>
-                <h3 className="mb-1" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Video-ready</h3>
+                <h3 className="mb-1" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Video-ready</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "380px" }}>
                   Combineer je website met maandelijkse Reels en TikTok content. Website + video is de sterkste combinatie.
                 </p>
@@ -632,7 +632,7 @@ export default function WebdesignClient() {
             >
               <FeatureIcon name="inbox" gold />
               <div>
-                <h3 className="mb-2" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Leads centraal beheerd</h3>
+                <h3 className="mb-2" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Leads centraal beheerd</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "560px" }}>
                   Aanvragen uit je AI-assistent en contactformulieren komen op één plek binnen, worden automatisch aan de juiste persoon toegewezen en krijgen opvolging zodat er nooit een lead zoek raakt. Iets wat een vast platform als Zabun je niet biedt.
                 </p>
@@ -653,7 +653,7 @@ export default function WebdesignClient() {
         <div className="max-w-[1100px] mx-auto grid gap-12 items-center grid-cols-1 md:grid-cols-2">
           <div>
             <AnimateIn>
-              <h2 className="mb-4" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
+              <h2 className="mb-4" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
                 Nooit zomaar <em style={{ color: "var(--gold)" }}>offline</em>
               </h2>
             </AnimateIn>
@@ -683,10 +683,10 @@ export default function WebdesignClient() {
                 style={{ width: "14px", height: "14px", background: "#3ecf72", boxShadow: "0 0 14px rgba(62,207,114,0.8)" }}
               />
               <div>
-                <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.95rem", fontWeight: 500, color: "var(--cream)" }}>
+                <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.95rem", fontWeight: 500, color: "var(--cream)" }}>
                   Live uptime-status
                 </p>
-                <p className="mt-1" style={{ fontFamily: "var(--font-poppins)", fontSize: "0.78rem", color: "var(--cream-muted)" }}>
+                <p className="mt-1" style={{ fontFamily: "var(--font-tekst)", fontSize: "0.78rem", color: "var(--cream-muted)" }}>
                   Publiek en real-time gemonitord — bekijk de statuspagina →
                 </p>
               </div>
@@ -702,7 +702,7 @@ export default function WebdesignClient() {
       >
         <div className="max-w-[1100px] mx-auto">
           <AnimateIn>
-            <h2 className="mb-4" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
+            <h2 className="mb-4" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
               Van idee tot <em style={{ color: "var(--gold)" }}>live website</em>
             </h2>
           </AnimateIn>
@@ -732,7 +732,7 @@ export default function WebdesignClient() {
               >
                 <span
                   style={{
-                    fontFamily: "var(--font-cormorant)",
+                    fontFamily: "var(--font-kop)",
                     fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
                     fontWeight: 300,
                     color: "var(--cream-muted)",
@@ -743,7 +743,7 @@ export default function WebdesignClient() {
                   {item.step}
                 </span>
                 <div>
-                  <h3 className="mb-1.5" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>
+                  <h3 className="mb-1.5" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>
                     {item.title}
                   </h3>
                   <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "540px" }}>
@@ -776,7 +776,7 @@ export default function WebdesignClient() {
         <div className="max-w-[1100px] mx-auto grid gap-16 items-center grid-cols-1 md:grid-cols-2">
           <div>
             <AnimateIn>
-              <h2 className="mb-6" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
+              <h2 className="mb-6" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
                 Website en video,<br /><em style={{ color: "var(--cream-muted)" }}>one stop shop</em>
               </h2>
             </AnimateIn>
@@ -825,8 +825,8 @@ export default function WebdesignClient() {
                 >
                   <FeatureIcon name={item.icon} />
                   <div>
-                    <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.82rem", fontWeight: 500, color: "rgba(241,237,230,0.72)", marginBottom: "2px" }}>{item.label}</p>
-                    <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.75rem", fontWeight: 300, color: "var(--cream-muted)" }}>{item.desc}</p>
+                    <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.82rem", fontWeight: 500, color: "rgba(241,237,230,0.72)", marginBottom: "2px" }}>{item.label}</p>
+                    <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.75rem", fontWeight: 300, color: "var(--cream-muted)" }}>{item.desc}</p>
                   </div>
                 </div>
               ))}

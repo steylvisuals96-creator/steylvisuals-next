@@ -86,7 +86,7 @@ function WebCard({ project, index }: { project: WebProject; index: number }) {
             <span
               key={t}
               style={{
-                fontFamily: "var(--font-poppins)",
+                fontFamily: "var(--font-tekst)",
                 fontSize: "0.6rem",
                 fontWeight: 500,
                 letterSpacing: "0.18em",
@@ -106,7 +106,7 @@ function WebCard({ project, index }: { project: WebProject; index: number }) {
         {/* Title */}
         <h3
           style={{
-            fontFamily: "var(--font-cormorant)",
+            fontFamily: "var(--font-kop)",
             fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
             fontWeight: 300,
             lineHeight: 1.1,
@@ -118,7 +118,7 @@ function WebCard({ project, index }: { project: WebProject; index: number }) {
         </h3>
         <p
           style={{
-            fontFamily: "var(--font-poppins)",
+            fontFamily: "var(--font-tekst)",
             fontSize: "0.78rem",
             color: "var(--cream-muted)",
             marginBottom: "1.75rem",
@@ -134,7 +134,7 @@ function WebCard({ project, index }: { project: WebProject; index: number }) {
               key={f}
               className="flex items-center gap-3"
               style={{
-                fontFamily: "var(--font-poppins)",
+                fontFamily: "var(--font-tekst)",
                 fontSize: "0.82rem",
                 color: "rgba(241,237,230,0.65)",
               }}
@@ -153,7 +153,7 @@ function WebCard({ project, index }: { project: WebProject; index: number }) {
           <div
             className="mt-6 flex items-center gap-2"
             style={{
-              fontFamily: "var(--font-poppins)",
+              fontFamily: "var(--font-tekst)",
               fontSize: "0.78rem",
               fontWeight: 500,
               color: project.accent,

@@ -42,19 +42,19 @@ export default function PortfolioPage() {
           <div className="max-w-[1100px] mx-auto">
             <p
               className="inline-flex items-center gap-2 mb-6"
-              style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--gold)" }}
+              style={{ fontFamily: "var(--font-tekst)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--gold)" }}
             >
               Portfolio
             </p>
             <h1
-              style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.04, letterSpacing: 0, color: "var(--cream)", maxWidth: "640px" }}
+              style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.04, letterSpacing: 0, color: "var(--cream)", maxWidth: "640px" }}
             >
               Elk project,{" "}
-              <em style={{ fontStyle: "italic", color: "var(--gold)" }}>een verhaal</em>
+              <em style={{ fontStyle: "normal", color: "var(--gold)" }}>een verhaal</em>
             </h1>
             <p
               className="mt-6"
-              style={{ fontFamily: "var(--font-poppins)", fontSize: "1rem", fontWeight: 400, lineHeight: 1.7, color: "var(--cream-muted)", maxWidth: "480px" }}
+              style={{ fontFamily: "var(--font-tekst)", fontSize: "1rem", fontWeight: 400, lineHeight: 1.7, color: "var(--cream-muted)", maxWidth: "480px" }}
             >
               Video, content en websites voor bedrijven die willen opvallen. Bekijk wat we al hebben gemaakt.
             </p>
@@ -80,10 +80,10 @@ export default function PortfolioPage() {
                 className="w-2 h-2 rounded-full"
                 style={{ background: "#3ecf72", boxShadow: "0 0 8px rgba(62,207,114,0.7)" }}
               />
-              <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.8rem", fontWeight: 500, color: "var(--cream)" }}>
+              <span style={{ fontFamily: "var(--font-tekst)", fontSize: "0.8rem", fontWeight: 500, color: "var(--cream)" }}>
                 Live uptime-status
               </span>
-              <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.75rem", color: "var(--cream-muted)" }}>
+              <span style={{ fontFamily: "var(--font-tekst)", fontSize: "0.75rem", color: "var(--cream-muted)" }}>
                 — bekijk zelf
               </span>
             </a>
@@ -95,10 +95,10 @@ export default function PortfolioPage() {
             verstopt zitten. */}
         <section style={{ padding: "0 clamp(1.5rem,6vw,5rem) clamp(4rem,8vh,6rem)" }}>
           <div className="max-w-[1100px] mx-auto mb-12">
-            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
               Webdesign &amp; CMS
             </p>
-            <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
+            <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
               Websites op maat
             </h2>
           </div>
@@ -109,10 +109,10 @@ export default function PortfolioPage() {
             Adding one is a data entry in lib/cases.ts. */}
         <section style={{ padding: "0 clamp(1.5rem,6vw,5rem) clamp(4rem,8vh,6rem)" }}>
           <div className="max-w-[1100px] mx-auto mb-12">
-            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)" }}>
+            <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)" }}>
               Uitgelicht werk
             </p>
-            <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
+            <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
               Cases
             </h2>
           </div>
@@ -126,10 +126,10 @@ export default function PortfolioPage() {
         {/* Section: Video & Content */}
         <section style={{ padding: "0 clamp(1.5rem,6vw,5rem) clamp(4rem,8vh,6rem)" }}>
           <div className="max-w-[1100px] mx-auto mb-12">
-            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--gold)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--gold)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
               Video &amp; Content
             </p>
-            <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
+            <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
               Reels &amp; Brand video
             </h2>
           </div>
@@ -142,16 +142,16 @@ export default function PortfolioPage() {
             className="text-center max-w-[1100px] mx-auto pt-14"
             style={{ borderTop: "1px solid rgba(241,237,230,0.08)" }}
           >
-            <p className="mb-3" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)" }}>
+            <p className="mb-3" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)" }}>
               Jouw project hier?
             </p>
-            <p style={{ fontFamily: "var(--font-poppins)", fontSize: "1rem", fontWeight: 400, color: "var(--cream-muted)", marginBottom: "2rem" }}>
+            <p style={{ fontFamily: "var(--font-tekst)", fontSize: "1rem", fontWeight: 400, color: "var(--cream-muted)", marginBottom: "2rem" }}>
               Stuur een bericht en ontvang binnen 24u een voorstel op maat.
             </p>
             <a
               href="mailto:Steylvisuals96@gmail.com?subject=Interesse%20in%20SteylVisuals"
               className="inline-block rounded-[2px]"
-              style={{ fontFamily: "var(--font-poppins)", fontSize: "1rem", fontWeight: 500, backgroundColor: "var(--gold)", color: "var(--black)", padding: "1rem 2.25rem", textDecoration: "none" }}
+              style={{ fontFamily: "var(--font-tekst)", fontSize: "1rem", fontWeight: 500, backgroundColor: "var(--gold)", color: "var(--black)", padding: "1rem 2.25rem", textDecoration: "none" }}
             >
               Gratis gesprek aanvragen
             </a>

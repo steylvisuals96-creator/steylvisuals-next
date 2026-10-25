@@ -43,7 +43,7 @@ export default function LandingCTA() {
           transition={{ duration: 0.7 }}
           className="flex items-center justify-center gap-3 mb-8"
           style={{
-            fontFamily: "var(--font-poppins)",
+            fontFamily: "var(--font-tekst)",
             fontSize: "0.68rem",
             fontWeight: 500,
             letterSpacing: "0.25em",
@@ -60,7 +60,7 @@ export default function LandingCTA() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            fontFamily: "var(--font-cormorant)",
+            fontFamily: "var(--font-kop)",
             fontSize: "clamp(2.5rem, 6vw, 6.5rem)",
             fontWeight: 300,
             lineHeight: 1.04,
@@ -71,7 +71,7 @@ export default function LandingCTA() {
         >
           Klaar om jouw
           <br />
-          <em style={{ color: "var(--gold)", fontStyle: "italic" }}>verhaal te vertellen?</em>
+          <em style={{ color: "var(--gold)", fontStyle: "normal" }}>verhaal te vertellen?</em>
         </motion.h2>
 
         {/* Subtext */}
@@ -80,7 +80,7 @@ export default function LandingCTA() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.22 }}
           style={{
-            fontFamily: "var(--font-poppins)",
+            fontFamily: "var(--font-tekst)",
             fontSize: "1rem",
             fontWeight: 400,
             lineHeight: 1.7,
@@ -105,7 +105,7 @@ export default function LandingCTA() {
               backgroundColor: "var(--gold)",
               color: "var(--black)",
               padding: "1.1rem 2.5rem",
-              fontFamily: "var(--font-poppins)",
+              fontFamily: "var(--font-tekst)",
             }}
             whileHover={{ backgroundColor: "var(--gold-light)", scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
@@ -120,7 +120,7 @@ export default function LandingCTA() {
               border: "1px solid rgba(241,237,230,0.15)",
               color: "var(--cream)",
               padding: "1.1rem 2.5rem",
-              fontFamily: "var(--font-poppins)",
+              fontFamily: "var(--font-tekst)",
             }}
             whileHover={{ borderColor: "rgba(201,151,74,0.5)", color: "var(--gold)" }}
             whileTap={{ scale: 0.97 }}
@@ -136,7 +136,7 @@ export default function LandingCTA() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 0.6 }}
           style={{
-            fontFamily: "var(--font-poppins)",
+            fontFamily: "var(--font-tekst)",
             fontSize: "0.75rem",
             color: "var(--cream-muted)",
             marginTop: "2rem",

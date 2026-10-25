@@ -10,45 +10,45 @@ colors:
   cream: "#F1EDE6"
 typography:
   display:
-    fontFamily: "Cormorant Garamond, Georgia, serif"
+    fontFamily: "Bricolage Grotesque, system-ui, sans-serif"
     fontSize: "clamp(2.75rem, 6vw, 4.75rem)"
-    fontWeight: 300
+    fontWeight: 600
     lineHeight: 1.05
-    letterSpacing: "0"
+    letterSpacing: "-0.03em"
   headline:
-    fontFamily: "Cormorant Garamond, Georgia, serif"
+    fontFamily: "Bricolage Grotesque, system-ui, sans-serif"
     fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)"
-    fontWeight: 300
+    fontWeight: 600
     lineHeight: 1.15
-    letterSpacing: "0"
+    letterSpacing: "-0.03em"
   title:
-    fontFamily: "Cormorant Garamond, Georgia, serif"
+    fontFamily: "Bricolage Grotesque, system-ui, sans-serif"
     fontSize: "1.5rem"
-    fontWeight: 300
+    fontWeight: 600
     lineHeight: 1.15
-    letterSpacing: "0"
+    letterSpacing: "-0.03em"
   body:
-    fontFamily: "Poppins, system-ui, sans-serif"
+    fontFamily: "DM Sans, system-ui, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.7
     letterSpacing: "0"
   subline:
-    fontFamily: "Poppins, system-ui, sans-serif"
+    fontFamily: "DM Sans, system-ui, sans-serif"
     fontSize: "1.0625rem"
     fontWeight: 300
     lineHeight: 1.6
     letterSpacing: "0.02em"
   label:
-    fontFamily: "Poppins, system-ui, sans-serif"
+    fontFamily: "DM Sans, system-ui, sans-serif"
     fontSize: "0.6875rem"
     fontWeight: 500
     lineHeight: 1
     letterSpacing: "0.26em"
   wordmark:
-    fontFamily: "Montserrat, sans-serif"
-    fontWeight: 800
-    letterSpacing: "-0.035em"
+    fontFamily: "Bricolage Grotesque, sans-serif"
+    fontWeight: 700
+    letterSpacing: "-0.02em"
 rounded:
   none: "0px"
   sm: "2px"
@@ -91,6 +91,8 @@ components:
     rounded: "{rounded.none}"
     padding: "14px 0"
 ---
+
+<!-- 2026-10-25: lettertypes vervangen door Bricolage Grotesque (koppen, woordmerk) en DM Sans (tekst). Tekst hieronder die nog Cormorant, Poppins of Montserrat noemt, is verouderd. -->
 
 # Design System: SteylVisuals
 

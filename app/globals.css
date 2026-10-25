@@ -53,7 +53,7 @@ html {
 body {
   background-color: var(--black);
   color: var(--cream);
-  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-family: var(--font-tekst), system-ui, sans-serif;
   font-weight: 400;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
@@ -65,11 +65,11 @@ body {
   color: var(--black);
 }
 
-/* Cormorant speaks; Poppins works. Headings never inherit the body sans. */
+/* Bricolage Grotesque speaks; DM Sans works. Headings never inherit the body sans. */
 h1, h2, h3, h4 {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 300;
-  letter-spacing: 0;
+  font-family: var(--font-kop), Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
@@ -78,9 +78,9 @@ h2, h3, h4 { line-height: 1.15; }
 
 p { text-wrap: pretty; }
 
-/* The kicker: Poppins 500 at 0.26em. The tracking is the signature. */
+/* The kicker: DM Sans 500 at 0.26em. The tracking is the signature. */
 .kicker {
-  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-family: var(--font-tekst), system-ui, sans-serif;
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.26em;
@@ -89,11 +89,11 @@ p { text-wrap: pretty; }
   line-height: 1;
 }
 
-/* Montserrat 800 is the wordmark's alone — never exposed as a heading class. */
+/* Bricolage Grotesque 700 is the wordmark's alone — never exposed as a heading class. */
 .wordmark {
-  font-family: var(--font-montserrat), sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  font-family: var(--font-kop), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   line-height: 1;
 }
 
@@ -132,7 +132,7 @@ p { text-wrap: pretty; }
   border: 1px solid var(--hairline-strong);
   border-radius: var(--r-sm);
   color: var(--cream-muted);
-  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-family: var(--font-tekst), system-ui, sans-serif;
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.26em;
@@ -229,7 +229,7 @@ p { text-wrap: pretty; }
 }
 .case-card-eyebrow,
 .case-card-detail {
-  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-family: var(--font-tekst), system-ui, sans-serif;
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.26em;
@@ -237,19 +237,19 @@ p { text-wrap: pretty; }
   color: var(--cream-muted);
 }
 .case-card-title {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-kop), Georgia, serif;
   font-size: clamp(1.75rem, 3.5vw, 2.5rem);
   font-weight: 300;
   line-height: 1.15;
   color: var(--cream);
   transition: color var(--dur-state) var(--ease-out);
 }
-.case-card-title em { font-style: italic; }
+.case-card-title em { font-style: normal; }
 .case-card:hover .case-card-title { color: var(--gold-light); }
 
 /* Back link on a case page. */
 .case-back {
-  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-family: var(--font-tekst), system-ui, sans-serif;
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.26em;
@@ -273,7 +273,7 @@ p { text-wrap: pretty; }
   border-top: 1px solid var(--hairline);
 }
 .case-meta dt {
-  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-family: var(--font-tekst), system-ui, sans-serif;
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.26em;
@@ -283,7 +283,7 @@ p { text-wrap: pretty; }
 }
 .case-meta dd {
   margin: 0;
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-kop), Georgia, serif;
   font-size: 1.5rem;
   font-weight: 300;
   line-height: 1.15;
@@ -368,7 +368,7 @@ p { text-wrap: pretty; }
 }
 .lm-lb-nav,
 .lm-lb-count {
-  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-family: var(--font-tekst), system-ui, sans-serif;
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.26em;
@@ -429,7 +429,7 @@ p { text-wrap: pretty; }
 }
 .lm-play:hover .lm-play-mark { background-color: var(--gold-light); }
 .lm-play-label {
-  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-family: var(--font-tekst), system-ui, sans-serif;
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.26em;
@@ -475,7 +475,7 @@ input,
 textarea,
 select {
   color: var(--cream);
-  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-family: var(--font-tekst), system-ui, sans-serif;
 }
 input::placeholder,
 textarea::placeholder {

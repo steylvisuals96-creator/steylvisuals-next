@@ -95,7 +95,7 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
         <span
           className="absolute top-3 left-3"
           style={{
-            fontFamily: "var(--font-poppins)",
+            fontFamily: "var(--font-tekst)",
             fontSize: "0.6875rem",
             fontWeight: 500,
             letterSpacing: "0.16em",
@@ -115,7 +115,7 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
         <span
           className="absolute top-3 right-3 flex items-center gap-1.5"
           style={{
-            fontFamily: "var(--font-poppins)",
+            fontFamily: "var(--font-tekst)",
             fontSize: "0.6875rem",
             letterSpacing: "0.12em",
             textTransform: "uppercase",
@@ -135,7 +135,7 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
         <div className="absolute inset-x-0 bottom-0 p-4">
           <h3
             style={{
-              fontFamily: "var(--font-cormorant)",
+              fontFamily: "var(--font-kop)",
               fontSize: "1.5rem",
               fontWeight: 500,
               lineHeight: 1.1,
@@ -149,7 +149,7 @@ function ReelCard({ reel, index }: { reel: Reel; index: number }) {
             <p
               className="flex items-center gap-1.5 mt-1"
               style={{
-                fontFamily: "var(--font-poppins)",
+                fontFamily: "var(--font-tekst)",
                 fontSize: "0.6875rem",
                 color: "rgba(241,237,230,0.65)",
               }}

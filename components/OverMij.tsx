@@ -39,7 +39,7 @@ export default function OverMij() {
           </p>
         </AnimateIn>
         <AnimateIn delay={0.1}>
-          <h2 className="mb-6" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
+          <h2 className="mb-6" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
             Ik ben Sam,<br /><em style={{ color: "var(--cream-muted)" }}>de man achter<br />de lens</em>
           </h2>
         </AnimateIn>
@@ -51,7 +51,7 @@ export default function OverMij() {
           </p>
         </AnimateIn>
         <AnimateIn delay={0.3}>
-          <span style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, fontStyle: "italic", color: "var(--cream-muted)" }}>
+          <span style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, fontStyle: "normal", color: "var(--cream-muted)" }}>
             — Sam Steylaerts
           </span>
         </AnimateIn>

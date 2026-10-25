@@ -33,7 +33,7 @@ export default function Showcase() {
           </p>
         </AnimateIn>
         <AnimateIn delay={0.1}>
-          <h2 className="mb-6" style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
+          <h2 className="mb-6" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
             Zo ziet jouw<br /><em style={{ color: "var(--cream-muted)" }}>content eruit</em>
           </h2>
         </AnimateIn>

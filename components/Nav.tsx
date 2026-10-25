@@ -17,7 +17,7 @@ const navLinks = [
 // Poppins 500 at 0.26em — the label voice, used for every working element in
 // the bar. See DESIGN.md, The Two Voices Rule.
 const label = {
-  fontFamily: "var(--font-poppins)",
+  fontFamily: "var(--font-tekst)",
   fontSize: "0.6875rem",
   fontWeight: 500,
   letterSpacing: "0.26em",
@@ -153,7 +153,7 @@ export default function Nav() {
                     onClick={() => setMenuOpen(false)}
                     className="block py-3"
                     style={{
-                      fontFamily: "var(--font-cormorant)",
+                      fontFamily: "var(--font-kop)",
                       fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
                       fontWeight: 300,
                       lineHeight: 1.15,
@@ -175,10 +175,10 @@ export default function Nav() {
                 transition={{ duration: 0.55, delay: 0.08 + navLinks.length * 0.07, ease: EASE }}
                 className="block py-3"
                 style={{
-                  fontFamily: "var(--font-cormorant)",
+                  fontFamily: "var(--font-kop)",
                   fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
                   fontWeight: 300,
-                  fontStyle: "italic",
+                  fontStyle: "normal",
                   lineHeight: 1.15,
                   color: "var(--gold)",
                   textDecoration: "none",

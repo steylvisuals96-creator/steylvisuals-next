@@ -1,29 +1,30 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Poppins, Montserrat } from "next/font/google";
+import { Bricolage_Grotesque, DM_Sans, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import { STING_GATE } from "@/components/LogoSting";
 
+// Koppen en het woordmerk: Bricolage Grotesque. Lopende tekst: DM Sans. Zie DESIGN.md.
+const kop = Bricolage_Grotesque({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-kop",
+  display: "swap",
+});
+
+const tekst = DM_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-tekst",
+  display: "swap",
+});
+
+// Alleen nog voor de SOM Vastgoed-demo (klantpagina met eigen stijl).
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400"],
   style: ["normal", "italic"],
   variable: "--font-cormorant",
-  display: "swap",
-});
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-poppins",
-  display: "swap",
-});
-
-// Wordmark only. Never exposed to page content — see DESIGN.md, The Locked Wordmark Rule.
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["800"],
-  variable: "--font-montserrat",
   display: "swap",
 });
 
@@ -66,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="nl"
-      className={`${cormorant.variable} ${poppins.variable} ${montserrat.variable}`}
+      className={`${kop.variable} ${tekst.variable} ${cormorant.variable}`}
     >
       <head>
         {/* A literal value — theme-color is read by the UA, which has no CSS vars. */}

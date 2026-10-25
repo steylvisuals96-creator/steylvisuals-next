@@ -65,7 +65,7 @@ export default function Hero() {
           variants={fadeUp}
           className="mb-6"
           style={{
-            fontFamily: "var(--font-cormorant)",
+            fontFamily: "var(--font-kop)",
             fontSize: "clamp(2.75rem, 6vw, 4.75rem)",
             fontWeight: 300,
             lineHeight: 1.05,
@@ -75,7 +75,7 @@ export default function Hero() {
         >
           Video&apos;s die
           <br />
-          <em style={{ fontStyle: "italic", color: "var(--cream-muted)" }}>
+          <em style={{ fontStyle: "normal", color: "var(--cream-muted)" }}>
             opvallen én
           </em>
           <br />
@@ -165,7 +165,7 @@ export default function Hero() {
 
           {/* Text overlay */}
           <div style={{ position: "absolute", bottom: "1.5rem", left: "1.75rem", right: "1.75rem" }}>
-            <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)", lineHeight: 1.25 }}>
+            <p style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)", lineHeight: 1.25 }}>
               Zo zet je jouw merk<br />
               <em style={{ color: "var(--gold)" }}>in de kijker</em>
             </p>
@@ -187,7 +187,7 @@ export default function Hero() {
             }}
           >
             <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "var(--gold)" }} />
-            <span style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", color: "var(--cream-muted)" }}>Live preview</span>
+            <span style={{ fontFamily: "var(--font-tekst)", fontSize: "0.6875rem", color: "var(--cream-muted)" }}>Live preview</span>
           </div>
         </motion.div>
       </motion.div>

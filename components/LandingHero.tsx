@@ -114,7 +114,7 @@ export default function LandingHero() {
           */}
           <p
             className="mb-8"
-            style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)" }}
+            style={{ fontFamily: "var(--font-tekst)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)" }}
           >
             Creative Studio · België
           </p>
@@ -123,7 +123,7 @@ export default function LandingHero() {
           <div className="mb-10">
             <h1
               style={{
-                fontFamily: "var(--font-cormorant)",
+                fontFamily: "var(--font-kop)",
                 fontSize: "clamp(2.75rem, 6vw, 4.75rem)",
                 fontWeight: 300,
                 lineHeight: 1.05,
@@ -132,7 +132,7 @@ export default function LandingHero() {
               }}
             >
               Premium{" "}
-              <em style={{ fontStyle: "italic", color: "var(--gold)" }}>
+              <em style={{ fontStyle: "normal", color: "var(--gold)" }}>
                 <AnimatedWord word={WORDS[wordIdx]} />
               </em>
               <br />
@@ -148,7 +148,7 @@ export default function LandingHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontFamily: "var(--font-poppins)",
+              fontFamily: "var(--font-tekst)",
               fontSize: "1.05rem",
               fontWeight: 400,
               lineHeight: 1.7,
@@ -176,7 +176,7 @@ export default function LandingHero() {
                 color: "var(--black)",
                 padding: "1.125rem 2.5rem",
                 borderRadius: "var(--r-sm)",
-                fontFamily: "var(--font-poppins)",
+                fontFamily: "var(--font-tekst)",
                 fontSize: "0.6875rem",
                 fontWeight: 500,
                 letterSpacing: "0.26em",
@@ -196,7 +196,7 @@ export default function LandingHero() {
                 color: "var(--cream)",
                 padding: "1.125rem 2.5rem",
                 borderRadius: "var(--r-sm)",
-                fontFamily: "var(--font-poppins)",
+                fontFamily: "var(--font-tekst)",
                 fontSize: "0.6875rem",
                 fontWeight: 500,
                 letterSpacing: "0.26em",
@@ -220,8 +220,8 @@ export default function LandingHero() {
           >
             {content.stats.map(({ num, label }) => (
               <div key={label}>
-                <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", lineHeight: 1.15 }}>{num}</p>
-                <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, color: "var(--cream-muted)", marginTop: "0.5rem", letterSpacing: "0.26em", textTransform: "uppercase" }}>{label}</p>
+                <p style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", lineHeight: 1.15 }}>{num}</p>
+                <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.6875rem", fontWeight: 500, color: "var(--cream-muted)", marginTop: "0.5rem", letterSpacing: "0.26em", textTransform: "uppercase" }}>{label}</p>
               </div>
             ))}
           </motion.div>
@@ -253,8 +253,8 @@ export default function LandingHero() {
             />
             <div aria-hidden="true" style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "45%", background: "linear-gradient(to top, rgba(10,10,10,0.82) 0%, transparent 100%)" }} />
             <div style={{ position: "absolute", bottom: "1.5rem", left: "1.5rem" }}>
-              <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", lineHeight: 1.15 }}>Sam Steylaerts</p>
-              <p style={{ fontFamily: "var(--font-poppins)", fontSize: "0.6875rem", fontWeight: 500, color: "var(--cream-muted)", letterSpacing: "0.26em", textTransform: "uppercase", marginTop: "0.5rem" }}>Oprichter · SteylVisuals</p>
+              <p style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", lineHeight: 1.15 }}>Sam Steylaerts</p>
+              <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.6875rem", fontWeight: 500, color: "var(--cream-muted)", letterSpacing: "0.26em", textTransform: "uppercase", marginTop: "0.5rem" }}>Oprichter · SteylVisuals</p>
             </div>
           </div>
         </motion.div>

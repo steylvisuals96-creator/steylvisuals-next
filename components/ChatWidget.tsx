@@ -37,7 +37,7 @@ function OptionChips({ options, disabled, onSend }: { options: string[]; disable
             color: "var(--cream-muted)",
             padding: "0.3rem 0.75rem",
             fontSize: "0.75rem",
-            fontFamily: "var(--font-poppins), system-ui, sans-serif",
+            fontFamily: "var(--font-tekst), system-ui, sans-serif",
             cursor: disabled ? "default" : "pointer",
             opacity: disabled ? 0.4 : 1,
             transition: "border-color 200ms, color 200ms",
@@ -157,7 +157,7 @@ export default function ChatWidget() {
           background: "var(--gold)",
           color: "var(--black)",
           border: "none",
-          fontFamily: "var(--font-poppins), system-ui, sans-serif",
+          fontFamily: "var(--font-tekst), system-ui, sans-serif",
           fontSize: "0.8125rem",
           fontWeight: 600,
           cursor: "pointer",
@@ -202,10 +202,10 @@ export default function ChatWidget() {
         {/* Header */}
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", padding: "1.25rem 1.25rem 1rem", borderBottom: "1px solid var(--hairline)" }}>
           <div>
-            <p style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "1rem", fontWeight: 600, color: "var(--cream)", letterSpacing: "0.05em", textTransform: "uppercase", margin: 0 }}>
+            <p style={{ fontFamily: "var(--font-kop), Georgia, serif", fontSize: "1rem", fontWeight: 600, color: "var(--cream)", letterSpacing: "0.05em", textTransform: "uppercase", margin: 0 }}>
               SteylVisuals
             </p>
-            <p style={{ fontFamily: "var(--font-poppins), system-ui, sans-serif", fontSize: "0.7rem", color: "var(--cream-muted)", margin: "0.2rem 0 0" }}>
+            <p style={{ fontFamily: "var(--font-tekst), system-ui, sans-serif", fontSize: "0.7rem", color: "var(--cream-muted)", margin: "0.2rem 0 0" }}>
               AI-assistent
             </p>
           </div>
@@ -228,7 +228,7 @@ export default function ChatWidget() {
               <div style={{ maxWidth: "88%" }}>
                 <div style={{
                   padding: "0.625rem 0.875rem",
-                  fontFamily: "var(--font-poppins), system-ui, sans-serif",
+                  fontFamily: "var(--font-tekst), system-ui, sans-serif",
                   fontSize: "0.8125rem",
                   lineHeight: 1.6,
                   background: m.role === "user" ? "var(--gold)" : m.error ? "rgba(241,237,230,0.05)" : "rgba(241,237,230,0.07)",
@@ -244,7 +244,7 @@ export default function ChatWidget() {
             </div>
           ))}
           {busy && (
-            <p style={{ fontFamily: "var(--font-poppins), system-ui, sans-serif", fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--cream-muted)" }}>
+            <p style={{ fontFamily: "var(--font-tekst), system-ui, sans-serif", fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--cream-muted)" }}>
               Aan het typen…
             </p>
           )}
@@ -271,7 +271,7 @@ export default function ChatWidget() {
                 border: "none",
                 borderBottom: "1px solid var(--hairline-strong)",
                 color: "var(--cream)",
-                fontFamily: "var(--font-poppins), system-ui, sans-serif",
+                fontFamily: "var(--font-tekst), system-ui, sans-serif",
                 fontSize: "0.8125rem",
                 padding: "0.5rem 0",
                 outline: "none",
@@ -300,7 +300,7 @@ export default function ChatWidget() {
               </svg>
             </button>
           </div>
-          <p style={{ marginTop: "0.5rem", fontFamily: "var(--font-poppins), system-ui, sans-serif", fontSize: "0.65rem", color: "var(--cream-faint)" }}>
+          <p style={{ marginTop: "0.5rem", fontFamily: "var(--font-tekst), system-ui, sans-serif", fontSize: "0.65rem", color: "var(--cream-faint)" }}>
             Liever direct mailen?{" "}
             <a href="mailto:steylvisuals96@gmail.com" style={{ color: "var(--gold)", textDecoration: "underline", textUnderlineOffset: "2px" }}>
               steylvisuals96@gmail.com

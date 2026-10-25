@@ -104,7 +104,7 @@ export default function AIAgentDemo() {
             <h2
               className="mb-6"
               style={{
-                fontFamily: "var(--font-cormorant)",
+                fontFamily: "var(--font-kop)",
                 fontSize: "clamp(2rem, 4vw, 3.25rem)",
                 fontWeight: 400,
                 lineHeight: 1.08,
@@ -203,7 +203,7 @@ export default function AIAgentDemo() {
                 />
                 <p
                   style={{
-                    fontFamily: "var(--font-poppins), system-ui, sans-serif",
+                    fontFamily: "var(--font-tekst), system-ui, sans-serif",
                     fontSize: "0.75rem",
                     fontWeight: 500,
                     color: "var(--cream)",
@@ -215,7 +215,7 @@ export default function AIAgentDemo() {
                 </p>
                 <span
                   style={{
-                    fontFamily: "var(--font-poppins), system-ui, sans-serif",
+                    fontFamily: "var(--font-tekst), system-ui, sans-serif",
                     fontSize: "0.65rem",
                     color: "var(--gold)",
                     backgroundColor: "rgba(201,151,74,0.12)",
@@ -228,7 +228,7 @@ export default function AIAgentDemo() {
               </div>
               <p
                 style={{
-                  fontFamily: "var(--font-poppins), system-ui, sans-serif",
+                  fontFamily: "var(--font-tekst), system-ui, sans-serif",
                   fontSize: "0.65rem",
                   color: "var(--cream-muted)",
                   letterSpacing: "0.04em",
@@ -259,7 +259,7 @@ export default function AIAgentDemo() {
                     <div
                       style={{
                         padding: "0.6rem 0.875rem",
-                        fontFamily: "var(--font-poppins), system-ui, sans-serif",
+                        fontFamily: "var(--font-tekst), system-ui, sans-serif",
                         fontSize: "0.8rem",
                         lineHeight: 1.65,
                         backgroundColor:
@@ -290,7 +290,7 @@ export default function AIAgentDemo() {
                               color: "var(--cream-muted)",
                               padding: "0.25rem 0.65rem",
                               fontSize: "0.7rem",
-                              fontFamily: "var(--font-poppins), system-ui, sans-serif",
+                              fontFamily: "var(--font-tekst), system-ui, sans-serif",
                               cursor: busy ? "default" : "pointer",
                               opacity: busy ? 0.4 : 1,
                               transition: "border-color 150ms, color 150ms",
@@ -357,7 +357,7 @@ export default function AIAgentDemo() {
                   border: "none",
                   borderBottom: "1px solid rgba(241,237,230,0.15)",
                   color: "var(--cream)",
-                  fontFamily: "var(--font-poppins), system-ui, sans-serif",
+                  fontFamily: "var(--font-tekst), system-ui, sans-serif",
                   fontSize: "0.8rem",
                   padding: "0.4rem 0",
                   outline: "none",

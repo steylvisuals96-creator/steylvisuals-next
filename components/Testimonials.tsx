@@ -43,7 +43,7 @@ export default function Testimonials() {
           </p>
         </AnimateIn>
         <AnimateIn delay={0.1}>
-          <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
+          <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
             Wat klanten<br /><em style={{ color: "var(--cream-muted)" }}>over ons zeggen</em>
           </h2>
         </AnimateIn>
@@ -67,7 +67,7 @@ export default function Testimonials() {
             }}
           >
             <Stars />
-            <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 300, lineHeight: 1.6, color: "var(--cream)", fontStyle: "italic", flex: 1 }}>
+            <p style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, lineHeight: 1.6, color: "var(--cream)", fontStyle: "normal", flex: 1 }}>
               &ldquo;{r.quote}&rdquo;
             </p>
             <div className="pt-4 border-t" style={{ borderColor: "var(--hairline)" }}>

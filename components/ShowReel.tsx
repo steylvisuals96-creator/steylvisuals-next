@@ -21,10 +21,10 @@ function MarqueeRow() {
         <span key={word} className="flex items-center gap-8 whitespace-nowrap">
           <span
             style={{
-              fontFamily: "var(--font-cormorant)",
+              fontFamily: "var(--font-kop)",
               fontSize: "clamp(3rem, 7vw, 6.5rem)",
               fontWeight: 300,
-              fontStyle: "italic",
+              fontStyle: "normal",
               letterSpacing: 0,
               color: "transparent",
               WebkitTextStroke: "1px rgba(201,151,74,0.35)",
@@ -98,7 +98,7 @@ export default function ShowReel() {
           transition={{ duration: 0.7, ease: EASE }}
           className="flex items-center gap-3 mb-14"
           style={{
-            fontFamily: "var(--font-poppins)",
+            fontFamily: "var(--font-tekst)",
             fontSize: "0.68rem",
             fontWeight: 500,
             letterSpacing: "0.25em",
@@ -154,7 +154,7 @@ export default function ShowReel() {
           transition={{ duration: 0.9, delay: 0.5 }}
           className="text-center mt-14"
           style={{
-            fontFamily: "var(--font-poppins)",
+            fontFamily: "var(--font-tekst)",
             fontSize: "1rem",
             fontWeight: 400,
             lineHeight: 1.7,

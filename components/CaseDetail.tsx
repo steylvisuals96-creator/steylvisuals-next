@@ -70,7 +70,7 @@ export default function CaseDetail({ item }: { item: PortfolioCase }) {
         <header style={{ marginTop: "2.5rem", marginBottom: "clamp(2.5rem,5vw,4rem)", maxWidth: "60ch" }}>
           <p
             style={{
-              fontFamily: "var(--font-poppins)",
+              fontFamily: "var(--font-tekst)",
               fontSize: "0.6875rem",
               fontWeight: 500,
               letterSpacing: "0.26em",
@@ -83,7 +83,7 @@ export default function CaseDetail({ item }: { item: PortfolioCase }) {
           </p>
           <h1
             style={{
-              fontFamily: "var(--font-cormorant)",
+              fontFamily: "var(--font-kop)",
               fontSize: "clamp(2.75rem, 6vw, 4.75rem)",
               fontWeight: 300,
               lineHeight: 1.05,
@@ -96,13 +96,13 @@ export default function CaseDetail({ item }: { item: PortfolioCase }) {
             {item.titleEm && (
               <>
                 <br />
-                <em style={{ fontStyle: "italic" }}>{item.titleEm}</em>
+                <em style={{ fontStyle: "normal" }}>{item.titleEm}</em>
               </>
             )}
           </h1>
           <p
             style={{
-              fontFamily: "var(--font-poppins)",
+              fontFamily: "var(--font-tekst)",
               fontSize: "1rem",
               fontWeight: 400,
               lineHeight: 1.7,

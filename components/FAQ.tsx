@@ -46,7 +46,7 @@ function Item({ q, a, i }: { q: string; a: string; i: number }) {
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between gap-4 text-left py-5"
       >
-        <span style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 500, color: "var(--cream)", lineHeight: 1.3 }}>
+        <span style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 500, color: "var(--cream)", lineHeight: 1.3 }}>
           {q}
         </span>
         <motion.span
@@ -92,7 +92,7 @@ export default function FAQ() {
             </p>
           </AnimateIn>
           <AnimateIn delay={0.1}>
-            <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
+            <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
               Veelgestelde<br /><em style={{ color: "var(--cream-muted)" }}>vragen</em>
             </h2>
           </AnimateIn>

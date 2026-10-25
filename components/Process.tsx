@@ -23,7 +23,7 @@ export default function Process() {
               </p>
             </AnimateIn>
             <AnimateIn delay={0.1}>
-              <h2 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
+              <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
                 Van eerste contact<br /><em style={{ color: "var(--cream-muted)" }}>tot live content</em>
               </h2>
             </AnimateIn>
@@ -53,11 +53,11 @@ export default function Process() {
               borderColor: "var(--hairline)",
             }}
           >
-            <span style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1, color: "var(--cream-muted)", letterSpacing: 0 }}>
+            <span style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1, color: "var(--cream-muted)", letterSpacing: 0 }}>
               {step.num}
             </span>
             <div>
-              <h3 className="mb-2" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.5rem", fontWeight: 500, color: "var(--cream)" }}>
+              <h3 className="mb-2" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 500, color: "var(--cream)" }}>
                 {step.title}
               </h3>
               <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "480px" }}>

@@ -1,7 +1,7 @@
 /**
  * SteylVisuals lockup — Brand Guidelines, editie 01 · 2026.
  *
- * "Steyl." in Montserrat 800 at -3.5% tracking, "VISUALS" beneath in Poppins
+ * "Steyl." in Bricolage Grotesque 700 at -2% tracking, "VISUALS" beneath in DM Sans
  * left-aligned to the S. The dot is always gold, in every approved version.
  *
  * The brandbook's size rules are enforced here rather than left to callers:
@@ -81,7 +81,7 @@ export default function Logo({
         <span
           aria-hidden="true"
           style={{
-            fontFamily: "var(--font-poppins), system-ui, sans-serif",
+            fontFamily: "var(--font-tekst), system-ui, sans-serif",
             fontWeight: 400,
             fontSize: "0.3em",
             letterSpacing: "0.5em",
