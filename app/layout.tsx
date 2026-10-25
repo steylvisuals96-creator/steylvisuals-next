@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, DM_Sans, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
-import Script from "next/script";
-import { STING_GATE } from "@/components/LogoSting";
 
 // Koppen en het woordmerk: Bricolage Grotesque. Lopende tekst: DM Sans. Zie DESIGN.md.
 const kop = Bricolage_Grotesque({
@@ -72,7 +70,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* A literal value — theme-color is read by the UA, which has no CSS vars. */}
         <meta name="theme-color" content="#0D0B09" />
-        <Script id="sting-gate" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: STING_GATE }} />
       </head>
       <body>
         <script

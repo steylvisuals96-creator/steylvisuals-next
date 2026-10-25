@@ -1,4 +1,3 @@
-import LogoSting from "@/components/LogoSting";
 import Home from "@/components/home/Home";
 
 export const metadata = {
@@ -10,10 +9,6 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <>
-      {/* First in the tree so the skip control is the first tab stop. */}
-      <LogoSting />
-      <Home />
-    </>
+    <Home />
   );
 }
