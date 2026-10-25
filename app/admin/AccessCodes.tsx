@@ -54,7 +54,7 @@ export default function AccessCodes({ token }: { token: string }) {
 
   return (
     <div style={{ maxWidth: "640px" }}>
-      <h2 style={{ fontFamily: "var(--font-cormorant), serif", fontSize: "1.5rem", fontWeight: 400, margin: "0 0 0.5rem" }}>Toegang tot de site</h2>
+      <h2 style={{ fontFamily: "var(--font-kop), system-ui, sans-serif", fontSize: "1.5rem", fontWeight: 400, margin: "0 0 0.5rem" }}>Toegang tot de site</h2>
       <p style={{ color: "var(--cream-muted)", fontSize: "0.875rem", lineHeight: 1.6, margin: "0 0 2rem" }}>
         De site staat achter een code. Maak hier een tijdelijke toegang voor iemand en stuur de link door.
         Wie de link opent, komt meteen binnen tot de code verloopt.

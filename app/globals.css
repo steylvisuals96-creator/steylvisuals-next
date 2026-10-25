@@ -67,7 +67,7 @@ body {
 
 /* Bricolage Grotesque speaks; DM Sans works. Headings never inherit the body sans. */
 h1, h2, h3, h4 {
-  font-family: var(--font-kop), Georgia, serif;
+  font-family: var(--font-kop), system-ui, sans-serif;
   font-weight: 600;
   letter-spacing: -0.03em;
   text-wrap: balance;
@@ -237,7 +237,7 @@ p { text-wrap: pretty; }
   color: var(--cream-muted);
 }
 .case-card-title {
-  font-family: var(--font-kop), Georgia, serif;
+  font-family: var(--font-kop), system-ui, sans-serif;
   font-size: clamp(1.75rem, 3.5vw, 2.5rem);
   font-weight: 300;
   line-height: 1.15;
@@ -283,7 +283,7 @@ p { text-wrap: pretty; }
 }
 .case-meta dd {
   margin: 0;
-  font-family: var(--font-kop), Georgia, serif;
+  font-family: var(--font-kop), system-ui, sans-serif;
   font-size: 1.5rem;
   font-weight: 300;
   line-height: 1.15;

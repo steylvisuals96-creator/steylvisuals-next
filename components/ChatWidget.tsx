@@ -202,7 +202,7 @@ export default function ChatWidget() {
         {/* Header */}
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", padding: "1.25rem 1.25rem 1rem", borderBottom: "1px solid var(--hairline)" }}>
           <div>
-            <p style={{ fontFamily: "var(--font-kop), Georgia, serif", fontSize: "1rem", fontWeight: 600, color: "var(--cream)", letterSpacing: "0.05em", textTransform: "uppercase", margin: 0 }}>
+            <p style={{ fontFamily: "var(--font-kop), system-ui, sans-serif", fontSize: "1rem", fontWeight: 600, color: "var(--cream)", letterSpacing: "0.05em", textTransform: "uppercase", margin: 0 }}>
               SteylVisuals
             </p>
             <p style={{ fontFamily: "var(--font-tekst), system-ui, sans-serif", fontSize: "0.7rem", color: "var(--cream-muted)", margin: "0.2rem 0 0" }}>

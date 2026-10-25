@@ -19,7 +19,7 @@ export default function ToegangPage() {
         <Logo size={40} />
         <h1
           style={{
-            fontFamily: "var(--font-cormorant), serif", fontWeight: 400,
+            fontFamily: "var(--font-kop), system-ui, sans-serif", fontWeight: 400,
             fontSize: "clamp(2rem, 6vw, 2.75rem)", lineHeight: 1.1, margin: "3rem 0 1rem",
           }}
         >
