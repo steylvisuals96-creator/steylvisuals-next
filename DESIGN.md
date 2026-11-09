@@ -90,7 +90,7 @@ components:
 ---
 
 <!-- 2026-11-09: de hele site volgt de Studio-look (~/steylvisuals-studio, app/globals.css). Elke pagina zit in de
-gedeelde schil components/studio/Schil.tsx (zijbalk, gsm-balken, gloed, voet). Oudere onderdelen (webdesign,
+gedeelde schil components/studio/Schil.tsx (navigatiebalk, gsm-balken, gloed, voet). Oudere onderdelen (webdesign,
 portfolio, vastgoedvideo) gebruiken nog de oude variabelen (--black, --gold, --cream ...); binnen de schil zet de
 klasse .studio-thema in app/globals.css die om naar de Studio-kleuren. Enkel /demo/som-vastgoed houdt zijn eigen
 klantstijl, en /admin is niet herzien. -->
@@ -129,7 +129,7 @@ De site ziet eruit als de tool waarmee Sam zelf werkt: een antraciet ruimte acht
 
 ## Layout
 
-Zoals de Studio: links een vaste zijbalk van matglas (264 px, hoeken 22 px) met groepen en een glijdend actief blok; rechts de inhoud. Onder 1024 px wordt dat een smalle balk bovenaan en een tabbalk onderaan met een terracotta streepje dat meeglijdt.
+Een gewone website, geen app: op desktop een zwevende glazen navigatiebalk bovenaan (hoeken 18 px, een glazen blok met een terracotta streepje glijdt achter de actieve link) en daaronder een hero op schermhoogte. Sam vond een vaste zijbalk zoals in de Studio "te fel op de back-end" lijken (2026-11-09). Onder 1024 px blijft het een smalle balk bovenaan en een tabbalk onderaan met een terracotta streepje dat meeglijdt; die gsm-weergave keurde Sam goed.
 
 Elke sectie opent met de Studio-paginakop: kicker, kop, en een rij kerncijfers met een icoon in een glazen rondje. Eén blok staat vast terwijl je scrolt: de Studio-demo.
 

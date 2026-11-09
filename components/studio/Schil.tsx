@@ -6,8 +6,8 @@ import { LINKS_VOET, MENU, TABS_HOME, TABS_PAGINA } from "./menu";
 import s from "./schil.module.css";
 
 /**
- * De Studio-schil rond elke pagina: vervaagde gloed, glazen zijbalk (desktop),
- * bovenbalk en tabbalk (gsm) en de voet. Op de homepage geeft Start de actieve
+ * De Studio-schil rond elke pagina: vervaagde gloed, een zwevende glazen
+ * navigatiebalk (desktop), bovenbalk en tabbalk (gsm) en de voet. Op de homepage geeft Start de actieve
  * sectie door terwijl je scrolt; op de andere pagina's is `actief` de pagina.
  *
  * `thema` zet de oude tokens van de site (--black, --gold, ...) om naar de
@@ -15,6 +15,9 @@ import s from "./schil.module.css";
  */
 
 const ALLE = MENU.flatMap((g) => g.links);
+
+/** De links in de navigatiebalk op desktop. Webdesign en Vastgoedvideo pas vanaf brede schermen. */
+const KOP = ["beeld", "websites", "automatisatie", "social", "portfolio", "webdesign", "vastgoed", "werkwijze"];
 
 function Woordmerk({ klein = false }: { klein?: boolean }) {
   return (
@@ -79,18 +82,18 @@ export default function Schil({
   rootRef?: React.Ref<HTMLDivElement>;
   children: React.ReactNode;
 }) {
-  const zijRef = useRef<HTMLElement>(null);
-  const [blok, setBlok] = useState<{ top: number; h: number } | null>(null);
+  const kopRef = useRef<HTMLElement>(null);
+  const [blok, setBlok] = useState<{ left: number; w: number } | null>(null);
   useGlans();
 
   // Op de homepage blijven de ankers op dezelfde pagina; elders gaan ze naar de homepage.
   const href = (l: { href: string }) => (thuis && l.href.startsWith("/#") ? l.href.slice(1) : l.href);
 
-  // Het actieve blok in de zijbalk glijdt naar de actieve link, zoals in de Studio.
+  // Een glazen blok glijdt achter de actieve link in de navigatiebalk, zoals het actieve blok in de Studio.
   useEffect(() => {
     const plaats = () => {
-      const a = zijRef.current?.querySelector<HTMLElement>(`[data-link="${actief}"]`);
-      setBlok(a ? { top: a.offsetTop, h: a.offsetHeight } : null);
+      const a = kopRef.current?.querySelector<HTMLElement>(`[data-link="${actief}"]`);
+      setBlok(a && a.offsetWidth ? { left: a.offsetLeft, w: a.offsetWidth } : null);
     };
     plaats();
     addEventListener("resize", plaats);
@@ -104,35 +107,30 @@ export default function Schil({
     <div ref={rootRef} className={`${s.root} ${thema ? "studio-thema" : ""} ${className}`}>
       <div className={s.gloed} aria-hidden="true" />
 
-      <aside className={s.zijbalk}>
-        <div className={s.zijGlas} data-g="">
+      {/* Desktop: een zwevende glazen navigatiebalk bovenaan */}
+      <header className={s.kopbalk}>
+        <div className={s.kopGlas} data-g="">
           <Woordmerk />
-          <nav ref={zijRef} className={s.zijLijst} aria-label="Hoofdmenu">
-            {blok && <span className={s.zijBlok} style={{ top: blok.top, height: blok.h }} aria-hidden="true" />}
-            {MENU.map((g) => (
-              <div key={g.groep}>
-                <p className={s.zijGroep}>{g.groep}</p>
-                <ul>
-                  {g.links.map((l) => (
-                    <li key={l.id}>
-                      <Link href={href(l)} data-link={l.id} aria-current={actief === l.id ? (thuis ? "true" : "page") : undefined}>
-                        <span aria-hidden="true" />
-                        {l.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <nav ref={kopRef} className={s.kopLijst} aria-label="Hoofdmenu">
+            {blok && <span className={s.kopBlok} style={{ left: blok.left, width: blok.w }} aria-hidden="true" />}
+            <ul>
+              {KOP.map((id) => {
+                const l = ALLE.find((x) => x.id === id)!;
+                return (
+                  <li key={l.id} data-extra={id === "webdesign" || id === "vastgoed" || undefined}>
+                    <Link href={href(l)} data-link={l.id} aria-current={actief === l.id ? (thuis ? "true" : "page") : undefined}>
+                      {l.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
           </nav>
-          <div className={s.zijVoet}>
-            <a href={thuis ? "#contact" : "/#contact"} className={s.knop}>
-              Start je project
-            </a>
-            <p>Antwoord binnen een werkdag</p>
-          </div>
+          <a href={thuis ? "#contact" : "/#contact"} className={s.knop}>
+            Start je project
+          </a>
         </div>
-      </aside>
+      </header>
 
       <header className={s.bovenbalk}>
         <Woordmerk klein />

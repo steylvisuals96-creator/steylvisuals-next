@@ -222,9 +222,8 @@
 }
 
 @media (min-width: 1024px) {
-  .root {
-    display: grid;
-    grid-template-columns: 264px minmax(0, 1fr);
+  .sectie {
+    scroll-margin-top: 72px;
   }
 }
 @media (max-width: 1023px) {
@@ -1587,5 +1586,25 @@
   .root * {
     transition-duration: 0.01s !important;
     transition-delay: 0s !important;
+  }
+}
+
+/* Desktop: navigatiebalk bovenaan. Staat onderaan zodat het de basisregels hierboven overschrijft. */
+@media (min-width: 1024px) {
+  /* De begroeting vult het eerste scherm als hero; het overzicht volgt bij het scrollen. */
+  .start {
+    padding-top: 0;
+  }
+  .startRaster {
+    min-height: calc(100svh - 84px);
+    padding-block: 40px 56px;
+  }
+  /* De vastgezette demo blijft onder de navigatiebalk. */
+  .pinVast {
+    padding-top: 92px;
+    padding-bottom: 3vh;
+  }
+  .pinVenster {
+    height: min(620px, calc(100vh - 140px));
   }
 }
