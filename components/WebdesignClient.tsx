@@ -68,8 +68,8 @@ function FeatureIcon({ name, gold = false }: { name: string; gold?: boolean }) {
     <span
       className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
       style={{
-        backgroundColor: gold ? "rgba(201,151,74,0.18)" : "rgba(201,151,74,0.08)",
-        border: `1px solid ${gold ? "rgba(201,151,74,0.35)" : "rgba(201,151,74,0.15)"}`,
+        backgroundColor: gold ? "rgba(208,118,74,0.18)" : "rgba(208,118,74,0.08)",
+        border: `1px solid ${gold ? "rgba(208,118,74,0.35)" : "rgba(208,118,74,0.15)"}`,
       }}
       aria-hidden="true"
     >
@@ -260,7 +260,7 @@ function ContactSection() {
   return (
     <section
       id="webdesign-contact"
-      style={{ backgroundColor: "var(--black)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)", borderTop: "1px solid rgba(201,151,74,0.1)" }}
+      style={{ backgroundColor: "var(--vlak)", padding: "clamp(5rem,10vh,8rem) 0", borderTop: "1px solid rgba(208,118,74,0.1)" }}
     >
       <div className="max-w-[1100px] mx-auto grid gap-16 grid-cols-1 md:grid-cols-2" style={{ alignItems: "start" }}>
         <div>
@@ -271,7 +271,7 @@ function ContactSection() {
             </p>
           </AnimateIn>
           <AnimateIn delay={0.1}>
-            <h2 className="mb-6" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
+            <h2 className="mb-6" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
               Klaar om op te<br /><em style={{ color: "var(--gold)" }}>vallen?</em>
             </h2>
           </AnimateIn>
@@ -300,14 +300,14 @@ function ContactSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="flex flex-col items-center justify-center text-center gap-4 py-16"
-              style={{ backgroundColor: "rgba(201,151,74,0.06)", borderRadius: "var(--r-md)", border: "1px solid rgba(201,151,74,0.2)" }}
+              style={{ backgroundColor: "rgba(208,118,74,0.06)", borderRadius: "var(--r-md)", border: "1px solid rgba(208,118,74,0.2)" }}
             >
-              <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(201,151,74,0.15)" }}>
+              <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(208,118,74,0.15)" }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
-              <h3 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)" }}>Aanvraag ontvangen!</h3>
+              <h3 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, color: "var(--cream)" }}>Aanvraag ontvangen!</h3>
               <p className="text-sm font-light" style={{ color: "var(--cream-muted)" }}>Ik neem binnen 24 uur contact met je op.</p>
             </motion.div>
           ) : (
@@ -391,12 +391,12 @@ export default function WebdesignClient() {
       <section
         ref={heroRef}
         className="relative overflow-hidden"
-        style={{ backgroundColor: "var(--black)", padding: "calc(72px + 2.5rem) clamp(1.5rem,6vw,5rem) clamp(3.5rem,8vh,6rem)" }}
+        style={{ backgroundColor: "var(--vlak)", padding: "2.5rem 0 clamp(3.5rem,8vh,6rem)" }}
       >
         <div
           className="absolute pointer-events-none"
           aria-hidden="true"
-          style={{ inset: 0, background: "radial-gradient(ellipse 65% 55% at 65% -5%, rgba(201,151,74,0.09) 0%, transparent 65%)" }}
+          style={{ inset: 0, background: "radial-gradient(ellipse 65% 55% at 65% -5%, rgba(208,118,74,0.09) 0%, transparent 65%)" }}
         />
 
         <div className="relative z-10 max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -476,7 +476,7 @@ export default function WebdesignClient() {
       </section>
 
       {/* ── STATS ── */}
-      <section style={{ backgroundColor: "#111", padding: "3rem clamp(1.5rem,6vw,5rem)", borderTop: "1px solid rgba(201,151,74,0.1)", borderBottom: "1px solid rgba(201,151,74,0.1)" }}>
+      <section style={{ backgroundColor: "var(--panel)", padding: "3rem 0", borderTop: "1px solid rgba(208,118,74,0.1)", borderBottom: "1px solid rgba(208,118,74,0.1)" }}>
         <div className="max-w-[1100px] mx-auto grid grid-cols-3 gap-4 sm:gap-10 text-center">
           {[
             { value: 100, suffix: "%", label: "Op maat gebouwd" },
@@ -490,7 +490,7 @@ export default function WebdesignClient() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: EASE }}
             >
-              <p style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, color: "var(--gold)", lineHeight: 1 }}>
+              <p style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 400, color: "var(--gold)", lineHeight: 1 }}>
                 <AnimatedNumber target={s.value} suffix={s.suffix} />
               </p>
               <p className="mt-2" style={{ fontFamily: "var(--font-tekst)", fontSize: "clamp(0.6rem,1.2vw,0.75rem)", color: "var(--cream-muted)", maxWidth: "140px", margin: "0.5rem auto 0" }}>
@@ -502,10 +502,10 @@ export default function WebdesignClient() {
       </section>
 
       {/* ── FEATURES: asymmetrische bento ── */}
-      <section style={{ backgroundColor: "var(--black)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
+      <section style={{ backgroundColor: "var(--vlak)", padding: "clamp(5rem,10vh,8rem) 0" }}>
         <div className="max-w-[1100px] mx-auto">
           <AnimateIn>
-            <h2 className="mb-12" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)", maxWidth: "560px" }}>
+            <h2 className="mb-12" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)", maxWidth: "560px" }}>
               Meer dan een website,<br /><em style={{ color: "var(--cream-muted)" }}>een verkoopsmachine</em>
             </h2>
           </AnimateIn>
@@ -520,11 +520,11 @@ export default function WebdesignClient() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.7, ease: EASE }}
               className="sm:col-span-2 flex flex-col gap-4 p-7 sm:p-9"
-              style={{ backgroundColor: "#111", borderRadius: "var(--r-md)", border: "1px solid rgba(201,151,74,0.08)" }}
+              style={{ backgroundColor: "var(--panel)", borderRadius: "var(--r-md)", border: "1px solid rgba(208,118,74,0.08)" }}
             >
               <FeatureIcon name="zap" />
               <div>
-                <h3 className="mb-2" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Razendsnel geladen</h3>
+                <h3 className="mb-2" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 400, color: "var(--cream)" }}>Razendsnel geladen</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "420px" }}>
                   Gebouwd met Next.js, de snelste webtechnologie beschikbaar. Google beloont snelle sites met hogere rankings en meer klikken.
                 </p>
@@ -537,11 +537,11 @@ export default function WebdesignClient() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.7, delay: 0.07, ease: EASE }}
               className="flex flex-col justify-between gap-6 p-7"
-              style={{ backgroundColor: "rgba(201,151,74,0.07)", borderRadius: "var(--r-md)", border: "1px solid rgba(201,151,74,0.2)" }}
+              style={{ backgroundColor: "rgba(208,118,74,0.07)", borderRadius: "var(--r-md)", border: "1px solid rgba(208,118,74,0.2)" }}
             >
               <FeatureIcon name="smartphone" gold />
               <div>
-                <h3 className="mb-1" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Mobiel-first</h3>
+                <h3 className="mb-1" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 400, color: "var(--cream)" }}>Mobiel-first</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)" }}>
                   70% van je bezoekers komt via smartphone. Perfect op elk scherm.
                 </p>
@@ -555,11 +555,11 @@ export default function WebdesignClient() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
               className="flex flex-col justify-between gap-6 p-7"
-              style={{ backgroundColor: "rgba(201,151,74,0.05)", borderRadius: "var(--r-md)", border: "1px solid rgba(201,151,74,0.18)" }}
+              style={{ backgroundColor: "rgba(208,118,74,0.05)", borderRadius: "var(--r-md)", border: "1px solid rgba(208,118,74,0.18)" }}
             >
               <FeatureIcon name="search" gold />
               <div>
-                <h3 className="mb-1" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>SEO inbegrepen</h3>
+                <h3 className="mb-1" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 400, color: "var(--cream)" }}>SEO inbegrepen</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)" }}>
                   Technische SEO, meta tags en sitemap. Klanten vinden jou via Google.
                 </p>
@@ -572,11 +572,11 @@ export default function WebdesignClient() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.7, delay: 0.14, ease: EASE }}
               className="sm:col-span-2 flex flex-col gap-4 p-7 sm:p-9"
-              style={{ backgroundColor: "var(--panel)", borderRadius: "var(--r-md)", border: "1px solid rgba(201,151,74,0.08)" }}
+              style={{ backgroundColor: "var(--panel)", borderRadius: "var(--r-md)", border: "1px solid rgba(208,118,74,0.08)" }}
             >
               <FeatureIcon name="palette" />
               <div>
-                <h3 className="mb-2" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Jouw stijl, jouw merk</h3>
+                <h3 className="mb-2" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 400, color: "var(--cream)" }}>Jouw stijl, jouw merk</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "420px" }}>
                   Geen kant-en-klare templates. Elke site ontworpen op maat van jouw identiteit, kleurenpalet en doelgroep. Niet te verwarren met de buur.
                 </p>
@@ -590,11 +590,11 @@ export default function WebdesignClient() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.7, delay: 0.17, ease: EASE }}
               className="flex flex-col justify-between gap-6 p-7"
-              style={{ backgroundColor: "#111", borderRadius: "var(--r-md)", border: "1px solid rgba(201,151,74,0.08)" }}
+              style={{ backgroundColor: "var(--panel)", borderRadius: "var(--r-md)", border: "1px solid rgba(208,118,74,0.08)" }}
             >
               <FeatureIcon name="edit" />
               <div>
-                <h3 className="mb-1" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Zelf beheren</h3>
+                <h3 className="mb-1" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 400, color: "var(--cream)" }}>Zelf beheren</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)" }}>
                   Via een eenvoudig CMS pas jij teksten en content aan zonder technische kennis.
                 </p>
@@ -607,11 +607,11 @@ export default function WebdesignClient() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
               className="sm:col-span-2 flex items-center gap-6 p-7 sm:p-9"
-              style={{ backgroundColor: "var(--black)", borderRadius: "var(--r-md)", border: "1px solid rgba(201,151,74,0.08)" }}
+              style={{ backgroundColor: "var(--panel)", borderRadius: "var(--r-md)", border: "1px solid rgba(208,118,74,0.08)" }}
             >
               <FeatureIcon name="video" />
               <div>
-                <h3 className="mb-1" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Video-ready</h3>
+                <h3 className="mb-1" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 400, color: "var(--cream)" }}>Video-ready</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "380px" }}>
                   Combineer je website met maandelijkse Reels en TikTok content. Website + video is de sterkste combinatie.
                 </p>
@@ -628,11 +628,11 @@ export default function WebdesignClient() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.7, delay: 0.23, ease: EASE }}
               className="sm:col-span-3 flex flex-col sm:flex-row sm:items-center gap-6 p-7 sm:p-9"
-              style={{ backgroundColor: "rgba(201,151,74,0.07)", borderRadius: "var(--r-md)", border: "1px solid rgba(201,151,74,0.25)" }}
+              style={{ backgroundColor: "rgba(208,118,74,0.07)", borderRadius: "var(--r-md)", border: "1px solid rgba(208,118,74,0.25)" }}
             >
               <FeatureIcon name="inbox" gold />
               <div>
-                <h3 className="mb-2" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>Leads centraal beheerd</h3>
+                <h3 className="mb-2" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 400, color: "var(--cream)" }}>Leads centraal beheerd</h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "560px" }}>
                   Aanvragen uit je AI-assistent en contactformulieren komen op één plek binnen, worden automatisch aan de juiste persoon toegewezen en krijgen opvolging zodat er nooit een lead zoek raakt. Iets wat een vast platform als Zabun je niet biedt.
                 </p>
@@ -648,12 +648,12 @@ export default function WebdesignClient() {
           sectie omdat "wat als de site offline gaat" precies het bezwaar
           was dat een eerdere prospect had. ── */}
       <section
-        style={{ backgroundColor: "var(--black)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)", borderTop: "1px solid rgba(201,151,74,0.08)" }}
+        style={{ backgroundColor: "var(--vlak)", padding: "clamp(5rem,10vh,8rem) 0", borderTop: "1px solid rgba(208,118,74,0.08)" }}
       >
         <div className="max-w-[1100px] mx-auto grid gap-12 items-center grid-cols-1 md:grid-cols-2">
           <div>
             <AnimateIn>
-              <h2 className="mb-4" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
+              <h2 className="mb-4" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
                 Nooit zomaar <em style={{ color: "var(--gold)" }}>offline</em>
               </h2>
             </AnimateIn>
@@ -698,11 +698,11 @@ export default function WebdesignClient() {
       {/* ── WERKWIJZE: numbered divider list, no cards ── */}
       <section
         id="werkwijze"
-        style={{ backgroundColor: "var(--black)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)", borderTop: "1px solid rgba(201,151,74,0.08)" }}
+        style={{ backgroundColor: "var(--vlak)", padding: "clamp(5rem,10vh,8rem) 0", borderTop: "1px solid rgba(208,118,74,0.08)" }}
       >
         <div className="max-w-[1100px] mx-auto">
           <AnimateIn>
-            <h2 className="mb-4" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
+            <h2 className="mb-4" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
               Van idee tot <em style={{ color: "var(--gold)" }}>live website</em>
             </h2>
           </AnimateIn>
@@ -710,7 +710,7 @@ export default function WebdesignClient() {
             <p className="text-sm font-light mb-14" style={{ color: "var(--cream-muted)" }}>Vier stappen, geen verrassingen.</p>
           </AnimateIn>
 
-          <div style={{ borderTop: "1px solid rgba(201,151,74,0.1)" }}>
+          <div style={{ borderTop: "1px solid rgba(208,118,74,0.1)" }}>
             {[
               { step: "01", title: "Brief", desc: "Jij stuurt de details via het formulier hieronder. Type site, doel, stijl en deadline. Alles wat relevant is." },
               { step: "02", title: "Offerte", desc: "Binnen 24u ontvang je een offerte op maat. De kost hangt af van de complexiteit en omvang van jouw project." },
@@ -726,7 +726,7 @@ export default function WebdesignClient() {
                 className="grid gap-6 md:gap-16 py-8 md:py-10"
                 style={{
                   gridTemplateColumns: "4rem 1fr auto",
-                  borderBottom: "1px solid rgba(201,151,74,0.08)",
+                  borderBottom: "1px solid rgba(208,118,74,0.08)",
                   alignItems: "center",
                 }}
               >
@@ -734,7 +734,7 @@ export default function WebdesignClient() {
                   style={{
                     fontFamily: "var(--font-kop)",
                     fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-                    fontWeight: 300,
+                    fontWeight: 400,
                     color: "var(--cream-muted)",
                     lineHeight: 1,
                     flexShrink: 0,
@@ -743,7 +743,7 @@ export default function WebdesignClient() {
                   {item.step}
                 </span>
                 <div>
-                  <h3 className="mb-1.5" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)" }}>
+                  <h3 className="mb-1.5" style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 400, color: "var(--cream)" }}>
                     {item.title}
                   </h3>
                   <p className="text-sm font-light leading-relaxed" style={{ color: "var(--cream-muted)", maxWidth: "540px" }}>
@@ -772,11 +772,11 @@ export default function WebdesignClient() {
       </section>
 
       {/* ── COMBO ── */}
-      <section style={{ backgroundColor: "var(--black)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)", borderTop: "1px solid rgba(201,151,74,0.15)" }}>
+      <section style={{ backgroundColor: "var(--vlak)", padding: "clamp(5rem,10vh,8rem) 0", borderTop: "1px solid rgba(208,118,74,0.15)" }}>
         <div className="max-w-[1100px] mx-auto grid gap-16 items-center grid-cols-1 md:grid-cols-2">
           <div>
             <AnimateIn>
-              <h2 className="mb-6" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
+              <h2 className="mb-6" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: "-0.02em", color: "var(--cream)" }}>
                 Website en video,<br /><em style={{ color: "var(--cream-muted)" }}>one stop shop</em>
               </h2>
             </AnimateIn>
@@ -812,7 +812,7 @@ export default function WebdesignClient() {
           </div>
 
           <AnimateIn direction="right">
-            <div className="flex flex-col gap-3 p-5 sm:p-8" style={{ backgroundColor: "rgba(201,151,74,0.04)", borderRadius: "var(--r-md)", border: "1px solid rgba(201,151,74,0.14)" }}>
+            <div className="flex flex-col gap-3 p-5 sm:p-8" style={{ backgroundColor: "rgba(208,118,74,0.04)", borderRadius: "var(--r-md)", border: "1px solid rgba(208,118,74,0.14)" }}>
               {[
                 { label: "Website", icon: "globe", desc: "Op maat, SEO-klaar, CMS inbegrepen" },
                 { label: "Video content", icon: "video", desc: "Maandelijkse Reels, TikTok en LinkedIn" },
@@ -821,12 +821,12 @@ export default function WebdesignClient() {
                 <div
                   key={item.label}
                   className="flex items-start gap-4 p-4"
-                  style={{ backgroundColor: "rgba(255,255,255,0.03)", borderRadius: "var(--r-md)", border: "1px solid rgba(201,151,74,0.1)" }}
+                  style={{ backgroundColor: "rgba(255,255,255,0.03)", borderRadius: "var(--r-md)", border: "1px solid rgba(208,118,74,0.1)" }}
                 >
                   <FeatureIcon name={item.icon} />
                   <div>
                     <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.82rem", fontWeight: 500, color: "rgba(241,237,230,0.72)", marginBottom: "2px" }}>{item.label}</p>
-                    <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.75rem", fontWeight: 300, color: "var(--cream-muted)" }}>{item.desc}</p>
+                    <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.75rem", fontWeight: 400, color: "var(--cream-muted)" }}>{item.desc}</p>
                   </div>
                 </div>
               ))}

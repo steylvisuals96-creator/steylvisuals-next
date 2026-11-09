@@ -13,8 +13,8 @@ const steps = [
 
 export default function Process() {
   return (
-    <section id="process" className="py-24" style={{ backgroundColor: "var(--black)", padding: "clamp(5rem,10vh,8rem) 0 0" }}>
-      <div style={{ padding: "0 clamp(1.5rem,6vw,5rem)", marginBottom: "clamp(3rem,6vh,5rem)" }}>
+    <section id="process" className="py-24" style={{ backgroundColor: "var(--vlak)", padding: "clamp(5rem,10vh,8rem) 0 0" }}>
+      <div style={{ padding: "0 0", marginBottom: "clamp(3rem,6vh,5rem)" }}>
         <div className="grid gap-12 grid-cols-1 md:grid-cols-2">
           <div>
             <AnimateIn>
@@ -23,7 +23,7 @@ export default function Process() {
               </p>
             </AnimateIn>
             <AnimateIn delay={0.1}>
-              <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
+              <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
                 Van eerste contact<br /><em style={{ color: "var(--cream-muted)" }}>tot live content</em>
               </h2>
             </AnimateIn>
@@ -49,11 +49,11 @@ export default function Process() {
             style={{
               gridTemplateColumns: "clamp(4rem,8vw,7rem) 1fr auto",
               gap: "0 2rem",
-              padding: "clamp(1.75rem,3.5vh,3rem) clamp(1.5rem,6vw,5rem)",
+              padding: "clamp(1.75rem,3.5vh,3rem) 0",
               borderColor: "var(--hairline)",
             }}
           >
-            <span style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1, color: "var(--cream-muted)", letterSpacing: 0 }}>
+            <span style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 400, lineHeight: 1, color: "var(--cream-muted)", letterSpacing: 0 }}>
               {step.num}
             </span>
             <div>

@@ -25,15 +25,15 @@ export default function Showcase() {
   }, [reduce]);
 
   return (
-    <section id="showcase" className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight: "75vh", backgroundColor: "var(--black)" }}>
-      <div style={{ padding: "clamp(4rem,10vh,7rem) clamp(1.5rem,6vw,5rem)" }} className="flex flex-col justify-center">
+    <section id="showcase" className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight: "75vh", backgroundColor: "var(--vlak)" }}>
+      <div style={{ padding: "clamp(4rem,10vh,7rem) 0" }} className="flex flex-col justify-center">
         <AnimateIn>
           <p className="flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-5" style={{ color: "var(--cream-muted)" }}>
             Resultaat
           </p>
         </AnimateIn>
         <AnimateIn delay={0.1}>
-          <h2 className="mb-6" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
+          <h2 className="mb-6" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
             Zo ziet jouw<br /><em style={{ color: "var(--cream-muted)" }}>content eruit</em>
           </h2>
         </AnimateIn>
@@ -57,7 +57,7 @@ export default function Showcase() {
 
       <div
         className="flex items-center justify-center relative"
-        style={{ background: "radial-gradient(ellipse 80% 80% at 50% 50%, var(--panel), var(--black))", padding: "clamp(3rem,6vh,5rem)" }}
+        style={{ background: "radial-gradient(ellipse 80% 80% at 50% 50%, var(--panel), var(--vlak))", padding: "clamp(3rem,6vh,5rem)" }}
       >
         <AnimateIn direction="right">
           <motion.div

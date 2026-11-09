@@ -83,7 +83,7 @@ function Item({ q, a, i }: { q: string; a: string; i: number }) {
 
 export default function FAQ() {
   return (
-    <section id="faq" style={{ backgroundColor: "var(--black)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
+    <section id="faq" style={{ backgroundColor: "var(--vlak)", padding: "clamp(5rem,10vh,8rem) 0" }}>
       <div className="grid gap-16 grid-cols-1 lg:grid-cols-[1fr_1.6fr]" style={{ alignItems: "start" }}>
         <div className="lg:sticky lg:top-28">
           <AnimateIn>
@@ -92,7 +92,7 @@ export default function FAQ() {
             </p>
           </AnimateIn>
           <AnimateIn delay={0.1}>
-            <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
+            <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
               Veelgestelde<br /><em style={{ color: "var(--cream-muted)" }}>vragen</em>
             </h2>
           </AnimateIn>

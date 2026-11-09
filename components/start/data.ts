@@ -7,30 +7,6 @@
 
 export const MAIL = "steylvisuals96@gmail.com";
 
-type NavLink = { id: string; label: string; kort: string };
-
-export const NAV: { groep: string; links: NavLink[] }[] = [
-  { groep: "Welkom", links: [{ id: "start", label: "Start", kort: "Start" }] },
-  {
-    groep: "Wat ik maak",
-    links: [
-      { id: "beeld", label: "Video en foto", kort: "Beeld" },
-      { id: "websites", label: "Websites", kort: "Sites" },
-      { id: "automatisatie", label: "Automatisatie en AI", kort: "AI" },
-      { id: "social", label: "Social media", kort: "Social" },
-    ],
-  },
-  {
-    groep: "Samen",
-    links: [
-      { id: "werkwijze", label: "Werkwijze", kort: "Werkwijze" },
-      { id: "contact", label: "Contact", kort: "Contact" },
-    ],
-  },
-];
-
-export const SECTIES = NAV.flatMap((g) => g.links.map((l) => l.id));
-
 /* ---------------------------------------------------------------- Start */
 
 export const OVERZICHT = [
@@ -260,12 +236,4 @@ export const BELOFTES = [
   { icoon: "gsm", titel: "Eén gsm-nummer", tekst: "Je belt of appt mij rechtstreeks. Geen helpdesk, geen accountmanager." },
   { icoon: "klok", titel: "Antwoord binnen een werkdag", tekst: "Ook als het antwoord is: ik zoek het even uit." },
   { icoon: "schild", titel: "Ik weet het eerst", tekst: "Ligt je site eruit, dan weet ik het voor jij het merkt, en los ik het op." },
-];
-
-export const LINKS = [
-  { label: "Webdesign", href: "/webdesign" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Vastgoedvideo", href: "/vastgoed-marketing" },
-  { label: "Instagram", href: "https://www.instagram.com/steylvisuals" },
-  { label: "Uptime-status", href: "https://stats.uptimerobot.com/aIPn0em2Sd" },
 ];

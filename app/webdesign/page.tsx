@@ -1,5 +1,4 @@
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
+import Schil, { Voet } from "@/components/studio/Schil";
 import WebdesignClient from "@/components/WebdesignClient";
 
 export const metadata = {
@@ -10,12 +9,11 @@ export const metadata = {
 
 export default function WebdesignPage() {
   return (
-    <>
-      <Nav />
-      <main>
+    <Schil actief="webdesign" thema>
+      <div>
         <WebdesignClient />
-      </main>
-      <Footer />
-    </>
+      </div>
+      <Voet />
+    </Schil>
   );
 }

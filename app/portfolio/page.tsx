@@ -1,5 +1,4 @@
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
+import Schil, { Voet } from "@/components/studio/Schil";
 import CaseCard from "@/components/CaseCard";
 import { CASES } from "@/lib/cases";
 import VideoReelGrid, { type Reel } from "@/components/VideoReelGrid";
@@ -34,11 +33,10 @@ const REELS: Reel[] = [
 
 export default function PortfolioPage() {
   return (
-    <>
-      <Nav />
-      <main style={{ backgroundColor: "var(--black)" }}>
+    <Schil actief="portfolio" thema>
+      <div style={{ backgroundColor: "var(--vlak)" }}>
         {/* Hero */}
-        <section style={{ padding: "clamp(8rem,16vh,11rem) clamp(1.5rem,6vw,5rem) clamp(3rem,6vh,5rem)" }}>
+        <section style={{ padding: "clamp(4rem,9vh,6.5rem) 0 clamp(3rem,6vh,5rem)" }}>
           <div className="max-w-[1100px] mx-auto">
             <p
               className="inline-flex items-center gap-2 mb-6"
@@ -47,7 +45,7 @@ export default function PortfolioPage() {
               Portfolio
             </p>
             <h1
-              style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.04, letterSpacing: 0, color: "var(--cream)", maxWidth: "640px" }}
+              style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 400, lineHeight: 1.04, letterSpacing: 0, color: "var(--cream)", maxWidth: "640px" }}
             >
               Elk project,{" "}
               <em style={{ fontStyle: "normal", color: "var(--gold)" }}>een verhaal</em>
@@ -93,12 +91,12 @@ export default function PortfolioPage() {
         {/* Section: Websites — vooraan gezet: dit is het sterkste bewijs voor
             een vastgoed-/webdesign-lead, moet niet onder Cases en Reels
             verstopt zitten. */}
-        <section style={{ padding: "0 clamp(1.5rem,6vw,5rem) clamp(4rem,8vh,6rem)" }}>
+        <section style={{ padding: "0 0 clamp(4rem,8vh,6rem)" }}>
           <div className="max-w-[1100px] mx-auto mb-12">
             <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
               Webdesign &amp; CMS
             </p>
-            <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
+            <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, color: "var(--cream)", marginTop: "0.5rem" }}>
               Websites op maat
             </h2>
           </div>
@@ -107,12 +105,12 @@ export default function PortfolioPage() {
 
         {/* Cases: real client work, each leading to its own page.
             Adding one is a data entry in lib/cases.ts. */}
-        <section style={{ padding: "0 clamp(1.5rem,6vw,5rem) clamp(4rem,8vh,6rem)" }}>
+        <section style={{ padding: "0 0 clamp(4rem,8vh,6rem)" }}>
           <div className="max-w-[1100px] mx-auto mb-12">
             <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--cream-muted)" }}>
               Uitgelicht werk
             </p>
-            <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
+            <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, color: "var(--cream)", marginTop: "0.5rem" }}>
               Cases
             </h2>
           </div>
@@ -124,12 +122,12 @@ export default function PortfolioPage() {
         </section>
 
         {/* Section: Video & Content */}
-        <section style={{ padding: "0 clamp(1.5rem,6vw,5rem) clamp(4rem,8vh,6rem)" }}>
+        <section style={{ padding: "0 0 clamp(4rem,8vh,6rem)" }}>
           <div className="max-w-[1100px] mx-auto mb-12">
             <p style={{ fontFamily: "var(--font-tekst)", fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.26em", textTransform: "uppercase", color: "var(--gold)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
               Video &amp; Content
             </p>
-            <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)", marginTop: "0.5rem" }}>
+            <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, color: "var(--cream)", marginTop: "0.5rem" }}>
               Reels &amp; Brand video
             </h2>
           </div>
@@ -137,12 +135,12 @@ export default function PortfolioPage() {
         </section>
 
         {/* CTA */}
-        <section style={{ padding: "clamp(4rem,8vh,6rem) clamp(1.5rem,6vw,5rem)" }}>
+        <section style={{ padding: "clamp(4rem,8vh,6rem) 0" }}>
           <div
             className="text-center max-w-[1100px] mx-auto pt-14"
             style={{ borderTop: "1px solid rgba(241,237,230,0.08)" }}
           >
-            <p className="mb-3" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)" }}>
+            <p className="mb-3" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, color: "var(--cream)" }}>
               Jouw project hier?
             </p>
             <p style={{ fontFamily: "var(--font-tekst)", fontSize: "1rem", fontWeight: 400, color: "var(--cream-muted)", marginBottom: "2rem" }}>
@@ -150,15 +148,15 @@ export default function PortfolioPage() {
             </p>
             <a
               href="mailto:Steylvisuals96@gmail.com?subject=Interesse%20in%20SteylVisuals"
-              className="inline-block rounded-[2px]"
+              className="inline-block rounded-[8px]"
               style={{ fontFamily: "var(--font-tekst)", fontSize: "1rem", fontWeight: 500, backgroundColor: "var(--gold)", color: "var(--black)", padding: "1rem 2.25rem", textDecoration: "none" }}
             >
               Gratis gesprek aanvragen
             </a>
           </div>
         </section>
-      </main>
-      <Footer />
-    </>
+      </div>
+      <Voet />
+    </Schil>
   );
 }

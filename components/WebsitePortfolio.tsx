@@ -18,7 +18,7 @@ const PROJECTS: WebProject[] = [
     title: "SOM Vastgoed",
     subtitle: "Website & CMS op maat",
     tags: ["Next.js", "CMS", "Zabun API"],
-    accent: "#C9974A",
+    accent: "var(--gold)",
     href: "/demo/som-vastgoed",
     features: ["Live panden via API", "Eigen CMS panel", "SEO geoptimaliseerd"],
   },
@@ -42,7 +42,7 @@ const PROJECTS: WebProject[] = [
     title: "SteylVisuals.be",
     subtitle: "Portfolio & Admin panel",
     tags: ["Next.js", "Cloudflare R2", "Workers"],
-    accent: "#C9974A",
+    accent: "var(--gold)",
     features: ["Media upload via admin", "Content bewerken zonder code", "Automatisch deploys via Git"],
   },
   {
@@ -108,7 +108,7 @@ function WebCard({ project, index }: { project: WebProject; index: number }) {
           style={{
             fontFamily: "var(--font-kop)",
             fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-            fontWeight: 300,
+            fontWeight: 400,
             lineHeight: 1.1,
             color: "var(--cream)",
             marginBottom: "0.4rem",

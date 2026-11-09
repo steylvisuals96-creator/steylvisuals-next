@@ -9,7 +9,7 @@ const items = [
 
 export default function Marquee() {
   return (
-    <div className="overflow-hidden py-3.5" style={{ backgroundColor: "var(--black)" }}>
+    <div className="overflow-hidden py-3.5" style={{ backgroundColor: "var(--vlak)" }}>
       <div className="flex w-max animate-marquee">
         {items.map((item, i) => (
           <span key={i} className="flex items-center gap-5 px-8 text-xs font-medium tracking-widest uppercase whitespace-nowrap" style={{ color: "var(--cream-muted)" }}>

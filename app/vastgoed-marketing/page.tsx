@@ -1,4 +1,3 @@
-import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import Process from "@/components/Process";
@@ -8,7 +7,7 @@ import OverMij from "@/components/OverMij";
 import FAQ from "@/components/FAQ";
 import ContactForm from "@/components/ContactForm";
 import CTA from "@/components/CTA";
-import Footer from "@/components/Footer";
+import Schil, { Voet } from "@/components/studio/Schil";
 
 export const metadata = {
   title: "Vastgoed Marketing — SteylVisuals",
@@ -18,9 +17,8 @@ export const metadata = {
 
 export default function VastgoedMarketingPage() {
   return (
-    <>
-      <Nav />
-      <main>
+    <Schil actief="vastgoed" thema>
+      <div>
         <Hero />
         <Marquee />
         <Process />
@@ -30,8 +28,8 @@ export default function VastgoedMarketingPage() {
         <FAQ />
         <ContactForm />
         <CTA />
-      </main>
-      <Footer />
-    </>
+      </div>
+      <Voet />
+    </Schil>
   );
 }

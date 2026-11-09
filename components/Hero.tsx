@@ -41,8 +41,8 @@ export default function Hero() {
     <section
       className="min-h-svh grid grid-cols-1 md:grid-cols-2 items-center gap-16 pt-24 pb-16"
       style={{
-        backgroundColor: "var(--black)",
-        padding: "calc(72px + 3rem) clamp(1.5rem, 6vw, 5rem) clamp(4rem, 8vh, 6rem)",
+        backgroundColor: "var(--vlak)",
+        padding: "3rem 0 clamp(4rem, 8vh, 6rem)",
       }}
     >
       {/* Left */}
@@ -67,7 +67,7 @@ export default function Hero() {
           style={{
             fontFamily: "var(--font-kop)",
             fontSize: "clamp(2.75rem, 6vw, 4.75rem)",
-            fontWeight: 300,
+            fontWeight: 400,
             lineHeight: 1.05,
             letterSpacing: 0,
             color: "var(--cream)",
@@ -165,7 +165,7 @@ export default function Hero() {
 
           {/* Text overlay */}
           <div style={{ position: "absolute", bottom: "1.5rem", left: "1.75rem", right: "1.75rem" }}>
-            <p style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 300, color: "var(--cream)", lineHeight: 1.25 }}>
+            <p style={{ fontFamily: "var(--font-kop)", fontSize: "1.5rem", fontWeight: 400, color: "var(--cream)", lineHeight: 1.25 }}>
               Zo zet je jouw merk<br />
               <em style={{ color: "var(--gold)" }}>in de kijker</em>
             </p>

@@ -24,7 +24,7 @@ export default function ContactForm() {
   }
 
   return (
-    <section id="contact" style={{ backgroundColor: "var(--black)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
+    <section id="contact" style={{ backgroundColor: "var(--vlak)", padding: "clamp(5rem,10vh,8rem) 0" }}>
       <div className="grid gap-16 grid-cols-1 md:grid-cols-2" style={{ alignItems: "start" }}>
         <div>
           <AnimateIn>
@@ -33,7 +33,7 @@ export default function ContactForm() {
             </p>
           </AnimateIn>
           <AnimateIn delay={0.1}>
-            <h2 className="mb-6" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
+            <h2 className="mb-6" style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
               Laten we<br /><em style={{ color: "var(--cream-muted)" }}>kennis maken</em>
             </h2>
           </AnimateIn>
@@ -63,12 +63,12 @@ export default function ContactForm() {
               className="flex flex-col items-center justify-center text-center gap-4 py-16"
               style={{ backgroundColor: "var(--panel)", borderRadius: "var(--r-md)", border: "1px solid var(--hairline)" }}
             >
-              <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(201,151,74,0.15)" }}>
+              <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(208,118,74,0.15)" }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
-              <h3 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, color: "var(--cream)" }}>
+              <h3 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, color: "var(--cream)" }}>
                 Bericht ontvangen!
               </h3>
               <p className="text-sm font-light" style={{ color: "var(--cream-muted)" }}>

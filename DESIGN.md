@@ -89,9 +89,11 @@ components:
     padding: "10px 0"
 ---
 
-<!-- 2026-11-09: de homepage volgt nu de Studio-look (~/steylvisuals-studio, app/globals.css). De oudere pagina's
-(/webdesign, /portfolio, /vastgoed-marketing, /toegang, /demo) gebruiken nog de vorige zwart-gouden tokens uit
-app/globals.css; die zijn niet herzien. -->
+<!-- 2026-11-09: de hele site volgt de Studio-look (~/steylvisuals-studio, app/globals.css). Elke pagina zit in de
+gedeelde schil components/studio/Schil.tsx (zijbalk, gsm-balken, gloed, voet). Oudere onderdelen (webdesign,
+portfolio, vastgoedvideo) gebruiken nog de oude variabelen (--black, --gold, --cream ...); binnen de schil zet de
+klasse .studio-thema in app/globals.css die om naar de Studio-kleuren. Enkel /demo/som-vastgoed houdt zijn eigen
+klantstijl, en /admin is niet herzien. -->
 
 # Design System: SteylVisuals
 

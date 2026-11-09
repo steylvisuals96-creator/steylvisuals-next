@@ -14,6 +14,9 @@
   --brown: #3B1E0B;
   --cream: #F1EDE6;
 
+  /* Vlakke achtergrond van een sectie. In het Studio-thema doorzichtig, zodat de gloed erdoor schijnt. */
+  --vlak: var(--black);
+
   /* Accent — rationed to ~10% of any view */
   --gold: #C9974A;
   --gold-light: #E6C894;
@@ -554,3 +557,36 @@ select option {
     bottom: 1.5rem !important;
   }
 }
+
+/* ==========================================================================
+   Studio-thema (2026-11-09). Binnen de Studio-schil (components/studio/Schil.tsx)
+   krijgen de oudere onderdelen de kleuren van de Studio: antraciet met matglas,
+   terracotta als enige accent, zachtere hoeken. Zie DESIGN.md.
+   ========================================================================== */
+.studio-thema {
+  --black: #1a0f0a; /* alleen nog tekst op het accent */
+  --vlak: transparent;
+  --panel: rgba(255, 248, 240, 0.045);
+  --panel-hover: rgba(255, 248, 240, 0.08);
+  --cream: #efe9e1;
+  --cream-muted: rgba(239, 233, 225, 0.72);
+  --cream-faint: rgba(239, 233, 225, 0.62);
+  --hairline: rgba(239, 233, 225, 0.1);
+  --hairline-strong: rgba(239, 233, 225, 0.3);
+  --hairline-gold: rgba(208, 118, 74, 0.4);
+  --gold: #d0764a;
+  --gold-light: #e9a07c;
+  --r-sm: 8px;
+  --r-md: 14px;
+}
+.studio-thema h1,
+.studio-thema h2,
+.studio-thema h3 {
+  font-weight: 700 !important;
+  letter-spacing: -0.03em;
+}
+.studio-thema ::selection {
+  background-color: #d0764a;
+  color: #1a0f0a;
+}
+

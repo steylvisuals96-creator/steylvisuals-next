@@ -60,7 +60,7 @@ function CheckIcon() {
 
 export default function Pricing() {
   return (
-    <section id="pricing" style={{ backgroundColor: "var(--black)", padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,5rem)" }}>
+    <section id="pricing" style={{ backgroundColor: "var(--vlak)", padding: "clamp(5rem,10vh,8rem) 0" }}>
       <div className="text-center mb-16">
         <AnimateIn>
           <p className="inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase mb-5" style={{ color: "var(--cream-muted)" }}>
@@ -68,7 +68,7 @@ export default function Pricing() {
           </p>
         </AnimateIn>
         <AnimateIn delay={0.1}>
-          <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 300, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
+          <h2 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(2.75rem, 6vw, 4.75rem)", fontWeight: 400, lineHeight: 1.1, letterSpacing: 0, color: "var(--cream)" }}>
             Wat je krijgt,<br /><em style={{ color: "var(--cream-muted)" }}>per pakket</em>
           </h2>
         </AnimateIn>
@@ -101,7 +101,7 @@ export default function Pricing() {
               {plan.tag}
             </span>
 
-            <h3 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 300, lineHeight: 1.15, color: "var(--cream)", marginBottom: "0.25rem", whiteSpace: "pre-line" }}>
+            <h3 style={{ fontFamily: "var(--font-kop)", fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15, color: "var(--cream)", marginBottom: "0.25rem", whiteSpace: "pre-line" }}>
               {plan.name}
             </h3>
             <p className="text-sm font-light italic mb-6" style={{ color: "var(--cream-muted)" }}>

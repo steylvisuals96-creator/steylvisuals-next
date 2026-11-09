@@ -55,12 +55,12 @@ export default function CaseDetail({ item }: { item: PortfolioCase }) {
   }
 
   return (
-    <article style={{ backgroundColor: "var(--black)" }}>
+    <article style={{ backgroundColor: "var(--vlak)" }}>
       <div
         style={{
           maxWidth: "1240px",
           margin: "0 auto",
-          padding: "calc(72px + clamp(3rem,8vh,6rem)) clamp(1.5rem,6vw,5rem) clamp(4rem,8vh,7rem)",
+          padding: "clamp(3rem,8vh,6rem) 0 clamp(4rem,8vh,7rem)",
         }}
       >
         <Link href="/portfolio" className="case-back">
@@ -85,7 +85,7 @@ export default function CaseDetail({ item }: { item: PortfolioCase }) {
             style={{
               fontFamily: "var(--font-kop)",
               fontSize: "clamp(2.75rem, 6vw, 4.75rem)",
-              fontWeight: 300,
+              fontWeight: 400,
               lineHeight: 1.05,
               letterSpacing: 0,
               color: "var(--cream)",

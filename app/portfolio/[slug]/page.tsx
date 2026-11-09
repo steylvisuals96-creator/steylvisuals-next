@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
+import Schil, { Voet } from "@/components/studio/Schil";
 import CaseDetail from "@/components/CaseDetail";
 import { CASES, R2, getCase } from "@/lib/cases";
 
@@ -48,12 +47,11 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
   if (!item) notFound();
 
   return (
-    <>
-      <Nav />
-      <main style={{ backgroundColor: "var(--black)" }}>
+    <Schil actief="portfolio" thema>
+      <div style={{ backgroundColor: "var(--vlak)" }}>
         <CaseDetail item={item} />
-      </main>
-      <Footer />
-    </>
+      </div>
+      <Voet />
+    </Schil>
   );
 }
