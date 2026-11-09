@@ -1,0 +1,864 @@
+/* Het nagebouwde Studio-venster. Dezelfde tokens als de Studio zelf (antraciet, terracotta, matglas),
+   maar op venstermaat: kleinere letters, krappere panelen. */
+
+.venster {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(22, 20, 18, 0.72);
+  border: 1px solid var(--glasrand);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 244, 0.06),
+    0 40px 90px -40px rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  backdrop-filter: blur(22px) saturate(140%);
+  container: venster / inline-size;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.chrome {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--lijn);
+  background: rgba(255, 248, 240, 0.025);
+  flex-shrink: 0;
+}
+.lichtjes {
+  display: flex;
+  gap: 6px;
+}
+.lichtjes i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(239, 233, 225, 0.16);
+}
+.url {
+  font-size: 12px;
+  color: var(--stil);
+  background: rgba(255, 248, 240, 0.05);
+  border-radius: 6px;
+  padding: 3px 12px;
+}
+.demoLabel {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--goud-licht);
+  border: 1px solid rgba(208, 118, 74, 0.4);
+  border-radius: 6px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 158px minmax(0, 1fr);
+  flex: 1;
+  min-height: 0;
+}
+
+.zij {
+  border-right: 1px solid var(--lijn);
+  padding: 18px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: rgba(255, 248, 240, 0.02);
+}
+.logo {
+  font-family: var(--font-kop), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  padding: 0 10px;
+}
+.logo span,
+.bladMerk span {
+  color: var(--goud);
+}
+.groep {
+  font-family: var(--font-kop), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--stil);
+  padding: 0 10px;
+  margin-bottom: 2px;
+}
+.zij li {
+  position: relative;
+  padding: 5px 10px 5px 18px;
+  border-radius: 8px;
+  color: var(--stil);
+  font-size: 12.5px;
+  transition:
+    background 0.35s,
+    color 0.35s;
+}
+.zij li::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  width: 2px;
+  height: 12px;
+  margin-top: -6px;
+  border-radius: 2px;
+  background: transparent;
+  transition: background 0.35s;
+}
+.zij li[data-actief] {
+  background: var(--paneel-sterk);
+  color: var(--tekst);
+  font-weight: 500;
+}
+.zij li[data-actief]::before {
+  background: var(--goud);
+}
+
+.schermen {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+}
+.scherm {
+  position: absolute;
+  inset: 0;
+  padding: 22px 26px;
+  overflow: hidden;
+  opacity: 0;
+  filter: blur(10px);
+  pointer-events: none;
+  transition:
+    opacity 0.42s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.42s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.scherm[data-actief] {
+  opacity: 1;
+  filter: none;
+}
+
+/* ---------------------------------------------------------------- gedeeld */
+
+.kop {
+  margin-bottom: 14px;
+}
+.kicker {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--tekst);
+}
+.titel {
+  font-family: var(--font-kop), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(22px, 4.2cqi, 32px);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-top: 6px;
+}
+.titel em,
+.groot em {
+  font-style: normal;
+  color: var(--goud);
+}
+.status {
+  color: var(--stil);
+  max-width: 52ch;
+  margin-bottom: 16px;
+}
+.paneel {
+  background: var(--paneel);
+  border: 1px solid var(--glasrand);
+  border-radius: 14px;
+  padding: 14px 16px;
+  min-width: 0;
+}
+.paneel h4 {
+  font-family: var(--font-kop), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+}
+.paneel h4 small {
+  font-family: var(--font-tekst), system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--stil);
+  letter-spacing: 0;
+}
+.twee {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.rondje {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--paneel);
+  border: 1px solid var(--glasrand);
+}
+.rondje svg,
+.mini {
+  width: 15px;
+  height: 15px;
+}
+.mini {
+  display: inline-block;
+  vertical-align: -3px;
+  color: var(--goud-licht);
+}
+.knoppen {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.knop,
+.knopStil {
+  border-radius: 7px;
+  padding: 7px 14px;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.knop {
+  background: var(--goud);
+  color: #1a0f0a;
+}
+.knopStil {
+  background: var(--paneel-sterk);
+  border: 1px solid var(--glasrand);
+}
+.stilKlein {
+  color: var(--stil);
+  font-size: 11px;
+}
+.groot {
+  font-family: var(--font-kop), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Elementen die bij het tonen van een scherm na elkaar binnenkomen. */
+.cijfer,
+.briefing li,
+.antwoord p,
+.chat p {
+  opacity: 0;
+  transform: translate3d(0, 6px, 0);
+  transition:
+    opacity 0.4s,
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-actief] .cijfer,
+[data-actief] .briefing li {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.15s + var(--i) * 0.07s);
+}
+
+/* ---------------------------------------------------------------- start */
+
+.cijfers {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.cijfer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.cijfer b {
+  display: block;
+  font-family: var(--font-kop), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.cijfer small {
+  display: block;
+  font-size: 11px;
+  color: var(--stil);
+  line-height: 1.3;
+}
+.agenda li {
+  display: flex;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--lijn);
+}
+.agenda li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.agenda time {
+  font-variant-numeric: tabular-nums;
+  color: var(--goud-licht);
+  min-width: 38px;
+}
+.agenda small,
+.mailVan small {
+  display: block;
+  color: var(--stil);
+  font-size: 11.5px;
+}
+.briefing li {
+  position: relative;
+  padding: 6px 0 6px 14px;
+}
+.briefing li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 6px;
+  height: 1.5px;
+  background: var(--goud);
+}
+
+/* ---------------------------------------------------------------- pijplijn */
+
+.balk {
+  display: flex;
+  gap: 3px;
+  height: 4px;
+  margin-bottom: 14px;
+}
+.balk i {
+  border-radius: 2px;
+}
+.bord {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(108px, 1fr));
+  gap: 8px;
+}
+.kolom {
+  background: rgba(255, 248, 240, 0.025);
+  border: 1px solid var(--lijn);
+  border-radius: 12px;
+  padding: 10px;
+  min-height: 240px;
+  min-width: 0;
+}
+.kolomKop {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-kop), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 12.5px;
+  margin-bottom: 10px;
+}
+.kolomKop span {
+  color: var(--stil);
+  font-family: var(--font-tekst), system-ui, sans-serif;
+  font-weight: 400;
+}
+.kaart {
+  background: var(--paneel-sterk);
+  border: 1px solid var(--glasrand);
+  border-radius: 10px;
+  padding: 9px 10px;
+  margin-bottom: 8px;
+}
+.kaartNaam {
+  font-weight: 500;
+  font-size: 12.5px;
+  line-height: 1.3;
+}
+.kaartWie,
+.kaartWat,
+.kaartBron {
+  font-size: 11px;
+  color: var(--stil);
+  line-height: 1.4;
+}
+.kaartWat {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 4px;
+}
+.kaartWat b {
+  color: var(--tekst);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.kaartBron {
+  margin-top: 6px;
+  color: var(--goud-licht);
+}
+/* De nieuwe aanvraag valt in de kolom Nieuw en licht even op. */
+.nieuw {
+  border-color: rgba(208, 118, 74, 0.6);
+  opacity: 0;
+  transform: translate3d(0, -14px, 0) scale(0.97);
+}
+[data-actief] .nieuw {
+  animation: binnenvallen 0.7s 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards, oplichten 2.4s 1.4s ease-out;
+}
+@keyframes binnenvallen {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes oplichten {
+  0% {
+    box-shadow: 0 0 0 0 rgba(208, 118, 74, 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgba(208, 118, 74, 0);
+  }
+}
+.melding {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px 10px 10px;
+  border-radius: 14px;
+  background: rgba(40, 34, 30, 0.92);
+  border: 1px solid var(--glasrand);
+  box-shadow: 0 20px 40px -18px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transform: translate3d(0, -12px, 0);
+}
+.melding b {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+.melding small {
+  display: block;
+  font-size: 11.5px;
+  color: var(--stil);
+}
+[data-actief] .melding {
+  animation: melding 3.2s 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes melding {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -12px, 0);
+  }
+  14%,
+  78% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+/* ---------------------------------------------------------------- mail */
+
+.mails {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 12px;
+  align-items: start;
+}
+.mailVan {
+  font-size: 11.5px;
+  color: var(--stil);
+  margin-bottom: 6px;
+}
+.mailVan b {
+  color: var(--tekst);
+  font-weight: 500;
+}
+.mailTekst {
+  color: var(--stil);
+}
+.concept {
+  border-color: rgba(208, 118, 74, 0.35);
+}
+.antwoord p {
+  margin-bottom: 8px;
+  white-space: pre-line;
+}
+[data-actief] .antwoord p {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.35s + var(--i) * 0.35s);
+}
+
+/* ---------------------------------------------------------------- assistent */
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 560px;
+}
+.chat p {
+  padding: 10px 14px;
+  border-radius: 14px;
+  max-width: 88%;
+}
+.jij {
+  align-self: flex-end;
+  background: rgba(208, 118, 74, 0.2);
+  border: 1px solid rgba(208, 118, 74, 0.35);
+  border-bottom-right-radius: 4px;
+}
+.ai {
+  align-self: flex-start;
+  background: var(--paneel-sterk);
+  border: 1px solid var(--glasrand);
+  border-bottom-left-radius: 4px;
+}
+[data-actief] .chat p {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.2s + var(--i) * 0.55s);
+}
+.invoer {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 20px;
+  max-width: 560px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--glasrand);
+  background: var(--paneel);
+  color: var(--stil);
+}
+
+/* ---------------------------------------------------------------- factuur */
+
+.factuurRij {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+.blad {
+  background: #f6f3ee;
+  color: #3b1e0b;
+  border-radius: 10px;
+  padding: 18px 20px;
+  font-size: 11.5px;
+  box-shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.8);
+  transform-origin: 50% 0;
+}
+[data-actief] .blad {
+  animation: blad 0.6s 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes blad {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.98);
+  }
+}
+.blad header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  text-align: right;
+}
+.blad header small,
+.bladKlant small {
+  display: block;
+  color: rgba(59, 30, 11, 0.7);
+}
+.bladMerk {
+  font-family: var(--font-kop), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.03em;
+}
+.bladKlant {
+  margin-bottom: 12px;
+}
+.blad table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.blad td {
+  padding: 6px 0;
+  border-top: 1px solid rgba(59, 30, 11, 0.14);
+}
+.blad td:last-child {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  padding-left: 12px;
+}
+.blad tfoot td {
+  font-weight: 600;
+  border-top: 1.5px solid rgba(59, 30, 11, 0.5);
+}
+.bladVoet {
+  margin-top: 12px;
+  font-size: 10px;
+  color: rgba(59, 30, 11, 0.7);
+}
+.factuurZij {
+  display: grid;
+  gap: 12px;
+}
+.tijdlijn li {
+  position: relative;
+  padding: 4px 0 4px 16px;
+  color: var(--stil);
+}
+.tijdlijn li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  border: 1px solid var(--streep);
+}
+.tijdlijn li[data-klaar]::before {
+  background: var(--stil);
+  border-color: var(--stil);
+}
+.betaald {
+  color: var(--tekst) !important;
+}
+.betaald::before {
+  background: var(--goud) !important;
+  border-color: var(--goud) !important;
+  transform: scale(0);
+}
+[data-actief] .betaald::before {
+  animation: betaald 0.4s 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes betaald {
+  to {
+    transform: scale(1);
+  }
+}
+
+/* ---------------------------------------------------------------- omzet */
+
+.omzetPaneel {
+  display: flex;
+  flex-direction: column;
+}
+.grafiek {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 170px;
+  margin-top: auto;
+}
+.grafiek span {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
+}
+.grafiek i {
+  width: 100%;
+  height: calc(var(--h) * 100% - 18px);
+  border-radius: 4px 4px 2px 2px;
+  background: linear-gradient(to top, rgba(208, 118, 74, 0.45), rgba(233, 160, 124, 0.9));
+  transform-origin: 50% 100%;
+  transform: scaleY(0);
+}
+.grafiek span:last-child i {
+  background: linear-gradient(to top, #d0764a, #f0aa87);
+}
+[data-actief] .grafiek i {
+  animation: groeien 0.9s calc(0.1s + var(--i) * 0.05s) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes groeien {
+  to {
+    transform: scaleY(1);
+  }
+}
+.grafiek small {
+  font-size: 10px;
+  color: var(--stil);
+}
+.sites li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  border-top: 1px solid var(--lijn);
+}
+.sites li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.sites small {
+  display: block;
+  font-size: 11px;
+  color: var(--stil);
+}
+.score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.score i {
+  display: block;
+  width: 64px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(239, 233, 225, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.score i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #8fb08a;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+[data-actief] .score i::after {
+  animation: vollopen 1s calc(0.4s + var(--i) * 0.12s) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.score b {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  min-width: 20px;
+  text-align: right;
+}
+.drempel {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--lijn);
+  display: grid;
+  gap: 6px;
+}
+.drempel small {
+  color: var(--stil);
+  font-size: 11px;
+}
+.drempelBalk {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(239, 233, 225, 0.1);
+  overflow: hidden;
+}
+.drempelBalk i {
+  display: block;
+  height: 100%;
+  width: 85%;
+  background: linear-gradient(90deg, #b08a5a, #d0764a);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+[data-actief] .drempelBalk i {
+  animation: vollopen 1.1s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes vollopen {
+  to {
+    transform: scaleX(var(--w, 1));
+  }
+}
+
+/* ---------------------------------------------------------------- smal venster (gsm) */
+
+@container venster (max-width: 640px) {
+  .app {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .zij {
+    display: none;
+  }
+  .scherm {
+    padding: 16px;
+  }
+  .cijfers {
+    grid-template-columns: 1fr 1fr;
+  }
+  .twee,
+  .mails,
+  .factuurRij {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mails > :first-child .mailTekst,
+  .factuurZij > :last-child,
+  .twee > :last-child .drempel {
+    display: none;
+  }
+  .bord {
+    grid-template-columns: repeat(4, 150px);
+  }
+  .melding {
+    left: 16px;
+    right: 16px;
+  }
+  .invoer {
+    left: 16px;
+    right: 16px;
+    bottom: 14px;
+  }
+  .grafiek {
+    height: 110px;
+  }
+  .url {
+    display: none;
+  }
+  .start .twee > :last-child {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scherm,
+  .cijfer,
+  .briefing li,
+  .antwoord p,
+  .chat p {
+    transition: none !important;
+  }
+  .nieuw,
+  .melding,
+  .blad,
+  .grafiek i,
+  .score i::after,
+  .drempelBalk i,
+  .betaald::before {
+    animation-duration: 0.01s !important;
+    animation-delay: 0s !important;
+  }
+}

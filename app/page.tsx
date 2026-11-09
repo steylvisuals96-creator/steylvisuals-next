@@ -1,14 +1,12 @@
-import Home from "@/components/home/Home";
+import Start from "@/components/start/Start";
 
 export const metadata = {
-  title: "SteylVisuals · Websites en automatisatie op maat",
+  title: "SteylVisuals · Video, websites en AI voor kleine ondernemingen",
   description:
-    "SteylVisuals bouwt websites op maat met de automatisering erachter: CRM, opvolging en afspraken. Voor bedrijven in België. Vraag je gratis voorstel aan.",
+    "Sam Steylaerts maakt video en foto, bouwt websites op maat en zet slimme systemen op die je opvolging en administratie overnemen. Eén maker, van begin tot einde. Herent, België.",
   alternates: { canonical: "/" },
 };
 
 export default function Page() {
-  return (
-    <Home />
-  );
+  return <Start />;
 }
