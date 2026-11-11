@@ -22,12 +22,12 @@ export const OVERZICHT = [
 /** Clips op de tijdlijn van het montagescherm: echte beelden van het culinair weekend bij
  *  wijndomein La Martine. `w` is de lengte in seconden, `pos` de uitsnede in de brede speler. */
 export const CLIPS = [
-  { naam: "Luchtbeeld", plek: "Boven de wijngaard", beeld: "/start/lm-luchtbeeld.jpg", w: 5, kleur: "#4f6a4a", pos: "50% 50%" },
-  { naam: "Ontvangst", plek: "Tussen de ranken", beeld: "/start/lm-ontvangst.jpg", w: 4, kleur: "#7a7a5a", pos: "50% 45%" },
-  { naam: "De chef", plek: "Buitenkeuken", beeld: "/start/lm-chef.jpg", w: 4, kleur: "#6b4a36", pos: "50% 25%" },
-  { naam: "De wijn", plek: "Wijn van het domein", beeld: "/start/lm-wijn.jpg", w: 4, kleur: "#5a3a3a", pos: "50% 55%" },
-  { naam: "Aan tafel", plek: "Diner in de wijngaard", beeld: "/start/lm-tafel.jpg", w: 6, kleur: "#8a6a4a", pos: "50% 50%" },
-  { naam: "Avond", plek: "Onder de lichtjes", beeld: "/start/lm-avond.jpg", w: 5, kleur: "#3a3530", pos: "50% 60%" },
+  { naam: "Luchtbeeld", plek: "Boven de wijngaard", beeld: "/start/reel/m/010.webp", w: 5, kleur: "#4f6a4a", pos: "50% 50%" },
+  { naam: "De tafel", plek: "Gedekt tussen de ranken", beeld: "/start/reel/m/028.webp", w: 4, kleur: "#7a7a5a", pos: "50% 45%" },
+  { naam: "De chef", plek: "Buitenkeuken", beeld: "/start/reel/m/044.webp", w: 4, kleur: "#6b4a36", pos: "50% 30%" },
+  { naam: "Het bord", plek: "Amuses uit de keuken", beeld: "/start/reel/m/060.webp", w: 4, kleur: "#8a5a3a", pos: "50% 55%" },
+  { naam: "Aan tafel", plek: "Diner in de wijngaard", beeld: "/start/reel/m/080.webp", w: 6, kleur: "#8a6a4a", pos: "50% 50%" },
+  { naam: "De lange tafel", plek: "Van boven, bij valavond", beeld: "/start/reel/m/102.webp", w: 5, kleur: "#3f5a3f", pos: "50% 60%" },
 ];
 
 /** De foto's onder de montage. Vastgoed is (nog) geen eigen werk; de rest komt van La Martine. */

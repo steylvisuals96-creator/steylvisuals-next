@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import Icoon from "./Icoon";
 import StudioDemo from "./StudioDemo";
 import { DEMOS } from "./demos";
@@ -11,8 +12,8 @@ import {
   CLIPS,
   FOTOS,
   FUNCTIES,
-  MAIL,
   OVERZICHT,
+  MAIL,
   SITES,
   BREIN,
   STIJLEN,
@@ -55,6 +56,12 @@ function tijdcode(sec: number) {
   const p = (n: number) => String(n).padStart(2, "0");
   return `00:00:${p(t)}:${p(f)}`;
 }
+
+/** De reel als framereeks: 112 beelden uit zes shots, 4 per seconde tijdlijn. */
+const FRAMES = TOTAAL * 4;
+const framePad = (klein: boolean, i: number) =>
+  `/start/reel/${klein ? "m" : "d"}/${String(i).padStart(3, "0")}.webp`;
+const zacht = (x: number) => (x < 0.5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2);
 
 /** Vaste golfvorm voor het geluidsspoor (zelfde bij elke render). */
 const GOLF = Array.from(
@@ -146,6 +153,11 @@ export default function Start() {
   const rootRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLElement>(null);
   const montageRef = useRef<HTMLDivElement>(null);
+  const podiumRef = useRef<HTMLElement>(null);
+  const toneelRef = useRef<HTMLDivElement>(null);
+  const filmRef = useRef<HTMLDivElement>(null);
+  const gleufRef = useRef<HTMLDivElement>(null);
+  const doekRef = useRef<HTMLCanvasElement>(null);
   const koprRef = useRef<HTMLSpanElement>(null);
   const tcRef = useRef<HTMLSpanElement>(null);
   const [actief, setActief] = useState("start");
@@ -194,7 +206,56 @@ export default function Start() {
     ) as HTMLElement[];
     const pin = pinRef.current!;
     const montage = montageRef.current!;
+    const podium = podiumRef.current!;
+    const toneel = toneelRef.current!;
+    const film = filmRef.current!;
+    const gleuf = gleufRef.current!;
+    const doek = doekRef.current!;
     const roerloos = stil();
+
+    // De reel: beeld 0 eerst, de rest daarna met een paar tegelijk. Getekend wordt het
+    // dichtstbijzijnde beeld dat al geladen is, zodat scrollen nooit op het netwerk wacht.
+    const klein = matchMedia("(max-width: 767px)").matches;
+    doek.width = klein ? 960 : 1920;
+    doek.height = klein ? 540 : 1080;
+    const pen = doek.getContext("2d");
+    const beelden: HTMLImageElement[] = [];
+    const klaar: boolean[] = [];
+    let wens = 0;
+    let getekend = -1;
+    let gestopt = false;
+    const teken = () => {
+      let k = -1;
+      for (let d = 0; d < FRAMES && k < 0; d++) {
+        if (klaar[wens - d]) k = wens - d;
+        else if (klaar[wens + d]) k = wens + d;
+      }
+      if (k < 0 || k === getekend || !pen) return;
+      getekend = k;
+      pen.drawImage(beelden[k], 0, 0, doek.width, doek.height);
+      doek.setAttribute("data-klaar", "");
+    };
+    const laad = (i: number, dan?: () => void) => {
+      const im = new Image();
+      im.decoding = "async";
+      im.onload = () => {
+        klaar[i] = true;
+        if (!gestopt) teken();
+        dan?.();
+      };
+      im.onerror = () => dan?.();
+      im.src = framePad(klein, i);
+      beelden[i] = im;
+    };
+    let volgende = 1;
+    const rij = () => {
+      if (gestopt || volgende >= FRAMES) return;
+      laad(volgende++, rij);
+    };
+    laad(0, () => {
+      if (roerloos) return;
+      for (let n = 0; n < 4; n++) rij();
+    });
     let wacht = false;
     let vorigeSectie = "";
     let vorigeStap = -1;
@@ -216,7 +277,9 @@ export default function Start() {
       const scrubRects = scrubs.map(({ el }) => el.getBoundingClientRect());
       const pr = pin.getBoundingClientRect();
       const loop = pin.offsetHeight - vh;
-      const mr = montage.getBoundingClientRect();
+      const dr = podium.getBoundingClientRect();
+      const tr = toneel.getBoundingClientRect();
+      const gr = gleuf.getBoundingClientRect();
 
       let nu = secties[0]?.id ?? "start";
       tops.forEach((top, i) => {
@@ -256,16 +319,28 @@ export default function Start() {
         setStap(st);
       }
 
-      // Montage: de afspeelkop loopt mee terwijl het scherm door beeld schuift.
-      const mp = roerloos
-        ? 0.3
-        : klem(((vh - mr.top) / (vh + mr.height) - 0.12) / 0.76);
+      // Montage: het scherm staat eerst gewoon in de pagina; verder in de doorloop zoomt het
+      // beeld in tot het hele scherm vult. Dezelfde doorloop stuurt beeld, afspeelkop en tijdcode.
+      const dloop = podium.offsetHeight - tr.height;
+      const pd = dloop > 0 ? klem(-dr.top / dloop) : 0;
+      const zoom = roerloos ? 0 : zacht(klem((pd - 0.34) / 0.34));
+      const t = 1 - zoom;
+      film.style.left = `${((gr.left - tr.left) * t).toFixed(1)}px`;
+      film.style.top = `${((gr.top - tr.top) * t).toFixed(1)}px`;
+      film.style.width = `${(tr.width + (gr.width - tr.width) * t).toFixed(1)}px`;
+      film.style.height = `${(tr.height + (gr.height - tr.height) * t).toFixed(1)}px`;
+      film.style.borderRadius = `${(12 * t).toFixed(1)}px`;
+      toneel.style.setProperty("--dk", (1 - klem(zoom / 0.45)).toFixed(4));
+
+      const mp = roerloos ? 0 : klem(pd / 0.97);
       const sec = mp * TOTAAL;
       montage.style.setProperty("--kop", mp.toFixed(4));
       if (tcRef.current) tcRef.current.textContent = tijdcode(sec);
+      wens = Math.min(FRAMES - 1, Math.floor(mp * FRAMES));
+      teken();
       let c = 0;
-      STARTEN.forEach((t, i) => {
-        if (sec >= t) c = i;
+      STARTEN.forEach((s0, i) => {
+        if (sec >= s0) c = i;
       });
       if (c !== vorigeClip) {
         vorigeClip = c;
@@ -290,6 +365,7 @@ export default function Start() {
     addEventListener("scroll", vraag, { passive: true });
     addEventListener("resize", vraag);
     return () => {
+      gestopt = true;
       clearTimeout(rust);
       removeEventListener("scroll", vraag);
       removeEventListener("resize", vraag);
@@ -436,28 +512,26 @@ export default function Start() {
             },
           ]}
         />
+      </section>
 
-        <div
-          ref={montageRef}
-          className={s.montage}
-          data-g=""
-          data-in=""
-          aria-label="Een montage in opbouw: zes clips van het culinair weekend bij wijndomein La Martine"
-        >
-          <div className={s.speler}>
-            {CLIPS.map((c, i) => (
-              <img
-                key={c.naam}
-                src={c.beeld}
-                alt=""
-                style={{ objectPosition: c.pos }}
-                data-on={i === clip || undefined}
-                width={1600}
-                height={1000}
-                loading="lazy"
-              />
-            ))}
-            <div className={s.spelerInfo}>
+      <section
+        ref={podiumRef}
+        className={s.podium}
+        aria-label="De montage van het culinair weekend bij La Martine"
+      >
+        <div ref={toneelRef} className={s.toneel}>
+          <div ref={filmRef} className={s.film}>
+            <img
+              src="/start/reel/d/000.webp"
+              srcSet="/start/reel/m/000.webp 960w, /start/reel/d/000.webp 1920w"
+              sizes="(max-width: 860px) 100vw, 900px"
+              loading="lazy"
+              alt="Luchtbeeld van de vallei rond wijndomein La Martine bij avondlicht, met de lange tafel tussen de wijnranken"
+              width={1920}
+              height={1080}
+            />
+            <canvas ref={doekRef} aria-hidden="true" />
+            <div className={s.spelerInfo} aria-hidden="true">
               <span className={s.tc} ref={tcRef}>
                 00:00:00:00
               </span>
@@ -466,86 +540,104 @@ export default function Start() {
               </span>
             </div>
           </div>
-          <aside className={s.inspector}>
-            <p className={s.inspKop}>
-              Clip {String(clip + 1).padStart(2, "0")}
+
+          <div className={s.dok}>
+            <p className={s.dokKop}>
+              <b>In de montage</b>
+              Scroll door zes clips van het culinair weekend bij La Martine.
             </p>
-            <dl>
-              <div>
-                <dt>Project</dt>
-                <dd>
-                  <a href="/portfolio/la-martine" className={s.link}>
-                    La Martine, culinair weekend
-                  </a>
-                </dd>
-              </div>
-              <div>
-                <dt>Plek</dt>
-                <dd>{CLIPS[clip].plek}</dd>
-              </div>
-              <div>
-                <dt>Formaat</dt>
-                <dd>4K · 25p · 10-bit</dd>
-              </div>
-              <div>
-                <dt>Kleur</dt>
-                <dd>Warm, zacht contrast</dd>
-              </div>
-            </dl>
-            <div className={s.schuiven} aria-hidden="true">
-              {["Schaduw", "Midden", "Licht"].map((n, i) => (
-                <p key={n}>
-                  <span>{n}</span>
-                  <i
-                    style={
-                      { "--w": [0.42, 0.56, 0.64][i] } as React.CSSProperties
-                    }
-                  />
+            <div
+              ref={montageRef}
+              className={s.montage}
+              data-g=""
+              aria-label="Een montage in opbouw: zes clips van het culinair weekend bij wijndomein La Martine"
+            >
+              <div ref={gleufRef} className={s.speler} />
+              <aside className={s.inspector}>
+                <p className={s.inspKop}>
+                  Clip {String(clip + 1).padStart(2, "0")}
                 </p>
-              ))}
-            </div>
-          </aside>
-          <div className={s.tijdlijn} aria-hidden="true">
-            <div className={s.liniaal}>
-              {Array.from({ length: TOTAAL / 2 + 1 }, (_, i) => (
-                <span key={i} style={{ left: `${((i * 2) / TOTAAL) * 100}%` }}>
-                  {i * 2}s
-                </span>
-              ))}
-            </div>
-            <div className={s.spoor}>
-              <span className={s.spoorNaam}>V1</span>
-              <div className={s.clips}>
-                {CLIPS.map((c, i) => (
-                  <span
-                    key={c.naam}
-                    data-on={i === clip || undefined}
-                    style={
-                      {
-                        flex: c.w,
-                        backgroundImage: `url(${c.beeld})`,
-                        backgroundPosition: c.pos,
-                        "--k": c.kleur,
-                      } as React.CSSProperties
-                    }
-                  >
-                    {c.naam}
-                  </span>
-                ))}
+                <dl>
+                  <div>
+                    <dt>Project</dt>
+                    <dd>
+                      <Link href="/portfolio/la-martine" className={s.link}>
+                        La Martine, culinair weekend
+                      </Link>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Plek</dt>
+                    <dd>{CLIPS[clip].plek}</dd>
+                  </div>
+                  <div>
+                    <dt>Formaat</dt>
+                    <dd>4K · 25p · 10-bit</dd>
+                  </div>
+                  <div>
+                    <dt>Kleur</dt>
+                    <dd>Warm, zacht contrast</dd>
+                  </div>
+                </dl>
+                <div className={s.schuiven} aria-hidden="true">
+                  {["Schaduw", "Midden", "Licht"].map((n, i) => (
+                    <p key={n}>
+                      <span>{n}</span>
+                      <i
+                        style={
+                          { "--w": [0.42, 0.56, 0.64][i] } as React.CSSProperties
+                        }
+                      />
+                    </p>
+                  ))}
+                </div>
+              </aside>
+              <div className={s.tijdlijn} aria-hidden="true">
+                <div className={s.liniaal}>
+                  {Array.from({ length: TOTAAL / 2 + 1 }, (_, i) => (
+                    <span key={i} style={{ left: `${((i * 2) / TOTAAL) * 100}%` }}>
+                      {i * 2}s
+                    </span>
+                  ))}
+                </div>
+                <div className={s.spoor}>
+                  <span className={s.spoorNaam}>V1</span>
+                  <div className={s.clips}>
+                    {CLIPS.map((c, i) => (
+                      <span
+                        key={c.naam}
+                        data-on={i === clip || undefined}
+                        style={
+                          {
+                            flex: c.w,
+                            backgroundImage: `url(${c.beeld})`,
+                            backgroundPosition: c.pos,
+                            "--k": c.kleur,
+                          } as React.CSSProperties
+                        }
+                      >
+                        {c.naam}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className={s.spoor}>
+                  <span className={s.spoorNaam}>A1</span>
+                  <div className={s.golf}>
+                    {GOLF.map((g, i) => (
+                      <i key={i} style={{ height: `${g * 100}%` }} />
+                    ))}
+                  </div>
+                </div>
+                <span className={s.afspeelkop} ref={koprRef} />
               </div>
+
             </div>
-            <div className={s.spoor}>
-              <span className={s.spoorNaam}>A1</span>
-              <div className={s.golf}>
-                {GOLF.map((g, i) => (
-                  <i key={i} style={{ height: `${g * 100}%` }} />
-                ))}
-              </div>
-            </div>
-            <span className={s.afspeelkop} ref={koprRef} />
           </div>
         </div>
+      </section>
 
+      <div className={s.naFilm}>
         <div className={s.fotos}>
           {FOTOS.map((f) => (
             <figure
@@ -567,7 +659,7 @@ export default function Start() {
             </figure>
           ))}
         </div>
-      </section>
+      </div>
 
       {/* ------------------------------------------------ Websites */}
       <section id="websites" className={s.sectie}>
