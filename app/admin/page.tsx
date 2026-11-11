@@ -84,11 +84,21 @@ export default function AdminPage() {
     if (tok) { setToken(tok); setAuthed(true); }
   }, []);
 
+  // An old or revoked token: log out instead of showing an empty admin.
+  function logoutIfRevoked(res: Response) {
+    if (res.status !== 401) return false;
+    localStorage.removeItem("sv_admin_token");
+    setToken("");
+    setAuthed(false);
+    setAuthError(true);
+    return true;
+  }
+
   async function loadFiles(tok = token, f = folder) {
-    const res = await fetch(`${WORKER_URL}/list?folder=${f}`, {
+    const res = await fetch(`${WORKER_URL}/list?folder=${encodeURIComponent(f)}`, {
       headers: { Authorization: `Bearer ${tok}` },
     });
-    if (!res.ok) return;
+    if (logoutIfRevoked(res) || !res.ok) return;
     const data = await res.json();
     setFiles(data.objects || []);
   }
@@ -97,7 +107,7 @@ export default function AdminPage() {
     const res = await fetch(`${WORKER_URL}/content`, {
       headers: { Authorization: `Bearer ${tok}` },
     });
-    if (!res.ok) return;
+    if (logoutIfRevoked(res) || !res.ok) return;
     const data = await res.json();
     if (Object.keys(data).length > 0) {
       setContent(c => ({ ...DEFAULT_CONTENT, ...data, stats: data.stats || c.stats }));
