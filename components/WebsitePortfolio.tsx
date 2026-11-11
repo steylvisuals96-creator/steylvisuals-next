@@ -15,14 +15,6 @@ interface WebProject {
 
 const PROJECTS: WebProject[] = [
   {
-    title: "SOM Vastgoed",
-    subtitle: "Website & CMS op maat",
-    tags: ["Next.js", "CMS", "Zabun API"],
-    accent: "var(--gold)",
-    href: "/demo/som-vastgoed",
-    features: ["Live panden via API", "Eigen CMS panel", "SEO geoptimaliseerd"],
-  },
-  {
     title: "Specified",
     subtitle: "Website & CMS — Engineering Recruitment",
     tags: ["Next.js", "CMS", "Recruitment"],
@@ -54,7 +46,7 @@ const PROJECTS: WebProject[] = [
     features: [
       "Websites, AI & video in één verhaal",
       "Automatische lead-pipeline op Claude",
-      "La Martine, SOM & Specified als live cases",
+      "Specified als live case",
     ],
   },
 ];
