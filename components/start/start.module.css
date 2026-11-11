@@ -887,6 +887,47 @@
   transform: scaleX(var(--pp, 0));
 }
 
+/* Stijlkeuze voor de demo: één segment, geen losse pillen. */
+.stijlen {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 14px;
+}
+.stijlen p {
+  font-size: 13px;
+  color: var(--stil);
+}
+.stijlen div {
+  display: flex;
+  padding: 3px;
+  border: 1px solid var(--glasrand);
+  border-radius: 10px;
+  background: var(--paneel);
+}
+.stijlen button {
+  font: inherit;
+  font-size: 13px;
+  color: var(--stil);
+  padding: 6px 11px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+.stijlen button:hover {
+  color: var(--tekst);
+}
+.stijlen button[aria-pressed="true"] {
+  background: var(--paneel-sterk);
+  color: var(--tekst);
+}
+.stijlen button:focus-visible {
+  outline: 2px solid var(--goud);
+  outline-offset: 1px;
+}
+
 /* ---------------------------------------------------------------- alle functies */
 
 .functiesSectie {
@@ -1514,6 +1555,9 @@
   .voortgang {
     margin-left: 0;
     order: -1;
+  }
+  .stijlen {
+    margin-left: 0;
   }
   .pinTekst {
     gap: 10px;

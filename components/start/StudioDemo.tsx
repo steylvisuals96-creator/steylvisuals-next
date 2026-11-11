@@ -1,5 +1,5 @@
 import Icoon from "./Icoon";
-import { DEMO, STAPPEN, type Scherm } from "./data";
+import { DEMO, STAPPEN, STIJLEN, type Scherm, type Stijl } from "./data";
 import d from "./demo.module.css";
 
 /**
@@ -306,23 +306,25 @@ const SCHERMEN: Record<Scherm, () => React.ReactNode> = {
   omzet: Omzet,
 };
 
-export default function StudioDemo({ stap }: { stap: number }) {
+export default function StudioDemo({ stap, stijl = "studio" }: { stap: number; stijl?: Stijl }) {
   const actief = STAPPEN[stap].nav;
+  const merk = STIJLEN.find((x) => x.id === stijl) ?? STIJLEN[0];
   return (
-    <div className={d.venster} data-g="" aria-hidden="true">
+    <div className={d.venster} data-g="" data-stijl={stijl} aria-hidden="true">
       <div className={d.chrome}>
         <span className={d.lichtjes}>
           <i />
           <i />
           <i />
         </span>
-        <span className={d.url}>studio.jouwzaak.be</span>
+        <span className={d.url}>{merk.url}</span>
         <span className={d.demoLabel}>Demo met verzonnen gegevens</span>
       </div>
       <div className={d.app}>
         <nav className={d.zij}>
           <p className={d.logo}>
-            Sam<span>.</span>
+            {merk.logo}
+            {stijl === "studio" && <span>.</span>}
           </p>
           {MENU.map((g) => (
             <div key={g.groep}>

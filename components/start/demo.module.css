@@ -795,6 +795,165 @@
   }
 }
 
+/* ---------------------------------------------------------------- stijlen
+   Dezelfde demo in een andere huisstijl. Geïnspireerd op echte projecten, maar met eigen
+   kleuren, letters en namen. De tokens worden op het venster overschreven; enkel wat vast
+   in de code staat, krijgt hieronder een eigen regel. */
+
+.venster {
+  transition:
+    background-color 0.45s,
+    color 0.45s;
+}
+
+/* Vastgoed: licht papier, diepe bordeaux zijbalk, scherpe hoeken, serif in de koppen. */
+.venster[data-stijl="vastgoed"] {
+  --tekst: #2b1f1b;
+  --lees: rgba(43, 31, 27, 0.8);
+  --stil: rgba(43, 31, 27, 0.6);
+  --lijn: rgba(43, 31, 27, 0.13);
+  --paneel: #fbf7f0;
+  --paneel-sterk: #efe5d8;
+  --glasrand: rgba(43, 31, 27, 0.15);
+  --goud: #b5503a;
+  --goud-licht: #a4472f;
+  --font-kop: var(--font-cormorant);
+  background: #f2eadf;
+  color: var(--tekst);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.venster[data-stijl="vastgoed"] *:not(.lichtjes i) {
+  border-radius: 0 !important;
+}
+.venster[data-stijl="vastgoed"] .chrome {
+  background: #e9dfd1;
+}
+.venster[data-stijl="vastgoed"] .lichtjes i {
+  background: rgba(43, 31, 27, 0.18);
+}
+.venster[data-stijl="vastgoed"] .url {
+  background: rgba(255, 255, 255, 0.5);
+}
+.venster[data-stijl="vastgoed"] .demoLabel,
+.venster[data-stijl="recruitment"] .demoLabel {
+  border-color: currentColor;
+}
+.venster[data-stijl="vastgoed"] .zij {
+  background: #4e1f28;
+  border-right-color: transparent;
+  --tekst: #f1e6d9;
+  --stil: rgba(241, 230, 217, 0.68);
+  --paneel-sterk: rgba(241, 230, 217, 0.12);
+  --goud: #e9a58f;
+  color: var(--tekst);
+}
+.venster[data-stijl="vastgoed"] .logo {
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: 0.06em;
+}
+.venster[data-stijl="vastgoed"] .titel {
+  font-weight: 500;
+  font-size: clamp(24px, 4.6cqi, 36px);
+  letter-spacing: -0.01em;
+}
+.venster[data-stijl="vastgoed"] .titel em {
+  font-style: italic;
+}
+.venster[data-stijl="vastgoed"] .paneel h4,
+.venster[data-stijl="vastgoed"] .groot {
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0;
+}
+.venster[data-stijl="vastgoed"] .groot {
+  font-size: 24px;
+}
+.venster[data-stijl="vastgoed"] .knop {
+  color: #fbf4ea;
+}
+.venster[data-stijl="vastgoed"] .melding {
+  background: #fbf7f0;
+  box-shadow: 0 20px 40px -22px rgba(43, 31, 27, 0.45);
+}
+
+/* Recruitment: bijna zwart met een olijftint, één fel accent, smalle kapitalen. */
+.venster[data-stijl="recruitment"] {
+  --tekst: #e6e4d8;
+  --lees: rgba(230, 228, 216, 0.78);
+  --stil: rgba(230, 228, 216, 0.56);
+  --lijn: rgba(230, 228, 216, 0.09);
+  --paneel: #1b1c15;
+  --paneel-sterk: #26281e;
+  --glasrand: rgba(230, 228, 216, 0.09);
+  --goud: #cfee6a;
+  --goud-licht: #cfee6a;
+  --font-kop: var(--font-smal);
+  background: #121309;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.venster[data-stijl="recruitment"] *:not(.lichtjes i) {
+  border-radius: 2px !important;
+}
+.venster[data-stijl="recruitment"] .zij {
+  background: transparent;
+}
+.venster[data-stijl="recruitment"] .zij li[data-actief] {
+  color: var(--goud);
+}
+.venster[data-stijl="recruitment"] .logo {
+  font-family: var(--font-tekst), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: -0.02em;
+}
+.venster[data-stijl="recruitment"] .titel,
+.venster[data-stijl="recruitment"] .paneel h4,
+.venster[data-stijl="recruitment"] .groot {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+.venster[data-stijl="recruitment"] .titel {
+  font-size: clamp(26px, 5cqi, 40px);
+  line-height: 1;
+}
+.venster[data-stijl="recruitment"] .paneel h4 {
+  font-size: 16px;
+}
+.venster[data-stijl="recruitment"] .groot {
+  font-size: 26px;
+}
+.venster[data-stijl="recruitment"] .knop {
+  color: #121309;
+}
+.venster[data-stijl="recruitment"] .melding {
+  background: #1f2118;
+}
+
+/* Accenten die vast in terracotta stonden, volgen in beide stijlen het accent. */
+.venster:is([data-stijl="vastgoed"], [data-stijl="recruitment"]) .nieuw,
+.venster:is([data-stijl="vastgoed"], [data-stijl="recruitment"]) .concept {
+  border-color: var(--goud);
+}
+.venster:is([data-stijl="vastgoed"], [data-stijl="recruitment"]) .jij {
+  background: color-mix(in srgb, var(--goud) 16%, transparent);
+  border-color: color-mix(in srgb, var(--goud) 40%, transparent);
+}
+.venster:is([data-stijl="vastgoed"], [data-stijl="recruitment"]) .grafiek i {
+  background: color-mix(in srgb, var(--goud) 55%, transparent);
+}
+.venster:is([data-stijl="vastgoed"], [data-stijl="recruitment"]) .grafiek span:last-child i,
+.venster:is([data-stijl="vastgoed"], [data-stijl="recruitment"]) .drempelBalk i {
+  background: var(--goud);
+}
+.venster[data-stijl="vastgoed"] .score i,
+.venster[data-stijl="vastgoed"] .drempelBalk {
+  background: rgba(43, 31, 27, 0.1);
+}
+
 /* ---------------------------------------------------------------- smal venster (gsm) */
 
 @container venster (max-width: 640px) {

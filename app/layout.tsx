@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, DM_Sans, Cormorant_Garamond } from "next/font/google";
+import { Bricolage_Grotesque, DM_Sans, Cormorant_Garamond, Oswald } from "next/font/google";
 import "./globals.css";
 
 // Koppen en het woordmerk: Bricolage Grotesque. Lopende tekst: DM Sans. Zie DESIGN.md.
@@ -23,6 +23,14 @@ const cormorant = Cormorant_Garamond({
   weight: ["300", "400"],
   style: ["normal", "italic"],
   variable: "--font-cormorant",
+  display: "swap",
+});
+
+// Smalle kapitalen voor de stijl "Recruitment" in de Studio-demo op de homepage.
+const smal = Oswald({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  variable: "--font-smal",
   display: "swap",
 });
 
@@ -65,7 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="nl"
-      className={`${kop.variable} ${tekst.variable} ${cormorant.variable}`}
+      className={`${kop.variable} ${tekst.variable} ${cormorant.variable} ${smal.variable}`}
     >
       <head>
         {/* A literal value — theme-color is read by the UA, which has no CSS vars. */}

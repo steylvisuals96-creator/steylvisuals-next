@@ -14,6 +14,8 @@ import {
   OVERZICHT,
   SITES,
   BREIN,
+  STIJLEN,
+  type Stijl,
   SOCIAL,
   STAPPEN,
   WERKWIJZE,
@@ -147,6 +149,7 @@ export default function Start() {
   const tcRef = useRef<HTMLSpanElement>(null);
   const [actief, setActief] = useState("start");
   const [stap, setStap] = useState(0);
+  const [stijl, setStijl] = useState<Stijl>("studio");
   const [clip, setClip] = useState(0);
   const [groet, setGroet] = useState({ groet: "Goeiedag", datum: "" });
 
@@ -588,10 +591,10 @@ export default function Start() {
           kicker="Automatisatie en AI"
           titel={
             <>
-              Dit bouwde ik voor <em>mezelf</em>.
+              Een systeem dat <em>meedenkt</em>.
             </>
           }
-          tekst="Mijn eigen zaak draait op een systeem dat ik zelf bouwde: klanten, mails, offertes, agenda en een AI-assistent die alles bijhoudt. Hieronder zie je het, met verzonnen gegevens. Zo'n systeem bouw ik ook voor jou, met enkel de onderdelen die jij nodig hebt."
+          tekst="Klanten, mails, offertes, agenda en een AI-assistent die alles bijhoudt, in één systeem op maat van je zaak. Hieronder zie je hoe het werkt, met verzonnen gegevens. Wissel gerust van stijl: elk systeem krijgt de huisstijl van de zaak die ermee werkt."
         />
       </section>
 
@@ -630,9 +633,24 @@ export default function Start() {
             <div className={s.voortgang} aria-hidden="true">
               <i />
             </div>
+            <div className={s.stijlen} role="group" aria-label="Stijl van het systeem">
+              <p>Stijl</p>
+              <div>
+                {STIJLEN.map((st) => (
+                  <button
+                    key={st.id}
+                    type="button"
+                    aria-pressed={stijl === st.id}
+                    onClick={() => setStijl(st.id)}
+                  >
+                    {st.naam}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
           <div className={s.pinVenster}>
-            <StudioDemo stap={stap} />
+            <StudioDemo stap={stap} stijl={stijl} />
           </div>
         </div>
       </section>

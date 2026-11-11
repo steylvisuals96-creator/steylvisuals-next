@@ -73,6 +73,16 @@ export const STAPPEN = [
   { scherm: "omzet", nav: "Omzet", titel: "Je cijfers, en je sites, bewaakt", tekst: "Omzet per maand, terugkerende inkomsten, de btw-drempel. En ligt een site eruit, dan weet je het voor je klant het merkt." },
 ] as const;
 
+/** De stijlen die de demo kan aannemen. Geïnspireerd op echte projecten, maar met
+ *  verzonnen namen, eigen kleuren en eigen letters: nooit een kopie van een klant. */
+export const STIJLEN = [
+  { id: "studio", naam: "Studio", logo: "Sam", url: "studio.jouwzaak.be" },
+  { id: "vastgoed", naam: "Vastgoed", logo: "HOFSTEDE", url: "beheer.hofstede.be" },
+  { id: "recruitment", naam: "Recruitment", logo: "Kernwerk", url: "team.kernwerk.be" },
+] as const;
+
+export type Stijl = (typeof STIJLEN)[number]["id"];
+
 export type Scherm = (typeof STAPPEN)[number]["scherm"];
 
 export const DEMO = {
