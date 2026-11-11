@@ -181,7 +181,7 @@ export default function Start() {
   // De ene scroll-lus.
   useEffect(() => {
     const root = rootRef.current!;
-    const ins = [...root.querySelectorAll<HTMLElement>("[data-in]")];
+    let ins = [...root.querySelectorAll<HTMLElement>("[data-in]")];
     const scrubs = [...root.querySelectorAll<HTMLElement>("[data-scrub]")].map(
       (el) => ({
         el,
@@ -203,26 +203,38 @@ export default function Start() {
       wacht = false;
       const vh = innerHeight;
 
+      // Eerst alles lezen, dan pas schrijven: zo rekent de browser de layout één keer per frame uit.
+      const tops = secties.map((sec) => sec.getBoundingClientRect().top);
+      const onderaan =
+        innerHeight + scrollY >= document.documentElement.scrollHeight - 4;
+      const nieuwZichtbaar = ins.filter(
+        (el) =>
+          !el.hasAttribute("data-zicht") &&
+          el.getBoundingClientRect().top < vh * 0.88,
+      );
+      const scrubRects = scrubs.map(({ el }) => el.getBoundingClientRect());
+      const pr = pin.getBoundingClientRect();
+      const loop = pin.offsetHeight - vh;
+      const mr = montage.getBoundingClientRect();
+
       let nu = secties[0]?.id ?? "start";
-      for (const sec of secties)
-        if (sec.getBoundingClientRect().top <= vh * 0.4) nu = sec.id;
-      if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4)
-        nu = secties[secties.length - 1].id;
+      tops.forEach((top, i) => {
+        if (top <= vh * 0.4) nu = secties[i].id;
+      });
+      if (onderaan) nu = secties[secties.length - 1].id;
       if (nu !== vorigeSectie) {
         vorigeSectie = nu;
         setActief(nu);
       }
 
-      for (const el of ins)
-        if (
-          !el.hasAttribute("data-zicht") &&
-          el.getBoundingClientRect().top < vh * 0.88
-        )
-          el.setAttribute("data-zicht", "");
+      for (const el of nieuwZichtbaar) el.setAttribute("data-zicht", "");
+      // Wat eenmaal zichtbaar is, hoeft niet meer gemeten te worden.
+      if (nieuwZichtbaar.length)
+        ins = ins.filter((el) => !el.hasAttribute("data-zicht"));
 
-      for (const { el, frames } of scrubs) {
-        const r = el.getBoundingClientRect();
-        if (r.bottom < -50 || r.top > vh + 50) continue;
+      scrubs.forEach(({ el, frames }, i) => {
+        const r = scrubRects[i];
+        if (r.bottom < -50 || r.top > vh + 50) return;
         const p = roerloos ? 0 : klem((vh - r.top) / (vh + r.height));
         el.style.setProperty("--p", p.toFixed(4));
         if (frames.length) {
@@ -230,13 +242,11 @@ export default function Start() {
             frames.length - 1,
             Math.floor(klem((p - 0.15) / 0.7) * frames.length),
           );
-          frames.forEach((f, i) => f.toggleAttribute("data-on", i === k));
+          frames.forEach((f, j) => f.toggleAttribute("data-on", j === k));
         }
-      }
+      });
 
       // Studio-demo: de doorloop van de vastgezette sectie kiest de stap.
-      const pr = pin.getBoundingClientRect();
-      const loop = pin.offsetHeight - vh;
       const pp = loop > 0 ? klem(-pr.top / loop) : 0;
       pin.style.setProperty("--pp", pp.toFixed(4));
       const st = Math.min(STAPPEN.length - 1, Math.floor(pp * STAPPEN.length));
@@ -246,7 +256,6 @@ export default function Start() {
       }
 
       // Montage: de afspeelkop loopt mee terwijl het scherm door beeld schuift.
-      const mr = montage.getBoundingClientRect();
       const mp = roerloos
         ? 0.3
         : klem(((vh - mr.top) / (vh + mr.height) - 0.12) / 0.76);
@@ -262,7 +271,15 @@ export default function Start() {
         setClip(c);
       }
     };
+    // Tijdens het scrollen staat de gloed stil (zie schil.module.css).
+    let rust: ReturnType<typeof setTimeout> | undefined;
     const vraag = () => {
+      if (!rust) root.setAttribute("data-scrollt", "");
+      clearTimeout(rust);
+      rust = setTimeout(() => {
+        rust = undefined;
+        root.removeAttribute("data-scrollt");
+      }, 180);
       if (!wacht) {
         wacht = true;
         requestAnimationFrame(meet);
@@ -272,6 +289,7 @@ export default function Start() {
     addEventListener("scroll", vraag, { passive: true });
     addEventListener("resize", vraag);
     return () => {
+      clearTimeout(rust);
       removeEventListener("scroll", vraag);
       removeEventListener("resize", vraag);
     };

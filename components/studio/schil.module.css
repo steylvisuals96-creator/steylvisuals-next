@@ -56,6 +56,12 @@
   }
 }
 
+/* Tijdens het scrollen staat de gloed even stil: anders moet elk glazen paneel
+   zijn vervaging elk frame opnieuw berekenen op een bewegende achtergrond. */
+.root[data-scrollt] .gloed {
+  animation-play-state: paused;
+}
+
 /* Lichtglans onder de muis: een zachte vlek en een oplichtende rand (zoals Glans.tsx in de Studio). */
 .root [data-g] {
   position: relative;

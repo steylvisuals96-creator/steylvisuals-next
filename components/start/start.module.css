@@ -35,6 +35,18 @@
     0 18px 50px -24px rgba(0, 0, 0, 0.6);
 }
 
+/* Kleine tegels zonder live vervaging. Achter deze tegels ligt enkel de al vervaagde gloed,
+   dus een vaste matte tint oogt hetzelfde en scrolt veel lichter (de sectie met alle
+   onderdelen liet met live vervaging de helft van de frames vallen). */
+.functieGroep li,
+.brein {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.functieGroep li {
+  background: rgba(255, 248, 240, 0.055);
+}
+
 /* ---------------------------------------------------------------- knoppen en tekst */
 
 .knop,

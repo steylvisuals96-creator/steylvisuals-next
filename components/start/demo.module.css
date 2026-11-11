@@ -136,13 +136,18 @@
   opacity: 0;
   filter: blur(10px);
   pointer-events: none;
+  /* Na het uitfaden niet meer tekenen: vijf vervaagde lagen achter het actieve scherm kosten elk frame. */
+  visibility: hidden;
   transition:
     opacity 0.42s cubic-bezier(0.2, 0.8, 0.2, 1),
-    filter 0.42s cubic-bezier(0.2, 0.8, 0.2, 1);
+    filter 0.42s cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0s linear 0.42s;
 }
 .scherm[data-actief] {
   opacity: 1;
   filter: none;
+  visibility: visible;
+  transition-delay: 0s;
 }
 
 /* ---------------------------------------------------------------- gedeeld */
