@@ -442,7 +442,7 @@ export default function Start() {
           className={s.montage}
           data-g=""
           data-in=""
-          aria-label="Een montage in opbouw: zes clips op een tijdlijn"
+          aria-label="Een montage in opbouw: zes clips van het culinair weekend bij wijndomein La Martine"
         >
           <div className={s.speler}>
             {CLIPS.map((c, i) => (
@@ -450,6 +450,7 @@ export default function Start() {
                 key={c.naam}
                 src={c.beeld}
                 alt=""
+                style={{ objectPosition: c.pos }}
                 data-on={i === clip || undefined}
                 width={1600}
                 height={1000}
@@ -471,6 +472,14 @@ export default function Start() {
             </p>
             <dl>
               <div>
+                <dt>Project</dt>
+                <dd>
+                  <a href="/portfolio/la-martine" className={s.link}>
+                    La Martine, culinair weekend
+                  </a>
+                </dd>
+              </div>
+              <div>
                 <dt>Plek</dt>
                 <dd>{CLIPS[clip].plek}</dd>
               </div>
@@ -481,10 +490,6 @@ export default function Start() {
               <div>
                 <dt>Kleur</dt>
                 <dd>Warm, zacht contrast</dd>
-              </div>
-              <div>
-                <dt>Geluid</dt>
-                <dd>Muziek en omgeving</dd>
               </div>
             </dl>
             <div className={s.schuiven} aria-hidden="true">
@@ -519,6 +524,7 @@ export default function Start() {
                       {
                         flex: c.w,
                         backgroundImage: `url(${c.beeld})`,
+                        backgroundPosition: c.pos,
                         "--k": c.kleur,
                       } as React.CSSProperties
                     }

@@ -1,8 +1,9 @@
 /**
  * Alle tekst en alle voorbeeldgegevens van de homepage op één plek.
  *
- * Alles in STUDIO, SOCIAL en het montagescherm is verzonnen: de bedrijven,
- * namen, bedragen en mails bestaan niet. Sams echte gegevens komen hier nooit in.
+ * Alles in STUDIO en SOCIAL is verzonnen: de bedrijven, namen, bedragen en mails
+ * bestaan niet. Sams echte gegevens komen hier nooit in. Uitzondering: de montage
+ * en de foto's onder Video en foto zijn echt werk (het culinair weekend van La Martine).
  */
 
 export const MAIL = "steylvisuals96@gmail.com";
@@ -18,22 +19,24 @@ export const OVERZICHT = [
 
 /* ---------------------------------------------------------------- Video en foto */
 
-/** Clips op de tijdlijn van het montagescherm. `w` is de lengte in seconden. */
+/** Clips op de tijdlijn van het montagescherm: echte beelden van het culinair weekend bij
+ *  wijndomein La Martine. `w` is de lengte in seconden, `pos` de uitsnede in de brede speler. */
 export const CLIPS = [
-  { naam: "Opening", plek: "Achter de schermen", beeld: "/start/klapper.jpg", w: 4, kleur: "#7a5a46" },
-  { naam: "Luchtbeeld", plek: "Drone, 60 m", beeld: "/start/drone.jpg", w: 6, kleur: "#4f6a4a" },
-  { naam: "Woonkamer", plek: "Interieur, Leuven", beeld: "/start/interieur.jpg", w: 5, kleur: "#8a8178" },
-  { naam: "De zaak", plek: "Koffiebar, Herent", beeld: "/start/barista.jpg", w: 4, kleur: "#6b4a36" },
-  { naam: "Het atelier", plek: "Bloemist, Wilsele", beeld: "/start/bloemist.jpg", w: 5, kleur: "#4c5a4e" },
-  { naam: "Slot", plek: "Camera op locatie", beeld: "/start/camera.jpg", w: 4, kleur: "#55504b" },
+  { naam: "Luchtbeeld", plek: "Boven de wijngaard", beeld: "/start/lm-luchtbeeld.jpg", w: 5, kleur: "#4f6a4a", pos: "50% 50%" },
+  { naam: "Ontvangst", plek: "Tussen de ranken", beeld: "/start/lm-ontvangst.jpg", w: 4, kleur: "#7a7a5a", pos: "50% 45%" },
+  { naam: "De chef", plek: "Buitenkeuken", beeld: "/start/lm-chef.jpg", w: 4, kleur: "#6b4a36", pos: "50% 25%" },
+  { naam: "De wijn", plek: "Wijn van het domein", beeld: "/start/lm-wijn.jpg", w: 4, kleur: "#5a3a3a", pos: "50% 55%" },
+  { naam: "Aan tafel", plek: "Diner in de wijngaard", beeld: "/start/lm-tafel.jpg", w: 6, kleur: "#8a6a4a", pos: "50% 50%" },
+  { naam: "Avond", plek: "Onder de lichtjes", beeld: "/start/lm-avond.jpg", w: 5, kleur: "#3a3530", pos: "50% 60%" },
 ];
 
+/** De foto's onder de montage. Vastgoed is (nog) geen eigen werk; de rest komt van La Martine. */
 export const FOTOS = [
   { beeld: "/start/interieur.jpg", titel: "Vastgoed", tekst: "Interieur en exterieur, klaar voor elk portaal.", vorm: "breed" },
-  { beeld: "/start/product.jpg", titel: "Product", tekst: "Rustig licht, echte materialen.", vorm: "hoog" },
-  { beeld: "/start/drone.jpg", titel: "Drone", tekst: "Ligging en omgeving in één beeld.", vorm: "" },
-  { beeld: "/start/set.jpg", titel: "Achter de schermen", tekst: "Licht, geluid en een plan per draaidag.", vorm: "breed" },
-  { beeld: "/start/portret.jpg", titel: "Portret", tekst: "De mensen achter je zaak.", vorm: "" },
+  { beeld: "/start/lm-ijs.jpg", titel: "Product", tekst: "Wijn van La Martine, koud gezet voor het diner.", vorm: "hoog" },
+  { beeld: "/start/lm-wijngaard.jpg", titel: "Drone", tekst: "De lange tafel, van boven in de wijngaard.", vorm: "" },
+  { beeld: "/start/lm-ploeg.jpg", titel: "Evenement", tekst: "Het culinair weekend van La Martine, met de hele ploeg.", vorm: "breed" },
+  { beeld: "/start/lm-chef.jpg", titel: "Portret", tekst: "De mensen achter je zaak.", vorm: "" },
 ] as const;
 
 /* ---------------------------------------------------------------- Websites */
