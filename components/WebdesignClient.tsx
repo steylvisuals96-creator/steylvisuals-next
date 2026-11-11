@@ -5,6 +5,8 @@ import { useState, useRef, useEffect } from "react";
 import AnimateIn from "./AnimateIn";
 import AIAgentDemo from "./AIAgentDemo";
 
+const FOUT = "Versturen lukte niet. Probeer opnieuw of mail naar steylvisuals96@gmail.com.";
+
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 const ICONS: Record<string, React.ReactNode> = {
@@ -256,10 +258,14 @@ function ContactSection() {
           bron: "Webdesign",
         }),
       });
-      if (!res.ok) throw new Error(String(res.status));
+      if (!res.ok) {
+        const uitleg = (await res.json().catch(() => null)) as { error?: string } | null;
+        setError(uitleg?.error ?? FOUT);
+        return;
+      }
       setSubmitted(true);
     } catch {
-      setError("Versturen lukte niet. Probeer opnieuw of mail naar Steylvisuals96@gmail.com.");
+      setError(FOUT);
     } finally {
       setLoading(false);
     }
@@ -389,7 +395,7 @@ function ContactSection() {
               >
                 {loading ? "Versturen..." : "Vraag offerte aan"}
               </motion.button>
-              <p role="alert" aria-live="polite" className="text-sm font-light" style={{ color: "var(--cream-muted)" }}>
+              <p role="alert" className="text-sm" style={{ color: "var(--cream-muted)" }}>
                 {error}
               </p>
             </form>

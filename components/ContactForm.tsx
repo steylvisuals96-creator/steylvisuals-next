@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import AnimateIn from "./AnimateIn";
 
+const FOUT = "Versturen lukte niet. Probeer opnieuw of mail naar steylvisuals96@gmail.com.";
+
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -30,10 +32,14 @@ export default function ContactForm() {
           bron: "Vastgoed marketing",
         }),
       });
-      if (!res.ok) throw new Error(String(res.status));
+      if (!res.ok) {
+        const uitleg = (await res.json().catch(() => null)) as { error?: string } | null;
+        setError(uitleg?.error ?? FOUT);
+        return;
+      }
       setSubmitted(true);
     } catch {
-      setError("Versturen lukte niet. Probeer opnieuw of mail naar Steylvisuals96@gmail.com.");
+      setError(FOUT);
     } finally {
       setLoading(false);
     }
@@ -174,7 +180,7 @@ export default function ContactForm() {
               >
                 {loading ? "Versturen..." : "Verstuur bericht"}
               </motion.button>
-              <p role="alert" aria-live="polite" className="text-sm font-light" style={{ color: "var(--cream-muted)" }}>
+              <p role="alert" className="text-sm" style={{ color: "var(--cream-muted)" }}>
                 {error}
               </p>
             </form>
