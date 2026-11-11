@@ -4,6 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import Icoon from "./Icoon";
 import StudioDemo from "./StudioDemo";
+import { DEMOS } from "./demos";
 import ContactForm from "./ContactForm";
 import {
   BELOFTES,
@@ -295,7 +296,8 @@ export default function Start() {
     };
   }, []);
 
-  const huidig = STAPPEN[stap];
+  const stappen = DEMOS[stijl].stappen;
+  const huidig = stappen[stap];
 
   return (
     <Schil actief={actief} thuis rootRef={rootRef} className={s.root}>
@@ -624,9 +626,9 @@ export default function Start() {
         <div className={s.pinVast}>
           <div className={s.pinTekst}>
             <ol className={s.stappen}>
-              {STAPPEN.map((st, i) => (
+              {stappen.map((st, i) => (
                 <li
-                  key={st.scherm}
+                  key={STAPPEN[i].scherm}
                   data-actief={i === stap || undefined}
                   data-klaar={i < stap || undefined}
                 >

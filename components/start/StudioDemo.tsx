@@ -1,5 +1,6 @@
 import Icoon from "./Icoon";
-import { DEMO, STAPPEN, STIJLEN, type Scherm, type Stijl } from "./data";
+import { STAPPEN, STIJLEN, type Scherm, type Stijl } from "./data";
+import { DEMOS, MAANDEN, type Demo } from "./demos";
 import d from "./demo.module.css";
 
 /**
@@ -8,11 +9,6 @@ import d from "./demo.module.css";
  * Animaties binnen een scherm starten pas als dat scherm actief wordt
  * (`data-actief`), zodat ze bij elke stap opnieuw spelen.
  */
-
-const MENU = [
-  { groep: "Vandaag", items: ["Start", "Agenda", "Mail", "Assistent"] },
-  { groep: "Zaak", items: ["Pijplijn", "Klanten", "Facturen", "Omzet", "Sites"] },
-];
 
 const euro = (n: number) => n.toLocaleString("nl-BE", { style: "currency", currency: "EUR" });
 
@@ -25,15 +21,16 @@ function Kop({ kicker, children }: { kicker: string; children: React.ReactNode }
   );
 }
 
-function Start() {
+function Start({ demo }: { demo: Demo }) {
+  const D = demo.start;
   return (
     <>
       <Kop kicker="Dinsdag 10 maart">
-        Goeiemorgen, <em>{DEMO.naam}</em>
+        Goeiemorgen, <em>{demo.naam}</em>
       </Kop>
-      <p className={d.status}>3 afspraken vandaag, 2 mails die op je wachten en 1 offerte die vrijdag afloopt.</p>
+      <p className={d.status}>{D.status}</p>
       <div className={d.cijfers}>
-        {DEMO.kerncijfers.map((c, i) => (
+        {D.kerncijfers.map((c, i) => (
           <div key={c.label} className={d.cijfer} style={{ "--i": i } as React.CSSProperties}>
             <span className={d.rondje}>
               <Icoon naam={c.icoon} />
@@ -49,7 +46,7 @@ function Start() {
         <section className={d.paneel}>
           <h4>Vandaag</h4>
           <ul className={d.agenda}>
-            {DEMO.agenda.map((a) => (
+            {D.agenda.map((a) => (
               <li key={a.tijd}>
                 <time>{a.tijd}</time>
                 <span>
@@ -63,7 +60,7 @@ function Start() {
         <section className={d.paneel}>
           <h4>Je briefing, 07:00</h4>
           <ul className={d.briefing}>
-            {DEMO.briefing.map((b, i) => (
+            {D.briefing.map((b, i) => (
               <li key={i} style={{ "--i": i } as React.CSSProperties}>
                 {b}
               </li>
@@ -75,11 +72,12 @@ function Start() {
   );
 }
 
-function Pijplijn() {
-  const n = DEMO.nieuw;
+function Pijplijn({ demo }: { demo: Demo }) {
+  const P = demo.pijplijn;
+  const n = P.nieuw;
   return (
     <>
-      <Kop kicker="Pijplijn">Van eerste contact tot akkoord</Kop>
+      <Kop kicker={P.kicker}>{P.titel}</Kop>
       <div className={d.balk} aria-hidden="true">
         <i style={{ background: "#8a8178", flex: 2 }} />
         <i style={{ background: "#b08a5a", flex: 1 }} />
@@ -87,11 +85,11 @@ function Pijplijn() {
         <i style={{ background: "#6f8a6a", flex: 1 }} />
       </div>
       <div className={d.bord}>
-        {DEMO.kolommen.map((k, ki) => (
+        {P.kolommen.map((k, ki) => (
           <div key={k} className={d.kolom}>
             <p className={d.kolomKop}>
               {k}
-              <span>{DEMO.kaarten.filter((c) => c.kol === ki).length + (ki === 0 ? 1 : 0)}</span>
+              <span>{P.kaarten.filter((c) => c.kol === ki).length + (ki === 0 ? 1 : 0)}</span>
             </p>
             {ki === 0 && (
               <article className={`${d.kaart} ${d.nieuw}`}>
@@ -103,7 +101,7 @@ function Pijplijn() {
                 </p>
               </article>
             )}
-            {DEMO.kaarten
+            {P.kaarten
               .filter((c) => c.kol === ki)
               .map((c) => (
                 <article key={c.naam} className={d.kaart}>
@@ -123,7 +121,7 @@ function Pijplijn() {
           <Icoon naam="mail" />
         </span>
         <span>
-          <b>Nieuwe aanvraag · 23:14</b>
+          <b>{P.melding}</b>
           <small>
             {n.naam}: {n.wat.toLowerCase()}
           </small>
@@ -133,15 +131,15 @@ function Pijplijn() {
   );
 }
 
-function Mail() {
-  const m = DEMO.mail;
+function Mail({ demo }: { demo: Demo }) {
+  const m = demo.mail;
   return (
     <>
       <Kop kicker="Mail">Wacht op jou</Kop>
       <div className={d.mails}>
         <section className={d.paneel}>
           <p className={d.mailVan}>
-            <b>{m.van}</b> · gisteren 23:14
+            <b>{m.van}</b> · {m.tijd}
           </p>
           <h4>{m.onderwerp}</h4>
           <p className={d.mailTekst}>{m.tekst}</p>
@@ -167,42 +165,43 @@ function Mail() {
   );
 }
 
-function Assistent() {
+function Assistent({ demo }: { demo: Demo }) {
   return (
     <>
       <Kop kicker="Assistent">
         Vraag het aan je <em>assistent</em>
       </Kop>
       <div className={d.chat}>
-        {DEMO.chat.map((c, i) => (
+        {demo.chat.items.map((c, i) => (
           <p key={i} className={c.wie === "jij" ? d.jij : d.ai} style={{ "--i": i } as React.CSSProperties}>
             {c.tekst}
           </p>
         ))}
       </div>
       <div className={d.invoer}>
-        <span>Stel een vraag over je zaak</span>
+        <span>{demo.chat.invoer}</span>
         <Icoon naam="micro" className={d.mini} />
       </div>
     </>
   );
 }
 
-function Factuur() {
-  const f = DEMO.factuur;
+function Factuur({ demo, merk }: { demo: Demo; merk: string }) {
+  const f = demo.factuur;
   const totaal = f.lijnen.reduce((s, l) => s + l.bedrag, 0);
   return (
     <>
-      <Kop kicker="Facturen">Factuur {f.nummer}</Kop>
+      <Kop kicker={f.kicker}>{f.titel}</Kop>
       <div className={d.factuurRij}>
         <article className={d.blad}>
           <header>
             <p className={d.bladMerk}>
-              Steyl<span>.</span>
+              {merk}
+              {merk === "Steyl" && <span>.</span>}
             </p>
             <p>
-              <b>Factuur {f.nummer}</b>
-              <small>10 maart 2026</small>
+              <b>{f.titel}</b>
+              <small>{f.datum}</small>
             </p>
           </header>
           <p className={d.bladKlant}>
@@ -220,26 +219,26 @@ function Factuur() {
             </tbody>
             <tfoot>
               <tr>
-                <td>Totaal</td>
+                <td>{f.totaal}</td>
                 <td>{euro(totaal)}</td>
               </tr>
             </tfoot>
           </table>
-          <p className={d.bladVoet}>Te betalen binnen 14 dagen. Bijzondere vrijstellingsregeling kleine ondernemingen.</p>
+          <p className={d.bladVoet}>{f.voet}</p>
         </article>
         <aside className={d.factuurZij}>
           <section className={d.paneel}>
             <h4>Status</h4>
             <ol className={d.tijdlijn}>
-              <li data-klaar="">Opgemaakt, 10/03</li>
-              <li data-klaar="">Gemaild naar Ann Peeters</li>
-              <li className={d.betaald}>Betaald, 12/03</li>
+              <li data-klaar="">{f.status[0]}</li>
+              <li data-klaar="">{f.status[1]}</li>
+              <li className={d.betaald}>{f.status[2]}</li>
             </ol>
           </section>
           <section className={d.paneel}>
-            <h4>Open bij klanten</h4>
-            <p className={d.groot}>{euro(2350)}</p>
-            <small className={d.stilKlein}>2 facturen, geen enkele te laat</small>
+            <h4>{f.open.titel}</h4>
+            <p className={d.groot}>{euro(f.open.waarde)}</p>
+            <small className={d.stilKlein}>{f.open.sub}</small>
           </section>
         </aside>
       </div>
@@ -247,49 +246,54 @@ function Factuur() {
   );
 }
 
-function Omzet() {
-  const max = Math.max(...DEMO.omzet);
+function Omzet({ demo }: { demo: Demo }) {
+  const o = demo.omzet;
+  const max = Math.max(...o.waarden);
   return (
     <>
-      <Kop kicker="Omzet">
-        Dit jaar <em>tot nu toe</em>
+      <Kop kicker={o.kicker}>
+        {o.titel}
+        <em>{o.accent}</em>
       </Kop>
       <div className={d.twee}>
         <section className={`${d.paneel} ${d.omzetPaneel}`}>
           <h4>
-            Omzet per maand <small>{euro(21200)} in 2026</small>
+            {o.grafiek} <small>{o.totaal}</small>
           </h4>
           <div className={d.grafiek} aria-hidden="true">
-            {DEMO.omzet.map((v, i) => (
+            {o.waarden.map((v, i) => (
               <span key={i} style={{ "--h": v / max, "--i": i } as React.CSSProperties}>
                 <i />
-                <small>{DEMO.maanden[i]}</small>
+                <small>{MAANDEN[i]}</small>
               </span>
             ))}
           </div>
         </section>
         <section className={d.paneel}>
-          <h4>Sitebewaker</h4>
+          <h4>{o.lijst}</h4>
           <ul className={d.sites}>
-            {DEMO.sites.map((s, i) => (
+            {o.items.map((s, i) => (
               <li key={s.naam}>
                 <span>
                   {s.naam}
-                  <small>Online · {s.ms}</small>
+                  <small>{s.sub}</small>
                 </span>
                 <span className={d.score}>
                   <i style={{ "--w": s.score / 100, "--i": i } as React.CSSProperties} />
-                  <b>{s.score}</b>
+                  <b>
+                    {s.score}
+                    {s.eenheid}
+                  </b>
                 </span>
               </li>
             ))}
           </ul>
           <p className={d.drempel}>
-            <span>Btw-drempel</span>
+            <span>{o.drempel.label}</span>
             <span className={d.drempelBalk}>
-              <i />
+              <i style={{ width: `${o.drempel.w * 100}%` }} />
             </span>
-            <small>Nog {euro(3800)} onder de grens van {euro(25000)}</small>
+            <small>{o.drempel.tekst}</small>
           </p>
         </section>
       </div>
@@ -297,7 +301,7 @@ function Omzet() {
   );
 }
 
-const SCHERMEN: Record<Scherm, () => React.ReactNode> = {
+const SCHERMEN: Record<Scherm, (p: { demo: Demo; merk: string }) => React.ReactNode> = {
   start: Start,
   pijplijn: Pijplijn,
   mail: Mail,
@@ -307,8 +311,9 @@ const SCHERMEN: Record<Scherm, () => React.ReactNode> = {
 };
 
 export default function StudioDemo({ stap, stijl = "studio" }: { stap: number; stijl?: Stijl }) {
-  const actief = STAPPEN[stap].nav;
   const merk = STIJLEN.find((x) => x.id === stijl) ?? STIJLEN[0];
+  const demo = DEMOS[stijl];
+  const actief = demo.stappen[stap].nav;
   return (
     <div className={d.venster} data-g="" data-stijl={stijl} aria-hidden="true">
       <div className={d.chrome}>
@@ -326,7 +331,7 @@ export default function StudioDemo({ stap, stijl = "studio" }: { stap: number; s
             {merk.logo}
             {stijl === "studio" && <span>.</span>}
           </p>
-          {MENU.map((g) => (
+          {demo.menu.map((g) => (
             <div key={g.groep}>
               <p className={d.groep}>{g.groep}</p>
               <ul>
@@ -344,7 +349,7 @@ export default function StudioDemo({ stap, stijl = "studio" }: { stap: number; s
             const Inhoud = SCHERMEN[st.scherm];
             return (
               <div key={st.scherm} className={`${d.scherm} ${d[st.scherm]}`} data-actief={i === stap || undefined}>
-                <Inhoud />
+                <Inhoud demo={demo} merk={stijl === "studio" ? "Steyl" : merk.logo} />
               </div>
             );
           })}
