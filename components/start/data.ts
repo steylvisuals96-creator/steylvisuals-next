@@ -141,6 +141,21 @@ export const DEMO = {
   ],
 };
 
+/** Het Brein: het onderdeel waar de rest op steunt. Staat uitgelicht boven de groepen. */
+export const BREIN = {
+  icoon: "brein",
+  titel: "Brein",
+  tekst:
+    "Alles wat de AI over je zaak moet weten, op één plek. Daardoor klinkt elke mail, offerte en elk antwoord als jij, met jouw prijzen en jouw toon. Zonder brein is het een algemene assistent, mét brein werkt hij voor jouw zaak.",
+  inhoud: [
+    { titel: "Wie je bent", tekst: "Je zaak, je klanten, je werkgebied." },
+    { titel: "Diensten en prijzen", tekst: "Wat je aanbiedt en wat het kost." },
+    { titel: "Toon en stijl", tekst: "Hoe jij schrijft, en hoe niet." },
+    { titel: "Standaardmails en vragen", tekst: "De antwoorden die je telkens opnieuw geeft." },
+    { titel: "Regels", tekst: "Wat de AI nooit zelf mag doen." },
+  ],
+} as const;
+
 /** Alle functies van de Studio, in dezelfde groepen als het menu. */
 export const FUNCTIES = [
   {
@@ -172,13 +187,10 @@ export const FUNCTIES = [
     ],
   },
   {
-    groep: "Jij",
+    groep: "Slim",
     items: [
-      { icoon: "brein", titel: "Brein", tekst: "Wat de AI over je zaak moet weten, op één plek." },
       { icoon: "lamp", titel: "Ideeën", tekst: "Bewaren in een zin, terugvinden wanneer je wil." },
       { icoon: "spark", titel: "AI-agents", tekst: "Zie wat je AI-helpers voor je aan het doen zijn." },
-      { icoon: "huis", titel: "Gezinsplan en budget", tekst: "Doelen, spaarpotten en het maandbudget, samen." },
-      { icoon: "kar", titel: "Boodschappen", tekst: "Gedeelde lijst met de promoties van deze week." },
       { icoon: "gsm", titel: "Als app op je gsm", tekst: "Op je beginscherm, zonder app store." },
     ],
   },

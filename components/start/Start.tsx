@@ -13,6 +13,7 @@ import {
   MAIL,
   OVERZICHT,
   SITES,
+  BREIN,
   SOCIAL,
   STAPPEN,
   WERKWIJZE,
@@ -646,6 +647,25 @@ export default function Start() {
           }
           tekst="Dit zijn alle onderdelen van mijn eigen Studio. Voor jouw zaak kies je wat je nodig hebt; de rest laten we weg."
         />
+        <div className={s.brein} data-g="" data-in="">
+          <div className={s.breinKop}>
+            <span className={s.rondje}>
+              <Icoon naam={BREIN.icoon} />
+            </span>
+            <div>
+              <h3>{BREIN.titel}</h3>
+              <p>{BREIN.tekst}</p>
+            </div>
+          </div>
+          <ul>
+            {BREIN.inhoud.map((r) => (
+              <li key={r.titel}>
+                <b>{r.titel}</b>
+                <small>{r.tekst}</small>
+              </li>
+            ))}
+          </ul>
+        </div>
         <div className={s.functies}>
           {FUNCTIES.map((g) => (
             <div key={g.groep} className={s.functieGroep} data-in="">

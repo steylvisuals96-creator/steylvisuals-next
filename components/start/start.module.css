@@ -17,6 +17,7 @@
 .siteKaart,
 .functieGroep li,
 .oproep,
+.brein,
 .kalender,
 .resultaat,
 .goedkeuren,
@@ -959,6 +960,70 @@
   opacity: 0;
   transform: scale(0.97);
 }
+/* Het Brein: uitgelicht boven de groepen, want de rest van de Studio steunt erop. */
+.brein {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 28px 56px;
+  align-items: center;
+  margin-bottom: 36px;
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: 22px;
+  border-color: rgba(208, 118, 74, 0.35);
+  background: linear-gradient(
+    135deg,
+    rgba(208, 118, 74, 0.16),
+    rgba(255, 248, 240, 0.04)
+  );
+}
+.breinKop {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.breinKop .rondje {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(208, 118, 74, 0.5);
+}
+.breinKop .rondje svg {
+  width: 24px;
+  height: 24px;
+}
+.breinKop h3 {
+  font-family: var(--font-kop), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+.breinKop p {
+  color: var(--lees);
+  max-width: 52ch;
+  margin-top: 10px;
+}
+.brein ul {
+  display: grid;
+}
+.brein li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 14px;
+  padding: 11px 0;
+  border-top: 1px solid var(--glasrand);
+}
+.brein li:first-child {
+  border-top: 0;
+}
+.brein li b {
+  font-weight: 500;
+  font-size: 15px;
+}
+.brein li small {
+  font-size: 13.5px;
+  color: var(--stil);
+}
 .oproep {
   display: flex;
   align-items: center;
@@ -1378,14 +1443,16 @@
 .root[data-anim] .montage,
 .root[data-anim] .resultaat,
 .root[data-anim] .goedkeuren,
-.root[data-anim] .oproep {
+.root[data-anim] .oproep,
+.root[data-anim] .brein {
   transition: opacity 0.8s var(--zacht);
 }
 .root[data-anim] .reis li:not([data-zicht]),
 .root[data-anim] .beloftes li:not([data-zicht]),
 .root[data-anim] .montage:not([data-zicht]),
 .root[data-anim] .goedkeuren:not([data-zicht]),
-.root[data-anim] .oproep:not([data-zicht]) {
+.root[data-anim] .oproep:not([data-zicht]),
+.root[data-anim] .brein:not([data-zicht]) {
   opacity: 0;
 }
 
@@ -1486,6 +1553,9 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 12px;
   }
+  .brein {
+    grid-template-columns: minmax(0, 1fr);
+  }
   .oproep {
     flex-direction: column;
     align-items: flex-start;
@@ -1556,6 +1626,7 @@
   .siteKaart,
   .functieGroep li,
   .oproep,
+  .brein,
   .kalender,
   .resultaat,
   .goedkeuren,
