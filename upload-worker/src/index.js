@@ -61,7 +61,7 @@ async function checkAuth(request, env) {
     .split(",")
     .map((t) => t.trim())
     .filter(Boolean);
-  if (env.UPLOAD_TOKEN) tokens.push(env.UPLOAD_TOKEN);
+  if (env.UPLOAD_TOKEN?.trim()) tokens.push(env.UPLOAD_TOKEN.trim());
 
   let ok = false;
   for (const t of tokens) if (await sameToken(presented, t)) ok = true;
