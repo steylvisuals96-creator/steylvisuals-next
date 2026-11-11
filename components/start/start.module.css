@@ -252,13 +252,67 @@
 }
 .startRaster {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
   gap: clamp(32px, 5vw, 72px);
   align-items: center;
 }
 .startCijfers {
-  margin-top: 44px;
-  max-width: 560px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding-top: 26px;
+  border-top: 1px solid var(--lijn);
+}
+.start .display {
+  font-size: clamp(2.5rem, 4.6vw, 4.1rem);
+  max-width: 13ch;
+}
+/* De maker als klein kaartje onder de knoppen. */
+.maker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 34px 0 0;
+  line-height: 1.35;
+}
+.maker img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 42% 20%;
+  border: 1px solid var(--glasrand);
+}
+.maker b {
+  display: block;
+  font-family: var(--font-kop), system-ui, sans-serif;
+  font-weight: 600;
+}
+.maker span {
+  display: block;
+  font-size: 13.5px;
+  color: var(--stil);
+}
+/* Een echte klantsite in haar venster, met dezelfde site op gsm ervoor. */
+.heroWerk {
+  position: relative;
+  padding: 0 0 34px 34px;
+}
+.heroWerk .browser {
+  border-radius: 14px;
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.85);
+}
+.heroGsm {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 23%;
+  height: auto;
+  border-radius: 16px;
+  border: 5px solid #1d1b19;
+  outline: 1px solid var(--glasrand);
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.9);
+}
+.root[data-anim] .heroWerk {
+  animation: scherpstellen 0.8s var(--zacht) 0.2s both;
 }
 .portret {
   margin: 0;
@@ -1675,6 +1729,16 @@
   .startRaster {
     grid-template-columns: minmax(0, 1fr);
   }
+  .startCijfers {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 36px;
+  }
+  .heroWerk {
+    padding: 0 0 26px 22px;
+  }
+  .start .display {
+    max-width: none;
+  }
   .portret {
     justify-self: stretch;
     max-height: none;
@@ -1802,6 +1866,7 @@
   .miniBord i[data-nieuw],
   .speler img[data-on],
   .root[data-anim] .startTekst > *,
+  .root[data-anim] .heroWerk,
   .root[data-anim] .portret {
     animation: none !important;
   }
@@ -1818,8 +1883,8 @@
     padding-top: 0;
   }
   .startRaster {
-    min-height: calc(100svh - 84px);
-    padding-block: 40px 56px;
+    min-height: calc(100svh - 84px - 104px);
+    padding-block: 36px 40px;
   }
   /* De vastgezette demo blijft onder de navigatiebalk. */
   .pinVast {

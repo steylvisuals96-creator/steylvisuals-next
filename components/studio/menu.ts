@@ -11,8 +11,8 @@ export const MENU: MenuGroep[] = [
   {
     groep: "Wat ik maak",
     links: [
-      { id: "beeld", label: "Video en foto", kort: "Beeld", href: "/#beeld" },
       { id: "websites", label: "Websites", kort: "Sites", href: "/#websites" },
+      { id: "beeld", label: "Video en foto", kort: "Beeld", href: "/#beeld" },
       { id: "automatisatie", label: "Automatisatie en AI", kort: "AI", href: "/#automatisatie" },
       { id: "social", label: "Social media", kort: "Social", href: "/#social" },
     ],
@@ -35,10 +35,10 @@ export const MENU: MenuGroep[] = [
 ];
 
 /** De secties op de homepage die de zijbalk volgt tijdens het scrollen. */
-export const SECTIES = ["start", "beeld", "websites", "automatisatie", "social", "werkwijze", "contact"];
+export const SECTIES = ["start", "websites", "beeld", "automatisatie", "social", "werkwijze", "contact"];
 
 /** Tabbalk op de gsm: op de homepage de secties, op de andere pagina's de pagina's. */
-export const TABS_HOME = ["start", "beeld", "websites", "automatisatie", "social"];
+export const TABS_HOME = ["start", "websites", "beeld", "automatisatie", "social"];
 export const TABS_PAGINA = ["start", "portfolio", "webdesign", "vastgoed", "contact"];
 
 export const LINKS_VOET = [

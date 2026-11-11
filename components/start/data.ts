@@ -11,8 +11,8 @@ export const MAIL = "steylvisuals96@gmail.com";
 /* ---------------------------------------------------------------- Start */
 
 export const OVERZICHT = [
-  { id: "beeld", titel: "Video en foto", tekst: "Filmen, monteren, fotograferen. Met drone waar het iets toevoegt.", beeld: "/start/camera.jpg" },
   { id: "websites", titel: "Websites", tekst: "Op maat ontworpen en gebouwd, met een eigen beheer erachter.", beeld: "/home/sites/specified-f0.jpg" },
+  { id: "beeld", titel: "Video en foto", tekst: "Filmen, monteren, fotograferen. Met drone waar het iets toevoegt.", beeld: "/start/camera.jpg" },
   { id: "automatisatie", titel: "Automatisatie en AI", tekst: "Systemen die je opvolging, mails en administratie overnemen.", beeld: null },
   { id: "social", titel: "Social media", tekst: "Strategie, planning, posten en advertenties. Elke week.", beeld: "/start/latte.jpg" },
 ] as const;

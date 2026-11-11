@@ -164,31 +164,19 @@ export default function Start() {
   const [stap, setStap] = useState(0);
   const [stijl, setStijl] = useState<Stijl>("studio");
   const [clip, setClip] = useState(0);
-  const [groet, setGroet] = useState({ groet: "Goeiedag", datum: "" });
+  const [heroFrame, setHeroFrame] = useState(0);
 
-  // Begroeting en datum zoals in de Studio, pas in de browser (geen verschil met de server-HTML).
+  // Pas na het laden mogen de binnenkomst-animaties spelen (zonder script blijft alles zichtbaar).
   useEffect(() => {
-    const nu = new Date();
-    const u = nu.getHours();
-    const datum = nu.toLocaleDateString("nl-BE", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-    });
-    // Uur en datum van de bezoeker bestaan pas in de browser; één keer zetten na het laden is hier de bedoeling.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setGroet({
-      groet:
-        u < 6
-          ? "Goeienacht"
-          : u < 12
-            ? "Goeiemorgen"
-            : u < 18
-              ? "Goeiemiddag"
-              : "Goeienavond",
-      datum: datum[0].toUpperCase() + datum.slice(1),
-    });
     rootRef.current!.setAttribute("data-anim", "");
+  }, []);
+
+  // De klantsite in het beginscherm bladert vanzelf door haar schermen.
+  useEffect(() => {
+    if (stil()) return;
+    const n = SITES[0].frames?.length ?? 1;
+    const klok = setInterval(() => setHeroFrame((f) => (f + 1) % n), 2800);
+    return () => clearInterval(klok);
   }, []);
 
   // De ene scroll-lus.
@@ -381,78 +369,106 @@ export default function Start() {
       <section id="start" className={`${s.sectie} ${s.start}`}>
         <div className={s.startRaster}>
           <div className={s.startTekst}>
-            <p className={s.kicker} suppressHydrationWarning>
-              {groet.datum || "SteylVisuals, Herent"}
-            </p>
+            <p className={s.kicker}>SteylVisuals · Herent</p>
             <h1 className={s.display}>
-              {groet.groet}, <em>ondernemer</em>.
+              Een website die voor je zaak <em>werkt</em>.
             </h1>
             <p className={s.leadGroot}>
-              Ik ben Sam. Ik film en fotografeer je zaak, bouw je website en zet
-              de slimme systemen erachter die je opvolging en administratie
-              overnemen.
-            </p>
-            <p className={s.status}>
-              Vandaag op het programma: vier vakken, één maker, nul
-              tussenpersonen.
+              Ik ben Sam. Ik ontwerp en bouw je website, film en fotografeer je
+              zaak en zet de slimme systemen erachter die je opvolging en
+              administratie overnemen.
             </p>
             <div className={s.acties}>
               <a href="#contact" className={s.knop}>
                 Start je project
               </a>
-              <a href="#beeld" className={s.knopStil}>
+              <a href="#websites" className={s.knopStil}>
                 Bekijk wat ik maak
               </a>
             </div>
-            <ul className={`${s.cijfers} ${s.startCijfers}`}>
-              {[
-                {
-                  icoon: "camera",
-                  waarde: "4 vakken",
-                  label: "video, web, AI, social",
-                },
-                {
-                  icoon: "gsm",
-                  waarde: "1 nummer",
-                  label: "rechtstreeks naar mij",
-                },
-                {
-                  icoon: "klok",
-                  waarde: "< 1 dag",
-                  label: "tot je antwoord hebt",
-                },
-                {
-                  icoon: "browser",
-                  waarde: "2 weken",
-                  label: "tot je site live staat",
-                },
-              ].map((c) => (
-                <li key={c.label}>
-                  <span className={s.rondje}>
-                    <Icoon naam={c.icoon} />
-                  </span>
-                  <span>
-                    <b>{c.waarde}</b>
-                    <small>{c.label}</small>
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <figure className={s.maker}>
+              <img
+                src="/start/sam.jpg"
+                alt="Sam Steylaerts op een balkon boven de stad, in zwart-wit"
+                width={933}
+                height={1400}
+              />
+              <figcaption>
+                <b>Sam Steylaerts</b>
+                <span>Eén maker, één aanspreekpunt, nul tussenpersonen.</span>
+              </figcaption>
+            </figure>
           </div>
-          <figure className={s.portret} data-g="">
+          <div className={s.heroWerk}>
+            <figure className={s.browser} data-g="">
+              <div className={s.browserBalk} aria-hidden="true">
+                <span className={s.lichtjes}>
+                  <i />
+                  <i />
+                  <i />
+                </span>
+                <span className={s.adres}>{SITES[0].domein}</span>
+              </div>
+              <div className={s.kijkvenster}>
+                {SITES[0].frames?.map((f, i) => (
+                  <img
+                    key={f}
+                    className={s.frame}
+                    data-on={i === heroFrame || undefined}
+                    src={f}
+                    alt={i === 0 ? `De site van ${SITES[0].naam}` : ""}
+                    width={1200}
+                    height={750}
+                    fetchPriority={i === 0 ? "high" : undefined}
+                    loading={i === 0 ? undefined : "lazy"}
+                  />
+                ))}
+              </div>
+            </figure>
             <img
-              src="/start/sam.jpg"
-              alt="Sam Steylaerts op een balkon boven de stad, in zwart-wit"
-              width={933}
-              height={1400}
-              fetchPriority="high"
+              className={s.heroGsm}
+              src="/home/sites/specified-mobile.jpg"
+              alt="Dezelfde site op een gsm"
+              width={780}
+              height={1688}
             />
-            <figcaption>
-              <b>Sam Steylaerts</b>
-              <span>Maker van SteylVisuals, Herent</span>
-            </figcaption>
-          </figure>
+          </div>
         </div>
+
+          <ul className={`${s.cijfers} ${s.startCijfers}`}>
+            {[
+              {
+                icoon: "camera",
+                waarde: "4 vakken",
+                label: "web, video, AI, social",
+              },
+              {
+                icoon: "gsm",
+                waarde: "1 nummer",
+                label: "rechtstreeks naar mij",
+              },
+              {
+                icoon: "klok",
+                waarde: "< 1 dag",
+                label: "tot je antwoord hebt",
+              },
+              {
+                icoon: "browser",
+                waarde: "2 weken",
+                label: "tot je site live staat",
+              },
+            ].map((c) => (
+              <li key={c.label}>
+                <span className={s.rondje}>
+                  <Icoon naam={c.icoon} />
+                </span>
+                <span>
+                  <b>{c.waarde}</b>
+                  <small>{c.label}</small>
+                </span>
+              </li>
+            ))}
+          </ul>
 
         <div className={s.overzicht}>
           {OVERZICHT.map((o, i) => (
@@ -487,6 +503,48 @@ export default function Start() {
                 <span>{o.tekst}</span>
               </span>
             </a>
+          ))}
+        </div>
+      </section>
+
+      {/* ------------------------------------------------ Websites */}
+      <section id="websites" className={s.sectie}>
+        <Kop
+          kicker="Websites"
+          titel={
+            <>
+              Op maat gebouwd, <em>geen</em> template.
+            </>
+          }
+          tekst="Ontwerp, code en een eigen beheer waarin je zelf teksten, vacatures of aanbod aanpast. Snel, vindbaar en na de lancering door mij bewaakt."
+          cijfers={[
+            { icoon: "browser", waarde: "Op maat", label: "ontwerp en code" },
+            {
+              icoon: "formulier",
+              waarde: "Eigen beheer",
+              label: "zelf aanpassen",
+            },
+            { icoon: "stijging", waarde: "SEO", label: "en Google Analytics" },
+            { icoon: "schild", waarde: "Bewaakt", label: "dag en nacht" },
+          ]}
+        />
+        <div className={s.sites}>
+          {SITES.map((site) => (
+            <article key={site.id} className={s.siteKaart} data-g="" data-in="">
+              <Venster site={site} />
+              <div className={s.siteTekst}>
+                <h3>{site.naam}</h3>
+                <p>{site.tekst}</p>
+                <a
+                  href={site.href}
+                  target={site.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer"
+                  className={s.link}
+                >
+                  Bekijk de site
+                </a>
+              </div>
+            </article>
           ))}
         </div>
       </section>
@@ -660,48 +718,6 @@ export default function Start() {
           ))}
         </div>
       </div>
-
-      {/* ------------------------------------------------ Websites */}
-      <section id="websites" className={s.sectie}>
-        <Kop
-          kicker="Websites"
-          titel={
-            <>
-              Op maat gebouwd, <em>geen</em> template.
-            </>
-          }
-          tekst="Ontwerp, code en een eigen beheer waarin je zelf teksten, vacatures of aanbod aanpast. Snel, vindbaar en na de lancering door mij bewaakt."
-          cijfers={[
-            { icoon: "browser", waarde: "Op maat", label: "ontwerp en code" },
-            {
-              icoon: "formulier",
-              waarde: "Eigen beheer",
-              label: "zelf aanpassen",
-            },
-            { icoon: "stijging", waarde: "SEO", label: "en Google Analytics" },
-            { icoon: "schild", waarde: "Bewaakt", label: "dag en nacht" },
-          ]}
-        />
-        <div className={s.sites}>
-          {SITES.map((site) => (
-            <article key={site.id} className={s.siteKaart} data-g="" data-in="">
-              <Venster site={site} />
-              <div className={s.siteTekst}>
-                <h3>{site.naam}</h3>
-                <p>{site.tekst}</p>
-                <a
-                  href={site.href}
-                  target={site.href.startsWith("http") ? "_blank" : undefined}
-                  rel="noreferrer"
-                  className={s.link}
-                >
-                  Bekijk de site
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
 
       {/* ------------------------------------------------ Automatisatie en AI */}
       <section id="automatisatie" className={s.sectie}>

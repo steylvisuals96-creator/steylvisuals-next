@@ -17,7 +17,7 @@ import s from "./schil.module.css";
 const ALLE = MENU.flatMap((g) => g.links);
 
 /** De links in de navigatiebalk op desktop. Webdesign en Vastgoedvideo pas vanaf brede schermen. */
-const KOP = ["beeld", "websites", "automatisatie", "social", "portfolio", "webdesign", "vastgoed", "werkwijze"];
+const KOP = ["websites", "beeld", "automatisatie", "social", "portfolio", "webdesign", "vastgoed", "werkwijze"];
 
 function Woordmerk({ klein = false }: { klein?: boolean }) {
   return (
