@@ -7,20 +7,36 @@ import AnimateIn from "./AnimateIn";
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    const form = e.currentTarget;
-    const data = new FormData(form);
+    setError("");
+    const data = new FormData(e.currentTarget);
+    const voornaam = String(data.get("voornaam") ?? "").trim();
+    const achternaam = String(data.get("achternaam") ?? "").trim();
 
-    await fetch("https://formsubmit.co/steylvisuals96@gmail.com", {
-      method: "POST",
-      body: data,
-    });
-
-    setLoading(false);
-    setSubmitted(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          naam: `${voornaam} ${achternaam}`.trim(),
+          email: data.get("email"),
+          pakket: data.get("pakket"),
+          bericht: data.get("bericht"),
+          website: data.get("website"),
+          bron: "Vastgoed marketing",
+        }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      setSubmitted(true);
+    } catch {
+      setError("Versturen lukte niet. Probeer opnieuw of mail naar Steylvisuals96@gmail.com.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -77,11 +93,8 @@ export default function ContactForm() {
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              {/* Formsubmit hidden fields */}
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_subject" value="Nieuwe aanvraag via SteylVisuals" />
-              <input type="hidden" name="_autoresponse" value="Bedankt voor je interesse in SteylVisuals! Ik heb je bericht goed ontvangen en neem binnen 24 uur persoonlijk contact met je op. Wil je ondertussen alvast mijn portfolio bekijken? → https://steylvisuals-next.vercel.app/portfolio — Tot snel, Sam Steylaerts | SteylVisuals — Vastgoed marketing" />
+              {/* Alleen voor bots: mensen zien of vullen dit nooit in. */}
+              <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }} />
 
               <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
                 <div className="flex flex-col gap-1.5">
@@ -113,7 +126,7 @@ export default function ContactForm() {
                 <label htmlFor="cf-email" className="text-xs font-medium tracking-wide uppercase" style={{ color: "var(--cream-muted)" }}>E-mail</label>
                 <input
                   type="email"
-                  name="_replyto"
+                  name="email"
                   id="cf-email"
                   required
                   placeholder="jouw@email.be"
@@ -143,6 +156,7 @@ export default function ContactForm() {
                 <textarea
                   name="bericht"
                   id="cf-bericht"
+                  required
                   rows={4}
                   placeholder="Vertel me over jouw kantoor en doelen..."
                   className="text-sm font-light outline-none resize-none"
@@ -160,6 +174,9 @@ export default function ContactForm() {
               >
                 {loading ? "Versturen..." : "Verstuur bericht"}
               </motion.button>
+              <p role="alert" aria-live="polite" className="text-sm font-light" style={{ color: "var(--cream-muted)" }}>
+                {error}
+              </p>
             </form>
           )}
         </AnimateIn>

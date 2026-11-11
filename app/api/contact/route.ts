@@ -26,6 +26,11 @@ export async function POST(req: Request) {
   const telefoon = field(body.telefoon, 40);
   const bedrijf = field(body.bedrijf, 120);
   const bericht = field(body.bericht, 4000);
+  // Optional extras sent by the webdesign and real-estate pages.
+  const bron = field(body.bron, 60);
+  const type = field(body.type, 120);
+  const budget = field(body.budget, 60);
+  const pakket = field(body.pakket, 120);
 
   if (!naam || !bericht) return NextResponse.json({ error: "Vul je naam en je bericht in." }, { status: 400 });
   if (!EMAIL.test(email)) return NextResponse.json({ error: "Dit e-mailadres lijkt niet te kloppen." }, { status: 400 });
@@ -38,6 +43,10 @@ export async function POST(req: Request) {
     ["E-mail", email],
     ["Telefoon", telefoon],
     ["Bedrijf", bedrijf],
+    ["Pagina", bron],
+    ["Type project", type],
+    ["Budget", budget],
+    ["Pakket", pakket],
   ];
   const html = `
     <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px">
