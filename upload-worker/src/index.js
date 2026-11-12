@@ -52,20 +52,46 @@ async function sameToken(a, b) {
 // their own access code — one person's code can be revoked (just remove it
 // from the list) without changing everyone else's. UPLOAD_TOKEN (singular)
 // still works on its own for backward compatibility.
-async function checkAuth(request, env) {
-  const match = /^Bearer (\S+)$/.exec(request.headers.get("Authorization") || "");
-  if (!match) return false;
-  const presented = match[1];
-
+function configuredTokens(env) {
   const tokens = (env.UPLOAD_TOKENS || "")
     .split(",")
     .map((t) => t.trim())
     .filter(Boolean);
   if (env.UPLOAD_TOKEN?.trim()) tokens.push(env.UPLOAD_TOKEN.trim());
+  return tokens;
+}
+
+async function hmacHex(key, text) {
+  const k = await crypto.subtle.importKey("raw", enc.encode(key), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const sig = await crypto.subtle.sign("HMAC", k, enc.encode(text));
+  return [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+// A short-lived upload key: "kort.<expiry ms>.<HMAC of 'upload.<expiry>' with a full token>".
+// The Studio server makes these, so the browser never sees a full token. They only work for
+// POST /upload and for at most 15 minutes.
+const KORT_MAX_MS = 15 * 60 * 1000;
+async function shortKeyValid(presented, tokens) {
+  const m = /^kort\.(\d{13})\.([0-9a-f]{64})$/.exec(presented);
+  if (!m) return false;
+  const exp = Number(m[1]);
+  if (exp < Date.now() || exp > Date.now() + KORT_MAX_MS) return false;
+  let ok = false;
+  for (const t of tokens) if (await sameToken(m[2], await hmacHex(t, `upload.${exp}`))) ok = true;
+  return ok;
+}
+
+/** "vol" for a full token, "kort" for a short-lived upload key, or null. */
+async function checkAuth(request, env) {
+  const match = /^Bearer (\S+)$/.exec(request.headers.get("Authorization") || "");
+  if (!match) return null;
+  const presented = match[1];
+  const tokens = configuredTokens(env);
 
   let ok = false;
   for (const t of tokens) if (await sameToken(presented, t)) ok = true;
-  return ok;
+  if (ok) return "vol";
+  return (await shortKeyValid(presented, tokens)) ? "kort" : null;
 }
 
 function folderFrom(value) {
@@ -99,10 +125,12 @@ export default {
       return new Response(null, { status: 204, headers: CORS });
     }
 
-    if (!(await checkAuth(request, env))) return unauthorized();
+    const auth = await checkAuth(request, env);
+    if (!auth) return unauthorized();
 
     const url = new URL(request.url);
     const path = url.pathname;
+    if (auth === "kort" && !(request.method === "POST" && path === "/upload")) return unauthorized();
 
     try {
       // POST /upload — upload a file
