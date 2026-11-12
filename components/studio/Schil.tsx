@@ -105,6 +105,9 @@ export default function Schil({
 
   return (
     <div ref={rootRef} className={`${s.root} ${thema ? "studio-thema" : ""} ${className}`}>
+      <a href="#inhoud" className={s.spring}>
+        Naar de inhoud
+      </a>
       <div className={s.gloed} aria-hidden="true" />
 
       {/* Desktop: een zwevende glazen navigatiebalk bovenaan */}
@@ -159,7 +162,9 @@ export default function Schil({
         </ul>
       </nav>
 
-      <main className={s.main}>{children}</main>
+      <main id="inhoud" className={s.main}>
+        {children}
+      </main>
     </div>
   );
 }

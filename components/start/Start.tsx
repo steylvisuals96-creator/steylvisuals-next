@@ -165,6 +165,7 @@ export default function Start() {
   const [stijl, setStijl] = useState<Stijl>("studio");
   const [clip, setClip] = useState(0);
   const [heroFrame, setHeroFrame] = useState(0);
+  const heroRust = useRef(false);
 
   // Pas na het laden mogen de binnenkomst-animaties spelen (zonder script blijft alles zichtbaar).
   useEffect(() => {
@@ -175,7 +176,9 @@ export default function Start() {
   useEffect(() => {
     if (stil()) return;
     const n = SITES[0].frames?.length ?? 1;
-    const klok = setInterval(() => setHeroFrame((f) => (f + 1) % n), 2800);
+    const klok = setInterval(() => {
+      if (!heroRust.current) setHeroFrame((f) => (f + 1) % n);
+    }, 2800);
     return () => clearInterval(klok);
   }, []);
 
@@ -235,15 +238,25 @@ export default function Start() {
       im.src = framePad(klein, i);
       beelden[i] = im;
     };
-    let volgende = 1;
+    // Pas laden wanneer het montagescherm in de buurt komt. Op gsm de helft van de beelden,
+    // met databesparing aan een kwart: het dichtstbijzijnde geladen beeld vult de gaten.
+    const zuinig = (navigator as { connection?: { saveData?: boolean } }).connection?.saveData;
+    const stapGrootte = zuinig ? 4 : klein ? 2 : 1;
+    let volgende = stapGrootte;
+    let reelGestart = false;
     const rij = () => {
       if (gestopt || volgende >= FRAMES) return;
-      laad(volgende++, rij);
+      const i = volgende;
+      volgende += stapGrootte;
+      laad(i, rij);
     };
-    laad(0, () => {
-      if (roerloos) return;
-      for (let n = 0; n < 4; n++) rij();
-    });
+    const startReel = () => {
+      reelGestart = true;
+      laad(0, () => {
+        if (roerloos) return;
+        for (let n = 0; n < 4; n++) rij();
+      });
+    };
     let wacht = false;
     let vorigeSectie = "";
     let vorigeStap = -1;
@@ -309,14 +322,20 @@ export default function Start() {
 
       // Montage: het scherm staat eerst gewoon in de pagina; verder in de doorloop zoomt het
       // beeld in tot het hele scherm vult. Dezelfde doorloop stuurt beeld, afspeelkop en tijdcode.
+      if (!reelGestart && dr.top < vh * 2.5) startReel();
       const dloop = podium.offsetHeight - tr.height;
       const pd = dloop > 0 ? klem(-dr.top / dloop) : 0;
       const zoom = roerloos ? 0 : zacht(klem((pd - 0.34) / 0.34));
       const t = 1 - zoom;
+      // Op een staand scherm zoomt het beeld tot de volle breedte en blijft het 16:9:
+      // schermvullend zou alleen het midden van het beeld tonen, en dat onscherp.
+      const staand = tr.width < vh * 0.8;
+      const volH = staand ? (tr.width * 9) / 16 : tr.height;
+      const volTop = staand ? (vh - volH) / 2 : 0;
       film.style.left = `${((gr.left - tr.left) * t).toFixed(1)}px`;
-      film.style.top = `${((gr.top - tr.top) * t).toFixed(1)}px`;
+      film.style.top = `${(volTop + (gr.top - tr.top - volTop) * t).toFixed(1)}px`;
       film.style.width = `${(tr.width + (gr.width - tr.width) * t).toFixed(1)}px`;
-      film.style.height = `${(tr.height + (gr.height - tr.height) * t).toFixed(1)}px`;
+      film.style.height = `${(volH + (gr.height - volH) * t).toFixed(1)}px`;
       film.style.borderRadius = `${(12 * t).toFixed(1)}px`;
       toneel.style.setProperty("--dk", (1 - klem(zoom / 0.45)).toFixed(4));
 
@@ -399,7 +418,11 @@ export default function Start() {
               </figcaption>
             </figure>
           </div>
-          <div className={s.heroWerk}>
+          <div
+            className={s.heroWerk}
+            onPointerEnter={() => (heroRust.current = true)}
+            onPointerLeave={() => (heroRust.current = false)}
+          >
             <figure className={s.browser} data-g="">
               <div className={s.browserBalk} aria-hidden="true">
                 <span className={s.lichtjes}>
@@ -602,7 +625,11 @@ export default function Start() {
           <div className={s.dok}>
             <p className={s.dokKop}>
               <b>In de montage</b>
-              Scroll door zes clips van het culinair weekend bij La Martine.
+              Scroll door zes clips van het culinair weekend bij{" "}
+              <Link href="/portfolio/la-martine" className={s.link}>
+                La Martine
+              </Link>
+              .
             </p>
             <div
               ref={montageRef}

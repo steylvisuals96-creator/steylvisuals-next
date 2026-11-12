@@ -72,7 +72,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang="nl"
+      lang="nl-BE"
       className={`${kop.variable} ${tekst.variable} ${cormorant.variable} ${smal.variable}`}
     >
       <head>

@@ -93,7 +93,7 @@
 .knopKlein,
 .knopStilKlein {
   padding: 8px 14px;
-  font-size: 10px;
+  font-size: 11px;
 }
 .knop:active,
 .knopStil:active,
@@ -688,7 +688,7 @@
   position: absolute;
   top: 0;
   transform: translateX(-50%);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--stil);
   font-variant-numeric: tabular-nums;
 }
@@ -1336,7 +1336,7 @@
 .postStatus {
   display: inline-block;
   margin-top: 6px;
-  font-size: 10.5px;
+  font-size: 11px;
   line-height: 1.5;
   padding: 0 6px;
   border-radius: 5px;
@@ -1722,6 +1722,10 @@
   }
   .pinTekst {
     gap: 10px;
+  }
+  .stijlen button {
+    min-height: 44px;
+    padding-inline: 14px;
   }
 }
 

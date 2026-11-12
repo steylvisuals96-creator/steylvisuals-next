@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { MAIL } from "./data";
 import s from "./start.module.css";
 
 type Toestand = { soort: "rust" } | { soort: "bezig" } | { soort: "verstuurd" } | { soort: "fout"; melding: string };
@@ -76,8 +77,15 @@ export default function ContactForm() {
         <button type="submit" className={s.knop} disabled={bezig}>
           {bezig ? "Even geduld" : "Verstuur je aanvraag"}
         </button>
-        <p className={s.formFout} role="alert" aria-live="polite">
-          {t.soort === "fout" ? t.melding : ""}
+        <p className={s.formFout} role="alert">
+          {t.soort === "fout" && (
+            <>
+              {t.melding}{" "}
+              <a className={s.link} href={`mailto:${MAIL}?subject=Nieuw%20project`}>
+                Mail naar {MAIL}
+              </a>
+            </>
+          )}
         </p>
       </div>
     </form>

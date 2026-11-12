@@ -36,7 +36,7 @@ export async function POST(req: Request) {
   if (!EMAIL.test(email)) return NextResponse.json({ error: "Dit e-mailadres lijkt niet te kloppen." }, { status: 400 });
 
   const key = process.env.RESEND_API_KEY;
-  if (!key) return NextResponse.json({ error: "Verzenden lukt nu even niet. Mail ons rechtstreeks." }, { status: 500 });
+  if (!key) return NextResponse.json({ error: "Verzenden lukt nu even niet. Mail me rechtstreeks." }, { status: 500 });
 
   const rows: [string, string][] = [
     ["Naam", naam],
@@ -79,6 +79,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("contact error:", err);
-    return NextResponse.json({ error: "Verzenden is mislukt. Probeer het opnieuw of mail ons rechtstreeks." }, { status: 500 });
+    return NextResponse.json({ error: "Verzenden is mislukt. Probeer het opnieuw of mail me rechtstreeks." }, { status: 500 });
   }
 }

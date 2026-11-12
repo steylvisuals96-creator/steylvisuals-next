@@ -142,8 +142,26 @@
   transform: scale(0.97);
 }
 .knopKlein {
-  padding: 8px 14px;
-  font-size: 10px;
+  padding: 14px 16px;
+  font-size: 11px;
+}
+/* Voor wie met het toetsenbord komt: meteen voorbij het menu. */
+.spring {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 60;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: var(--goud);
+  color: #1a0f0a;
+  font-size: 13px;
+  font-weight: 500;
+  transform: translate3d(0, -160%, 0);
+  transition: transform 0.2s var(--zacht);
+}
+.spring:focus-visible {
+  transform: none;
 }
 
 /* ---------------------------------------------------------------- desktop: zwevende navigatiebalk */

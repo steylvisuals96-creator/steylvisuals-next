@@ -23,7 +23,7 @@ export const OVERZICHT = [
  *  wijndomein La Martine. `w` is de lengte in seconden, `pos` de uitsnede in de brede speler. */
 export const CLIPS = [
   { naam: "Luchtbeeld", plek: "Boven de wijngaard", beeld: "/start/reel/m/010.webp", w: 5, kleur: "#4f6a4a", pos: "50% 50%" },
-  { naam: "De tafel", plek: "Gedekt tussen de ranken", beeld: "/start/reel/m/028.webp", w: 4, kleur: "#7a7a5a", pos: "50% 45%" },
+  { naam: "De tafel", plek: "Gedekt tussen de ranken", beeld: "/start/reel/m/028.webp", w: 4, kleur: "#5a5a3e", pos: "50% 45%" },
   { naam: "De chef", plek: "Buitenkeuken", beeld: "/start/reel/m/044.webp", w: 4, kleur: "#6b4a36", pos: "50% 30%" },
   { naam: "Het bord", plek: "Amuses uit de keuken", beeld: "/start/reel/m/060.webp", w: 4, kleur: "#8a5a3a", pos: "50% 55%" },
   { naam: "Aan tafel", plek: "Diner in de wijngaard", beeld: "/start/reel/m/080.webp", w: 6, kleur: "#8a6a4a", pos: "50% 50%" },
