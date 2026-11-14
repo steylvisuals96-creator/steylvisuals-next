@@ -88,6 +88,9 @@ export default function ContactForm() {
           )}
         </p>
       </div>
+      <p className={s.formPrivacy}>
+        Je gegevens dienen alleen om je aanvraag te beantwoorden. Ik geef ze aan niemand door.
+      </p>
     </form>
   );
 }

@@ -7,6 +7,8 @@
  */
 
 export const MAIL = "steylvisuals96@gmail.com";
+/** Gsm-nummer: leesbaar, als bel-link en als WhatsApp-link. */
+export const GSM = { toon: "0471 08 83 31", bel: "tel:+32471088331", whatsapp: "https://wa.me/32471088331" };
 
 /* ---------------------------------------------------------------- Start */
 

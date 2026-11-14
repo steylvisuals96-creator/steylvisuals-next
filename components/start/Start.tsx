@@ -13,6 +13,7 @@ import {
   FOTOS,
   FUNCTIES,
   OVERZICHT,
+  GSM,
   MAIL,
   SITES,
   BREIN,
@@ -1058,8 +1059,16 @@ export default function Start() {
                 Vertel kort wat je zaak doet en wat je zoekt. Je krijgt binnen
                 een werkdag een voorstel op maat, met een duidelijke prijs.
               </p>
+              <div className={s.contactDirect}>
+                <a className={s.knopStil} href={GSM.bel}>
+                  Bel {GSM.toon}
+                </a>
+                <a className={s.knopStil} href={GSM.whatsapp} target="_blank" rel="noreferrer">
+                  WhatsApp
+                </a>
+              </div>
               <p className={s.contactMail}>
-                Liever mailen?{" "}
+                Je krijgt mij rechtstreeks aan de lijn. Liever mailen?{" "}
                 <a
                   className={s.link}
                   href={`mailto:${MAIL}?subject=Nieuw%20project`}

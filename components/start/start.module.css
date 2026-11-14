@@ -1530,6 +1530,21 @@
 .contactRaster .kop {
   margin-bottom: 0;
 }
+.contactDirect {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+.contactDirect a {
+  white-space: nowrap;
+  padding-block: 14px;
+}
+.formPrivacy {
+  color: var(--stil);
+  font-size: 13px;
+  line-height: 1.5;
+}
 .contactMail {
   margin-top: 22px;
   color: var(--stil);
