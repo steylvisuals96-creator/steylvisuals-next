@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { ACCESS_COOKIE, verifyCode } from "@/lib/access";
 
+const OPEN_UNTIL = Date.parse("2026-12-04T23:59:00+01:00");
+
 /**
  * The whole site sits behind a temporary access code (see lib/access.ts).
  * Left open: the code page and its API, and /admin, which has its own login
@@ -9,6 +11,13 @@ import { ACCESS_COOKIE, verifyCode } from "@/lib/access";
  */
 export async function proxy(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
+
+  // Temporarily open to everyone. The gate closes again by itself after this date.
+  if (Date.now() < OPEN_UNTIL) {
+    const res = NextResponse.next();
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return res;
+  }
 
   // A shared link like steylvisuals.be/?code=... logs the visitor in directly.
   const linkCode = searchParams.get("code");
